@@ -1,0 +1,205 @@
+// Prisma Schema Definition for UAE Corporate Structuring Platform
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum StaffRole {
+  SUPER_ADMIN
+  LEGAL_PRO_CONSULTANT
+  CASE_FILING_OFFICER
+  SEO_CONTENT_EDITOR
+}
+
+enum DossierStage {
+  LEAD_INGESTION
+  COMPLIANCE_AUDIT
+  GOVERNMENT_FILING
+  IN_COUNTRY_STATUS
+  VIP_BIOMETRICS_MEDICAL
+  STAMPING_HANDOVER
+}
+
+enum PrioritySla {
+  STANDARD
+  HIGH
+  VIP_URGENT
+}
+
+enum DocStatus {
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+  EXPIRED
+}
+
+enum ArticleStatus {
+  DRAFT
+  SCHEDULED
+  PUBLISHED
+}
+
+model User {
+  id           String      @id @default(uuid()) @db.Uuid
+  fullName     String      @map("full_name") @db.VarChar(120)
+  email        String      @unique @db.VarChar(255)
+  passwordHash String      @map("password_hash")
+  role         StaffRole   @default(CASE_FILING_OFFICER)
+  avatarUrl    String?     @map("avatar_url")
+  phone        String?     @db.VarChar(50)
+  isActive     Boolean     @default(true) @map("is_active")
+  lastLoginAt  DateTime?   @map("last_login_at")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  assignedDossiers Dossier[]
+  uploadedDocs     Document[]
+  articles         Article[]
+  auditLogs        AuditLog[]
+
+  @@map("users")
+}
+
+model Client {
+  id                 String    @id @default(uuid()) @db.Uuid
+  fullName           String    @map("full_name") @db.VarChar(150)
+  nationality        String    @db.VarChar(80)
+  phoneWhatsapp      String    @map("phone_whatsapp") @db.VarChar(50)
+  email              String?   @db.VarChar(255)
+  passportNumber     String?   @map("passport_number") @db.VarChar(80)
+  passportExpiryDate DateTime? @map("passport_expiry_date") @db.Date
+  companyName        String?   @map("company_name") @db.VarChar(150)
+  sourceChannel      String?   @default("WEBSITE_CALCULATOR") @map("source_channel") @db.VarChar(80)
+  notes              String?
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  dossiers Dossier[]
+
+  @@map("clients")
+}
+
+model Dossier {
+  id                   String       @id @default(uuid()) @db.Uuid
+  dossierNumber        String       @unique @map("dossier_number") @db.VarChar(50)
+  clientId             String       @map("client_id") @db.Uuid
+  serviceId            String       @map("service_id") @db.VarChar(100)
+  stage                DossierStage @default(LEAD_INGESTION)
+  priority             PrioritySla  @default(STANDARD)
+  governmentRefNo      String?      @map("government_ref_no") @db.VarChar(100)
+  isInsideUae          Boolean      @default(true) @map("is_inside_uae")
+  adultDependantsCount INT          @default(1) @map("adult_dependants_count")
+  childDependantsCount INT          @default(0) @map("child_dependants_count")
+  governmentTariffTotal Decimal     @default(0.00) @map("government_tariff_total") @db.Decimal(12, 2)
+  advisoryRetainerFee  Decimal      @default(0.00) @map("advisory_retainer_fee") @db.Decimal(12, 2)
+  totalContractValue   Decimal      @default(0.00) @map("total_contract_value") @db.Decimal(12, 2)
+  assignedStaffId      String?      @map("assigned_staff_id") @db.Uuid
+  targetCompletionDate DateTime?    @map("target_completion_date") @db.Date
+  completedAt          DateTime?    @map("completed_at")
+  createdAt            DateTime     @default(now()) @map("created_at")
+  updatedAt            DateTime     @updatedAt @map("updated_at")
+
+  client        Client     @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  assignedStaff User?      @relation(fields: [assignedStaffId], references: [id])
+  documents     Document[]
+
+  @@map("dossiers")
+}
+
+model Document {
+  id                   String    @id @default(uuid()) @db.Uuid
+  dossierId            String    @map("dossier_id") @db.Uuid
+  fileName             String    @map("file_name") @db.VarChar(255)
+  documentType         String    @map("document_type") @db.VarChar(100)
+  encryptedStoragePath String    @map("encrypted_storage_path")
+  fileSizeBytes        BigInt    @map("file_size_bytes")
+  status               DocStatus @default(PENDING_REVIEW)
+  expiryDate           DateTime? @map("expiry_date") @db.Date
+  encryptionHash       String    @map("encryption_hash") @db.VarChar(128)
+  uploadedById         String?   @map("uploaded_by") @db.Uuid
+  reviewedAt           DateTime? @map("reviewed_at")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+
+  dossier    Dossier @relation(fields: [dossierId], references: [id], onDelete: Cascade)
+  uploadedBy User?   @relation(fields: [uploadedById], references: [id])
+
+  @@map("documents")
+}
+
+model Tariff {
+  id                         String   @id @default(uuid()) @db.Uuid
+  category                   String   @db.VarChar(80)
+  authority                  String   @db.VarChar(80)
+  itemCode                   String   @unique @map("item_code") @db.VarChar(80)
+  itemName                   String   @map("item_name") @db.VarChar(200)
+  govtFeeAed                 Decimal  @default(0.00) @map("govt_fee_aed") @db.Decimal(10, 2)
+  retainerMarkupAed          Decimal  @default(0.00) @map("retainer_markup_aed") @db.Decimal(10, 2)
+  insideCountrySurchargeAed Decimal  @default(0.00) @map("inside_country_surcharge_aed") @db.Decimal(10, 2)
+  isActive                   Boolean  @default(true) @map("is_active")
+  createdAt                  DateTime @default(now()) @map("created_at")
+  updatedAt                  DateTime @updatedAt @map("updated_at")
+
+  @@map("tariffs")
+}
+
+model ServicePage {
+  id                  String   @id @default(uuid()) @db.Uuid
+  slug                String   @unique @db.VarChar(120)
+  title               String   @db.VarChar(200)
+  heroHeadline        String   @map("hero_headline")
+  heroSubtext         String   @map("hero_subtext")
+  eligibilityCriteria Json     @default("[]") @map("eligibility_criteria")
+  requiredDocuments   Json     @default("[]") @map("required_documents")
+  pricingTable        Json     @default("[]") @map("pricing_table")
+  slaTimeline         Json     @default("[]") @map("sla_timeline")
+  faqCollection       Json     @default("[]") @map("faq_collection")
+  metaSeo             Json     @default("{}") @map("meta_seo")
+  isPublished         Boolean  @default(true) @map("is_published")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@map("service_pages")
+}
+
+model Article {
+  id              String        @id @default(uuid()) @db.Uuid
+  slug            String        @unique @db.VarChar(150)
+  title           String        @db.VarChar(250)
+  summary         String?
+  contentMarkdown String        @map("content_markdown")
+  category        String        @default("Golden Visa") @db.VarChar(80)
+  tags            Json          @default("[]")
+  status          ArticleStatus @default(DRAFT)
+  seoMeta         Json          @default("{}") @map("seo_meta")
+  authorId        String?       @map("author_id") @db.Uuid
+  publishedAt     DateTime?     @map("published_at")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  author User? @relation(fields: [authorId], references: [id])
+
+  @@map("articles")
+}
+
+model AuditLog {
+  id         String    @id @default(uuid()) @db.Uuid
+  timestamp  DateTime  @default(now())
+  userId     String?   @map("user_id") @db.Uuid
+  userName   String    @map("user_name") @db.VarChar(120)
+  userRole   StaffRole @map("user_role")
+  ipAddress  String    @map("ip_address") @db.VarChar(45)
+  action     String    @db.VarChar(100)
+  entityType String    @map("entity_type") @db.VarChar(80)
+  entityId   String    @map("entity_id") @db.VarChar(100)
+  changeDiff Json      @default("{}") @map("change_diff")
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}

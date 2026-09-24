@@ -1,0 +1,141 @@
+import React from 'react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Building2, MessageSquare } from 'lucide-react';
+
+export default function Hero({ onOpenCalculator }) {
+  return (
+    <section className="relative bg-slate-50 dark:bg-[#0A0A0A] pt-32 pb-16 px-4 sm:px-6 lg:px-8 text-slate-900 dark:text-white overflow-hidden font-sans border-b border-slate-200 dark:border-white/5 transition-colors duration-200">
+      {/* Background Subtle Radial Gradient Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#E01E37]/10 blur-[140px] pointer-events-none rounded-full" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+
+        {/* Hero Headline */}
+        <h1 className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-slate-900 dark:text-white max-w-4xl leading-[1.1] mb-6">
+          Setup Your UAE Business<span className="text-[#E01E37]">.</span> <br />
+          <span className="text-slate-600 dark:text-slate-300">
+            Seamlessly<span className="text-[#E01E37]">.</span>
+          </span>
+        </h1>
+
+        {/* Hero Subheadline */}
+        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed mb-12 font-normal">
+          Architected for institutional capital, multinational groups, and distinguished family offices.
+          Guaranteed UAE and Free Zone Fast-Track formation with end-to-end corporate governance.
+        </p>
+
+        {/* Inner Card Container */}
+        <div className="bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl mb-12">
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+            {/* Left Content Column */}
+            <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 w-fit rounded-full bg-[#E01E37]/10 border border-[#E01E37]/20 text-xs font-bold text-[#E01E37] tracking-widest uppercase">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                Strategic Incorporation Hub
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-slate-900 dark:text-white tracking-tight leading-snug">
+                Corporate Architecture for UAE Mainland & Free Zones
+              </h2>
+
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                EmiratesPrime structures 100% foreign-owned Free Zone & Mainland LLCs to provide DIFC single family offices, crypto ventures, fintech hub setups, VIP executive visas, and Free Banking channels in 24-72 hours.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <button
+                  onClick={() => onOpenCalculator && onOpenCalculator('spouse')}
+                  className="bg-[#E01E37] hover:bg-[#b00e2e] text-white font-display font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-xl transition-all shadow-lg shadow-[#E01E37]/20 flex items-center gap-2 group cursor-pointer"
+                >
+                  <span>Calculate Setup Capital</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+
+                <a
+                  href="#services"
+                  className="bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 text-slate-900 dark:text-white font-display font-semibold text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-xl transition-all flex items-center gap-2"
+                >
+                  Explore Advisory Scope
+                </a>
+              </div>
+
+              {/* 3 Metrics Row */}
+              <div className="grid grid-cols-3 gap-4 pt-8 mt-2 border-t border-slate-200 dark:border-white/10">
+                <div>
+                  <div className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white">100%</div>
+                  <div className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider mt-1">Foreign Ownership</div>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white">48 Hrs</div>
+                  <div className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider mt-1">DED Fast-Track</div>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white">AED 0</div>
+                  <div className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider mt-1">Income Tax</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Image Column */}
+            <div className="lg:col-span-5 relative w-full h-[300px] lg:h-auto rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-2xl group">
+              <img
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80"
+                alt="DIFC Corporate Headquarters"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 dark:opacity-70"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-white/90 dark:from-[#111111] via-transparent to-transparent" />
+
+              {/* Floating Bottom Badge */}
+              <div className="absolute bottom-4 left-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-xl p-4 flex items-center justify-between shadow-lg">
+                <div>
+                  <div className="text-[10px] uppercase text-[#E01E37] font-bold tracking-wider mb-1">Live Registry Node</div>
+                  <div className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <Building2 className="w-4 h-4 text-slate-600 dark:text-slate-300" />
+                    DIFC Gate Tower 4
+                  </div>
+                </div>
+                <span className="bg-[#E01E37] text-white text-[10px] font-bold px-3 py-1 rounded tracking-widest uppercase shadow-lg shadow-[#E01E37]/30">
+                  ACTIVE
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Trust Bar */}
+        <div className="pt-2">
+          <div className="flex flex-wrap items-center justify-center lg:justify-between gap-6 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2 hover:text-slate-900 dark:hover:text-white transition-colors cursor-default">
+              <ShieldCheck className="w-4 h-4 text-[#E01E37]" />
+              <span>Global Economy Rated</span>
+            </div>
+            <div className="flex items-center gap-2 hover:text-slate-900 dark:hover:text-white transition-colors cursor-default">
+              <ShieldCheck className="w-4 h-4 text-[#E01E37]" />
+              <span>100% Legal Guarantee</span>
+            </div>
+            <div className="flex items-center gap-2 hover:text-slate-900 dark:hover:text-white transition-colors cursor-default">
+              <ShieldCheck className="w-4 h-4 text-[#E01E37]" />
+              <span>Regulatory Certified</span>
+            </div>
+            <div className="flex items-center gap-2 hover:text-slate-900 dark:hover:text-white transition-colors cursor-default hidden sm:flex">
+              <ShieldCheck className="w-4 h-4 text-[#E01E37]" />
+              <span>24/7 VIP Support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating Advisory WhatsApp Trigger */}
+      <a
+        href="https://wa.me/97140009988"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20bd5a] text-white font-display font-bold text-sm px-5 py-3.5 rounded-full shadow-[0_8px_30px_rgb(37,211,102,0.3)] flex items-center gap-2 hover:-translate-y-1 transition-all duration-300"
+      >
+        <MessageSquare className="w-5 h-5 fill-white" />
+        <span className="hidden sm:inline">Advisory WhatsApp</span>
+      </a>
+    </section>
+  );
+}

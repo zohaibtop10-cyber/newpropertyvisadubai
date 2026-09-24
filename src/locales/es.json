@@ -1,0 +1,14 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "viewAll": "Ver todo",
+    "visas": "Visados",
+    "emiratesId": "Emirates ID y Médico",
+    "corporate": "Corporativo y Legal",
+    "guides": "Guías",
+    "about": "Sobre nosotros",
+    "contact": "Contacto",
+    "calcFee": "Calculadora"
+  }
+}

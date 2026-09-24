@@ -1,0 +1,14 @@
+{
+  "navbar": {
+    "home": "Главная",
+    "services": "Услуги",
+    "viewAll": "Смотреть все",
+    "visas": "Визы",
+    "emiratesId": "Emirates ID",
+    "corporate": "Бизнес и право",
+    "guides": "Гайды",
+    "about": "О нас",
+    "contact": "Контакты",
+    "calcFee": "Калькулятор"
+  }
+}

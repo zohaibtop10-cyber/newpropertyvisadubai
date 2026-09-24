@@ -1,0 +1,602 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Universal Brand & Status Accents (From Design Spec Image) */
+  --accent-red: #E01E37;               /* Primary */
+  --accent-red-hover: #B81A2C;         /* Secondary */
+  --accent-red-tertiary: #C8102E;      /* Tertiary */
+  --accent-red-tint: rgba(224, 30, 55, 0.08);
+  --accent-red-border: rgba(224, 30, 55, 0.25);
+  --whatsapp-green: #25D366;
+  --whatsapp-green-hover: #20BD5A;
+  --status-emerald: #10B981;
+  --status-amber: #F59E0B;
+
+  /* Hide Google Translate Default UI elements completely */
+  --gt-hidden: none !important;
+}
+
+/* Force hide Google Translate Banner and Widget */
+.goog-te-banner-frame.skiptranslate,
+iframe.skiptranslate {
+  display: none !important;
+}
+
+body, html {
+  top: 0px !important;
+  position: static !important;
+}
+
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-text-highlight {
+  display: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#google_translate_element {
+  display: none !important;
+}
+
+/* Light Mode Palette (Design Spec Clean Canvas & Elevated Cards) */
+:root {
+  --bg-canvas: #EEF0F4;
+  --bg-surface: #F8F9FC;
+  --bg-surface-elevated: #E4E7EE;
+  --bg-surface-hover: #DADEE7;
+  --text-primary: #121417;              /* Neutral */
+  --text-secondary: #3D434E;
+  --text-muted: #6B7280;
+  --border-subtle: #DCE0E8;
+  --border-strong: #C5CBD8;
+  --glass-bg: rgba(248, 249, 252, 0.85);
+  --glass-border: rgba(18, 20, 23, 0.08);
+  --shadow-card: 0 4px 20px -2px rgba(18, 20, 23, 0.05), 0 2px 6px -1px rgba(18, 20, 23, 0.03);
+  --shadow-modal: 0 25px 50px -12px rgba(18, 20, 23, 0.18);
+  --shadow-ambient-glow: 0 0 40px -10px rgba(224, 30, 55, 0.08);
+
+  /* Fonts (Headline: Plus Jakarta Sans | Body & Label: Inter | Data: JetBrains Mono) */
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  font-family: var(--font-sans);
+  color-scheme: light dark;
+}
+
+.dark {
+  /* Dark Mode Palette (Neutral #121417 OLED Dark Canvas) */
+  --bg-canvas: #121417;                 /* Neutral */
+  --bg-surface: #1A1D23;
+  --bg-surface-elevated: #22262F;
+  --bg-surface-hover: #2C313C;
+  --text-primary: #FFFFFF;
+  --text-secondary: #D1D5DB;
+  --text-muted: #9CA3AF;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --accent-red-tint: rgba(224, 30, 55, 0.15);
+  --glass-bg: rgba(18, 20, 23, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
+  --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+  --shadow-ambient-glow: 0 0 50px -10px rgba(224, 30, 55, 0.15);
+}
+
+@theme {
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-surface-elevated: var(--bg-surface-elevated);
+  --color-surface-hover: var(--bg-surface-hover);
+  
+  --color-content-primary: var(--text-primary);
+  --color-content-secondary: var(--text-secondary);
+  --color-content-muted: var(--text-muted);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  --color-brand-red: var(--accent-red);
+  --color-brand-red-hover: var(--accent-red-hover);
+  --color-brand-red-tertiary: var(--accent-red-tertiary);
+  --color-brand-red-tint: var(--accent-red-tint);
+  --color-brand-red-border: var(--accent-red-border);
+  --color-brand-whatsapp: var(--whatsapp-green);
+  --color-brand-whatsapp-hover: var(--whatsapp-green-hover);
+  --color-brand-emerald: var(--status-emerald);
+  --color-brand-amber: var(--status-amber);
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+/* Headline & Display Typography Rules */
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-display);
+}
+
+h1, .text-display-xl {
+  letter-spacing: -0.03em;
+}
+
+h2, h3, h4, .text-display-lg {
+  letter-spacing: -0.02em;
+}
+
+/* Body & Label Typography Rules */
+p, span, label, .font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Data, Tariffs & Reference Monospace Numbers */
+code, pre, .font-mono, .tabular-nums {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-red);
+}
+
+/* ================================================
+   PREMIUM ANIMATION KEYFRAMES
+   ================================================ */
+
+/* Pulsing live status indicator */
+@keyframes pulse-red {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.2);
+  }
+}
+
+.animate-pulse-red {
+  animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Fade in animation for modal and cards */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-in {
+  animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scroll-triggered fade up reveal */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Premium gradient shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Floating animation for decorative elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(3deg);
+  }
+}
+
+/* Animated gradient shift */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Infinite marquee for reviews */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Border glow pulse */
+@keyframes borderGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px -3px rgba(224, 30, 55, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px -3px rgba(224, 30, 55, 0.35);
+  }
+}
+
+/* Subtle scale pop for interactive elements */
+@keyframes scalePop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Gradient text shimmer effect */
+@keyframes textShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Dot grid background pattern */
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* ================================================
+   UTILITY ANIMATION CLASSES
+   ================================================ */
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 10s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 300% 300%;
+  animation: gradientShift 6s ease infinite;
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marqueeScroll 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ================================================
+   GLASSMORPHISM STYLES
+   ================================================ */
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-panel-glow {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--accent-red-border);
+  box-shadow: var(--shadow-ambient-glow);
+}
+
+.glass-panel-premium {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(40px) saturate(1.8);
+  -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.dark .glass-panel-premium {
+  background: rgba(20, 20, 20, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* ================================================
+   GRADIENT & GLOW UTILITIES
+   ================================================ */
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #E01E37, #F59E0B, #E01E37);
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Premium card hover effect */
+.hover-glow {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-glow:hover {
+  border-color: var(--accent-red-border);
+  box-shadow: var(--shadow-ambient-glow);
+  transform: translateY(-4px);
+}
+
+/* Premium card with gradient border on hover */
+.card-premium {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.card-premium::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: linear-gradient(135deg, rgba(224, 30, 55, 0.05), transparent 60%);
+  pointer-events: none;
+}
+
+.card-premium:hover::after {
+  opacity: 1;
+}
+
+.card-premium:hover {
+  transform: translateY(-6px);
+  box-shadow: 
+    0 20px 40px -12px rgba(224, 30, 55, 0.12),
+    0 4px 16px -2px rgba(0, 0, 0, 0.06);
+}
+
+.dark .card-premium:hover {
+  box-shadow: 
+    0 20px 40px -12px rgba(224, 30, 55, 0.2),
+    0 4px 16px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Gradient text utility */
+.text-gradient-red {
+  background: linear-gradient(135deg, #E01E37 0%, #F05A6A 50%, #E01E37 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-shimmer {
+  background: linear-gradient(90deg, #E01E37 0%, #FF6B6B 25%, #E01E37 50%, #FF6B6B 75%, #E01E37 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 4s linear infinite;
+}
+
+/* ================================================
+   REVIEWS MARQUEE
+   ================================================ */
+
+.marquee-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-canvas), transparent);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-canvas), transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: marqueeScroll 60s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ================================================
+   SECTION DIVIDERS
+   ================================================ */
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-subtle) 20%,
+    var(--accent-red-border) 50%,
+    var(--border-subtle) 80%,
+    transparent 100%
+  );
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* Dot grid background pattern */
+.dot-pattern {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--border-subtle) 1px,
+    transparent 0
+  );
+  background-size: 32px 32px;
+}
+
+.dark .dot-pattern {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 0
+  );
+}
+
+/* ================================================
+   SMOOTH TRANSITIONS FOR INTERACTIVE ELEMENTS
+   ================================================ */
+
+button, a, input, select, textarea {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--accent-red);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(224, 30, 55, 0.2);
+  color: inherit;
+}
+
+/* Image loading placeholder shimmer */
+img {
+  transition: opacity 0.3s ease;
+}
+
+/* ================================================
+   RESPONSIVE HELPERS
+   ================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

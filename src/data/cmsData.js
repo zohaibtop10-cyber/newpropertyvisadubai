@@ -1,0 +1,1151 @@
+const defaultSiteConfig = {
+  brandName: "FamilyVisa.ae",
+  domain: "FamilyVisa.ae",
+  operatorName: "800 DOCS LLC SOC",
+  tagline: "Bring your family to the UAE without the paperwork headache.",
+  subtagline: "Calculate your exact government fees in seconds, or text us on WhatsApp — a friendly visa specialist replies in minutes.",
+  phone: "800 DOCS (3627)",
+  phoneRaw: "+9718003627",
+  whatsapp: "+971 50 123 4567",
+  whatsappRaw: "971501234567",
+  email: "info@familyvisa.ae",
+  officeHours: "Mon-Sat: 8:00 AM - 8:00 PM GST",
+  address: "709 Business Village B Block, Next to Clock Tower, Port Saeed, Deira, Dubai, UAE",
+  accreditation: "800 DOCS LLC SOC — Official Document Clearing Services",
+  officialPortals: [
+    { name: "ICP Official Portal", url: "https://icp.gov.ae", label: "icp.gov.ae" },
+    { name: "GDRFA Dubai Portal", url: "https://www.gdrfad.gov.ae", label: "gdrfad.gov.ae" },
+    { name: "UAE Government Portal", url: "https://u.ae", label: "u.ae" }
+  ],
+  languages: [
+    { code: "EN", name: "English" },
+    { code: "AR", name: "العربية" },
+    { code: "RU", name: "Русский" },
+    { code: "DE", name: "Deutsch" },
+    { code: "ES", name: "Español" },
+    { code: "FR", name: "Français" },
+    { code: "TR", name: "Türkçe" },
+    { code: "ZH", name: "中文" }
+  ]
+};
+
+export const siteConfig = new Proxy(defaultSiteConfig, {
+  get(target, prop) {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('app_cms_config');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.global && parsed.global[prop] !== undefined) {
+            return parsed.global[prop];
+          }
+        } catch (e) {}
+      }
+    }
+    return target[prop];
+  }
+});
+
+const defaultServicesData = [
+  {
+    id: "spouse-visa",
+    slug: "spouse-residency-visa",
+    title: "Spouse Residence Visa",
+    category: "Family Visa",
+    shortDesc: "Sponsor your husband or wife for a 2-year UAE residence visa easily online.",
+    heroTag: "MOST POPULAR",
+    icon: "Heart",
+    heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=1200&auto=format&fit=crop",
+    overview: "Sponsoring your spouse in the UAE is simple when you have the right guidance. We handle everything for you — from getting the initial entry permit to arranging VIP medical checkups and delivering your Emirates ID.",
+    eligibility: [
+      "Minimum Salary: AED 4,000 per month (or AED 3,000 if your employer provides free housing).",
+      "Marriage Certificate: Must be officially stamped by MOFA in your home country and the UAE.",
+      "Rental Contract: Active EJARI in Dubai or Tawtheeq in Abu Dhabi in the sponsor's name.",
+      "Sponsor Visa: Must have at least 6 months validity left on your UAE residence visa.",
+      "Medical Check: Spouse must pass a routine medical fitness test in the UAE."
+    ],
+    documents: [
+      "Passport copy of sponsor and spouse (valid for at least 6 months)",
+      "Official Marriage Certificate (attested + Arabic translation)",
+      "EJARI / Tawtheeq rental agreement and recent electricity bill",
+      "Salary certificate & 3 months stamped bank statement",
+      "Sponsor's Emirates ID copy & labor contract",
+      "Passport-size photo with white background"
+    ],
+    pricing: {
+      statutoryGovTariff: 3850,
+      advisoryRetainer: 1450,
+      totalEstimate: 5300,
+      breakdown: [
+        { label: "GDRFA / ICP Entry Permit", cost: 1150 },
+        { label: "VIP Medical Fitness Test & X-Ray", cost: 750 },
+        { label: "Emirates ID (2 Years)", cost: 380 },
+        { label: "File Opening & Status Change", cost: 1570 },
+        { label: "FamilyVisa.ae Service & Concierge Fee", cost: 1450 }
+      ]
+    },
+    processingTime: {
+      standard: "5 to 7 Working Days",
+      express: "48 Hours VIP Express"
+    },
+    rules: [
+      "Marriage certificate must have official MOFA stamps before applying.",
+      "Wives earning AED 10,000+ per month can also sponsor their husbands.",
+      "Your spouse can get a work permit to take a job in the UAE anytime later."
+    ],
+    faqs: [
+      {
+        question: "Can a wife sponsor her husband in Dubai?",
+        answer: "Yes! A female resident earning at least AED 10,000 per month (or AED 8,000 + housing) can sponsor her husband and children."
+      },
+      {
+        question: "Is an EJARI rental agreement required?",
+        answer: "Yes, an official EJARI (Dubai) or Tawtheeq (Abu Dhabi) rental contract is required by immigration."
+      }
+    ]
+  },
+
+  {
+    id: "children-visa",
+    slug: "children-dependant-visa",
+    title: "Children Dependant Visa",
+    category: "Family Visa",
+    shortDesc: "Sponsor your sons (up to age 25) and daughters (no age limit) for UAE residency.",
+    heroTag: "FOR KIDS",
+    icon: "Baby",
+    heroImage: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=1200&auto=format&fit=crop",
+    overview: "Bring your children to live with you in Dubai. You can sponsor sons up to age 25 and unmarried daughters of any age. We take care of birth certificate verification and complete the visa process fast.",
+    eligibility: [
+      "Sons can be sponsored up to 25 years old (uncapped for university students).",
+      "Unmarried daughters can be sponsored with no age limit.",
+      "Minimum Sponsor Salary: AED 4,000 per month (or AED 3,000 + housing).",
+      "Attested birth certificate showing parent names."
+    ],
+    documents: [
+      "Passport copies of children and parents",
+      "Attested Birth Certificates (MOFA stamped)",
+      "Parents' valid UAE Residence Visas & Emirates IDs",
+      "Registered EJARI rental contract"
+    ],
+    pricing: {
+      statutoryGovTariff: 3450,
+      advisoryRetainer: 1250,
+      totalEstimate: 4700,
+      breakdown: [
+        { label: "ICP / GDRFA Dependant Entry Permit", cost: 1100 },
+        { label: "Emirates ID Card (2 Years)", cost: 380 },
+        { label: "File Opening & Visa Stamping", cost: 1970 },
+        { label: "FamilyVisa.ae Service Fee", cost: 1250 }
+      ]
+    },
+    processingTime: {
+      standard: "3 to 5 Working Days",
+      express: "24 Hours Express"
+    },
+    rules: [
+      "Babies born inside the UAE must have their visa issued within 120 days of birth.",
+      "Stepchildren require a simple consent letter from the biological parent."
+    ],
+    faqs: [
+      {
+        question: "What is the maximum age to sponsor a son?",
+        answer: "Under UAE rules, sons can be sponsored up to 25 years old. Unmarried daughters have no age limit."
+      }
+    ]
+  },
+
+  {
+    id: "parents-visa",
+    slug: "parents-residency-visa",
+    title: "Parents Residence Visa",
+    category: "Senior Family",
+    shortDesc: "1-Year renewable residence visa to bring your parents to live with you in the UAE.",
+    heroTag: "PARENTS CARE",
+    icon: "Users",
+    heroImage: "https://images.unsplash.com/photo-1543807535-eceef0bc6599?q=80&w=1200&auto=format&fit=crop",
+    overview: "Bring your parents to Dubai to live with you under a 1-year renewable visa. We assist with humanitarian approvals, medical insurance, and fast visa issuance.",
+    eligibility: [
+      "Both father and mother must be sponsored together (unless one parent has passed away or is divorced).",
+      "Minimum Sponsor Salary: AED 10,000 per month.",
+      "Housing: Minimum 2-Bedroom apartment or villa with EJARI contract.",
+      "Mandatory UAE basic health insurance policy for both parents."
+    ],
+    documents: [
+      "Passports of parents and sponsor",
+      "Attested proof of relationship (Sponsor's birth certificate)",
+      "Death or divorce certificate if sponsoring a single parent",
+      "Sponsor's salary certificate & 6 months bank statement"
+    ],
+    pricing: {
+      statutoryGovTariff: 7800,
+      advisoryRetainer: 2500,
+      totalEstimate: 10300,
+      breakdown: [
+        { label: "GDRFA File Opening & Approval", cost: 3200 },
+        { label: "Refundable Security Deposit", cost: 2500 },
+        { label: "VIP Medical Test & Emirates ID", cost: 2100 },
+        { label: "FamilyVisa.ae Service Fee", cost: 2500 }
+      ]
+    },
+    processingTime: {
+      standard: "7 to 10 Working Days",
+      express: "72 Hours Express"
+    },
+    rules: [
+      "Sponsoring both parents together is required unless legal proof shows single parent status."
+    ],
+    faqs: [
+      {
+        question: "What salary do I need to sponsor my parents?",
+        answer: "You need a minimum monthly salary of AED 10,000 and a registered 2-bedroom home."
+      }
+    ]
+  },
+
+  {
+    id: "golden-visa",
+    slug: "golden-visa-family-sponsorship",
+    title: "10-Year Golden Visa",
+    category: "VIP Residency",
+    shortDesc: "Long-term 10-year residency for property owners, high earners, and their families.",
+    heroTag: "10-YEAR VIP",
+    icon: "Crown",
+    heroImage: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop",
+    overview: "Enjoy the ultimate UAE privilege with a 10-Year Golden Visa. Sponsor your spouse, children of any age, and parents with no minimum salary limits and no 6-month stay restriction.",
+    eligibility: [
+      "Sponsor holds an active 10-Year UAE Golden Visa.",
+      "No age limit for sponsored children.",
+      "No salary minimum required to sponsor family members."
+    ],
+    documents: [
+      "Sponsor Golden Visa & Emirates ID Copy",
+      "Family member passport copies",
+      "Attested marriage and birth certificates"
+    ],
+    pricing: {
+      statutoryGovTariff: 4200,
+      advisoryRetainer: 1800,
+      totalEstimate: 6000,
+      breakdown: [
+        { label: "ICP / GDRFA 10-Yr Dependant Permit", cost: 2400 },
+        { label: "VIP Express Medical & Emirates ID", cost: 1800 },
+        { label: "FamilyVisa.ae Service Fee", cost: 1800 }
+      ]
+    },
+    processingTime: {
+      standard: "3 to 4 Working Days",
+      express: "24 Hours VIP Express"
+    },
+    rules: [
+      "Golden Visa family members can stay outside the UAE for any length of time without losing residency."
+    ],
+    faqs: [
+      {
+        question: "Can Golden Visa holders sponsor children over 25?",
+        answer: "Yes! Golden Visa holders can sponsor unmarried sons and daughters of any age."
+      }
+    ]
+  },
+
+  {
+    id: "property-visa",
+    slug: "property-investor-residency-visa",
+    title: "Property Investor Visa",
+    category: "Real Estate",
+    shortDesc: "UAE residency for property owners with AED 750k+ (2-Yr) or AED 2M+ (10-Yr) property equity.",
+    heroTag: "REAL ESTATE",
+    icon: "Building2",
+    heroImage: "https://images.unsplash.com/photo-1546412414-e1885259563a?q=80&w=1200&auto=format&fit=crop",
+    overview: "Turn your real estate investment in Dubai into a residency visa. Qualifying properties give you 2-year renewable or 10-year Golden Visa status for you and your family.",
+    eligibility: [
+      "Minimum Property Equity: AED 750,000 for 2-Year Visa; AED 2,000,000 for 10-Year Golden Visa.",
+      "Completed Title Deed or approved off-plan contract (Oqood)."
+    ],
+    documents: [
+      "Original Title Deed / Oqood copy",
+      "Investor passport copy",
+      "Bank NOC letter if property is mortgaged"
+    ],
+    pricing: {
+      statutoryGovTariff: 6850,
+      advisoryRetainer: 1850,
+      totalEstimate: 8700,
+      breakdown: [
+        { label: "DLD Property Valuation & Approval", cost: 3100 },
+        { label: "GDRFA Residency Stamp & Entry Permit", cost: 2150 },
+        { label: "VIP Medical Test & Emirates ID", cost: 1600 },
+        { label: "FamilyVisa.ae Service Fee", cost: 1850 }
+      ]
+    },
+    processingTime: {
+      standard: "4 to 6 Working Days",
+      express: "48 Hours Express"
+    },
+    rules: [
+      "Mortgaged properties qualify if your paid equity meets the threshold."
+    ],
+    faqs: [
+      {
+        question: "Can I combine two properties to reach 2 Million AED?",
+        answer: "Yes! You can combine multiple properties under your name in Dubai to qualify."
+      }
+    ]
+  },
+
+  {
+    id: "maid-visa",
+    slug: "domestic-worker-maid-visa",
+    title: "Maid & Domestic Helper Visa",
+    category: "Household Staff",
+    shortDesc: "Official Tadbeer sponsorship for housemaids, nannies, cooks, and drivers.",
+    heroTag: "TADBEER APPROVED",
+    icon: "Shield",
+    heroImage: "https://images.unsplash.com/photo-1581579438747-1dc8d1e2724a?q=80&w=1200&auto=format&fit=crop",
+    overview: "Sponsor your housemaid or nanny legally through MOHRE and Tadbeer channels. We manage work permits, medical screenings, labor contracts, and Emirates IDs.",
+    eligibility: [
+      "Sponsor Minimum Household Salary: AED 25,000 per month.",
+      "Registered domestic employment agreement."
+    ],
+    documents: [
+      "Domestic worker original passport",
+      "Sponsor passport, visa & Emirates ID",
+      "Sponsor salary certificate & 3 months bank statement"
+    ],
+    pricing: {
+      statutoryGovTariff: 5200,
+      advisoryRetainer: 1650,
+      totalEstimate: 6850,
+      breakdown: [
+        { label: "MOHRE Entry Permit & Labor Contract", cost: 2100 },
+        { label: "VIP Medical Screening & Emirates ID", cost: 1200 },
+        { label: "Security Deposit & Labor Approval", cost: 1900 },
+        { label: "FamilyVisa.ae Service Fee", cost: 1650 }
+      ]
+    },
+    processingTime: {
+      standard: "5 to 7 Working Days",
+      express: "48 Hours VIP Express"
+    },
+    rules: [
+      "Domestic workers undergo mandatory medical testing for communicable diseases."
+    ],
+    faqs: [
+      {
+        question: "How long does maid visa processing take?",
+        answer: "Most maid entry permits are issued within 48 to 72 hours online."
+      }
+    ]
+  },
+
+  {
+    id: "new-born",
+    slug: "newborn-baby-residence-visa",
+    title: "Newborn Baby Visa",
+    category: "Infants",
+    shortDesc: "Get your baby's UAE residence visa processed within the 120-day birth rule.",
+    heroTag: "NEWBORN CARE",
+    icon: "Baby",
+    heroImage: "https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=1200&auto=format&fit=crop",
+    overview: "Parents in the UAE have 120 days from their baby's birth to issue their residence visa. We handle birth certificate stamps, typing, and Emirates ID delivery.",
+    eligibility: [
+      "Baby born inside the UAE.",
+      "Both parents hold valid UAE Residence Visas.",
+      "Application filed within 120 days of birth."
+    ],
+    documents: [
+      "UAE Ministry of Health attested birth certificate",
+      "Baby's passport (from home country embassy)",
+      "Parents' passports, Emirates IDs & marriage certificate"
+    ],
+    pricing: {
+      statutoryGovTariff: 2850,
+      advisoryRetainer: 1150,
+      totalEstimate: 4000,
+      breakdown: [
+        { label: "GDRFA File Opening & Entry Permit", cost: 1400 },
+        { label: "Emirates ID Card (2 Years)", cost: 380 },
+        { label: "Residency Stamping Fee", cost: 1070 },
+        { label: "FamilyVisa.ae Service Fee", cost: 1150 }
+      ]
+    },
+    processingTime: {
+      standard: "2 to 3 Working Days",
+      express: "24 Hours Express"
+    },
+    rules: [
+      "Filing after 120 days incurs a daily fine of AED 100 per day."
+    ],
+    faqs: [
+      {
+        question: "What is the penalty for late newborn visa filing?",
+        answer: "A fine of AED 100 per day applies if the visa is not stamped within 120 days of birth."
+      }
+    ]
+  },
+
+  {
+    id: "emirates-id",
+    slug: "emirates-id-services-renewal",
+    title: "Emirates ID Services & Renewal",
+    category: "ID Cards",
+    shortDesc: "Fast online typing for new Emirates ID, renewals, and lost card replacements.",
+    heroTag: "EXPRESS TYPING",
+    icon: "FileText",
+    heroImage: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
+    overview: "Fast online typing and biometrics appointment booking for new Emirates IDs, 2-year / 10-year renewals, and lost card replacements.",
+    eligibility: [
+      "Valid UAE Entry Permit or Residence Visa.",
+      "Attending biometrics center if needed for first-time applicants."
+    ],
+    documents: [
+      "Passport copy",
+      "Current Emirates ID copy (for renewal)",
+      "Digital passport photo"
+    ],
+    pricing: {
+      statutoryGovTariff: 380,
+      advisoryRetainer: 250,
+      totalEstimate: 630,
+      breakdown: [
+        { label: "ICP Official Emirates ID Fee", cost: 380 },
+        { label: "FamilyVisa.ae Online Typing Fee", cost: 250 }
+      ]
+    },
+    processingTime: {
+      standard: "2 to 3 Working Days",
+      express: "24 Hours VIP"
+    },
+    rules: [
+      "Emirates ID is mandatory for banking, property rental, and healthcare in the UAE."
+    ],
+    faqs: [
+      {
+        question: "How do I replace a lost Emirates ID?",
+        answer: "We file an official ICP replacement application and schedule biometrics if required."
+      }
+    ]
+  },
+
+  {
+    id: "attestation",
+    slug: "document-legalization-attestation",
+    title: "Document Attestation & MOFA",
+    category: "Attestation",
+    shortDesc: "Official legalization for marriage certificates, birth certificates, and degrees.",
+    heroTag: "MOFA STAMPED",
+    icon: "FileCheck",
+    heroImage: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
+    overview: "Before submitting family visa files, foreign documents must have official stamps from your home country and the UAE Ministry of Foreign Affairs (MOFA).",
+    eligibility: [
+      "Original certificate issued by government authority.",
+      "Certified Arabic translation."
+    ],
+    documents: [
+      "Original certificate (Marriage / Birth / Degree)",
+      "Passport copy of owner"
+    ],
+    pricing: {
+      statutoryGovTariff: 850,
+      advisoryRetainer: 450,
+      totalEstimate: 1300,
+      breakdown: [
+        { label: "MOFA UAE Official Stamp Fee", cost: 500 },
+        { label: "Sworn Arabic Translation", cost: 350 },
+        { label: "Courier Pick-Up & Delivery Fee", cost: 450 }
+      ]
+    },
+    processingTime: {
+      standard: "3 to 4 Working Days",
+      express: "24 Hours Express Courier"
+    },
+    rules: [
+      "Documents must be stamped in your home country before MOFA UAE stamping."
+    ],
+    faqs: [
+      {
+        question: "Is marriage certificate attestation mandatory?",
+        answer: "Yes! Foreign marriage certificates must be attested by MOFA before immigration approves family visas."
+      }
+    ]
+  },
+
+  {
+    id: "legal-translation",
+    slug: "legal-translation-dld-trustee",
+    title: "Legal Translation & DLD Trustee",
+    category: "Legal Translation",
+    shortDesc: "Certified Arabic translation by Ministry of Justice translators and DLD Trustee services.",
+    heroTag: "SWORN ARABIC",
+    icon: "FileText",
+    heroImage: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
+    overview: "Certified legal translations into Arabic for foreign contracts, marriage certificates, wills, and power of attorney documents accepted by all UAE ministries.",
+    eligibility: [
+      "Any foreign language legal document."
+    ],
+    documents: [
+      "Original document copy"
+    ],
+    pricing: {
+      statutoryGovTariff: 350,
+      advisoryRetainer: 200,
+      totalEstimate: 550,
+      breakdown: [
+        { label: "Ministry of Justice Sworn Legal Stamp", cost: 350 },
+        { label: "FamilyVisa.ae Translation Fee", cost: 200 }
+      ]
+    },
+    processingTime: {
+      standard: "24 Hours",
+      express: "Same Day Express"
+    },
+    rules: [
+      "Must be completed by a Ministry of Justice licensed legal translator."
+    ],
+    faqs: [
+      {
+        question: "Are English documents accepted by immigration?",
+        answer: "Passports are accepted in English, but marriage and birth certificates require official Sworn Arabic Translation."
+      }
+    ]
+  },
+
+  {
+    id: "pro-services",
+    slug: "pro-services-dubai",
+    title: "Corporate & Individual PRO Services",
+    category: "PRO Services",
+    shortDesc: "End-to-end PRO management, trade license renewals, labour cards, and government approvals.",
+    heroTag: "CORPORATE PRO",
+    icon: "Briefcase",
+    heroImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+    overview: "Dedicated PRO representation at GDRFA, MOHRE, DED, and Ministry of Economy. We handle trade license renewals, establishment card updates, labor quotas, and employee residency filings with door-to-door courier service across Dubai.",
+    eligibility: [
+      "Mainland, Freezone, or Offshore companies operating in the UAE.",
+      "Individuals requiring dedicated government relations management."
+    ],
+    documents: [
+      "Trade License copy & Establishment Card",
+      "Company Memorandum of Association (MOA)",
+      "Passport & Emirates ID copy of Authorized Signatory",
+      "Tenancy Contract (Ejari) for office space"
+    ],
+    pricing: {
+      statutoryGovTariff: 1200,
+      advisoryRetainer: 800,
+      totalEstimate: 2000,
+      breakdown: [
+        { label: "MOHRE / GDRFA Government Processing", cost: 1200 },
+        { label: "Dedicated PRO & Courier Doorstep Service", cost: 800 }
+      ]
+    },
+    processingTime: {
+      standard: "2 to 3 Working Days",
+      express: "24 Hours VIP Express"
+    },
+    rules: [
+      "Establishment cards must be renewed annually to maintain visa processing capabilities.",
+      "Labor quotas require active company bank account verification."
+    ],
+    faqs: [
+      {
+        question: "Do you offer monthly PRO retainer packages for business?",
+        answer: "Yes! We provide dedicated corporate PRO retainer plans for startups and enterprises with unlimited monthly filings."
+      }
+    ]
+  },
+
+  {
+    id: "business-setup",
+    slug: "uae-business-setup-company-formation",
+    title: "Business Setup & Company Formation",
+    category: "Business Setup",
+    shortDesc: "Form your Dubai Mainland or Free Zone company with 100% foreign ownership and instant visa allocations.",
+    heroTag: "100% OWNERSHIP",
+    icon: "Building",
+    heroImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+    overview: "Launch your business in Dubai with zero hassle. We handle trade name reservation, initial approval, MOA drafting, DED license issuance, and investor visa quotas in Mainland & Free Zones.",
+    eligibility: [
+      "Individual investors or international corporate entities.",
+      "Valid passport with at least 6 months validity."
+    ],
+    documents: [
+      "Passport copies of shareholders and managers",
+      "Proposed company name options (3 options)",
+      "Proof of address / Utility bill"
+    ],
+    pricing: {
+      statutoryGovTariff: 12500,
+      advisoryRetainer: 2500,
+      totalEstimate: 15000,
+      breakdown: [
+        { label: "DED / Freezone License Fee & Name Reservation", cost: 9500 },
+        { label: "Establishment Card & Investor Quota", cost: 3000 },
+        { label: "Company Formation Concierge & Legal Drafting", cost: 2500 }
+      ]
+    },
+    processingTime: {
+      standard: "3 to 5 Working Days",
+      express: "24 Hours Instant License"
+    },
+    rules: [
+      "Mainland companies now support 100% foreign ownership for over 1,000 commercial activities.",
+      "Freezone licenses include flexi-desk and investor visa eligibility."
+    ],
+    faqs: [
+      {
+        question: "Can I get a UAE Investor Visa with a new company license?",
+        answer: "Yes! A new company formation entitles you to 2-year renewable or 10-year Golden investor visas for owners and managers."
+      }
+    ]
+  },
+
+  {
+    id: "power-of-attorney",
+    slug: "power-of-attorney-notary-services",
+    title: "Power of Attorney (POA) & Notary Services",
+    category: "Legal Services",
+    shortDesc: "Drafting, legal translation, and notary public attestation for General & Special Power of Attorney.",
+    heroTag: "NOTARY APPROVED",
+    icon: "Scale",
+    heroImage: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
+    overview: "Draft legally binding General or Special Power of Attorney documents for property management, vehicle sales, business management, and family affairs with official Dubai Courts & MOJ notarization.",
+    eligibility: [
+      "Principals holding valid passport or Emirates ID.",
+      "Bilingual English/Arabic draft required for UAE courts."
+    ],
+    documents: [
+      "Passport / Emirates ID of Principal and Agent",
+      "Title Deed / Vehicle Registration (for special POA)"
+    ],
+    pricing: {
+      statutoryGovTariff: 950,
+      advisoryRetainer: 550,
+      totalEstimate: 1500,
+      breakdown: [
+        { label: "Dubai Courts / MOJ Notary Fee", cost: 950 },
+        { label: "Bilingual Drafting & Legal Translation", cost: 550 }
+      ]
+    },
+    processingTime: {
+      standard: "1 to 2 Working Days",
+      express: "Same-Day E-Notary"
+    },
+    rules: [
+      "UAE E-Notary allows remote online notarization via video call for UAE residents."
+    ],
+    faqs: [
+      {
+        question: "Can I issue a Power of Attorney while residing outside the UAE?",
+        answer: "Yes! We handle overseas POA attestation starting from your local UAE Embassy to UAE MOFA legalization."
+      }
+    ]
+  },
+
+  {
+    id: "wills-testament",
+    slug: "wills-estate-planning-dubai",
+    title: "Wills & Estate Planning",
+    category: "Legal Services",
+    shortDesc: "Protect your assets, real estate, and guardianship rights with DIFC & Dubai Courts registered wills.",
+    heroTag: "ASSET PROTECTION",
+    icon: "FileCheck",
+    heroImage: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
+    overview: "Secure your family's future and safeguard your property, bank accounts, and child guardianship in the UAE with official DIFC Wills Service Centre or Dubai Courts registration for Non-Muslims.",
+    eligibility: [
+      "Non-Muslim UAE residents or foreign property owners.",
+      "Must be over 21 years of age."
+    ],
+    documents: [
+      "Passport copies of testator, beneficiaries, and executors",
+      "Title deeds & bank account details to be covered"
+    ],
+    pricing: {
+      statutoryGovTariff: 10000,
+      advisoryRetainer: 2500,
+      totalEstimate: 12500,
+      breakdown: [
+        { label: "DIFC Courts Official Registration Fee", cost: 10000 },
+        { label: "Legal Drafting & Guardianship Clause Advisory", cost: 2500 }
+      ]
+    },
+    processingTime: {
+      standard: "5 to 7 Working Days",
+      express: "48 Hours Urgent DIFC Filing"
+    },
+    rules: [
+      "DIFC registered wills allow complete freedom of asset distribution without Sharia default rules."
+    ],
+    faqs: [
+      {
+        question: "Why do non-Muslim expats need a registered Will in Dubai?",
+        answer: "Without a registered Will, bank accounts and property in the UAE may be frozen according to standard court probate procedures."
+      }
+    ]
+  },
+
+  {
+    id: "health-insurance",
+    slug: "uae-family-health-insurance-dha",
+    title: "Health & Medical Insurance",
+    category: "Insurance",
+    shortDesc: "Compliant DHA & Abu Dhabi DOH basic and premium health insurance policies for dependants.",
+    heroTag: "MANDATORY COVER",
+    icon: "ShieldCheck",
+    heroImage: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=1200&auto=format&fit=crop",
+    overview: "Every sponsored family member in the UAE requires valid health insurance for visa issuance and renewal. We issue DHA Basic Benefits Plan (LSA) and comprehensive private medical cover in minutes.",
+    eligibility: [
+      "Spouse, children, parents, and domestic workers.",
+      "Valid Entry Permit or Emirates ID."
+    ],
+    documents: [
+      "Passport copy & Entry Permit",
+      "Digital photo"
+    ],
+    pricing: {
+      statutoryGovTariff: 650,
+      advisoryRetainer: 150,
+      totalEstimate: 800,
+      breakdown: [
+        { label: "DHA Approved Basic Insurance Policy", cost: 650 },
+        { label: "Instant Digital Certificate & System Upload Fee", cost: 150 }
+      ]
+    },
+    processingTime: {
+      standard: "Instant (15 Minutes)",
+      express: "Immediate Delivery"
+    },
+    rules: [
+      "Health insurance policy reference must be linked in GDRFA/ICP portal prior to visa stamping."
+    ],
+    faqs: [
+      {
+        question: "Is health insurance required for newborn baby visas?",
+        answer: "Yes, health insurance must be activated for the baby prior to final visa stamping."
+      }
+    ]
+  },
+
+  {
+    id: "iloe-insurance",
+    slug: "iloe-unemployment-insurance-uae",
+    title: "ILOE Unemployment Insurance",
+    category: "Insurance",
+    shortDesc: "Mandatory Involuntary Loss of Employment insurance registration for private & federal employees.",
+    heroTag: "COMPLIANCE",
+    icon: "Shield",
+    heroImage: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
+    overview: "Ensure compliance with UAE Federal Decree Law No. 13. We register employees for ILOE insurance to avoid fines and guarantee income protection during career transitions.",
+    eligibility: [
+      "All federal government and private sector employees in the UAE."
+    ],
+    documents: [
+      "Emirates ID number & UAE mobile number"
+    ],
+    pricing: {
+      statutoryGovTariff: 120,
+      advisoryRetainer: 50,
+      totalEstimate: 170,
+      breakdown: [
+        { label: "Official ILOE 2-Year Policy Premium", cost: 120 },
+        { label: "Registration & Certificate Issuance Fee", cost: 50 }
+      ]
+    },
+    processingTime: {
+      standard: "Instant (10 Minutes)",
+      express: "Immediate Delivery"
+    },
+    rules: [
+      "Non-compliance results in MOHRE fines of AED 400."
+    ],
+    faqs: [
+      {
+        question: "Who is exempt from ILOE insurance?",
+        answer: "Investors, domestic workers, temporary contract workers, and minors under 18 are exempt."
+      }
+    ]
+  },
+
+  {
+    id: "medical-fitness",
+    slug: "vip-medical-fitness-test-dubai",
+    title: "VIP Medical Fitness Test",
+    category: "Medical Services",
+    shortDesc: "30-minute VIP express medical screening with private escort and fast-track results.",
+    heroTag: "30-MIN VIP",
+    icon: "Stethoscope",
+    heroImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1200&auto=format&fit=crop",
+    overview: "Skip the queues at DHA Medical Fitness Centres. Enjoy private VIP lounge access, instant blood tests and X-rays, with official medical certificates delivered in 2 to 4 hours.",
+    eligibility: [
+      "New visa applicants and residency renewal candidates aged 18+."
+    ],
+    documents: [
+      "Original Passport or Emirates ID",
+      "Visa Entry Permit copy & digital photo"
+    ],
+    pricing: {
+      statutoryGovTariff: 750,
+      advisoryRetainer: 250,
+      totalEstimate: 1000,
+      breakdown: [
+        { label: "DHA VIP Medical Examination Fee", cost: 750 },
+        { label: "Doorstep Escort & Express 4-Hour Result Sync", cost: 250 }
+      ]
+    },
+    processingTime: {
+      standard: "24 Hours",
+      express: "4-Hour VIP Super Express"
+    },
+    rules: [
+      "Fasting is not required for medical fitness blood tests."
+    ],
+    faqs: [
+      {
+        question: "Where are the VIP Medical Fitness Centres located?",
+        answer: "VIP services are available at City Walk, Smart Salem (Index Tower & DIFC), and Al Twar Centre."
+      }
+    ]
+  },
+
+  {
+    id: "amer-services",
+    slug: "amer-center-services-home-doorstep",
+    title: "Amer Services at Home & Doorstep PRO",
+    category: "Doorstep Services",
+    shortDesc: "On-demand mobile PRO service: document pickup, typing, and biometric verification at your home or office.",
+    heroTag: "DOORSTEP PRO",
+    icon: "MapPin",
+    heroImage: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop",
+    overview: "No need to visit Amer or typing centres in Dubai. Our licensed mobile PRO arrives at your doorstep for document verification, biometrics capture, and official filing.",
+    eligibility: [
+      "Residents across Dubai, Abu Dhabi, and Sharjah."
+    ],
+    documents: [
+      "Required visa documents based on service request"
+    ],
+    pricing: {
+      statutoryGovTariff: 500,
+      advisoryRetainer: 300,
+      totalEstimate: 800,
+      breakdown: [
+        { label: "Amer Official Portal Filing Tariff", cost: 500 },
+        { label: "Doorstep Mobile PRO Concierge Fee", cost: 300 }
+      ]
+    },
+    processingTime: {
+      standard: "Same-Day Dispatch",
+      express: "2-Hour On-Demand Dispatch"
+    },
+    rules: [
+      "All documents are securely tracked via encrypted digital chain of custody."
+    ],
+    faqs: [
+      {
+        question: "Can I complete biometrics at my house?",
+        answer: "Yes! For VIP applicants, mobile biometric units can collect fingerprints and photos at your location."
+      }
+    ]
+  },
+
+  {
+    id: "dld-trustee",
+    slug: "dld-trustee-property-revaluation",
+    title: "DLD Trustee & Property Revaluation",
+    category: "Real Estate Legal",
+    shortDesc: "Dubai Land Department title deed transfers, valuation certificates, and Golden Visa eligibility clearance.",
+    heroTag: "DLD CERTIFIED",
+    icon: "Building2",
+    heroImage: "https://images.unsplash.com/photo-1546412414-e1885259563a?q=80&w=1200&auto=format&fit=crop",
+    overview: "Official DLD Trustee office representation for property registration, title deed issuance, mortgage registration, and official property valuation certificates for 10-Year Golden Visas.",
+    eligibility: [
+      "Dubai real estate buyers, sellers, and property investors."
+    ],
+    documents: [
+      "Original Title Deed / Sale & Purchase Agreement (SPA)",
+      "NOC from Developer & Passport of Buyer/Seller"
+    ],
+    pricing: {
+      statutoryGovTariff: 4000,
+      advisoryRetainer: 1500,
+      totalEstimate: 5500,
+      breakdown: [
+        { label: "DLD Official Valuation & Registration Fee", cost: 4000 },
+        { label: "Trustee Office Concierge & Clearance Fee", cost: 1500 }
+      ]
+    },
+    processingTime: {
+      standard: "2 to 3 Working Days",
+      express: "24 Hours Express DLD Approval"
+    },
+    rules: [
+      "Properties valued at AED 2 Million+ qualify for 10-Year Golden Visas even if mortgaged."
+    ],
+    faqs: [
+      {
+        question: "How do I get an official DLD Property Valuation Certificate?",
+        answer: "We arrange an official Dubai Land Department inspection and valuation certificate needed for Golden Visa applications."
+      }
+    ]
+  },
+
+  {
+    id: "visa-status",
+    slug: "visa-status-check-overstay-fine-waiver",
+    title: "Visa Status & Overstay Fine Waiver",
+    category: "Visa Clearance",
+    shortDesc: "Official GDRFA visa status verification, overstay fine reduction applications, and outpass clearance.",
+    heroTag: "FINE REDUCTION",
+    icon: "Search",
+    heroImage: "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
+    overview: "Resolve overstay fines, visa cancellations, absconding cases, and status changes smoothly. We submit fine waiver requests directly to GDRFA committees to minimize charges.",
+    eligibility: [
+      "Individuals with expired visas, overstay fines, or status modification needs."
+    ],
+    documents: [
+      "Passport copy",
+      "Expired Visa / Entry Permit copy",
+      "Immigration Unified Number (UID)"
+    ],
+    pricing: {
+      statutoryGovTariff: 300,
+      advisoryRetainer: 500,
+      totalEstimate: 800,
+      breakdown: [
+        { label: "GDRFA File Inspection & Status Modification Tariff", cost: 300 },
+        { label: "Fine Waiver Petition & Legal Advisory Fee", cost: 500 }
+      ]
+    },
+    processingTime: {
+      standard: "1 to 3 Working Days",
+      express: "24 Hours Express Resolution"
+    },
+    rules: [
+      "Overstay fines in the UAE are AED 50 per day for residence and visit visa holders."
+    ],
+    faqs: [
+      {
+        question: "Can overstay fines in Dubai be reduced or waived?",
+        answer: "Yes! We file formal humanitarian or technical petition letters to GDRFA to reduce or waive accumulated overstay fines."
+      }
+    ]
+  }
+];
+
+export const diyProcessGuides = {
+  newVisa: {
+    title: "Simple 4-Step Family Visa Process",
+    subtitle: "From document check to Emirates ID delivery — 100% managed for you.",
+    steps: [
+      {
+        num: "01",
+        title: "Send Documents on WhatsApp",
+        desc: "Share your passport, marriage certificate, and EJARI scans over encrypted WhatsApp chat."
+      },
+      {
+        num: "02",
+        title: "Entry Permit Approval",
+        desc: "We file your application with GDRFA / ICP and issue your official entry permit."
+      },
+      {
+        num: "03",
+        title: "VIP Medical & Emirates ID Typing",
+        desc: "Fast 30-minute medical screening with private escort and biometrics typing."
+      },
+      {
+        num: "04",
+        title: "Emirates ID Doorstep Delivery",
+        desc: "Your physical 2-year or 10-year Emirates ID is delivered directly to your home."
+      }
+    ]
+  },
+  renewal: {
+    title: "Simple 3-Step Renewal Guide",
+    subtitle: "Renew your family residency before expiration to avoid overstay fines.",
+    steps: [
+      {
+        num: "01",
+        title: "Document Check & Insurance",
+        desc: "We verify your active EJARI and arrange mandatory health insurance coverage."
+      },
+      {
+        num: "02",
+        title: "Medical Screening & Typing",
+        desc: "Complete your quick medical checkup without standing in long queues."
+      },
+      {
+        num: "03",
+        title: "Emirates ID Delivery",
+        desc: "Your renewed Emirates ID is printed and couriered straight to your door."
+      }
+    ]
+  }
+};
+
+export const reviewsData = [
+  {
+    name: "Alexander Volkov",
+    role: "Golden Visa Resident",
+    rating: 5,
+    date: "August 2026",
+    comment: "Super easy service! Got Golden Visas for my wife and 3 kids completely over WhatsApp. No typing center visits needed!"
+  },
+  {
+    name: "Sarah Jenkins",
+    role: "Corporate Manager",
+    rating: 5,
+    date: "September 2026",
+    comment: "Honest and transparent pricing. They gave me official government receipts for everything. 100% recommended!"
+  },
+  {
+    name: "Mohammed Al-Otaibi",
+    role: "Property Investor",
+    rating: 5,
+    date: "July 2026",
+    comment: "800 DOCS handles everything smoothly. Sponsoring my parents was completely stress-free."
+  }
+];
+
+export const blogPostsData = [
+  {
+    id: "post-1",
+    slug: "uae-family-visa-salary-rules-2026",
+    title: "UAE Family Visa Rules: Salary & Housing Requirements (2026)",
+    category: "Salary & Housing",
+    readTime: "4 min read",
+    date: "September 18, 2026",
+    author: "Fatima Al-Mansoori",
+    authorRole: "Senior GDRFA Legal Advisor",
+    featuredImage: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1200&auto=format&fit=crop",
+    excerpt: "Everything you need to know to sponsor your wife, children, or parents in Dubai and Abu Dhabi.",
+    sections: [
+      {
+        heading: "1. Minimum Salary for Family Sponsorship",
+        body: "To sponsor your wife and children, you need a minimum salary of AED 4,000 per month (or AED 3,000 if your company provides housing)."
+      },
+      {
+        heading: "2. Rules for Female Sponsors",
+        body: "Women working in professional fields (engineers, doctors, teachers, corporate roles) with a salary of AED 10,000+ can sponsor their husband and kids."
+      },
+      {
+        heading: "3. EJARI Rental Contract Rules",
+        body: "A registered EJARI (Dubai) or Tawtheeq (Abu Dhabi) lease contract is required for all family visas."
+      }
+    ]
+  },
+  {
+    id: "post-2",
+    slug: "golden-visa-family-sponsorship-perks",
+    title: "Benefits of Sponsoring Family on a 10-Year Golden Visa",
+    category: "Golden Visa",
+    readTime: "3 min read",
+    date: "September 12, 2026",
+    author: "Tariq Al-Hashemi",
+    authorRole: "Head of Executive Residency",
+    featuredImage: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop",
+    excerpt: "Discover perks for Golden Visa holders: no age caps for sons and unlimited time spent outside the UAE.",
+    sections: [
+      {
+        heading: "No Salary Minimums or Age Limits",
+        body: "Golden Visa holders can sponsor sons of any age, as long as they are unmarried, and there is no salary minimum required."
+      },
+      {
+        heading: "Unlimited Stay Outside UAE",
+        body: "Golden Visa dependants can remain outside the UAE for longer than 6 months without losing their visa status."
+      }
+    ]
+  },
+  {
+    id: "post-3",
+    slug: "newborn-baby-residence-visa-120-day-rule",
+    title: "Newborn Baby Visa Rules: How to Avoid the 120-Day Penalty",
+    category: "Infants",
+    readTime: "5 min read",
+    date: "September 05, 2026",
+    author: "Zayed Al-Ameri",
+    authorRole: "MOHRE & GDRFA Consultant",
+    featuredImage: "https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=1200&auto=format&fit=crop",
+    excerpt: "Parents have 120 days from their baby's birth to complete residency stamping. Learn how to avoid daily fines.",
+    sections: [
+      {
+        heading: "The 120-Day Grace Period",
+        body: "Newborn babies born in the UAE must have their residence visa stamped within 120 days to prevent a AED 100 per day fine."
+      }
+    ]
+  }
+];
+
+export const blogCategories = [
+  "All Articles",
+  "Salary & Housing",
+  "Golden Visa",
+  "Dependant Visas",
+  "Domestic Workers",
+  "Attestation Guides"
+];
+
+export const servicesData = new Proxy(defaultServicesData, {
+  get(target, prop) {
+    if (prop === 'length') return target.length;
+    
+    if (typeof prop === 'string' && !isNaN(prop)) {
+      const item = target[prop];
+      if (!item) return item;
+      
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem('app_cms_config');
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            if (parsed.servicePages && parsed.servicePages[item.id]) {
+               const adminData = parsed.servicePages[item.id];
+               
+               let newPricing = item.pricing;
+               if (adminData.feeRows && adminData.feeRows.length > 0) {
+                 const statutoryGovTariff = adminData.feeRows.reduce((acc, row) => acc + parseInt(String(row.govtFee).replace(/,/g, '') || 0), 0);
+                 const advisoryRetainer = adminData.feeRows.reduce((acc, row) => acc + parseInt(String(row.serviceFee).replace(/,/g, '') || 0), 0);
+                 
+                 const breakdown = adminData.feeRows.map(row => ({
+                   label: row.name,
+                   cost: parseInt(String(row.govtFee).replace(/,/g, '') || 0) + parseInt(String(row.serviceFee).replace(/,/g, '') || 0)
+                 }));
+                 
+                 newPricing = {
+                   statutoryGovTariff,
+                   advisoryRetainer,
+                   totalEstimate: statutoryGovTariff + advisoryRetainer,
+                   breakdown
+                 };
+               }
+               
+               let newEligibility = item.eligibility;
+               if (adminData.requirements && adminData.requirements.length > 0) {
+                 newEligibility = adminData.requirements;
+               }
+               
+               let newFaqs = item.faqs;
+               if (adminData.faqs && adminData.faqs.length > 0) {
+                 newFaqs = adminData.faqs.map(faq => ({
+                   question: faq.question,
+                   answer: faq.answer
+                 }));
+               }
+
+               return {
+                 ...item,
+                 pricing: newPricing,
+                 eligibility: newEligibility,
+                 faqs: newFaqs
+               };
+            }
+          } catch(e) {}
+        }
+      }
+      return item;
+    }
+    
+    const value = target[prop];
+    if (typeof value === 'function') {
+      return value.bind(target);
+    }
+    return value;
+  }
+});

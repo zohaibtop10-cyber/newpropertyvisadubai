@@ -1,0 +1,14 @@
+{
+  "navbar": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "viewAll": "Tümünü Gör",
+    "visas": "Vizeler",
+    "emiratesId": "Emirates Kimliği ve Sağlık",
+    "corporate": "Kurumsal ve Hukuki",
+    "guides": "Rehberler",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "calcFee": "Hesaplayıcı"
+  }
+}

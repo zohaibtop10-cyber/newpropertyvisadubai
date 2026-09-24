@@ -1,0 +1,14 @@
+{
+  "navbar": {
+    "home": "首页",
+    "services": "服务",
+    "viewAll": "查看全部",
+    "visas": "签证",
+    "emiratesId": "阿联酋身份证与医疗",
+    "corporate": "企业与法律",
+    "guides": "指南",
+    "about": "关于我们",
+    "contact": "联系我们",
+    "calcFee": "费用计算器"
+  }
+}
