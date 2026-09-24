@@ -1,14 +1,14 @@
 import React from 'react';
-import { 
+import {
   Layout, FileText, Star, Settings, LogOut, Globe, CheckCircle2, Move
 } from 'lucide-react';
 
-export default function AdminLayout({ 
-  activeModule, 
-  setActiveModule, 
+export default function AdminLayout({
+  activeModule,
+  setActiveModule,
   onExitAdmin,
   currentUser,
-  children 
+  children
 }) {
   // CMS Sidebar Menu Items (Every Section & Every Page covered)
   const cmsNavItems = [
@@ -50,7 +50,7 @@ export default function AdminLayout({
 
   return (
     <div className="min-h-screen bg-[#121417] text-slate-100 font-sans flex relative overflow-x-hidden selection:bg-[#E01E37] selection:text-white">
-      
+
       {/* Subtle Ambient Red Glow */}
       <div className="fixed top-0 left-0 w-[500px] h-[500px] bg-[#E01E37]/5 rounded-full blur-[140px] pointer-events-none" />
 
@@ -58,7 +58,7 @@ export default function AdminLayout({
       {/* CMS LEFT SIDEBAR NAVIGATION                                        */}
       {/* ------------------------------------------------------------------ */}
       <aside className="w-72 bg-slate-900 border-r border-slate-800/80 flex flex-col shrink-0 z-20">
-        
+
         {/* Brand Header */}
         <div className="p-6 border-b border-slate-800 flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#E01E37] via-[#B81A2C] to-[#C8102E] p-0.5 shadow-lg shadow-[#E01E37]/25 flex items-center justify-center">
@@ -88,11 +88,10 @@ export default function AdminLayout({
               <button
                 key={item.id}
                 onClick={() => setActiveModule(item.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-left transition-all cursor-pointer group ${
-                  isActive 
-                    ? 'bg-[#E01E37] text-white shadow-lg shadow-[#E01E37]/25 font-bold' 
+                className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-left transition-all cursor-pointer group ${isActive
+                    ? 'bg-[#E01E37] text-white shadow-lg shadow-[#E01E37]/25 font-bold'
                     : 'text-slate-400 hover:text-white hover:bg-slate-800/80'
-                }`}
+                  }`}
               >
                 <Icon className={`w-5 h-5 shrink-0 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white'}`} />
                 <div>
@@ -108,18 +107,6 @@ export default function AdminLayout({
 
         {/* User Footer & Exit Button */}
         <div className="p-4 border-t border-slate-800/80 space-y-3 bg-slate-950/40">
-          <div className="flex items-center gap-3 px-2">
-            <img
-              src={currentUser?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'}
-              alt="Admin User"
-              className="w-9 h-9 rounded-full border border-[#E01E37] object-cover"
-            />
-            <div className="min-w-0">
-              <div className="text-xs font-bold text-white truncate">{currentUser?.fullName || 'Content Editor'}</div>
-              <div className="text-[11px] text-slate-400">CMS Admin</div>
-            </div>
-          </div>
-
           <button
             onClick={onExitAdmin}
             className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition-all cursor-pointer"
@@ -135,7 +122,7 @@ export default function AdminLayout({
       {/* MAIN CONTENT AREA                                                  */}
       {/* ------------------------------------------------------------------ */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
-        
+
         {/* Top Header */}
         <header className="h-16 border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md px-8 flex items-center justify-between sticky top-0 z-20">
           <h1 className="font-display font-extrabold text-xl text-white">
