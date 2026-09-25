@@ -1,644 +1,332 @@
 import React, { useState } from 'react';
+import WhatsAppIcon from './WhatsAppIcon';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
-  Crown,
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  Edit2,
+  Phone,
+  Building2,
   Users,
   Baby,
-  ChevronRight,
-  ArrowLeft,
+  Briefcase,
+  Globe,
   MapPin,
-  Copy,
-  Check,
-  Share2,
-  RotateCcw
+  Plane
 } from 'lucide-react';
-import { servicesData, siteConfig } from '../data/cmsData';
+import { siteConfig } from '../data/cmsData';
 
 export default function CalculatorModal({ isOpen, onClose, initialTab = 'spouse' }) {
-  // Wizard Steps: 1 (Category) -> 2 (Sub-Category) -> 3 (Location) -> 4 (Results & Action Bar)
   const [step, setStep] = useState(1);
+  const [category, setCategory] = useState('');
+  const [subCategory, setSubCategory] = useState('');
+  const [locationStatus, setLocationStatus] = useState('');
 
-  // Selections
-  const [category, setCategory] = useState('family'); // 'property' | 'family' | 'newborn'
-  const [subCategory, setSubCategory] = useState(initialTab || 'spouse'); // property: '10-year-golden' | '2-year-investor' | '5-year-retirement', family: 'spouse' | 'children' | 'parents' | 'maid'
-  const [locationStatus, setLocationStatus] = useState('inside'); // 'inside' | 'outside'
+  // Close handler
+  if (!isOpen) return null;
 
-  // Copy success state
-  const [isCopied, setIsCopied] = useState(false);
-
-  const handleSelectCategory = (cat) => {
-    setCategory(cat);
-    if (cat === 'property') setSubCategory('10-year-golden');
-    if (cat === 'family') setSubCategory('spouse');
-    if (cat === 'newborn') setSubCategory('infant');
-    setStep(2);
+  const handleNext = () => {
+    if (step === 1 && category) setStep(2);
+    else if (step === 2 && subCategory) {
+      if (['family', 'property'].includes(category)) setStep(3);
+      else setStep(4);
+    }
+    else if (step === 3 && locationStatus) setStep(4);
   };
 
-  const handleSelectSubCategory = (subCat) => {
-    setSubCategory(subCat);
-    setStep(3);
+  const handleBack = () => {
+    if (step > 1) setStep(step - 1);
   };
 
-  const handleSelectLocation = (loc) => {
-    setLocationStatus(loc);
-    setStep(4);
-  };
-
-  const resetWizard = () => {
-    setStep(1);
-    setCategory('family');
-    setSubCategory('spouse');
-    setLocationStatus('inside');
-    setIsCopied(false);
-  };
-
-  const getCategoryLabel = () => {
+  const getBreakdown = () => {
+    let items = [];
+    let serviceCharge = 1450;
+    
     if (category === 'family') {
-      if (subCategory === 'spouse') return 'Spouse Residence Visa';
-      if (subCategory === 'children') return 'Children Dependant Visa';
-      if (subCategory === 'parents') return 'Parents Residence Visa';
-      if (subCategory === 'maid') return 'Maid & Domestic Helper Visa';
-      if (subCategory === 'newborn') return 'Newborn Baby Residence Clearance';
-    }
-    if (category === 'property') {
-      if (subCategory === '10-year-golden') return '10-Year Property Golden Visa';
-      if (subCategory === '2-year-investor') return '2-Year Property Investor Visa';
-      if (subCategory === '5-year-retirement') return '5-Year Retirement Visa';
-    }
-    if (category === 'corporate') {
-      if (subCategory === 'pro-services') return 'Corporate & Individual PRO Services';
-      if (subCategory === 'business-setup') return 'Business Setup & Company Formation';
-    }
-    if (category === 'legal') {
-      if (subCategory === 'attestation') return 'Document Legalization & MOFA Attestation';
-      if (subCategory === 'legal-translation') return 'Sworn Legal Translation (Arabic)';
-      if (subCategory === 'power-of-attorney') return 'Power of Attorney (POA) & Notary';
-      if (subCategory === 'wills-testament') return 'DIFC / Court Wills & Estate Planning';
-    }
-    if (category === 'other') {
-      if (subCategory === 'medical-fitness') return 'VIP Express Medical Fitness (30-Min)';
-      if (subCategory === 'amer-services') return 'Amer Doorstep Mobile PRO Services';
-      if (subCategory === 'health-insurance') return 'DHA / DOH Compliant Health Insurance';
-      if (subCategory === 'visa-status') return 'Visa Status Check & Overstay Fine Waiver';
-    }
-    return 'UAE Residency & Document Service';
-  };
-
-  // Calculation Engine
-  const calculateCosts = () => {
-    let govTariff = 0;
-    let advisoryRetainer = 1450;
-
-    // Base Tariffs
-    if (category === 'property') {
-      if (subCategory === '10-year-golden') {
-        govTariff = 9850;
-        advisoryRetainer = 2450;
-      } else if (subCategory === '2-year-investor') {
-        govTariff = 6850;
-        advisoryRetainer = 1850;
-      } else if (subCategory === '5-year-retirement') {
-        govTariff = 5900;
-        advisoryRetainer = 1950;
-      }
-    } else if (category === 'family') {
-      if (subCategory === 'spouse') {
-        govTariff = 3850;
-        advisoryRetainer = 1450;
-      } else if (subCategory === 'children') {
-        govTariff = 3450;
-        advisoryRetainer = 1250;
-      } else if (subCategory === 'parents') {
-        govTariff = 7800;
-        advisoryRetainer = 2500;
-      } else if (subCategory === 'maid') {
-        govTariff = 5200;
-        advisoryRetainer = 1650;
-      } else if (subCategory === 'newborn') {
-        govTariff = 2850;
-        advisoryRetainer = 1150;
-      }
+      serviceCharge = 1450;
+      items = [
+        { label: 'File Opening / Sponsor Registration', price: 268.90 },
+        { label: 'Entry Permit', price: 1125.65 },
+        ...(locationStatus === 'inside' ? [{ label: 'Change of Status', price: 675.65 }] : []),
+        { label: 'Medical Fitness Test (Normal)', price: 320.00 },
+        { label: 'Emirates ID (2 Years)', price: 390.00 },
+        { label: 'Basic Health Insurance', price: 650.00 },
+        { label: 'Visa Stamping', price: 546.65 }
+      ];
+    } else if (category === 'property') {
+      serviceCharge = 2450;
+      items = [
+        { label: 'DLD Property Valuation / NOC', price: 2000.00 },
+        { label: 'Medical Fitness Test (VIP)', price: 700.00 },
+        { label: 'Emirates ID (10 Years)', price: 1150.00 },
+        { label: 'Golden Visa Stamping', price: 6000.00 }
+      ];
     } else if (category === 'corporate') {
-      if (subCategory === 'pro-services') {
-        govTariff = 1200;
-        advisoryRetainer = 800;
-      } else if (subCategory === 'business-setup') {
-        govTariff = 12500;
-        advisoryRetainer = 2500;
-      }
-    } else if (category === 'legal') {
-      if (subCategory === 'attestation') {
-        govTariff = 850;
-        advisoryRetainer = 450;
-      } else if (subCategory === 'legal-translation') {
-        govTariff = 350;
-        advisoryRetainer = 200;
-      } else if (subCategory === 'power-of-attorney') {
-        govTariff = 950;
-        advisoryRetainer = 550;
-      } else if (subCategory === 'wills-testament') {
-        govTariff = 10000;
-        advisoryRetainer = 2500;
-      }
-    } else if (category === 'other') {
-      if (subCategory === 'medical-fitness') {
-        govTariff = 750;
-        advisoryRetainer = 250;
-      } else if (subCategory === 'amer-services') {
-        govTariff = 500;
-        advisoryRetainer = 300;
-      } else if (subCategory === 'health-insurance') {
-        govTariff = 650;
-        advisoryRetainer = 150;
-      } else if (subCategory === 'visa-status') {
-        govTariff = 300;
-        advisoryRetainer = 500;
-      }
-    }
-
-    // Dynamic override from Admin CMS (servicesData) if available
-    const serviceMap = {
-      '10-year-golden': 'golden-visa',
-      'spouse': 'spouse-visa',
-      'children': 'children-visa',
-      'infant': 'children-visa',
-      'parents': 'parents-visa',
-      'maid': 'maid-visa'
-    };
-    const mappedId = serviceMap[subCategory];
-    if (mappedId) {
-      const service = servicesData.find(s => s.id === mappedId);
-      if (service && service.pricing) {
-        govTariff = service.pricing.statutoryGovTariff;
-        advisoryRetainer = service.pricing.advisoryRetainer;
-      }
-    }
-
-    // Inside UAE Location Surcharge (In-Country Status Amendment)
-    const statusChangeFee = locationStatus === 'inside' ? 1150 : 0;
-    const totalGovCost = govTariff + statusChangeFee;
-    const grandTotal = totalGovCost + advisoryRetainer;
-    const usdTotal = Math.round(grandTotal / 3.6725);
-
-    return {
-      govTariff,
-      statusChangeFee,
-      totalGovCost,
-      advisoryRetainer,
-      grandTotal,
-      usdTotal
-    };
-  };
-
-  const costs = calculateCosts();
-
-  const compileQuoteText = () => {
-    return `${siteConfig.brandName} - Itemized Quote Breakdown
-----------------------------------------
-Service: ${getCategoryLabel()}
-Applicant Location: ${locationStatus === 'inside' ? 'Inside the UAE' : 'Outside the UAE'}
-
-• Statutory Government Tariff: AED ${costs.govTariff.toLocaleString()}
-${costs.statusChangeFee > 0 ? `• In-Country Status Amendment: AED ${costs.statusChangeFee.toLocaleString()}\n` : ''}• Advisory Retainer Fee: AED ${costs.advisoryRetainer.toLocaleString()}
-----------------------------------------
-Total Estimated Investment: AED ${costs.grandTotal.toLocaleString()} (~$${costs.usdTotal})`;
-  };
-
-  const handleCopyQuote = () => {
-    const text = compileQuoteText();
-    navigator.clipboard.writeText(text);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
-  };
-
-  const handleShareQuote = async () => {
-    const text = compileQuoteText();
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'FamilyVisa.ae Itemized Quote',
-          text: text,
-          url: window.location.href,
-        });
-      } catch {
-        // Fall back if user canceled share sheet
-      }
+      serviceCharge = 3500;
+      items = [
+        { label: 'Initial Approval', price: 120.00 },
+        { label: 'Trade Name Reservation', price: 620.00 },
+        { label: 'MOA Notarization', price: 1500.00 },
+        { label: 'Trade License Issuance', price: 6500.00 },
+        { label: 'Establishment Card', price: 750.00 }
+      ];
     } else {
-      const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
-      window.open(waUrl, '_blank');
+      serviceCharge = 850;
+      items = [
+        { label: 'Government Processing Fee', price: 1250.00 },
+        { label: 'Typing & Admin', price: 150.00 }
+      ];
     }
+
+    const totalGov = items.reduce((acc, curr) => acc + curr.price, 0);
+    return { items, serviceCharge, totalGov, grandTotal: totalGov + serviceCharge };
+  };
+
+  const getSubCategoryLabel = () => {
+    const map = {
+      'spouse': 'Spouse Residence Visa',
+      'children': 'Children Dependant Visa',
+      'parents': 'Parents Residence Visa',
+      'maid': 'Maid / Nanny Visa',
+      'golden': '10-Year Golden Visa (Property)',
+      'investor': '2-Year Investor Visa',
+      'setup': 'Business Setup / Trade License',
+      'pro': 'Corporate PRO Services'
+    };
+    return map[subCategory] || 'UAE Service';
+  };
+
+  const { items, serviceCharge, totalGov, grandTotal } = getBreakdown();
+
+  const handleWhatsApp = () => {
+    const message = `Hello, I used the calculator on your website for *${getSubCategoryLabel()}*.\nThe estimated total is *AED ${grandTotal.toLocaleString()}*.\nCan you provide more details?`;
+    window.open(`https://wa.me/${siteConfig.whatsappRaw}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-md overflow-y-auto"
-        >
-          {/* Modal Container with layout animation for smooth dynamic height shifts! */}
-          <motion.div
-            layout
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            transition={{ type: 'spring', stiffness: 80, damping: 15 }}
-            className="w-full max-w-2xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden relative my-auto text-slate-900 dark:text-white transition-colors duration-200"
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        className="w-full max-w-[800px] bg-slate-50 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+      >
+        {/* Header - Dark slate like 800docs */}
+        <div className="bg-slate-900 text-white px-5 sm:px-8 py-4 sm:py-5 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3">
+            <span className="font-display font-black text-xl tracking-tight text-white">
+              PropertyVisaDubai<span className="text-[#E01E37]">UAE</span>
+            </span>
+            <span className="w-px h-5 bg-white/20 hidden sm:block"></span>
+            <span className="text-slate-300 font-medium text-sm hidden sm:block">Fee Calculator</span>
+          </div>
+          <button 
+            onClick={onClose}
+            className="w-8 h-8 flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-white"
           >
-            {/* Modal Header */}
-            <div className="p-5 sm:p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-white dark:bg-[#141414] sticky top-0 z-20">
-              <div className="flex items-center gap-3">
-                {step > 1 && (
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setStep(step - 1)}
-                    className="p-2 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                  </motion.button>
-                )}
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-[#E01E37] uppercase">STEP {step} OF 4</span>
-                    <span className="text-xs text-slate-400">•</span>
-                    <span className="text-xs font-mono text-slate-400">PASSTHROUGH ENGINE</span>
-                  </div>
-                  <h3 className="font-display font-bold text-lg sm:text-xl text-slate-900 dark:text-white tracking-tight leading-none mt-0.5">
-                    Instant Visa Cost Calculator
-                  </h3>
-                </div>
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Content Area */}
+        <div className="flex-1 overflow-y-auto p-5 sm:p-8 relative">
+          
+          {step < 4 && (
+            <div className="mb-8">
+              <div className="text-[10px] sm:text-xs font-bold font-mono tracking-wider text-slate-500 uppercase mb-2">Question {step}</div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+                {step === 1 && "What type of service do you need?"}
+                {step === 2 && "Which specific visa or service?"}
+                {step === 3 && "Where is the applicant currently located?"}
+              </h2>
+              <p className="text-slate-500 text-sm mt-2">
+                {step === 1 && "Select a broad category to begin your estimate."}
+                {step === 2 && "Pick the exact service — government charges will appear line by line at the end."}
+                {step === 3 && "Location impacts the requirement for 'Change of Status' fees."}
+              </p>
+            </div>
+          )}
+
+          {step === 1 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { id: 'family', label: 'Family & Dependents', desc: 'Spouse, children, parents, maid', icon: Users },
+                { id: 'property', label: 'Property Investor', desc: 'Golden Visa, 2-Year Investor', icon: Building2 },
+                { id: 'corporate', label: 'Corporate & Legal', desc: 'Business setup, PRO, Trade License', icon: Briefcase },
+                { id: 'other', label: 'Other Services', desc: 'Emirates ID, Attestation, Typing', icon: Globe }
+              ].map(opt => (
+                <button
+                  key={opt.id}
+                  onClick={() => { setCategory(opt.id); setSubCategory(''); }}
+                  className={`p-5 rounded-2xl border-2 text-left transition-all ${category === opt.id ? 'border-[#E01E37] bg-red-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                >
+                  <opt.icon className={`w-6 h-6 mb-3 ${category === opt.id ? 'text-[#E01E37]' : 'text-slate-400'}`} />
+                  <div className={`font-bold text-base sm:text-lg mb-1 ${category === opt.id ? 'text-[#E01E37]' : 'text-slate-900'}`}>{opt.label}</div>
+                  <div className="text-slate-500 text-sm">{opt.desc}</div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {step === 2 && category === 'family' && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { id: 'spouse', label: 'Spouse Residence Visa', desc: 'Sponsor your husband or wife' },
+                { id: 'children', label: 'Children Dependant Visa', desc: 'Sponsor your children under your visa' },
+                { id: 'parents', label: 'Parents Residence Visa', desc: 'Sponsor father or mother' },
+                { id: 'maid', label: 'Maid / Domestic Helper', desc: 'Hire a nanny or maid directly' }
+              ].map(opt => (
+                <button
+                  key={opt.id}
+                  onClick={() => setSubCategory(opt.id)}
+                  className={`p-5 rounded-2xl border-2 text-left transition-all ${subCategory === opt.id ? 'border-[#E01E37] bg-red-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                >
+                  <div className={`font-bold text-base mb-1 ${subCategory === opt.id ? 'text-[#E01E37]' : 'text-slate-900'}`}>{opt.label}</div>
+                  <div className="text-slate-500 text-sm">{opt.desc}</div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {step === 2 && category === 'property' && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { id: 'golden', label: '10-Year Golden Visa', desc: 'For property worth AED 2 Million+' },
+                { id: 'investor', label: '2-Year Investor Visa', desc: 'For property worth AED 750,000+' }
+              ].map(opt => (
+                <button
+                  key={opt.id}
+                  onClick={() => setSubCategory(opt.id)}
+                  className={`p-5 rounded-2xl border-2 text-left transition-all ${subCategory === opt.id ? 'border-[#E01E37] bg-red-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                >
+                  <div className={`font-bold text-base mb-1 ${subCategory === opt.id ? 'text-[#E01E37]' : 'text-slate-900'}`}>{opt.label}</div>
+                  <div className="text-slate-500 text-sm">{opt.desc}</div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {step === 2 && category === 'corporate' && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { id: 'setup', label: 'Business Setup', desc: 'Mainland or Freezone company formation' },
+                { id: 'pro', label: 'PRO Services', desc: 'Corporate portal management & quotas' }
+              ].map(opt => (
+                <button
+                  key={opt.id}
+                  onClick={() => setSubCategory(opt.id)}
+                  className={`p-5 rounded-2xl border-2 text-left transition-all ${subCategory === opt.id ? 'border-[#E01E37] bg-red-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                >
+                  <div className={`font-bold text-base mb-1 ${subCategory === opt.id ? 'text-[#E01E37]' : 'text-slate-900'}`}>{opt.label}</div>
+                  <div className="text-slate-500 text-sm">{opt.desc}</div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {step === 3 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { id: 'inside', label: 'Inside the UAE', desc: 'Requires Change of Status', icon: MapPin },
+                { id: 'outside', label: 'Outside the UAE', desc: 'Requires Pink Visa Entry Permit', icon: Plane }
+              ].map(opt => (
+                <button
+                  key={opt.id}
+                  onClick={() => setLocationStatus(opt.id)}
+                  className={`p-6 rounded-2xl border-2 text-left transition-all flex flex-col items-center justify-center text-center ${locationStatus === opt.id ? 'border-[#E01E37] bg-red-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                >
+                  <opt.icon className={`w-8 h-8 mb-4 ${locationStatus === opt.id ? 'text-[#E01E37]' : 'text-slate-400'}`} />
+                  <div className={`font-bold text-lg mb-2 ${locationStatus === opt.id ? 'text-[#E01E37]' : 'text-slate-900'}`}>{opt.label}</div>
+                  <div className="text-slate-500 text-sm">{opt.desc}</div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Results Step 4 */}
+          {step === 4 && (
+            <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-8 shadow-sm">
+              <div className="text-[10px] sm:text-xs font-bold font-mono tracking-wider text-[#E01E37] uppercase mb-2">YOUR ESTIMATE</div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">{getSubCategoryLabel()}</h2>
+              <div className="text-slate-500 text-sm mb-8 flex items-center gap-2">
+                <span>{category.toUpperCase()}</span>
+                <span>•</span>
+                <span>{locationStatus === 'inside' ? 'Inside UAE' : 'Outside UAE'}</span>
+                <span>•</span>
+                <span>Normal Processing</span>
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => { resetWizard(); onClose(); }}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-600 dark:text-white flex items-center justify-center transition-colors cursor-pointer"
+              <div className="space-y-4 mb-6">
+                {items.map((item, idx) => (
+                  <div key={idx} className="flex justify-between items-center text-sm sm:text-base border-b border-slate-100 pb-3">
+                    <span className="text-slate-700">{item.label}</span>
+                    <span className="font-semibold text-slate-900">{item.price.toLocaleString('en-AE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-3 border-t-2 border-slate-900 pt-6">
+                <div className="flex justify-between items-center font-bold">
+                  <span className="text-slate-900 text-base sm:text-lg">Amer / Tasheel / Gov charges</span>
+                  <span className="text-slate-900 text-base sm:text-lg">AED {totalGov.toLocaleString('en-AE', { minimumFractionDigits: 2 })}</span>
+                </div>
+                <div className="flex justify-between items-center text-slate-600 font-medium">
+                  <span>Our Service Charge <span className="text-xs text-slate-400 ml-1 font-normal">(per applicant)</span></span>
+                  <span>AED {serviceCharge.toLocaleString('en-AE', { minimumFractionDigits: 2 })}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+        </div>
+
+        {/* Bottom Bar - Sticky */}
+        <div className="bg-white border-t border-slate-200 p-4 sm:p-6 flex items-center justify-between shrink-0 rounded-b-2xl sm:rounded-b-3xl">
+          {step < 4 ? (
+            <>
+              <button 
+                onClick={handleBack}
+                disabled={step === 1}
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold transition-colors ${step === 1 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-700 hover:bg-slate-100 cursor-pointer'}`}
               >
-                <X className="w-4 h-4" />
-              </motion.button>
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">Back</span>
+              </button>
+              
+              <div className="flex items-center gap-3">
+                <span className="text-slate-400 text-sm font-medium mr-2">Answer to see fee</span>
+                <button 
+                  onClick={handleNext}
+                  disabled={(step === 1 && !category) || (step === 2 && !subCategory) || (step === 3 && !locationStatus)}
+                  className="flex items-center gap-2 px-8 py-3 bg-[#E01E37] text-white rounded-xl font-bold hover:bg-[#B81A2C] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span>Next</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="w-full flex flex-col sm:flex-row gap-3">
+              <button 
+                onClick={() => setStep(1)}
+                className="flex items-center justify-center gap-2 px-6 py-4 border-2 border-slate-200 text-slate-700 rounded-xl font-bold hover:border-slate-300 hover:bg-slate-50 transition-colors w-full sm:w-auto shrink-0"
+              >
+                <Edit2 className="w-4 h-4" />
+                <span>Edit Details</span>
+              </button>
+              <button 
+                onClick={handleWhatsApp}
+                className="flex-1 flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] text-white rounded-xl font-bold hover:bg-[#20bd5a] transition-all shadow-lg shadow-[#25D366]/20"
+              >
+                <WhatsAppIcon className="w-5 h-5 fill-current" />
+                <span className="text-sm sm:text-base">Confirm on WhatsApp • AED {grandTotal.toLocaleString('en-AE', { minimumFractionDigits: 2 })}</span>
+              </button>
             </div>
-
-            {/* Modal Body with Animated Step Transitions */}
-            <div className="p-6 sm:p-8 space-y-6">
-              <AnimatePresence mode="wait">
-                
-                {/* STEP 1: CATEGORY SELECTOR */}
-                {step === 1 && (
-                  <motion.div
-                    key="step1"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.25 }}
-                    className="space-y-4"
-                  >
-                    <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
-                      SELECT RESIDENCY TRACK:
-                    </div>
-
-                    <div className="grid sm:grid-cols-3 gap-3">
-                      <motion.button
-                        whileHover={{ y: -4, scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ type: 'spring', stiffness: 120, damping: 14 }}
-                        onClick={() => handleSelectCategory('family')}
-                        className={`p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
-                          category === 'family'
-                            ? 'bg-[#E01E37]/10 border-[#E01E37] text-slate-900 dark:text-white shadow-md'
-                            : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37]'
-                        }`}
-                      >
-                        <div className="p-2.5 rounded-xl bg-[#E01E37]/15 text-[#E01E37] w-fit mb-4">
-                          <Users className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <div className="font-display font-bold text-sm text-slate-900 dark:text-white">Family Visa</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Spouse, Kids, Parents, Maid</div>
-                        </div>
-                      </motion.button>
-
-                      <motion.button
-                        whileHover={{ y: -4, scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ type: 'spring', stiffness: 120, damping: 14 }}
-                        onClick={() => handleSelectCategory('property')}
-                        className={`p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
-                          category === 'property'
-                            ? 'bg-[#E01E37]/10 border-[#E01E37] text-slate-900 dark:text-white shadow-md'
-                            : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37]'
-                        }`}
-                      >
-                        <div className="p-2.5 rounded-xl bg-amber-500/15 text-amber-500 w-fit mb-4">
-                          <Crown className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <div className="font-display font-bold text-sm text-slate-900 dark:text-white">Property Investor</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">2-Yr & 10-Yr Golden Visa</div>
-                        </div>
-                      </motion.button>
-
-                      <motion.button
-                        whileHover={{ y: -4, scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ type: 'spring', stiffness: 120, damping: 14 }}
-                        onClick={() => handleSelectCategory('newborn')}
-                        className={`p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
-                          category === 'newborn'
-                            ? 'bg-[#E01E37]/10 border-[#E01E37] text-slate-900 dark:text-white shadow-md'
-                            : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37]'
-                        }`}
-                      >
-                        <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-500 w-fit mb-4">
-                          <Baby className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <div className="font-display font-bold text-sm text-slate-900 dark:text-white">Newborn Baby</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">120-Day Clearance</div>
-                        </div>
-                      </motion.button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 2: SUB-CATEGORY SELECTOR */}
-                {step === 2 && (
-                  <motion.div
-                    key="step2"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.25 }}
-                    className="space-y-4"
-                  >
-                    <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
-                      SELECT SPECIFIC SERVICE TYPE:
-                    </div>
-
-                    <div className="space-y-2.5">
-                      {category === 'family' && (
-                        <>
-                          <motion.button
-                            whileHover={{ x: 4 }}
-                            onClick={() => handleSelectSubCategory('spouse')}
-                            className="w-full p-4 rounded-2xl border text-left flex items-center justify-between bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37] cursor-pointer group"
-                          >
-                            <div>
-                              <div className="font-bold text-sm text-slate-900 dark:text-white">Spouse Residence Visa</div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400">2-Year dependant visa for husband or wife</div>
-                            </div>
-                            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                          </motion.button>
-
-                          <motion.button
-                            whileHover={{ x: 4 }}
-                            onClick={() => handleSelectSubCategory('children')}
-                            className="w-full p-4 rounded-2xl border text-left flex items-center justify-between bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37] cursor-pointer group"
-                          >
-                            <div>
-                              <div className="font-bold text-sm text-slate-900 dark:text-white">Children Dependant Visa</div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400">Sons (up to age 25) & unmarried daughters</div>
-                            </div>
-                            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                          </motion.button>
-
-                          <motion.button
-                            whileHover={{ x: 4 }}
-                            onClick={() => handleSelectSubCategory('parents')}
-                            className="w-full p-4 rounded-2xl border text-left flex items-center justify-between bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37] cursor-pointer group"
-                          >
-                            <div>
-                              <div className="font-bold text-sm text-slate-900 dark:text-white">Parents Residence Visa</div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400">1-Year renewable senior residency visa</div>
-                            </div>
-                            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                          </motion.button>
-
-                          <motion.button
-                            whileHover={{ x: 4 }}
-                            onClick={() => handleSelectSubCategory('maid')}
-                            className="w-full p-4 rounded-2xl border text-left flex items-center justify-between bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37] cursor-pointer group"
-                          >
-                            <div>
-                              <div className="font-bold text-sm text-slate-900 dark:text-white">Maid & Domestic Helper Visa</div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400">Tadbeer & MOHRE official domestic worker visa</div>
-                            </div>
-                            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                          </motion.button>
-                        </>
-                      )}
-
-                      {category === 'property' && (
-                        <>
-                          <motion.button
-                            whileHover={{ x: 4 }}
-                            onClick={() => handleSelectSubCategory('10-year-golden')}
-                            className="w-full p-4 rounded-2xl border text-left flex items-center justify-between bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37] cursor-pointer group"
-                          >
-                            <div>
-                              <div className="font-bold text-sm text-slate-900 dark:text-white">10-Year Property Golden Visa</div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400">Property value AED 2,000,000+</div>
-                            </div>
-                            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                          </motion.button>
-
-                          <motion.button
-                            whileHover={{ x: 4 }}
-                            onClick={() => handleSelectSubCategory('2-year-investor')}
-                            className="w-full p-4 rounded-2xl border text-left flex items-center justify-between bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37] cursor-pointer group"
-                          >
-                            <div>
-                              <div className="font-bold text-sm text-slate-900 dark:text-white">2-Year Property Investor Visa</div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400">Completed residential property AED 750,000+</div>
-                            </div>
-                            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                          </motion.button>
-                        </>
-                      )}
-
-                      {category === 'newborn' && (
-                        <motion.button
-                          whileHover={{ x: 4 }}
-                          onClick={() => handleSelectSubCategory('infant')}
-                          className="w-full p-4 rounded-2xl border text-left flex items-center justify-between bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37] cursor-pointer group"
-                        >
-                          <div>
-                            <div className="font-bold text-sm text-slate-900 dark:text-white">Newborn Baby Residence Clearance</div>
-                            <div className="text-xs text-slate-500 dark:text-slate-400">Infant born inside the UAE (within 120 days)</div>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                        </motion.button>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 3: LOCATION STATUS */}
-                {step === 3 && (
-                  <motion.div
-                    key="step3"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.25 }}
-                    className="space-y-4"
-                  >
-                    <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
-                      CURRENT LOCATION OF APPLICANT:
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <motion.button
-                        whileHover={{ y: -3, scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => handleSelectLocation('inside')}
-                        className={`p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
-                          locationStatus === 'inside'
-                            ? 'bg-[#E01E37]/10 border-[#E01E37] text-slate-900 dark:text-white shadow-md'
-                            : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37]'
-                        }`}
-                      >
-                        <div className="p-2.5 rounded-xl bg-[#E01E37]/15 text-[#E01E37] w-fit mb-3">
-                          <MapPin className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <div className="font-bold text-sm text-slate-900 dark:text-white">Inside the UAE</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Requires In-Country Status Amendment (AED 1,150)</div>
-                        </div>
-                      </motion.button>
-
-                      <motion.button
-                        whileHover={{ y: -3, scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => handleSelectLocation('outside')}
-                        className={`p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
-                          locationStatus === 'outside'
-                            ? 'bg-[#E01E37]/10 border-[#E01E37] text-slate-900 dark:text-white shadow-md'
-                            : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37]'
-                        }`}
-                      >
-                        <div className="p-2.5 rounded-xl bg-blue-500/15 text-blue-500 w-fit mb-3">
-                          <MapPin className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <div className="font-bold text-sm text-slate-900 dark:text-white">Outside the UAE</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Standard digital entry permit issuance</div>
-                        </div>
-                      </motion.button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 4: ITEMISED COST BREAKDOWN & UTILITY ACTION BAR */}
-                {step === 4 && (
-                  <motion.div
-                    key="step4"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.25 }}
-                    className="space-y-6"
-                  >
-                    {/* Selected Summary Badge */}
-                    <div className="flex items-center justify-between text-xs font-mono bg-slate-100 dark:bg-white/5 p-3 rounded-xl border border-slate-200 dark:border-white/10">
-                      <span className="font-bold text-slate-900 dark:text-white">{getCategoryLabel()}</span>
-                      <span className="text-[#E01E37] font-semibold">
-                        {locationStatus === 'inside' ? 'Inside UAE Status' : 'Outside UAE Status'}
-                      </span>
-                    </div>
-
-                    {/* Itemized Table */}
-                    <div className="p-5 rounded-2xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 space-y-3">
-                      <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 pb-2 border-b border-slate-200 dark:border-white/10">
-                        <span>FEE BREAKDOWN ITEM</span>
-                        <span>AMOUNT</span>
-                      </div>
-
-                      <div className="space-y-2 text-xs font-mono text-slate-700 dark:text-slate-300">
-                        <div className="flex justify-between">
-                          <span>Statutory Government Tariff</span>
-                          <span>AED {costs.govTariff.toLocaleString()}</span>
-                        </div>
-
-                        {costs.statusChangeFee > 0 && (
-                          <div className="flex justify-between text-purple-600 dark:text-purple-400">
-                            <span>In-Country Status Amendment</span>
-                            <span>AED {costs.statusChangeFee.toLocaleString()}</span>
-                          </div>
-                        )}
-
-                        <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                          <span>Advisory Retainer Fee</span>
-                          <span>AED {costs.advisoryRetainer.toLocaleString()}</span>
-                        </div>
-
-                        <div className="flex justify-between pt-3 border-t border-slate-200 dark:border-white/10 font-bold text-sm text-slate-900 dark:text-white">
-                          <span>TOTAL ESTIMATED INVESTMENT</span>
-                          <span className="text-[#E01E37]">AED {costs.grandTotal.toLocaleString()} (~${costs.usdTotal})</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Utility Action Bar */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                      
-                      {/* Button 1: Copy Quote */}
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={handleCopyQuote}
-                        className="py-3 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                      >
-                        {isCopied ? (
-                          <>
-                            <Check className="w-4 h-4 text-emerald-500" />
-                            <span className="text-emerald-500">Copied!</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                            <span>Copy Breakdown</span>
-                          </>
-                        )}
-                      </motion.button>
-
-                      {/* Button 2: Share Quote */}
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={handleShareQuote}
-                        className="py-3 px-4 bg-[#E01E37] hover:bg-[#B81A2C] text-white rounded-2xl text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-md shadow-[#E01E37]/20 cursor-pointer"
-                      >
-                        <Share2 className="w-4 h-4" />
-                        <span>Share Quote</span>
-                      </motion.button>
-
-                      {/* Button 3: Recalculate */}
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={resetWizard}
-                        className="py-3 px-4 bg-transparent hover:bg-[#E01E37]/10 text-[#E01E37] border border-[#E01E37]/20 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                      >
-                        <RotateCcw className="w-4 h-4" />
-                        <span>Recalculate</span>
-                      </motion.button>
-
-                    </div>
-                  </motion.div>
-                )}
-
-              </AnimatePresence>
-            </div>
-
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          )}
+        </div>
+      </motion.div>
+    </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import WhatsAppIcon from './WhatsAppIcon';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
@@ -10,7 +11,6 @@ import {
   CreditCard,
   ChevronRight,
   Calculator,
-  MessageSquare,
   FileText,
   Building2,
   CheckCircle2,
@@ -328,7 +328,7 @@ export default function ServicesMegaMenu({
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-display font-bold text-xs sm:text-sm py-3 rounded-xl transition-all shadow-md shadow-emerald-600/20"
                 >
-                  <MessageSquare className="w-4 h-4 fill-white" />
+                  <WhatsAppIcon className="w-4 h-4 fill-white" />
                   <span>WhatsApp</span>
                 </motion.a>
 

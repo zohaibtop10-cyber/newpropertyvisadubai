@@ -1,5 +1,6 @@
 import React from 'react';
-import { Calculator, MessageSquare } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
+import { Calculator } from 'lucide-react';
 import { siteConfig } from '../data/propertyVisaData';
 
 export default function MobileFooter({  onOpenCalculator , cmsConfig }) {
@@ -22,7 +23,7 @@ export default function MobileFooter({  onOpenCalculator , cmsConfig }) {
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-semibold text-xs transition-all shadow-md shadow-emerald-600/30"
         >
-          <MessageSquare className="w-4 h-4" />
+          <WhatsAppIcon className="w-4 h-4" />
           <span>Chat with Expert</span>
         </a>
       </div>

@@ -4,19 +4,25 @@ const defaultSiteConfig = {
   operatorName: "800 DOCS LLC SOC",
   tagline: "Bring your family to the UAE without the paperwork headache.",
   subtagline: "Calculate your exact government fees in seconds, or text us on WhatsApp — a friendly visa specialist replies in minutes.",
-  phone: "800 DOCS (3627)",
-  phoneRaw: "+9718003627",
-  whatsapp: "+971 50 123 4567",
-  whatsappRaw: "971501234567",
-  email: "info@familyvisa.ae",
+  phone: "+971 56 655 6645",
+  phoneRaw: "+971566556645",
+  whatsapp: "+971 56 655 6645",
+  whatsappRaw: "971566556645",
+  email: "info@brightlinkconsulting.ae",
   officeHours: "Mon-Sat: 8:00 AM - 8:00 PM GST",
   address: "709 Business Village B Block, Next to Clock Tower, Port Saeed, Deira, Dubai, UAE",
-  accreditation: "800 DOCS LLC SOC — Official Document Clearing Services",
+  accreditation: "Brightlink Management Consultancy",
   officialPortals: [
     { name: "ICP Official Portal", url: "https://icp.gov.ae", label: "icp.gov.ae" },
     { name: "GDRFA Dubai Portal", url: "https://www.gdrfad.gov.ae", label: "gdrfad.gov.ae" },
     { name: "UAE Government Portal", url: "https://u.ae", label: "u.ae" }
   ],
+  socialLinks: {
+    facebook: "https://www.facebook.com/brightlinkconsulting.uae/",
+    twitter: "https://twitter.com/BRIGHTLINKCONS1",
+    instagram: "https://www.instagram.com/brightlink.consulting/",
+    linkedin: "https://www.linkedin.com/company/brightlink-management-consultancy/"
+  },
   languages: [
     { code: "EN", name: "English" },
     { code: "AR", name: "العربية" },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import WhatsAppIcon from './WhatsAppIcon';
 import { motion } from 'framer-motion';
-import { FileCheck, CheckCircle2, MessageSquare } from 'lucide-react';
+import { FileCheck, CheckCircle2 } from 'lucide-react';
 import { siteConfig } from '../data/cmsData';
 
 export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
@@ -164,7 +165,7 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
             rel="noopener noreferrer"
             className="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md flex items-center justify-center gap-2"
           >
-            <MessageSquare className="w-4 h-4" /> Send Scans via WhatsApp
+            <WhatsAppIcon className="w-4 h-4" /> Send Scans via WhatsApp
           </motion.a>
 
           <motion.button

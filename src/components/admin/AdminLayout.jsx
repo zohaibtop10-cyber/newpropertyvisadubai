@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Layout, FileText, Star, Settings, LogOut, Globe, CheckCircle2, Move
+  Layout, FileText, Star, Settings, LogOut, Globe, CheckCircle2, Move, MousePointerClick
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -14,6 +14,7 @@ export default function AdminLayout({
   const cmsNavItems = [
     { id: 'homepage', label: 'Homepage CMS', icon: Layout, description: 'Hero copy & main settings' },
     { id: 'settings', label: 'Footer & Info CMS', icon: Settings, description: 'Phone, Email, Address, Social Media & Footer' },
+    { id: 'marquee', label: 'Top Header Ticker CMS', icon: Globe, description: 'Manage top announcements ticker' },
     { id: 'reorder', label: 'Navbar CMS', icon: Move, description: 'Reorder sections & edit Navbar links' },
     { id: 'pages', label: 'Pages CMS', icon: Globe, description: 'Edit all inner pages: About, Contact, Checklist' },
     { id: 'services', label: 'Service Pages CMS', icon: FileText, description: 'Fees, requirements & FAQs for services' },
@@ -25,11 +26,14 @@ export default function AdminLayout({
     { id: 'whyus', label: 'Why Families Choose Us CMS', icon: Layout, description: 'The EmiratesPrime advantage' },
     { id: 'process', label: 'Process CMS', icon: Layout, description: 'Step-by-step SLA workflow' },
     { id: 'faqs', label: 'FAQs CMS', icon: Layout, description: 'Frequently asked questions' },
-    { id: 'cta', label: 'CTA CMS', icon: Layout, description: 'Final call to action banner' }
+    { id: 'cta', label: 'CTA CMS', icon: Layout, description: 'Final call to action banner' },
+    { id: 'buttons', label: 'Buttons CMS', icon: MousePointerClick, description: 'Global action buttons' }
   ];
 
   const getActiveTitle = () => {
     switch (activeModule) {
+      case 'marquee':
+        return 'Top Header Ticker CMS';
       case 'reorder':
         return 'Homepage Section & Navbar Manager';
       case 'services':

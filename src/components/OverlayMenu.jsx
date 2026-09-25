@@ -1,4 +1,5 @@
 import React from 'react';
+import WhatsAppIcon from './WhatsAppIcon';
 import {
   X,
   Heart,
@@ -9,7 +10,6 @@ import {
   FileText,
   Calculator,
   Phone,
-  MessageSquare,
   BookOpen,
   ArrowRight,
   ShieldCheck,
@@ -203,7 +203,7 @@ export default function OverlayMenu({
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-xl text-xs font-medium transition-colors"
                 >
-                  <MessageSquare className="w-3.5 h-3.5" />
+                  <WhatsAppIcon className="w-3.5 h-3.5" />
                   <span>WhatsApp Senior Advisor</span>
                 </a>
               </div>

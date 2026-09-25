@@ -1,29 +1,99 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Terminal, FileText, Sparkles, 
-  Search, Share2, Save 
+  Search, Share2, Save, Plus, Trash2, CheckCircle2
 } from 'lucide-react';
 
-export default function BlogModule() {
-  const [title, setTitle] = useState('UAE Golden Visa Rules 2026: Complete Ministerial Guide');
-  const [summary, setSummary] = useState('Comprehensive analysis of Cabinet Resolution No. 65 on 10-year investor and family residency requirements in Dubai.');
-  const [contentMarkdown, setContentMarkdown] = useState('# UAE Golden Visa Framework 2026\n\nUnder recent Cabinet directives...');
-  const [metaTitle, setMetaTitle] = useState('UAE Golden Visa Requirements 2026 | Official Advisory Guide');
-  const [metaDesc, setMetaDesc] = useState('Learn how to secure a 10-Year UAE Golden Visa through real estate investment (AED 2M+) or commercial licensing. Step-by-step government procedure.');
-  const [category, setCategory] = useState('Golden Visa');
-  const [status, setStatus] = useState('PUBLISHED');
+export default function BlogModule({ cmsConfig, setCmsConfig }) {
+  const [blogs, setBlogs] = useState(
+    cmsConfig?.blogSection?.items || [
+      {
+        id: 'blog-1',
+        title: 'UAE Golden Visa Rules 2026: Complete Ministerial Guide',
+        summary: 'Comprehensive analysis of Cabinet Resolution No. 65 on 10-year investor and family residency requirements in Dubai.',
+        contentMarkdown: '# UAE Golden Visa Framework 2026\n\nUnder recent Cabinet directives...',
+        metaTitle: 'UAE Golden Visa Requirements 2026 | Official Advisory Guide',
+        metaDesc: 'Learn how to secure a 10-Year UAE Golden Visa through real estate investment (AED 2M+) or commercial licensing. Step-by-step government procedure.',
+        category: 'Golden Visa',
+        status: 'PUBLISHED'
+      }
+    ]
+  );
+
+  const [activeBlogId, setActiveBlogId] = useState(blogs[0]?.id || null);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+
+  const activeBlog = blogs.find(b => b.id === activeBlogId) || blogs[0];
+
+  // Helper to update active blog
+  const updateActiveBlog = (field, value) => {
+    setBlogs(blogs.map(b => b.id === activeBlogId ? { ...b, [field]: value } : b));
+  };
+
+  const handleAddBlog = () => {
+    const newBlog = {
+      id: `blog-${Date.now()}`,
+      title: 'New Editorial Article',
+      summary: 'Executive summary here...',
+      contentMarkdown: '# New Article\n\nWrite your content here...',
+      metaTitle: 'New Article | SEO Title',
+      metaDesc: 'Meta description for Google search results.',
+      category: 'Golden Visa',
+      status: 'DRAFT'
+    };
+    setBlogs([...blogs, newBlog]);
+    setActiveBlogId(newBlog.id);
+  };
+
+  const handleDeleteBlog = () => {
+    if (blogs.length <= 1) {
+      alert("You must have at least one article.");
+      return;
+    }
+    const filtered = blogs.filter(b => b.id !== activeBlogId);
+    setBlogs(filtered);
+    setActiveBlogId(filtered[0].id);
+  };
+
+  const handleSave = () => {
+    if (setCmsConfig) {
+      setCmsConfig(prev => ({
+        ...prev,
+        blogSection: {
+          ...prev?.blogSection,
+          items: blogs
+        }
+      }));
+    }
+
+    if (typeof window !== 'undefined') {
+      const currentConfig = cmsConfig || {};
+      const newConfig = {
+        ...currentConfig,
+        blogSection: {
+          ...currentConfig.blogSection,
+          items: blogs
+        }
+      };
+      localStorage.setItem('app_cms_config', JSON.stringify(newConfig));
+    }
+    setSaveSuccess(true);
+    setTimeout(() => setSaveSuccess(false), 3000);
+  };
+
+  if (!activeBlog) return null;
 
   // Real-Time SEO Calculators
-  const metaTitlePixelWidth = metaTitle.length * 9.2; // approx Google desktop px width (max 600px)
+  const metaTitlePixelWidth = (activeBlog.metaTitle || '').length * 9.2; // approx Google desktop px width (max 600px)
   const isTitleWidthOptimal = metaTitlePixelWidth >= 300 && metaTitlePixelWidth <= 580;
-  const isDescLengthOptimal = metaDesc.length >= 120 && metaDesc.length <= 160;
+  const isDescLengthOptimal = (activeBlog.metaDesc || '').length >= 120 && (activeBlog.metaDesc || '').length <= 160;
 
   // Real-Time JSON-LD Schema Generator
   const generatedJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": title,
-    "description": summary,
+    "headline": activeBlog.title,
+    "description": activeBlog.summary,
     "author": {
       "@type": "Organization",
       "name": "EmiratesPrime Sovereign Advisory"
@@ -37,6 +107,13 @@ export default function BlogModule() {
   return (
     <div className="space-y-6 animate-fadeIn">
       
+      {saveSuccess && (
+        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
+          <CheckCircle2 className="w-5 h-5 shrink-0" />
+          <span>Blog articles and SEO metadata published successfully!</span>
+        </div>
+      )}
+
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
         <div>
@@ -50,11 +127,48 @@ export default function BlogModule() {
         </div>
 
         <button
-          onClick={() => alert('Article and SEO metadata saved successfully!')}
-          className="px-5 py-2.5 bg-[#E01E37] hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-[#E01E37]/30 flex items-center gap-2 transition-all"
+          onClick={handleSave}
+          className="px-5 py-2.5 bg-[#E01E37] hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-[#E01E37]/30 flex items-center gap-2 transition-all cursor-pointer"
         >
-          <Save className="w-4 h-4" /> Publish Briefing & Deploy Schema
+          <Save className="w-4 h-4" /> Publish & Save Articles
         </button>
+      </div>
+
+      {/* Article Selector */}
+      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-1">
+            SELECT ARTICLE TO EDIT
+          </label>
+          <select
+            value={activeBlogId || ''}
+            onChange={(e) => setActiveBlogId(e.target.value)}
+            className="bg-slate-950 border border-slate-800 text-white font-bold text-sm rounded-2xl p-3 focus:outline-none focus:border-[#E01E37] cursor-pointer min-w-[320px] max-w-full"
+          >
+            {blogs.map(b => (
+              <option key={b.id} value={b.id} className="bg-slate-900 text-white">
+                {b.status === 'PUBLISHED' ? '🟢 ' : '🟠 '} {b.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={handleAddBlog}
+            className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <Plus className="w-4 h-4" /> New Article
+          </button>
+          <button
+            type="button"
+            onClick={handleDeleteBlog}
+            className="px-4 py-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <Trash2 className="w-4 h-4" /> Delete
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -73,8 +187,8 @@ export default function BlogModule() {
                 <label className="block text-slate-400 font-mono mb-1">Article Title</label>
                 <input
                   type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={activeBlog.title || ''}
+                  onChange={(e) => updateActiveBlog('title', e.target.value)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-100 font-bold text-sm focus:outline-none focus:border-[#E01E37]"
                 />
               </div>
@@ -83,9 +197,9 @@ export default function BlogModule() {
                 <div>
                   <label className="block text-slate-400 font-mono mb-1">Taxonomy Category</label>
                   <select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-200 font-semibold focus:outline-none"
+                    value={activeBlog.category || 'Golden Visa'}
+                    onChange={(e) => updateActiveBlog('category', e.target.value)}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-200 font-semibold focus:outline-none cursor-pointer"
                   >
                     <option value="Golden Visa">Golden Visa</option>
                     <option value="Mainland LLC">Mainland LLC</option>
@@ -97,9 +211,9 @@ export default function BlogModule() {
                 <div>
                   <label className="block text-slate-400 font-mono mb-1">Publication Status</label>
                   <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-200 font-semibold focus:outline-none"
+                    value={activeBlog.status || 'DRAFT'}
+                    onChange={(e) => updateActiveBlog('status', e.target.value)}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-200 font-semibold focus:outline-none cursor-pointer"
                   >
                     <option value="DRAFT">Draft</option>
                     <option value="SCHEDULED">Scheduled</option>
@@ -112,8 +226,8 @@ export default function BlogModule() {
                 <label className="block text-slate-400 font-mono mb-1">Executive Summary / Excerpt</label>
                 <textarea
                   rows={2}
-                  value={summary}
-                  onChange={(e) => setSummary(e.target.value)}
+                  value={activeBlog.summary || ''}
+                  onChange={(e) => updateActiveBlog('summary', e.target.value)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-300 focus:outline-none focus:border-[#E01E37]"
                 />
               </div>
@@ -122,8 +236,8 @@ export default function BlogModule() {
                 <label className="block text-slate-400 font-mono mb-1">Markdown Body Content</label>
                 <textarea
                   rows={10}
-                  value={contentMarkdown}
-                  onChange={(e) => setContentMarkdown(e.target.value)}
+                  value={activeBlog.contentMarkdown || ''}
+                  onChange={(e) => updateActiveBlog('contentMarkdown', e.target.value)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 font-mono text-slate-200 focus:outline-none focus:border-[#E01E37]"
                 />
               </div>
@@ -152,8 +266,8 @@ export default function BlogModule() {
               </div>
               <input
                 type="text"
-                value={metaTitle}
-                onChange={(e) => setMetaTitle(e.target.value)}
+                value={activeBlog.metaTitle || ''}
+                onChange={(e) => updateActiveBlog('metaTitle', e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-slate-200 text-xs font-medium focus:outline-none focus:border-[#E01E37]"
               />
               <div className="h-1.5 bg-slate-950 rounded-full overflow-hidden">
@@ -169,13 +283,13 @@ export default function BlogModule() {
               <div className="flex justify-between font-mono text-[11px]">
                 <span className="text-slate-400">Meta Description Length:</span>
                 <span className={`font-bold ${isDescLengthOptimal ? 'text-emerald-400' : 'text-amber-400'}`}>
-                  {metaDesc.length} / 160 chars
+                  {(activeBlog.metaDesc || '').length} / 160 chars
                 </span>
               </div>
               <textarea
                 rows={3}
-                value={metaDesc}
-                onChange={(e) => setMetaDesc(e.target.value)}
+                value={activeBlog.metaDesc || ''}
+                onChange={(e) => updateActiveBlog('metaDesc', e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]"
               />
             </div>
@@ -189,12 +303,12 @@ export default function BlogModule() {
 
             <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-md">
               <div className="h-28 bg-gradient-to-tr from-[#E01E37] to-slate-900 flex items-center justify-center font-bold text-white text-sm p-4 text-center">
-                {title}
+                {activeBlog.title}
               </div>
               <div className="p-3 space-y-1">
                 <div className="text-[10px] font-mono text-slate-500 uppercase">familyvisa.ae • 2 min read</div>
-                <div className="font-bold text-white text-xs line-clamp-1">{metaTitle}</div>
-                <div className="text-[11px] text-slate-400 line-clamp-2">{metaDesc}</div>
+                <div className="font-bold text-white text-xs line-clamp-1">{activeBlog.metaTitle}</div>
+                <div className="text-[11px] text-slate-400 line-clamp-2">{activeBlog.metaDesc}</div>
               </div>
             </div>
           </div>
@@ -202,7 +316,7 @@ export default function BlogModule() {
           {/* Generated JSON-LD Schema Box */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase text-slate-400 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-purple-400" /> JSON-LD Schema Markup (Auto-Generated)
+              <Sparkles className="w-4 h-4 text-purple-400" /> JSON-LD Schema
             </h3>
             <pre className="bg-slate-950 p-3 rounded-xl text-[10px] font-mono text-slate-300 overflow-x-auto max-h-40 border border-slate-800">
               {generatedJsonLd}

@@ -172,15 +172,36 @@ export default function App() {
     <TranslationProvider language={language} setLanguage={setLanguage}>
       <div className={`min-h-screen transition-colors duration-200 ${
         theme === 'dark' ? 'bg-[#0A0A0A] text-slate-100 dark' : 'bg-slate-50 text-slate-900'
-      } font-sans antialiased relative overflow-x-hidden selection:bg-[#E01E37] selection:text-white`}>
+      } font-sans antialiased relative overflow-x-clip selection:bg-[var(--primary-color)] selection:text-white`}>
+
+      <style>
+        {`
+          :root {
+            --primary-color: ${cmsConfig?.global?.theme?.primaryColor || '#E01E37'};
+            --font-family: ${cmsConfig?.global?.theme?.fontFamily || '"Inter", system-ui, -apple-system, sans-serif'};
+            --button-radius: ${cmsConfig?.global?.theme?.buttonRadius || '9999px'};
+          }
+          body, .font-sans, .font-display, h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-family) !important;
+          }
+          /* Apply Primary Color overrides to static Tailwind utility classes */
+          .bg-\\[\\#E01E37\\] { background-color: var(--primary-color) !important; }
+          .text-\\[\\#E01E37\\] { color: var(--primary-color) !important; }
+          .border-\\[\\#E01E37\\] { border-color: var(--primary-color) !important; }
+          .from-\\[\\#E01E37\\]\\/15 { --tw-gradient-from: var(--primary-color) var(--tw-gradient-from-position); }
+          .to-\\[\\#E01E37\\]\\/5 { --tw-gradient-to: var(--primary-color) var(--tw-gradient-to-position); }
+          
+          /* Apply Button Radius */
+          button, .rounded-full {
+            border-radius: var(--button-radius) !important;
+          }
+        `}
+      </style>
       
       {/* Dynamic Theme Glow Backgrounds */}
-      {theme === 'dark' && (
-        <>
-          <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#E01E37]/10 rounded-full blur-[140px] pointer-events-none z-0" />
-          <div className="fixed bottom-0 right-0 w-[600px] h-[600px] bg-[#E01E37]/5 rounded-full blur-[160px] pointer-events-none z-0" />
-        </>
-      )}
+      <div className={`fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] rounded-full blur-[140px] pointer-events-none z-0 ${theme === 'dark' ? 'bg-[#E01E37]/10' : 'bg-[#E01E37]/[0.03]'}`} />
+      <div className={`fixed bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[160px] pointer-events-none z-0 ${theme === 'dark' ? 'bg-[#E01E37]/5' : 'bg-[#E01E37]/[0.02]'}`} />
+      <div className={`fixed top-1/2 left-0 w-[500px] h-[500px] rounded-full blur-[150px] pointer-events-none z-0 ${theme === 'dark' ? 'bg-blue-500/5' : 'bg-blue-500/[0.02]'}`} />
 
       {/* Global Header Navigation */}
       <Navbar
@@ -221,9 +242,7 @@ export default function App() {
           />
         )}
 
-        {activeView === 'contact' && (
-          <ContactPage cmsConfig={cmsConfig} />
-        )}
+
 
         {activeView === 'privacy' && (
           <TermsPage cmsConfig={cmsConfig} />

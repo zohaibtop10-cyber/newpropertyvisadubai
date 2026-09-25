@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import WhatsAppIcon from './WhatsAppIcon';
 import {
   CheckCircle2,
   FileText,
@@ -6,7 +7,6 @@ import {
   HelpCircle,
   Calculator,
   Lock,
-  MessageSquare,
   Users
 } from 'lucide-react';
 import { visaServices, siteConfig } from '../data/propertyVisaData';
@@ -87,7 +87,7 @@ export default function ServiceTemplate({
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-lg shadow-emerald-600/30"
               >
-                <MessageSquare className="w-4 h-4" />
+                <WhatsAppIcon className="w-4 h-4" />
                 <span>WhatsApp DLD Advisor</span>
               </a>
             </div>

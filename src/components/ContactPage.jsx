@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, MessageSquare, Clock, ShieldCheck, CheckCircle2, Lock } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
+import { Phone, Mail, MapPin, Clock, ShieldCheck, CheckCircle2, Lock } from 'lucide-react';
 import { siteConfig } from '../data/cmsData';
 
 export default function ContactPage({ cmsConfig }) {
@@ -78,7 +79,7 @@ export default function ContactPage({ cmsConfig }) {
               </div>
 
               <div className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
-                <MessageSquare className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                <WhatsAppIcon className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
                 <div>
                   <div className="font-semibold text-slate-900 dark:text-white text-sm">WhatsApp Direct Desk</div>
                   <a

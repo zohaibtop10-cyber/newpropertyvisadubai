@@ -176,35 +176,60 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
         </div>
 
         <div className="space-y-4">
-          {testimonials.map((review) => (
-            <div key={review.id} className="p-5 bg-slate-950 border border-slate-800 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-slate-900 text-[#E01E37]">
-                    <User className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="font-bold text-white text-base">{review.name}</span>
-                    <span className="text-xs font-mono text-slate-400 ml-2">• {review.visaType}</span>
-                  </div>
+          {testimonials.map((review, idx) => (
+            <div key={review.id} className="p-5 bg-slate-950 border border-slate-800 rounded-2xl space-y-4 relative group">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-[#E01E37]">REVIEW #{idx + 1}</span>
+                <div className="flex items-center gap-1.5">
+                  <button type="button" disabled={idx === 0} onClick={() => { const u = [...testimonials]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setTestimonials(u); syncToCms(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                  <button type="button" disabled={idx === testimonials.length - 1} onClick={() => { const u = [...testimonials]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setTestimonials(u); syncToCms(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === testimonials.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                  <button type="button" onClick={() => handleDeleteReview(review.id)} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                 </div>
-
-                <div className="flex items-center gap-1 text-amber-400">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
-                </div>
-
-                <p className="text-slate-300 text-sm italic">"{review.quote}"</p>
               </div>
 
-              <button
-                type="button"
-                onClick={() => handleDeleteReview(review.id)}
-                className="px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-xl text-xs font-bold transition-colors cursor-pointer shrink-0 flex items-center gap-1.5 self-start sm:self-center"
-              >
-                <Trash2 className="w-4 h-4" /> Delete Review
-              </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input 
+                  type="text" 
+                  value={review.name} 
+                  onChange={(e) => { const u = [...testimonials]; u[idx].name = e.target.value; setTestimonials(u); syncToCms(u); }} 
+                  className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" 
+                  placeholder="Client Name"
+                />
+                <select
+                  value={review.visaType}
+                  onChange={(e) => { const u = [...testimonials]; u[idx].visaType = e.target.value; setTestimonials(u); syncToCms(u); }}
+                  className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs font-semibold focus:outline-none focus:border-[#E01E37] cursor-pointer"
+                >
+                  <option value="10-Year Golden Visa">10-Year Golden Visa</option>
+                  <option value="Spouse Residency Visa">Spouse Residency Visa</option>
+                  <option value="Property Investor Visa">Property Investor Visa</option>
+                  <option value="Parents Residency Visa">Parents Residency Visa</option>
+                  <option value="Newborn Baby Clearance">Newborn Baby Clearance</option>
+                </select>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <label className="text-[10px] uppercase font-bold text-slate-500 shrink-0">Rating:</label>
+                <select
+                  value={review.rating}
+                  onChange={(e) => { const u = [...testimonials]; u[idx].rating = Number(e.target.value); setTestimonials(u); syncToCms(u); }}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-amber-400 font-bold text-xs focus:outline-none focus:border-[#E01E37] cursor-pointer"
+                >
+                  <option value={5}>5 Stars (★★★★★)</option>
+                  <option value={4}>4 Stars (★★★★☆)</option>
+                  <option value={3}>3 Stars (★★★☆☆)</option>
+                  <option value={2}>2 Stars (★★☆☆☆)</option>
+                  <option value={1}>1 Star (★☆☆☆☆)</option>
+                </select>
+              </div>
+
+              <textarea 
+                rows={2} 
+                value={review.quote} 
+                onChange={(e) => { const u = [...testimonials]; u[idx].quote = e.target.value; setTestimonials(u); syncToCms(u); }} 
+                className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs italic focus:outline-none focus:border-[#E01E37]"
+                placeholder="Review quote..."
+              />
             </div>
           ))}
         </div>

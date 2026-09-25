@@ -600,3 +600,31 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ================================================
+   MARQUEE ANIMATION
+   ================================================ */
+
+.marquee-container {
+  overflow: hidden;
+  display: flex;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  /* The track contains 2 sets of items. We translate exactly 50% to loop. */
+  animation: marquee 40s linear infinite;
+  padding-left: 1.5rem;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(calc(-50% - 0.75rem)); }
+}
+
+.marquee-container:hover .marquee-track {
+  animation-play-state: paused;
+}

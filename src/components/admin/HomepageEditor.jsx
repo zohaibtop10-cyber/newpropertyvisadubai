@@ -372,21 +372,30 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
               <div className="space-y-4">
                 {achievementsList.map((ach, idx) => (
-                  <div key={ach.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
+                  <div key={ach.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-bold text-amber-400">ACHIEVEMENT ITEM #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
                         <button type="button" disabled={idx === 0} onClick={() => { const u = [...achievementsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
                         <button type="button" disabled={idx === achievementsList.length - 1} onClick={() => { const u = [...achievementsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === achievementsList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...achievementsList]; u.splice(idx, 1); setAchievementsList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={ach.title} onChange={(e) => { const u = [...achievementsList]; u[idx].title = e.target.value; setAchievementsList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold" />
-                      <input type="text" value={ach.badge} onChange={(e) => { const u = [...achievementsList]; u[idx].badge = e.target.value; setAchievementsList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs font-bold" />
+                      <input type="text" value={ach.title} onChange={(e) => { const u = [...achievementsList]; u[idx].title = e.target.value; setAchievementsList(u); }} placeholder="Achievement Title" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
+                      <input type="text" value={ach.badge} onChange={(e) => { const u = [...achievementsList]; u[idx].badge = e.target.value; setAchievementsList(u); }} placeholder="Badge (e.g. GOLD AWARD)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
                     </div>
-                    <textarea rows={2} value={ach.desc} onChange={(e) => { const u = [...achievementsList]; u[idx].desc = e.target.value; setAchievementsList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                    <textarea rows={2} value={ach.desc} onChange={(e) => { const u = [...achievementsList]; u[idx].desc = e.target.value; setAchievementsList(u); }} placeholder="Achievement Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
                   </div>
                 ))}
+                
+                <button
+                  type="button"
+                  onClick={() => setAchievementsList([...achievementsList, { id: `ach-${Date.now()}`, title: 'New Achievement', badge: 'NEW BADGE', desc: 'New description' }])}
+                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Achievement
+                </button>
               </div>
             </div>
           </div>
@@ -413,21 +422,35 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
               <div className="space-y-4">
                 {problemsList.map((prb, idx) => (
-                  <div key={prb.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
+                  <div key={prb.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-rose-400">CARD #{idx + 1}</span>
+                      <span className="text-xs font-mono font-bold text-rose-400">PROBLEM CARD #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
                         <button type="button" disabled={idx === 0} onClick={() => { const u = [...problemsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
                         <button type="button" disabled={idx === problemsList.length - 1} onClick={() => { const u = [...problemsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === problemsList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...problemsList]; u.splice(idx, 1); setProblemsList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={prb.problemTitle} onChange={(e) => { const u = [...problemsList]; u[idx].problemTitle = e.target.value; setProblemsList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-rose-300 font-bold text-xs" />
-                      <input type="text" value={prb.solutionTitle} onChange={(e) => { const u = [...problemsList]; u[idx].solutionTitle = e.target.value; setProblemsList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-emerald-400 font-bold text-xs" />
+                    <div className="grid grid-cols-1 gap-3">
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] uppercase font-bold text-slate-500">The Problem</label>
+                        <input type="text" value={prb.problemTitle} onChange={(e) => { const u = [...problemsList]; u[idx].problemTitle = e.target.value; setProblemsList(u); }} placeholder="The pain point..." className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-rose-300 font-bold text-xs focus:outline-none focus:border-rose-500" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] uppercase font-bold text-slate-500">The Solution</label>
+                        <input type="text" value={prb.solutionTitle} onChange={(e) => { const u = [...problemsList]; u[idx].solutionTitle = e.target.value; setProblemsList(u); }} placeholder="How we solve it..." className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-emerald-400 font-bold text-xs focus:outline-none focus:border-emerald-500" />
+                      </div>
                     </div>
-                    <textarea rows={2} value={prb.desc} onChange={(e) => { const u = [...problemsList]; u[idx].desc = e.target.value; setProblemsList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-200 text-xs" />
                   </div>
                 ))}
+
+                <button
+                  type="button"
+                  onClick={() => setProblemsList([...problemsList, { id: `prb-${Date.now()}`, problemTitle: 'New Problem', solutionTitle: 'New Solution', desc: '' }])}
+                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Problem
+                </button>
               </div>
             </div>
           </div>
@@ -460,17 +483,29 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
               <div className="space-y-4">
                 <label className="block text-xs font-bold text-slate-300 mb-2">Categorized Services Items</label>
                 {servicesList.map((srv, idx) => (
-                  <div key={srv.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
+                  <div key={srv.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-bold text-cyan-400">SERVICE #{idx + 1}</span>
+                      <div className="flex items-center gap-1.5">
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...servicesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === servicesList.length - 1} onClick={() => { const u = [...servicesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === servicesList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...servicesList]; u.splice(idx, 1); setServicesList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                      </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={srv.title} onChange={(e) => { const u = [...servicesList]; u[idx].title = e.target.value; setServicesList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold" />
-                      <input type="text" value={srv.tag} onChange={(e) => { const u = [...servicesList]; u[idx].tag = e.target.value; setServicesList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs" />
+                      <input type="text" value={srv.title} onChange={(e) => { const u = [...servicesList]; u[idx].title = e.target.value; setServicesList(u); }} placeholder="Service Title" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
+                      <input type="text" value={srv.tag} onChange={(e) => { const u = [...servicesList]; u[idx].tag = e.target.value; setServicesList(u); }} placeholder="Tag (e.g. Visa)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-[#E01E37]" />
                     </div>
-                    <textarea rows={2} value={srv.desc} onChange={(e) => { const u = [...servicesList]; u[idx].desc = e.target.value; setServicesList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                    <textarea rows={2} value={srv.desc} onChange={(e) => { const u = [...servicesList]; u[idx].desc = e.target.value; setServicesList(u); }} placeholder="Service Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
                   </div>
                 ))}
+                <button
+                  type="button"
+                  onClick={() => setServicesList([...servicesList, { id: `srv-${Date.now()}`, title: 'New Service', tag: 'Category', desc: 'Description', category: 'visas' }])}
+                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Service
+                </button>
               </div>
             </div>
           </div>
@@ -503,18 +538,30 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
               <div className="space-y-4">
                 <label className="block text-xs font-bold text-slate-300 mb-2">Retainer Packages Items</label>
                 {packagesList.map((pkg, idx) => (
-                  <div key={pkg.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
+                  <div key={pkg.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-bold text-purple-400">PACKAGE #{idx + 1}</span>
+                      <div className="flex items-center gap-1.5">
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...packagesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === packagesList.length - 1} onClick={() => { const u = [...packagesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === packagesList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...packagesList]; u.splice(idx, 1); setPackagesList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                      </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={pkg.name} onChange={(e) => { const u = [...packagesList]; u[idx].name = e.target.value; setPackagesList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold" />
-                      <input type="text" value={pkg.fee} onChange={(e) => { const u = [...packagesList]; u[idx].fee = e.target.value; setPackagesList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-emerald-400 font-mono text-xs font-bold" />
+                      <input type="text" value={pkg.name} onChange={(e) => { const u = [...packagesList]; u[idx].name = e.target.value; setPackagesList(u); }} placeholder="Package Name" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
+                      <input type="text" value={pkg.fee} onChange={(e) => { const u = [...packagesList]; u[idx].fee = e.target.value; setPackagesList(u); }} placeholder="Fee (e.g. 5,000 AED)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-emerald-400 font-mono text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
                     </div>
-                    <input type="text" value={pkg.tagline} onChange={(e) => { const u = [...packagesList]; u[idx].tagline = e.target.value; setPackagesList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
-                    <textarea rows={2} value={pkg.features.join(', ')} onChange={(e) => { const u = [...packagesList]; u[idx].features = e.target.value.split(',').map(s=>s.trim()); setPackagesList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" placeholder="Comma separated features" />
+                    <input type="text" value={pkg.tagline} onChange={(e) => { const u = [...packagesList]; u[idx].tagline = e.target.value; setPackagesList(u); }} placeholder="Package Tagline" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
+                    <textarea rows={2} value={pkg.features.join(', ')} onChange={(e) => { const u = [...packagesList]; u[idx].features = e.target.value.split(',').map(s=>s.trim()); setPackagesList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" placeholder="Comma separated features" />
                   </div>
                 ))}
+                <button
+                  type="button"
+                  onClick={() => setPackagesList([...packagesList, { id: `pkg-${Date.now()}`, name: 'New Package', fee: 'Custom', tagline: 'A great choice', features: ['Feature 1', 'Feature 2'], isPopular: false }])}
+                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Package
+                </button>
               </div>
             </div>
           </div>
@@ -547,14 +594,26 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
               <div className="space-y-4">
                 <label className="block text-xs font-bold text-slate-300 mb-2">Why Us Feature Points</label>
                 {whyUsList.map((wu, idx) => (
-                  <div key={wu.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
+                  <div key={wu.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-bold text-emerald-400">FEATURE #{idx + 1}</span>
+                      <div className="flex items-center gap-1.5">
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...whyUsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === whyUsList.length - 1} onClick={() => { const u = [...whyUsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === whyUsList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...whyUsList]; u.splice(idx, 1); setWhyUsList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                      </div>
                     </div>
-                    <input type="text" value={wu.title} onChange={(e) => { const u = [...whyUsList]; u[idx].title = e.target.value; setWhyUsList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold" />
-                    <textarea rows={2} value={wu.desc} onChange={(e) => { const u = [...whyUsList]; u[idx].desc = e.target.value; setWhyUsList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                    <input type="text" value={wu.title} onChange={(e) => { const u = [...whyUsList]; u[idx].title = e.target.value; setWhyUsList(u); }} placeholder="Feature Title" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
+                    <textarea rows={2} value={wu.desc} onChange={(e) => { const u = [...whyUsList]; u[idx].desc = e.target.value; setWhyUsList(u); }} placeholder="Feature Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
                   </div>
                 ))}
+                <button
+                  type="button"
+                  onClick={() => setWhyUsList([...whyUsList, { id: `wu-${Date.now()}`, title: 'New Feature', desc: 'Description of the feature' }])}
+                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Feature
+                </button>
               </div>
             </div>
           </div>
@@ -587,17 +646,29 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
               <div className="space-y-4">
                 <label className="block text-xs font-bold text-slate-300 mb-2">Workflow Steps</label>
                 {processList.map((stp, idx) => (
-                  <div key={stp.step} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
+                  <div key={stp.step} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-bold text-indigo-400">STEP {stp.step}</span>
+                      <div className="flex items-center gap-1.5">
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...processList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === processList.length - 1} onClick={() => { const u = [...processList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === processList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...processList]; u.splice(idx, 1); setProcessList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                      </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={stp.title} onChange={(e) => { const u = [...processList]; u[idx].title = e.target.value; setProcessList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold" />
-                      <input type="text" value={stp.time} onChange={(e) => { const u = [...processList]; u[idx].time = e.target.value; setProcessList(u); }} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs" />
+                      <input type="text" value={stp.title} onChange={(e) => { const u = [...processList]; u[idx].title = e.target.value; setProcessList(u); }} placeholder="Step Title" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
+                      <input type="text" value={stp.time} onChange={(e) => { const u = [...processList]; u[idx].time = e.target.value; setProcessList(u); }} placeholder="Duration (e.g. Day 1)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-[#E01E37]" />
                     </div>
-                    <textarea rows={2} value={stp.desc} onChange={(e) => { const u = [...processList]; u[idx].desc = e.target.value; setProcessList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                    <textarea rows={2} value={stp.desc} onChange={(e) => { const u = [...processList]; u[idx].desc = e.target.value; setProcessList(u); }} placeholder="Step Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
                   </div>
                 ))}
+                <button
+                  type="button"
+                  onClick={() => setProcessList([...processList, { step: String(processList.length + 1), title: 'New Step', time: 'Day X', desc: 'Description' }])}
+                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Step
+                </button>
               </div>
             </div>
           </div>

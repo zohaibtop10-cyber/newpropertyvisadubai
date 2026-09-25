@@ -28,6 +28,11 @@ export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
   const [navAbout, setNavAbout] = useState(cmsConfig?.global?.nav?.about || 'About Us');
   const [navContact, setNavContact] = useState(cmsConfig?.global?.nav?.contact || 'Contact');
 
+  // Theme & Branding
+  const [primaryColor, setPrimaryColor] = useState(cmsConfig?.global?.theme?.primaryColor || '#E01E37');
+  const [fontFamily, setFontFamily] = useState(cmsConfig?.global?.theme?.fontFamily || '"Inter", system-ui, -apple-system, sans-serif');
+  const [buttonRadius, setButtonRadius] = useState(cmsConfig?.global?.theme?.buttonRadius || '9999px');
+
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   const handleSave = (e) => {
@@ -43,7 +48,8 @@ export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
       licenseNumber: accreditation,
       footerDisclaimer: disclaimer,
       social: { facebook, instagram, linkedin },
-      nav: { home: navHome, services: navServices, visas: navVisas, emiratesId: navEmiratesId, corporate: navCorporate, guides: navGuides, about: navAbout, contact: navContact }
+      nav: { home: navHome, services: navServices, visas: navVisas, emiratesId: navEmiratesId, corporate: navCorporate, guides: navGuides, about: navAbout, contact: navContact },
+      theme: { primaryColor, fontFamily, buttonRadius }
     };
 
     if (setCmsConfig) {
@@ -75,6 +81,66 @@ export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
 
       <form onSubmit={handleSave} className="space-y-8">
         
+        {/* Theme & UI Branding Card */}
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
+            <div className="p-3 rounded-2xl bg-fuchsia-500/15 text-fuchsia-500">
+              <Settings className="w-6 h-6" />
+            </div>
+            <div>
+              <h2 className="font-display font-extrabold text-xl text-white">Theme & UI Branding</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Control global aesthetics: colors, typography, and button styles</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div>
+              <label className="block text-xs font-bold text-slate-300 mb-2">Primary Brand Color</label>
+              <div className="flex gap-3">
+                <input
+                  type="color"
+                  value={primaryColor}
+                  onChange={(e) => setPrimaryColor(e.target.value)}
+                  className="w-14 h-14 bg-slate-950 border border-slate-800 rounded-xl cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={primaryColor}
+                  onChange={(e) => setPrimaryColor(e.target.value)}
+                  className="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-4 text-white font-mono focus:outline-none focus:border-[#E01E37]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-300 mb-2">Button Border Radius</label>
+              <select
+                value={buttonRadius}
+                onChange={(e) => setButtonRadius(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-[#E01E37] appearance-none"
+              >
+                <option value="0px">Sharp (0px)</option>
+                <option value="0.375rem">Slightly Rounded (Sm)</option>
+                <option value="0.75rem">Rounded (Md)</option>
+                <option value="1rem">Highly Rounded (Lg)</option>
+                <option value="9999px">Fully Rounded (Pill)</option>
+              </select>
+            </div>
+
+            <div className="sm:col-span-2">
+              <label className="block text-xs font-bold text-slate-300 mb-2">Global Font Family</label>
+              <input
+                type="text"
+                value={fontFamily}
+                onChange={(e) => setFontFamily(e.target.value)}
+                placeholder='"Inter", system-ui, sans-serif'
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-white font-mono focus:outline-none focus:border-[#E01E37]"
+              />
+              <p className="text-[10px] text-slate-500 mt-2">Example: "Inter", system-ui, -apple-system, sans-serif</p>
+            </div>
+          </div>
+        </div>
+
         {/* Contact Info & Office Hours Card */}
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
           <div className="flex items-center gap-3 border-b border-slate-800 pb-5">

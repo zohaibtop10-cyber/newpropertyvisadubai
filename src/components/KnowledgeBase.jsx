@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown, MessageSquare, ArrowRight, Clock } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
+import { ChevronDown, ArrowRight, Clock } from 'lucide-react';
 
 export default function KnowledgeBase() {
   const [openFaq, setOpenFaq] = useState(0);
@@ -74,7 +75,7 @@ export default function KnowledgeBase() {
               {/* Consultation Card */}
               <div className="bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 p-5 rounded-2xl shadow-sm space-y-3 pt-4">
                 <div className="flex items-center gap-2 text-xs font-bold text-[#E01E37]">
-                  <MessageSquare className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4" />
                   <span>Need Direct Guidance?</span>
                 </div>
                 <p className="text-xs text-slate-600 dark:text-slate-400 leading-normal">
