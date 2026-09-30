@@ -16,28 +16,28 @@ export default function IntegrationsModule({ auditLogs }) {
       category: 'Live Data Stream',
       status: 'ACTIVE',
       detail: '0ms latency socket stream feeding frontend calculator leads directly into CRM pipeline.',
-      iconColor: 'text-amber-400'
+      iconColor: 'text-brand-goldLight'
     },
     {
       name: 'n8n Automation Webhook Layer',
       category: 'Lead Routing Webhook',
       status: 'ACTIVE',
       detail: 'Routes high-value property & Golden Visa inquiries directly to agent WhatsApp.',
-      iconColor: 'text-rose-400'
+      iconColor: 'text-brand-primary'
     },
     {
       name: 'WhatsApp Cloud API (Meta Official)',
       category: 'Messaging & Dispatches',
       status: 'ACTIVE',
       detail: 'Automated 1-click calculator PDF dispatches & ICP status update alerts.',
-      iconColor: 'text-emerald-400'
+      iconColor: 'text-brand-goldLight'
     },
     {
       name: 'ICP Government Gateway Webhook',
       category: 'Immigration Sync',
       status: 'ACTIVE',
       detail: 'Real-time entry permit issuance webhook callbacks from Federal Authority.',
-      iconColor: 'text-blue-400'
+      iconColor: 'text-brand-goldLight'
     }
   ];
 
@@ -60,9 +60,9 @@ export default function IntegrationsModule({ auditLogs }) {
     <div className="space-y-6 animate-fadeIn">
       
       {/* Header Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-brand-surfaceLight border border-slate-800 p-6 rounded-xl shadow-xl">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono text-brand-goldLight font-bold uppercase mb-1">
             <Settings className="w-3.5 h-3.5" /> SYSTEM ARCHITECTURE & WEBHOOK LAYER
           </div>
           <h1 className="text-xl font-black text-white">Firebase Sync & n8n Webhook Automations</h1>
@@ -72,11 +72,11 @@ export default function IntegrationsModule({ auditLogs }) {
         </div>
 
         {/* Tab Selector */}
-        <div className="flex items-center bg-slate-950 p-1.5 rounded-xl border border-slate-800">
+        <div className="flex items-center bg-brand-darkBg p-1.5 rounded-xl border border-slate-800">
           <button
             onClick={() => setActiveTab('integrations')}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'integrations' ? 'bg-[#E01E37] text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'integrations' ? 'bg-brand-primary text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             System Gateways
@@ -84,7 +84,7 @@ export default function IntegrationsModule({ auditLogs }) {
           <button
             onClick={() => setActiveTab('n8n')}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'n8n' ? 'bg-[#E01E37] text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'n8n' ? 'bg-brand-primary text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             n8n Webhook Control
@@ -92,7 +92,7 @@ export default function IntegrationsModule({ auditLogs }) {
           <button
             onClick={() => setActiveTab('audit')}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'audit' ? 'bg-[#E01E37] text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'audit' ? 'bg-brand-primary text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             Audit Trail ({auditLogs.length})
@@ -107,12 +107,12 @@ export default function IntegrationsModule({ auditLogs }) {
         <div className="space-y-6">
           
           {/* Firebase Realtime Connection Box */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <Database className="w-5 h-5 text-amber-400" />
+                <Database className="w-5 h-5 text-brand-goldLight" />
                 <h3 className="text-base font-bold text-white">Firebase Realtime Database Stream</h3>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-brand-goldLight border border-brand-gold/30">
                   CONNECTED (0ms latency)
                 </span>
               </div>
@@ -125,8 +125,8 @@ export default function IntegrationsModule({ auditLogs }) {
               onClick={() => setIsFirebaseLive(!isFirebaseLive)}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold border transition-colors cursor-pointer ${
                 isFirebaseLive 
-                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' 
-                  : 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                  ? 'bg-emerald-500/10 text-brand-goldLight border-brand-gold/30' 
+                  : 'bg-amber-500/10 text-brand-goldLight border-brand-gold/30'
               }`}
             >
               {isFirebaseLive ? '✓ Listening Mode Active' : 'Reconnect Socket'}
@@ -136,10 +136,10 @@ export default function IntegrationsModule({ auditLogs }) {
           {/* Integrations Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {integrations.map((ing, idx) => (
-              <div key={idx} className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+              <div key={idx} className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono font-bold uppercase text-slate-400">{ing.category}</span>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-brand-goldLight border border-brand-gold/30">
                     {ing.status}
                   </span>
                 </div>
@@ -171,11 +171,11 @@ export default function IntegrationsModule({ auditLogs }) {
       {/* TAB 2: n8n AUTOMATED WEBHOOK ROUTING LAYER                          */}
       {/* ------------------------------------------------------------------ */}
       {activeTab === 'n8n' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 shadow-xl space-y-6">
           <div className="flex items-center justify-between border-b border-slate-800 pb-4">
             <div>
               <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Zap className="w-5 h-5 text-rose-500" /> Automated n8n Webhook Lead Dispatch Engine
+                <Zap className="w-5 h-5 text-brand-primary" /> Automated n8n Webhook Lead Dispatch Engine
               </h3>
               <p className="text-xs text-slate-400 mt-1">
                 Construct automated rules to route high-value leads (&gt; AED 10,000) directly to assigned legal consultants via WhatsApp &amp; Email.
@@ -184,7 +184,7 @@ export default function IntegrationsModule({ auditLogs }) {
 
             <button
               onClick={handleTriggerN8nTest}
-              className="px-5 py-2.5 bg-[#E01E37] hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow-lg flex items-center gap-2 transition-all cursor-pointer"
+              className="px-5 py-2.5 bg-brand-primary hover:-brand-hover/40 text-white rounded-xl text-xs font-bold shadow-lg flex items-center gap-2 transition-all cursor-pointer"
             >
               <Send className="w-4 h-4" /> Trigger Test n8n Webhook Payload
             </button>
@@ -194,8 +194,8 @@ export default function IntegrationsModule({ auditLogs }) {
           {testWebhookStatus && (
             <div className={`p-4 rounded-xl border text-xs font-bold space-y-2 animate-fadeIn ${
               testWebhookStatus.status === 'SENDING' 
-                ? 'bg-amber-500/10 border-amber-500/30 text-amber-400'
-                : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                ? 'bg-amber-500/10 border-brand-gold/30 text-brand-goldLight'
+                : 'bg-emerald-500/10 border-brand-gold/30 text-brand-goldLight'
             }`}>
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2">
@@ -208,7 +208,7 @@ export default function IntegrationsModule({ auditLogs }) {
 
           {/* n8n Configuration Matrix */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-            <div className="bg-slate-950 border border-slate-800 p-5 rounded-xl space-y-4">
+            <div className="bg-brand-darkBg border border-slate-800 p-5 rounded-xl space-y-4">
               <h4 className="text-xs font-mono font-bold text-slate-300 uppercase">Routing Rules Matrix</h4>
               
               <div className="space-y-3 text-xs">
@@ -218,7 +218,7 @@ export default function IntegrationsModule({ auditLogs }) {
                     type="number"
                     value={n8nThresholdAED}
                     onChange={(e) => setN8nThresholdAED(Number(e.target.value))}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white font-bold font-mono focus:outline-none focus:border-[#E01E37]"
+                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl px-3 py-2 text-white font-bold font-mono focus:outline-none focus:border-brand-primary"
                   />
                 </div>
 
@@ -227,7 +227,7 @@ export default function IntegrationsModule({ auditLogs }) {
                   <select
                     value={targetAgent}
                     onChange={(e) => setTargetAgent(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white font-semibold focus:outline-none"
+                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl px-3 py-2 text-white font-semibold focus:outline-none"
                   >
                     <option value="Tariq Al-Mansoori (Super Admin)">Tariq Al-Mansoori (Super Admin)</option>
                     <option value="Elena Rostova (Senior Legal PRO)">Elena Rostova (Senior Legal PRO)</option>
@@ -238,15 +238,15 @@ export default function IntegrationsModule({ auditLogs }) {
             </div>
 
             {/* n8n JSON Payload Preview */}
-            <div className="bg-slate-950 border border-slate-800 p-5 rounded-xl space-y-3">
+            <div className="bg-brand-darkBg border border-slate-800 p-5 rounded-xl space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-bold text-slate-400 uppercase flex items-center gap-1.5">
-                  <Code2 className="w-4 h-4 text-[#E01E37]" /> Simulated n8n JSON Webhook Payload
+                  <Code2 className="w-4 h-4 text-brand-primary" /> Simulated n8n JSON Webhook Payload
                 </span>
-                <span className="text-[10px] font-mono text-emerald-400">POST /webhook/high-value-lead</span>
+                <span className="text-[10px] font-mono text-brand-goldLight">POST /webhook/high-value-lead</span>
               </div>
 
-              <pre className="p-3 bg-slate-900 rounded-lg text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed border border-slate-800">
+              <pre className="p-3 bg-brand-surfaceLight rounded-lg text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed border border-slate-800">
 {`{
   "event": "LEAD_INGESTED",
   "source": "Frontend_Modal_Calculator",
@@ -268,17 +268,17 @@ export default function IntegrationsModule({ auditLogs }) {
       {/* TAB 3: IMMUTABLE AUDIT TRAIL                                       */}
       {/* ------------------------------------------------------------------ */}
       {activeTab === 'audit' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl space-y-4 p-6">
+        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl overflow-hidden shadow-xl space-y-4 p-6">
           <div className="flex items-center justify-between">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#E01E37]" /> Immutable Administrative Activity Trail
+              <ShieldCheck className="w-4 h-4 text-brand-primary" /> Immutable Administrative Activity Trail
             </h3>
             <span className="text-xs text-slate-400 font-mono">256-Bit Signed Audit Logs</span>
           </div>
 
           <div className="overflow-x-auto rounded-xl border border-slate-800">
             <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950 text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800">
+              <thead className="bg-brand-darkBg text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800">
                 <tr>
                   <th className="py-3.5 px-4">Timestamp</th>
                   <th className="py-3.5 px-4">Staff User</th>
@@ -295,11 +295,11 @@ export default function IntegrationsModule({ auditLogs }) {
                     <td className="py-3 px-4 font-mono text-slate-400">{log.timestamp}</td>
                     <td className="py-3 px-4 font-bold text-white">{log.userName}</td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E01E37]/20 text-[#E01E37] border border-[#E01E37]/30">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-primary/20 text-brand-primary border border-brand-primary/30">
                         {log.userRole}
                       </span>
                     </td>
-                    <td className="py-3 px-4 font-mono font-semibold text-emerald-400">{log.action}</td>
+                    <td className="py-3 px-4 font-mono font-semibold text-brand-goldLight">{log.action}</td>
                     <td className="py-3 px-4 font-mono text-slate-300">{log.entityId}</td>
                     <td className="py-3 px-4 font-mono text-slate-400 text-[11px]">{log.ipAddress}</td>
                     <td className="py-3 px-4 font-mono text-slate-300 text-[11px]">{log.diff}</td>

@@ -1,34 +1,63 @@
-import React, { useState } from 'react';
-import { Star, Plus, Trash2, CheckCircle2, User } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Star, Plus, Trash2, CheckCircle2, User, ArrowUp, ArrowDown, Save } from 'lucide-react';
+import { db } from '../../firebase';
+import { ref, onValue, set } from 'firebase/database';
 
 export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
-  const [testimonials, setTestimonials] = useState(
-    cmsConfig?.reviews?.items?.map(r => ({
-      id: r.id,
-      name: r.name,
-      visaType: r.country,
-      rating: r.rating || 5,
-      quote: r.text
-    })) || [
-      { id: 'rev-1', name: 'Alexander Wright', visaType: '10-Year Golden Visa', rating: 5, quote: 'Flawless spouse visa processing. 800 DOCS handles everything with zero hassle.' },
-      { id: 'rev-2', name: 'Dmitry Smirnov', visaType: 'Property Investor Visa', rating: 5, quote: 'Secured my 10-Year Golden Visa via real estate within 48 hours. Extraordinary service.' },
-      { id: 'rev-3', name: 'Dr. Sarah Jenkins', visaType: 'Parents Residency Visa', rating: 5, quote: 'Brought my elderly parents to Dubai under residency seamlessly. Highly recommended!' }
-    ]
-  );
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // New Review Form State
   const [newName, setNewName] = useState('');
-  const [newVisaType, setNewVisaType] = useState('Spouse Residency Visa');
+  const [newVisaType, setNewVisaType] = useState('10-Year Golden Visa');
   const [newRating, setNewRating] = useState(5);
   const [newQuote, setNewQuote] = useState('');
   const [saveSuccess, setSaveSuccess] = useState(false);
 
+  // Load reviews from Firebase DB or cmsConfig fallback
+  useEffect(() => {
+    const reviewsRef = ref(db, 'cmsConfig/reviews/items');
+    const unsubscribe = onValue(reviewsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data && Array.isArray(data) && data.length > 0) {
+        setTestimonials(data.map(r => ({
+          id: r.id || Date.now() + Math.random(),
+          name: r.name || r.author || 'Client',
+          visaType: r.country || r.visaType || 'Residency Visa',
+          rating: Number(r.rating) || 5,
+          quote: r.text || r.quote || ''
+        })));
+      } else if (cmsConfig?.reviews?.items) {
+        setTestimonials(cmsConfig.reviews.items.map(r => ({
+          id: r.id || Date.now() + Math.random(),
+          name: r.name || 'Client',
+          visaType: r.country || r.visaType || 'Residency Visa',
+          rating: Number(r.rating) || 5,
+          quote: r.text || r.quote || ''
+        })));
+      } else {
+        // Defaults
+        setTestimonials([
+          { id: 'rev-1', name: 'Alexander Wright', visaType: '10-Year Golden Visa', rating: 5, quote: 'Flawless spouse visa processing. 800 DOCS handles everything with zero hassle.' },
+          { id: 'rev-2', name: 'Dmitry Smirnov', visaType: 'Property Investor Visa', rating: 5, quote: 'Secured my 10-Year Golden Visa via real estate within 48 hours. Extraordinary service.' },
+          { id: 'rev-3', name: 'Dr. Sarah Jenkins', visaType: 'Parents Residency Visa', rating: 5, quote: 'Brought my elderly parents to Dubai under residency seamlessly. Highly recommended!' }
+        ]);
+      }
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Sync to Firebase & Parent State
   const syncToCms = (updatedList) => {
     const formatted = updatedList.map(t => ({
       id: t.id,
       name: t.name,
       country: t.visaType,
+      visaType: t.visaType,
       rating: t.rating,
-      text: t.quote
+      text: t.quote,
+      quote: t.quote
     }));
 
     if (setCmsConfig) {
@@ -41,16 +70,12 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
       }));
     }
 
-    if (typeof window !== 'undefined') {
-      const currentConfig = cmsConfig || {};
-      const newConfig = {
-        ...currentConfig,
-        reviews: {
-          ...currentConfig.reviews,
-          items: formatted
-        }
-      };
-      localStorage.setItem('app_cms_config', JSON.stringify(newConfig));
+    // Direct Firebase save
+    try {
+      const reviewsRef = ref(db, 'cmsConfig/reviews/items');
+      set(reviewsRef, formatted);
+    } catch (e) {
+      console.error('Error saving reviews to Firebase:', e);
     }
   };
 
@@ -59,7 +84,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
     if (!newName.trim() || !newQuote.trim()) return;
 
     const newEntry = {
-      id: Date.now(),
+      id: `rev-${Date.now()}`,
       name: newName.trim(),
       visaType: newVisaType,
       rating: Number(newRating),
@@ -76,30 +101,52 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
   };
 
   const handleDeleteReview = (id) => {
-    const updated = testimonials.filter(t => t.id !== id);
+    if (window.confirm('Are you sure you want to delete this review?')) {
+      const updated = testimonials.filter(t => t.id !== id);
+      setTestimonials(updated);
+      syncToCms(updated);
+    }
+  };
+
+  const handleMoveUp = (idx) => {
+    if (idx === 0) return;
+    const updated = [...testimonials];
+    const temp = updated[idx - 1];
+    updated[idx - 1] = updated[idx];
+    updated[idx] = temp;
+    setTestimonials(updated);
+    syncToCms(updated);
+  };
+
+  const handleMoveDown = (idx) => {
+    if (idx === testimonials.length - 1) return;
+    const updated = [...testimonials];
+    const temp = updated[idx + 1];
+    updated[idx + 1] = updated[idx];
+    updated[idx] = temp;
     setTestimonials(updated);
     syncToCms(updated);
   };
 
   return (
     <div className="max-w-4xl space-y-8 animate-fadeIn">
-      
+
       {saveSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
+        <div className="p-4 bg-emerald-500/10 border border-brand-gold/30 rounded-xl text-brand-goldLight text-sm font-bold flex items-center gap-2.5">
           <CheckCircle2 className="w-5 h-5 shrink-0" />
-          <span>New client review published to live website!</span>
+          <span>New client review published to live Firebase database!</span>
         </div>
       )}
 
-      {/* Add New Review Card/Form */}
-      <form onSubmit={handleAddReview} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+      {/* Add New Review Card / Form */}
+      <form onSubmit={handleAddReview} className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
         <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-          <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-500">
-            <Star className="w-6 h-6 fill-amber-500" />
+          <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
+            <Star className="w-6 h-6 fill-amber-500 text-amber-500" />
           </div>
           <div>
             <h2 className="font-display font-extrabold text-xl text-white">Add New Client Review</h2>
-            <p className="text-slate-400 text-xs mt-0.5">Publish a verified client testimonial on the live homepage</p>
+            <p className="text-slate-400 text-xs mt-0.5">Publish a verified client testimonial on the live homepage & review sections.</p>
           </div>
         </div>
 
@@ -112,22 +159,23 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               required
-              className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold focus:outline-none focus:border-[#E01E37]"
+              className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold focus:outline-none focus:border-brand-primary"
             />
           </div>
 
           <div className="sm:col-span-4">
-            <label className="block text-xs font-bold text-slate-300 mb-2">Visa Type</label>
+            <label className="block text-xs font-bold text-slate-300 mb-2">Visa / Service Category</label>
             <select
               value={newVisaType}
               onChange={(e) => setNewVisaType(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-semibold focus:outline-none focus:border-[#E01E37] cursor-pointer"
+              className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary cursor-pointer"
             >
               <option value="10-Year Golden Visa">10-Year Golden Visa</option>
               <option value="Spouse Residency Visa">Spouse Residency Visa</option>
               <option value="Property Investor Visa">Property Investor Visa</option>
               <option value="Parents Residency Visa">Parents Residency Visa</option>
               <option value="Newborn Baby Clearance">Newborn Baby Clearance</option>
+              <option value="Corporate PRO Services">Corporate PRO Services</option>
             </select>
           </div>
 
@@ -135,8 +183,8 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
             <label className="block text-xs font-bold text-slate-300 mb-2">Star Rating</label>
             <select
               value={newRating}
-              onChange={(e) => setNewRating(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-amber-400 font-bold focus:outline-none focus:border-[#E01E37] cursor-pointer"
+              onChange={(e) => setNewRating(Number(e.target.value))}
+              className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-brand-goldLight font-bold focus:outline-none focus:border-brand-primary cursor-pointer"
             >
               <option value={5}>5 Stars (★★★★★)</option>
               <option value={4}>4 Stars (★★★★☆)</option>
@@ -145,21 +193,21 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
           </div>
 
           <div className="sm:col-span-12">
-            <label className="block text-xs font-bold text-slate-300 mb-2">Review Text / Quote</label>
+            <label className="block text-xs font-bold text-slate-300 mb-2">Review Text / Testimonial Quote</label>
             <textarea
               rows={3}
               placeholder="Type the client's review statement..."
               value={newQuote}
               onChange={(e) => setNewQuote(e.target.value)}
               required
-              className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-sm leading-relaxed focus:outline-none focus:border-[#E01E37]"
+              className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-sm leading-relaxed focus:outline-none focus:border-brand-primary"
             />
           </div>
         </div>
 
         <button
           type="submit"
-          className="px-6 py-3.5 bg-[#E01E37] hover:bg-[#B81A2C] text-white font-bold text-sm rounded-2xl shadow-lg shadow-[#E01E37]/25 flex items-center gap-2 transition-all cursor-pointer"
+          className="px-6 py-3.5 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 text-sm rounded-xl shadow-lg shadow-[#D4AF37]/25 flex items-center gap-2 transition-all cursor-pointer"
         >
           <Plus className="w-5 h-5" />
           <span>Publish New Review</span>
@@ -167,72 +215,136 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
       </form>
 
       {/* Existing Published Reviews List */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-4">
+      <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-4">
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">
           <div className="font-display font-extrabold text-lg text-white">
             Currently Published Reviews ({testimonials.length})
           </div>
-          <span className="text-xs font-mono text-slate-400">Live Homepage Feed</span>
+          <span className="text-xs font-mono text-brand-gold">Reviews</span>
         </div>
 
-        <div className="space-y-4">
-          {testimonials.map((review, idx) => (
-            <div key={review.id} className="p-5 bg-slate-950 border border-slate-800 rounded-2xl space-y-4 relative group">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-[#E01E37]">REVIEW #{idx + 1}</span>
-                <div className="flex items-center gap-1.5">
-                  <button type="button" disabled={idx === 0} onClick={() => { const u = [...testimonials]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setTestimonials(u); syncToCms(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                  <button type="button" disabled={idx === testimonials.length - 1} onClick={() => { const u = [...testimonials]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setTestimonials(u); syncToCms(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === testimonials.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
-                  <button type="button" onClick={() => handleDeleteReview(review.id)} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+        {loading ? (
+          <div className="text-slate-400 text-xs py-4">Loading published reviews...</div>
+        ) : testimonials.length === 0 ? (
+          <div className="text-slate-400 text-xs py-6 text-center border border-dashed border-slate-800 rounded-xl">
+            No reviews published yet. Use the form above to add your first client review.
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {testimonials.map((review, idx) => (
+              <div key={review.id} className="p-5 bg-brand-darkBg border border-slate-800 rounded-xl space-y-4 relative group">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono font-bold text-brand-gold">REVIEW #{idx + 1}</span>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      disabled={idx === 0}
+                      onClick={() => handleMoveUp(idx)}
+                      className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}
+                      title="Move Up"
+                    >
+                      <ArrowUp className="w-3.5 h-3.5" />
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={idx === testimonials.length - 1}
+                      onClick={() => handleMoveDown(idx)}
+                      className={`p-1.5 rounded-lg border transition-colors ${idx === testimonials.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}
+                      title="Move Down"
+                    >
+                      <ArrowDown className="w-3.5 h-3.5" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteReview(review.id)}
+                      className="p-1.5 rounded-lg border border-red-500/30 text-red-400 hover:bg-red-500/20 transition-colors"
+                      title="Delete Review"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-[10px] text-slate-400 font-mono block mb-1">Client Name</label>
+                    <input
+                      type="text"
+                      value={review.name}
+                      onChange={(e) => {
+                        const u = [...testimonials];
+                        u[idx].name = e.target.value;
+                        setTestimonials(u);
+                        syncToCms(u);
+                      }}
+                      className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-gold"
+                      placeholder="Client Name"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] text-slate-400 font-mono block mb-1">Visa Category</label>
+                    <select
+                      value={review.visaType}
+                      onChange={(e) => {
+                        const u = [...testimonials];
+                        u[idx].visaType = e.target.value;
+                        setTestimonials(u);
+                        syncToCms(u);
+                      }}
+                      className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs font-semibold focus:outline-none focus:border-brand-gold cursor-pointer"
+                    >
+                      <option value="10-Year Golden Visa">10-Year Golden Visa</option>
+                      <option value="Spouse Residency Visa">Spouse Residency Visa</option>
+                      <option value="Property Investor Visa">Property Investor Visa</option>
+                      <option value="Parents Residency Visa">Parents Residency Visa</option>
+                      <option value="Newborn Baby Clearance">Newborn Baby Clearance</option>
+                      <option value="Corporate PRO Services">Corporate PRO Services</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <label className="text-[10px] uppercase font-bold text-slate-400 shrink-0">Rating:</label>
+                  <select
+                    value={review.rating}
+                    onChange={(e) => {
+                      const u = [...testimonials];
+                      u[idx].rating = Number(e.target.value);
+                      setTestimonials(u);
+                      syncToCms(u);
+                    }}
+                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-2.5 text-brand-gold font-bold text-xs focus:outline-none focus:border-brand-gold cursor-pointer"
+                  >
+                    <option value={5}>5 Stars (★★★★★)</option>
+                    <option value={4}>4 Stars (★★★★☆)</option>
+                    <option value={3}>3 Stars (★★★☆☆)</option>
+                    <option value={2}>2 Stars (★★☆☆☆)</option>
+                    <option value={1}>1 Star (★☆☆☆☆)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-[10px] text-slate-400 font-mono block mb-1">Testimonial Quote</label>
+                  <textarea
+                    rows={2}
+                    value={review.quote}
+                    onChange={(e) => {
+                      const u = [...testimonials];
+                      u[idx].quote = e.target.value;
+                      setTestimonials(u);
+                      syncToCms(u);
+                    }}
+                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs italic focus:outline-none focus:border-brand-gold"
+                    placeholder="Review quote..."
+                  />
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <input 
-                  type="text" 
-                  value={review.name} 
-                  onChange={(e) => { const u = [...testimonials]; u[idx].name = e.target.value; setTestimonials(u); syncToCms(u); }} 
-                  className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" 
-                  placeholder="Client Name"
-                />
-                <select
-                  value={review.visaType}
-                  onChange={(e) => { const u = [...testimonials]; u[idx].visaType = e.target.value; setTestimonials(u); syncToCms(u); }}
-                  className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs font-semibold focus:outline-none focus:border-[#E01E37] cursor-pointer"
-                >
-                  <option value="10-Year Golden Visa">10-Year Golden Visa</option>
-                  <option value="Spouse Residency Visa">Spouse Residency Visa</option>
-                  <option value="Property Investor Visa">Property Investor Visa</option>
-                  <option value="Parents Residency Visa">Parents Residency Visa</option>
-                  <option value="Newborn Baby Clearance">Newborn Baby Clearance</option>
-                </select>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <label className="text-[10px] uppercase font-bold text-slate-500 shrink-0">Rating:</label>
-                <select
-                  value={review.rating}
-                  onChange={(e) => { const u = [...testimonials]; u[idx].rating = Number(e.target.value); setTestimonials(u); syncToCms(u); }}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-amber-400 font-bold text-xs focus:outline-none focus:border-[#E01E37] cursor-pointer"
-                >
-                  <option value={5}>5 Stars (★★★★★)</option>
-                  <option value={4}>4 Stars (★★★★☆)</option>
-                  <option value={3}>3 Stars (★★★☆☆)</option>
-                  <option value={2}>2 Stars (★★☆☆☆)</option>
-                  <option value={1}>1 Star (★☆☆☆☆)</option>
-                </select>
-              </div>
-
-              <textarea 
-                rows={2} 
-                value={review.quote} 
-                onChange={(e) => { const u = [...testimonials]; u[idx].quote = e.target.value; setTestimonials(u); syncToCms(u); }} 
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs italic focus:outline-none focus:border-[#E01E37]"
-                placeholder="Review quote..."
-              />
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
     </div>

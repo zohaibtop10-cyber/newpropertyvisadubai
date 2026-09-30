@@ -9,21 +9,21 @@ export default function DashboardModule({ onNavigateModule, dossiers }) {
       value: dossiers ? dossiers.length : 4,
       subtitle: 'Currently in progress',
       icon: Users,
-      color: 'bg-[#E01E37]/10 text-[#E01E37] border-[#E01E37]/20'
+      color: 'bg-brand-primary/10 text-brand-primary border-brand-primary/20'
     },
     {
       title: 'New Leads (This Week)',
       value: '12',
       subtitle: '+3 from calculator today',
       icon: UserPlus,
-      color: 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+      color: 'bg-brand-gold/10 text-brand-goldLight border-brand-gold/20'
     },
     {
       title: 'Completed Visas',
       value: '158',
       subtitle: 'Total issued this year',
       icon: CheckCircle2,
-      color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+      color: 'bg-emerald-500/10 text-brand-goldLight border-emerald-500/20'
     }
   ];
 
@@ -39,13 +39,13 @@ export default function DashboardModule({ onNavigateModule, dossiers }) {
   const getStatusBadge = (st) => {
     switch (st) {
       case 'New Lead':
-        return 'bg-blue-500/15 text-blue-400 border-blue-500/30';
+        return 'bg-brand-gold/15 text-brand-goldLight border-brand-gold/30';
       case 'Processing':
-        return 'bg-amber-500/15 text-amber-400 border-amber-500/30';
+        return 'bg-brand-gold/15 text-brand-goldLight border-brand-gold/30';
       case 'Waiting on Client':
-        return 'bg-purple-500/15 text-purple-400 border-purple-500/30';
+        return 'bg-brand-gold/15 text-brand-goldLight border-brand-gold/30';
       case 'Completed':
-        return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+        return 'bg-brand-gold/15 text-brand-goldLight border-brand-gold/30';
       default:
         return 'bg-slate-800 text-slate-300';
     }
@@ -55,7 +55,7 @@ export default function DashboardModule({ onNavigateModule, dossiers }) {
     <div className="space-y-8 animate-fadeIn">
       
       {/* Welcome Banner */}
-      <div className="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-1">
+      <div className="bg-brand-surfaceLight border border-slate-800 p-6 rounded-xl space-y-1">
         <h2 className="font-display font-extrabold text-2xl text-white">Welcome back, Admin 👋</h2>
         <p className="text-slate-400 text-sm">Here is what is happening with your client visas and website inquiries today.</p>
       </div>
@@ -65,13 +65,13 @@ export default function DashboardModule({ onNavigateModule, dossiers }) {
         {stats.map((stat, idx) => {
           const Icon = stat.icon;
           return (
-            <div key={idx} className="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl flex items-center justify-between">
+            <div key={idx} className="bg-brand-surfaceLight border border-slate-800 p-6 rounded-xl shadow-xl flex items-center justify-between">
               <div className="space-y-2">
                 <div className="text-slate-400 text-xs font-semibold">{stat.title}</div>
                 <div className="font-display font-extrabold text-3xl text-white">{stat.value}</div>
                 <div className="text-slate-400 text-[11px]">{stat.subtitle}</div>
               </div>
-              <div className={`p-4 rounded-2xl border ${stat.color}`}>
+              <div className={`p-4 rounded-xl border ${stat.color}`}>
                 <Icon className="w-6 h-6" />
               </div>
             </div>
@@ -80,7 +80,7 @@ export default function DashboardModule({ onNavigateModule, dossiers }) {
       </div>
 
       {/* Recent Inquiries Section */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-6">
+      <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 shadow-xl space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-display font-extrabold text-lg text-white">Recent Website Inquiries</h3>
@@ -96,9 +96,9 @@ export default function DashboardModule({ onNavigateModule, dossiers }) {
         </div>
 
         {/* Simple Clean Table */}
-        <div className="overflow-x-auto rounded-2xl border border-slate-800">
+        <div className="overflow-x-auto rounded-xl border border-slate-800">
           <table className="w-full text-left text-sm text-slate-300">
-            <thead className="bg-slate-950 text-slate-400 font-mono uppercase text-[11px] border-b border-slate-800">
+            <thead className="bg-brand-darkBg text-slate-400 font-mono uppercase text-[11px] border-b border-slate-800">
               <tr>
                 <th className="py-3.5 px-6">Client Name</th>
                 <th className="py-3.5 px-6">Visa Type</th>

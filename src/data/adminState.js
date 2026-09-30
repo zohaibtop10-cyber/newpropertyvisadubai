@@ -98,7 +98,7 @@ export const INITIAL_DOSSIERS = [
     passportExpiry: '2027-11-14',
     isPassportExpiredWarning: false,
     serviceId: 'spouse-visa',
-    serviceTitle: 'Spouse Residency Visa',
+    serviceTitle: 'Family Residence Visa',
     stage: 'GOVERNMENT_FILING', // 'LEAD_INGESTION' | 'COMPLIANCE_AUDIT' | 'GOVERNMENT_FILING' | 'IN_COUNTRY_STATUS' | 'VIP_BIOMETRICS_MEDICAL' | 'STAMPING_HANDOVER'
     priority: 'VIP_URGENT',
     governmentRefNo: 'ICP-883492-DXB',
@@ -482,12 +482,8 @@ export const INITIAL_CMS_CONFIG = {
   // Navigation Links
   navbarLinks: [
     { id: 'nav-1', label: 'Home', view: 'home', visible: true },
-    { id: 'nav-2', label: 'Visas & Residency', view: 'service', visible: true },
-    { id: 'nav-3', label: 'Emirates ID', view: 'service', visible: true },
-    { id: 'nav-4', label: 'Pricing & Tariffs', view: 'pricing', visible: true },
-    { id: 'nav-5', label: 'Guides', view: 'blog-index', visible: true },
-    { id: 'nav-6', label: 'About', view: 'about', visible: true },
-    { id: 'nav-7', label: 'Contact', view: 'contact', visible: true }
+    { id: 'nav-2', label: 'Articles', view: 'blog-index', visible: true },
+    { id: 'nav-3', label: 'About Us', view: 'about', visible: true }
   ],
 
   // Inner Pages CMS

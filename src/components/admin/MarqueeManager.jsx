@@ -1,38 +1,37 @@
 import React, { useState } from 'react';
-import { Megaphone, Plus, Trash2, Save, CheckCircle2, GripVertical } from 'lucide-react';
+import { Megaphone, Plus, Trash2, Save, CheckCircle2 } from 'lucide-react';
 
 export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
   const [items, setItems] = useState(
     cmsConfig?.marqueeItems || [
-      { id: 'mq-1', text: 'Markus S. secured Golden Visa \u2013 2 hours ago' },
-      { id: 'mq-2', text: 'Fatima A. secured Family Visa \u2013 5 hours ago' },
-      { id: 'mq-3', text: 'James W. secured Property Investor Visa \u2013 12 hours ago' },
-      { id: 'mq-4', text: 'Aisha K. secured Golden Visa \u2013 1 day ago' },
-      { id: 'mq-5', text: 'David L. secured Dependent Visa \u2013 1 day ago' },
-      { id: 'mq-6', text: 'Elena R. secured Golden Visa \u2013 2 days ago' },
-      { id: 'mq-7', text: 'Omar T. secured Maid Visa \u2013 2 days ago' }
+      { id: 'mq-1', name: 'Markus S.', actionText: 'secured Golden Visa', timestamp: '2026-09-28T14:30' },
+      { id: 'mq-2', name: 'Fatima A.', actionText: 'secured Family Visa', timestamp: '2026-09-28T11:00' },
+      { id: 'mq-3', name: 'James W.', actionText: 'secured Property Investor Visa', timestamp: '2026-09-27T08:00' }
     ]
   );
-  const [newItemText, setNewItemText] = useState('');
+  
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   const handleAddItem = (e) => {
     e.preventDefault();
-    if (!newItemText.trim()) return;
-    setItems([...items, { id: `mq-${Date.now()}`, text: newItemText.trim() }]);
-    setNewItemText('');
+    const now = new Date();
+    // format as YYYY-MM-DDThh:mm for datetime-local
+    const formatted = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    setItems([...items, { id: `mq-${Date.now()}`, name: '', actionText: '', timestamp: formatted }]);
   };
 
   const handleDeleteItem = (id) => {
     setItems(items.filter(item => item.id !== id));
   };
 
-  const handleUpdateItem = (id, newText) => {
-    setItems(items.map(item => item.id === id ? { ...item, text: newText } : item));
+  const handleUpdateItem = (id, field, value) => {
+    setItems(items.map(item => item.id === id ? { ...item, [field]: value } : item));
   };
 
   const handleSave = (e) => {
     e.preventDefault();
+    console.log("Saving Ticker Data:", items);
+
     if (setCmsConfig) {
       setCmsConfig(prev => ({
         ...prev,
@@ -44,80 +43,100 @@ export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
   };
 
   return (
-    <div className="max-w-4xl space-y-8 animate-fadeIn">
+    <div className="max-w-5xl space-y-8 animate-fadeIn">
       {saveSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
+        <div className="p-4 bg-brand-gold/10 border border-brand-gold/30 rounded-xl text-brand-gold text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
           <CheckCircle2 className="w-5 h-5 shrink-0" />
-          <span>Top Header Marquee updated successfully!</span>
+          <span>Ticker Marquee updated successfully!</span>
         </div>
       )}
 
-      <form onSubmit={handleSave} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
-        <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-          <div className="p-3 rounded-2xl bg-indigo-500/15 text-indigo-400">
-            <Megaphone className="w-6 h-6" />
+      <form onSubmit={handleSave} className="bg-[#121417] border border-white/10 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
+              <Megaphone className="w-6 h-6" />
+            </div>
+            <div>
+              <h2 className="font-display font-extrabold text-xl text-brand-gold">Ticker Marquee Manager</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Manage the top scrolling notifications.</p>
+            </div>
           </div>
-          <div>
-            <h2 className="font-display font-extrabold text-xl text-white">Top Header Ticker Manager</h2>
-            <p className="text-slate-400 text-xs mt-0.5">Manage the scrolling announcements at the very top of the website.</p>
-          </div>
+          
+          <button
+            type="submit"
+            className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] hover:opacity-90 text-black px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-md cursor-pointer"
+          >
+            {saveSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+            {saveSuccess ? 'Saved' : 'Save Changes'}
+          </button>
         </div>
 
-        {/* Add New Item */}
-        <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
-          <label className="text-xs font-mono font-bold text-slate-300 uppercase">ADD NEW TICKER ITEM</label>
-          <div className="flex gap-3">
-            <input
-              type="text"
-              value={newItemText}
-              onChange={(e) => setNewItemText(e.target.value)}
-              placeholder="e.g. John D. secured Golden Visa - 1 hour ago"
-              className="flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]"
-            />
-            <button
-              type="button"
-              onClick={handleAddItem}
-              className="px-6 py-2.5 bg-slate-800 hover:bg-[#E01E37] text-white text-xs font-bold rounded-xl flex items-center gap-2 transition-colors cursor-pointer"
-            >
-              <Plus className="w-4 h-4" /> Add
-            </button>
-          </div>
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-bold text-white">Active Ticker Items</h3>
+          <button
+            type="button"
+            onClick={handleAddItem}
+            className="px-4 py-2 bg-surface/5 hover:bg-surface/10 border border-white/20 text-brand-gold text-xs font-bold rounded-lg flex items-center gap-2 transition-colors cursor-pointer"
+          >
+            <Plus className="w-4 h-4" /> Add Item
+          </button>
         </div>
 
         {/* List of Items */}
-        <div className="space-y-3">
-          {items.map((item, index) => (
-            <div key={item.id} className="p-3 bg-slate-950 border border-slate-800 rounded-2xl flex items-center gap-4 group">
-              <GripVertical className="w-5 h-5 text-slate-600 cursor-move shrink-0 opacity-50 group-hover:opacity-100 transition-opacity" />
-              <input
-                type="text"
-                value={item.text}
-                onChange={(e) => handleUpdateItem(item.id, e.target.value)}
-                className="flex-1 bg-transparent border-none text-white text-sm font-semibold focus:outline-none focus:ring-1 focus:ring-slate-700 rounded-lg px-2 py-1"
-              />
+        <div className="space-y-4">
+          {items.map((item) => (
+            <div key={item.id} className="p-4 bg-black/40 border border-white/10 rounded-xl flex flex-col md:flex-row gap-4 items-end md:items-center">
+              
+              <div className="flex-1 w-full space-y-1.5">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">Client Name</label>
+                <input
+                  type="text"
+                  value={item.name}
+                  onChange={(e) => handleUpdateItem(item.id, 'name', e.target.value)}
+                  placeholder="e.g. Isabella Garcia"
+                  className="w-full bg-transparent border border-white/20 rounded-lg p-3 text-white text-sm font-medium focus:outline-none focus:border-brand-gold transition-colors"
+                />
+              </div>
+
+              <div className="flex-1 w-full space-y-1.5">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">Action Text</label>
+                <input
+                  type="text"
+                  value={item.actionText}
+                  onChange={(e) => handleUpdateItem(item.id, 'actionText', e.target.value)}
+                  placeholder="e.g. secured Golden Visa"
+                  className="w-full bg-transparent border border-white/20 rounded-lg p-3 text-white text-sm font-medium focus:outline-none focus:border-brand-gold transition-colors"
+                />
+              </div>
+
+              <div className="flex-1 w-full space-y-1.5">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">Timestamp</label>
+                <input
+                  type="datetime-local"
+                  value={item.timestamp}
+                  onChange={(e) => handleUpdateItem(item.id, 'timestamp', e.target.value)}
+                  className="w-full bg-transparent border border-white/20 rounded-lg p-3 text-white text-sm font-medium focus:outline-none focus:border-brand-gold transition-colors [color-scheme:dark]"
+                />
+              </div>
+
               <button
                 type="button"
                 onClick={() => handleDeleteItem(item.id)}
-                className="p-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-colors cursor-pointer shrink-0"
+                className="p-3 text-content-muted hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors shrink-0 mb-0.5"
+                title="Delete Item"
               >
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className="w-5 h-5" />
               </button>
             </div>
           ))}
+          
           {items.length === 0 && (
-            <div className="p-8 text-center border-2 border-dashed border-slate-800 rounded-3xl text-slate-500 text-sm font-semibold">
-              No ticker items found. The marquee will be hidden.
+            <div className="text-center py-8 text-content-muted text-sm border border-dashed border-white/20 rounded-xl">
+              No ticker items found. Click "Add Item" to create one.
             </div>
           )}
         </div>
-
-        <button
-          type="submit"
-          className="w-full py-4 bg-[#E01E37] hover:bg-[#B81A2C] text-white font-bold text-base rounded-2xl shadow-xl shadow-[#E01E37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
-        >
-          <Save className="w-5 h-5" />
-          <span>Save Marquee Ticker</span>
-        </button>
       </form>
     </div>
   );

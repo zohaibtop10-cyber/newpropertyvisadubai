@@ -84,30 +84,30 @@ export default function FamilyVisaServices() {
     : services.filter(s => s.category === activeTab);
 
   return (
-    <section id="family-services" className="bg-slate-50 dark:bg-[#0A0A0A] text-slate-900 dark:text-white py-20 px-4 sm:px-6 lg:px-8 font-sans border-b border-slate-200 dark:border-white/5 transition-colors duration-200">
+    <section id="family-services" className="bg-canvas dark:bg-brand-darkBg text-content-primary dark:text-white py-20 px-4 sm:px-6 lg:px-8 font-sans border-b border-border-subtle dark:border-white/5 transition-colors duration-200">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E01E37]/10 text-[#E01E37] border border-[#E01E37]/20 text-xs font-bold uppercase tracking-wider mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#E01E37] animate-pulse-red" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-xs font-bold uppercase tracking-wider mb-3">
+              <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse-gold" />
               FULL FAMILY & DEPENDANT SERVICES
             </div>
-            <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-content-primary dark:text-white tracking-tight">
               Everything We Handle
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-2xl mt-2 leading-relaxed">
+            <p className="text-content-muted dark:text-slate-400 text-sm sm:text-base max-w-2xl mt-2 leading-relaxed">
               One dedicated advisory team for family residence visas, Golden Visas, Emirates ID typing, and supporting legal document attestations across all 7 Emirates.
             </p>
           </div>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2 bg-slate-200/80 dark:bg-white/5 p-1.5 rounded-xl border border-slate-300 dark:border-white/10 shrink-0">
+          <div className="flex flex-wrap gap-2 bg-surface-hover/80 dark:bg-white/5 p-1.5 rounded-xl border border-border-strong dark:border-white/10 shrink-0">
             <button
               onClick={() => setActiveTab('all')}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'all' ? 'bg-[#E01E37] text-white shadow-sm' : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                activeTab === 'all' ? 'bg-brand-primary text-white shadow-sm' : 'text-content-secondary dark:text-slate-300 hover:text-content-primary dark:hover:text-white'
               }`}
             >
               All Services
@@ -115,7 +115,7 @@ export default function FamilyVisaServices() {
             <button
               onClick={() => setActiveTab('visas')}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'visas' ? 'bg-[#E01E37] text-white shadow-sm' : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                activeTab === 'visas' ? 'bg-brand-primary text-white shadow-sm' : 'text-content-secondary dark:text-slate-300 hover:text-content-primary dark:hover:text-white'
               }`}
             >
               Visas & Residency
@@ -123,7 +123,7 @@ export default function FamilyVisaServices() {
             <button
               onClick={() => setActiveTab('id')}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'id' ? 'bg-[#E01E37] text-white shadow-sm' : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                activeTab === 'id' ? 'bg-brand-primary text-white shadow-sm' : 'text-content-secondary dark:text-slate-300 hover:text-content-primary dark:hover:text-white'
               }`}
             >
               Emirates ID & Medical
@@ -131,7 +131,7 @@ export default function FamilyVisaServices() {
             <button
               onClick={() => setActiveTab('docs')}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'docs' ? 'bg-[#E01E37] text-white shadow-sm' : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                activeTab === 'docs' ? 'bg-brand-primary text-white shadow-sm' : 'text-content-secondary dark:text-slate-300 hover:text-content-primary dark:hover:text-white'
               }`}
             >
               Attestation & Legal
@@ -146,30 +146,30 @@ export default function FamilyVisaServices() {
             return (
               <div 
                 key={idx}
-                className="bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 rounded-2xl p-7 hover:border-[#E01E37]/40 hover:shadow-lg transition-all group flex flex-col justify-between"
+                className="bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 rounded-xl p-7 hover:border-brand-primary/40 hover:shadow-lg transition-all group flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 flex items-center justify-center text-[#E01E37] shadow-sm group-hover:bg-[#E01E37] group-hover:text-white transition-all">
+                    <div className="w-12 h-12 rounded-xl bg-surface-elevated dark:bg-white/10 border border-border-subtle dark:border-white/10 flex items-center justify-center text-brand-primary shadow-sm group-hover:bg-brand-primary group-hover:text-white transition-all">
                       <IconComponent className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-bold text-[#E01E37] bg-[#E01E37]/10 border border-[#E01E37]/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    <span className="text-[10px] font-bold text-brand-primary bg-brand-primary/10 border border-brand-primary/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                       {item.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-[#E01E37] transition-colors">
+                  <h3 className="text-xl font-display font-bold text-content-primary dark:text-white mb-2 group-hover:text-brand-primary transition-colors">
                     {item.title}
                   </h3>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                  <p className="text-xs text-content-muted dark:text-slate-400 leading-relaxed mb-6">
                     {item.desc}
                   </p>
 
-                  <ul className="space-y-2 mb-6 pt-4 border-t border-slate-200 dark:border-white/5">
+                  <ul className="space-y-2 mb-6 pt-4 border-t border-border-subtle dark:border-white/5">
                     {item.perks.map((perk, pIdx) => (
-                      <li key={pIdx} className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                      <li key={pIdx} className="flex items-center gap-2 text-xs font-semibold text-content-secondary dark:text-slate-300">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
                         <span>{perk}</span>
                       </li>
                     ))}
@@ -178,7 +178,7 @@ export default function FamilyVisaServices() {
 
                 <a 
                   href="#calculator" 
-                  className="inline-flex items-center justify-between text-xs font-bold text-[#E01E37] hover:text-[#900b22] pt-4 border-t border-slate-200 dark:border-white/5 transition-colors"
+                  className="inline-flex items-center justify-between text-xs font-bold text-brand-primary hover:text-brand-hover pt-4 border-t border-border-subtle dark:border-white/5 transition-colors"
                 >
                   <span>Calculate Visa Cost</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -189,11 +189,11 @@ export default function FamilyVisaServices() {
         </div>
 
         {/* 4 Step Process Banner */}
-        <div className="mt-16 bg-[#111111] dark:bg-[#141414] text-white rounded-3xl p-8 lg:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#E01E37]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="mt-16 bg-[#111111] dark:bg-brand-surface text-white rounded-xl p-8 lg:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="max-w-3xl mb-10">
-            <div className="text-xs font-bold uppercase tracking-widest text-[#E01E37] mb-2">
+            <div className="text-xs font-bold uppercase tracking-widest text-brand-primary mb-2">
               STREAMLINED 4-STEP PROCESS
             </div>
             <h3 className="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
@@ -205,32 +205,32 @@ export default function FamilyVisaServices() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white/5 dark:bg-white/[0.03] border border-white/10 rounded-2xl p-5 space-y-3">
-              <div className="text-2xl font-display font-extrabold text-[#E01E37]">01</div>
+            <div className="bg-surface/5 dark:bg-white/[0.03] border border-white/10 rounded-xl p-5 space-y-3">
+              <div className="text-2xl font-display font-extrabold text-brand-primary">01</div>
               <div className="font-display font-bold text-sm text-white">Free Pre-Audit</div>
               <div className="text-xs text-slate-400 leading-relaxed">
                 We review salary certificates, tenancy (Ejari), & marriage/birth attestations before paying any fee.
               </div>
             </div>
 
-            <div className="bg-white/5 dark:bg-white/[0.03] border border-white/10 rounded-2xl p-5 space-y-3">
-              <div className="text-2xl font-display font-extrabold text-[#E01E37]">02</div>
+            <div className="bg-surface/5 dark:bg-white/[0.03] border border-white/10 rounded-xl p-5 space-y-3">
+              <div className="text-2xl font-display font-extrabold text-brand-primary">02</div>
               <div className="font-display font-bold text-sm text-white">Entry Permit & Status</div>
               <div className="text-xs text-slate-400 leading-relaxed">
                 Issuance of electronic entry permit and immediate In-Country Status Change without travel exit.
               </div>
             </div>
 
-            <div className="bg-white/5 dark:bg-white/[0.03] border border-white/10 rounded-2xl p-5 space-y-3">
-              <div className="text-2xl font-display font-extrabold text-[#E01E37]">03</div>
+            <div className="bg-surface/5 dark:bg-white/[0.03] border border-white/10 rounded-xl p-5 space-y-3">
+              <div className="text-2xl font-display font-extrabold text-brand-primary">03</div>
               <div className="font-display font-bold text-sm text-white">VIP Medical & Biometrics</div>
               <div className="text-xs text-slate-400 leading-relaxed">
                 Escorted 30-minute VIP medical fitness test & express biometrics queue pass for Emirates ID.
               </div>
             </div>
 
-            <div className="bg-white/5 dark:bg-white/[0.03] border border-white/10 rounded-2xl p-5 space-y-3">
-              <div className="text-2xl font-display font-extrabold text-[#E01E37]">04</div>
+            <div className="bg-surface/5 dark:bg-white/[0.03] border border-white/10 rounded-xl p-5 space-y-3">
+              <div className="text-2xl font-display font-extrabold text-brand-primary">04</div>
               <div className="font-display font-bold text-sm text-white">Visa Stamping & Card</div>
               <div className="text-xs text-slate-400 leading-relaxed">
                 Final e-visa stamping approval and courier dispatch of physical Emirates ID cards directly to your residence.

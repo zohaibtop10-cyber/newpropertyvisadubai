@@ -3,6 +3,7 @@ import WhatsAppIcon from './WhatsAppIcon';
 import { motion } from 'framer-motion';
 import { FileCheck, CheckCircle2 } from 'lucide-react';
 import { siteConfig } from '../data/cmsData';
+import { marked } from 'marked';
 
 export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
   const [selectedCategory, setSelectedCategory] = useState('spouse'); // 'spouse' | 'children' | 'golden' | 'property' | 'maid'
@@ -12,7 +13,7 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
 
   const checklists = {
     spouse: {
-      title: "Spouse Residence Visa Checklist",
+      title: "Family Residence Visa Checklist",
       items: [
         { title: "Passport Copy of Sponsor & Spouse", note: "Minimum 6 months validity remaining" },
         { title: "Attested Marriage Certificate", note: "MOFA stamped in home country and UAE + Arabic translation" },
@@ -69,16 +70,16 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
         transition={{ type: 'spring', stiffness: 80, damping: 15 }}
         className="text-center max-w-3xl mx-auto space-y-4"
       >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-[#E01E37]/10 text-[#E01E37] border border-[#E01E37]/20">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-brand-primary/10 text-brand-primary border border-brand-primary/20">
           <FileCheck className="w-4 h-4" />
           <span>DOCUMENT PREPARATION GUIDE</span>
         </div>
 
-        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-content-primary dark:text-white tracking-tight">
           {headline}
         </h1>
 
-        <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
+        <p className="text-content-muted dark:text-slate-400 text-base sm:text-lg leading-relaxed">
           {subtext}
         </p>
       </motion.section>
@@ -87,40 +88,40 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
       <div className="flex items-center justify-center gap-2 overflow-x-auto pb-2">
         <button
           onClick={() => setSelectedCategory('spouse')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'spouse' ? 'bg-[#E01E37] text-white shadow-md' : 'bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300'
+          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+            selectedCategory === 'spouse' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
           }`}
         >
           Spouse Visa
         </button>
         <button
           onClick={() => setSelectedCategory('children')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'children' ? 'bg-[#E01E37] text-white shadow-md' : 'bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300'
+          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+            selectedCategory === 'children' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
           }`}
         >
           Children Visa
         </button>
         <button
           onClick={() => setSelectedCategory('golden')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'golden' ? 'bg-[#E01E37] text-white shadow-md' : 'bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300'
+          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+            selectedCategory === 'golden' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
           }`}
         >
           Golden Visa
         </button>
         <button
           onClick={() => setSelectedCategory('property')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'property' ? 'bg-[#E01E37] text-white shadow-md' : 'bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300'
+          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+            selectedCategory === 'property' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
           }`}
         >
           Property Visa
         </button>
         <button
           onClick={() => setSelectedCategory('maid')}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'maid' ? 'bg-[#E01E37] text-white shadow-md' : 'bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300'
+          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+            selectedCategory === 'maid' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
           }`}
         >
           Maid Visa
@@ -133,24 +134,24 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3 }}
-        className="max-w-3xl mx-auto p-8 rounded-3xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 shadow-xl space-y-6"
+        className="max-w-3xl mx-auto p-8 rounded-xl bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 shadow-xl space-y-6"
       >
-        <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/10 pb-4">
-          <h2 className="font-display font-bold text-xl text-slate-900 dark:text-white">
+        <div className="flex items-center justify-between border-b border-border-subtle dark:border-white/10 pb-4">
+          <h2 className="font-display font-bold text-xl text-content-primary dark:text-white">
             {currentChecklist.title}
           </h2>
-          <span className="text-xs font-mono text-emerald-500 font-semibold bg-emerald-500/10 px-3 py-1 rounded-full">
+          <span className="text-xs font-mono text-brand-gold font-semibold bg-emerald-500/10 px-3 py-1 rounded-full">
             READY FOR WHATSAPP UPLOAD
           </span>
         </div>
 
         <div className="space-y-3">
           {currentChecklist.items.map((item, idx) => (
-            <div key={idx} className="p-4 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/5 flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+            <div key={idx} className="p-4 rounded-xl bg-canvas dark:bg-black/30 border border-border-subtle dark:border-white/5 flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
               <div>
-                <div className="font-bold text-sm text-slate-900 dark:text-white">{item.title}</div>
-                <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{item.note}</div>
+                <div className="font-bold text-sm text-content-primary dark:text-white">{item.title}</div>
+                <div className="text-xs text-content-muted dark:text-slate-400 mt-0.5">{item.note}</div>
               </div>
             </div>
           ))}
@@ -172,12 +173,23 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onOpenCalculator('spouse')}
-            className="py-3.5 px-6 bg-[#E01E37] text-white rounded-xl text-xs font-bold shadow-md cursor-pointer"
+            className="py-3.5 px-6 bg-brand-primary text-white rounded-xl text-xs font-bold shadow-md cursor-pointer"
           >
             Calculate Fees →
           </motion.button>
         </div>
       </motion.div>
+
+      {/* Render Markdown Content if available */}
+      {cmsConfig?.pages?.checklist?.contentMarkdown && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto mt-12 p-8 rounded-xl bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 shadow-xl prose prose-invert max-w-none"
+          dangerouslySetInnerHTML={{ __html: marked.parse(cmsConfig.pages.checklist.contentMarkdown) }}
+        />
+      )}
 
     </div>
   );

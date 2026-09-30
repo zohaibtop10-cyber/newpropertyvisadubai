@@ -48,7 +48,7 @@ export default function DossiersModule({ dossiers, setDossiers }) {
     <div className="space-y-6 animate-fadeIn">
       
       {/* Top Header & Search Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-brand-surfaceLight border border-slate-800 p-6 rounded-xl shadow-xl">
         <div>
           <h2 className="font-display font-extrabold text-xl text-white">Clients & Leads Management</h2>
           <p className="text-xs text-slate-400 mt-1">Manage inquiries, change statuses, and handle client documents.</p>
@@ -62,16 +62,16 @@ export default function DossiersModule({ dossiers, setDossiers }) {
             placeholder="Search by name, phone, or visa..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:border-[#E01E37] w-64"
+            className="pl-10 pr-4 py-2.5 bg-brand-darkBg border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-primary w-64"
           />
         </div>
       </div>
 
       {/* Beginner-Friendly Lead Data Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+      <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-300">
-            <thead className="bg-slate-950 text-slate-400 font-mono uppercase text-[11px] border-b border-slate-800">
+            <thead className="bg-brand-darkBg text-slate-400 font-mono uppercase text-[11px] border-b border-slate-800">
               <tr>
                 <th className="py-4 px-6">Client Name</th>
                 <th className="py-4 px-6">Contact Number</th>
@@ -98,14 +98,14 @@ export default function DossiersModule({ dossiers, setDossiers }) {
                         value={currentStatus}
                         onChange={(e) => handleStatusChange(client.id, e.target.value)}
                         className={`px-3 py-1.5 rounded-xl text-xs font-bold border focus:outline-none cursor-pointer ${
-                          currentStatus === 'New Lead' ? 'bg-blue-500/15 text-blue-400 border-blue-500/30' :
-                          currentStatus === 'Processing' ? 'bg-amber-500/15 text-amber-400 border-amber-500/30' :
-                          currentStatus === 'Waiting on Client' ? 'bg-purple-500/15 text-purple-400 border-purple-500/30' :
-                          'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                          currentStatus === 'New Lead' ? 'bg-brand-gold/15 text-brand-goldLight border-brand-gold/30' :
+                          currentStatus === 'Processing' ? 'bg-brand-gold/15 text-brand-goldLight border-brand-gold/30' :
+                          currentStatus === 'Waiting on Client' ? 'bg-brand-gold/15 text-brand-goldLight border-brand-gold/30' :
+                          'bg-brand-gold/15 text-brand-goldLight border-brand-gold/30'
                         }`}
                       >
                         {statusOptions.map(opt => (
-                          <option key={opt} value={opt} className="bg-slate-900 text-slate-100">
+                          <option key={opt} value={opt} className="bg-brand-surfaceLight text-slate-100">
                             {opt}
                           </option>
                         ))}
@@ -115,7 +115,7 @@ export default function DossiersModule({ dossiers, setDossiers }) {
                     <td className="py-4 px-6 text-center">
                       <button
                         onClick={() => setSelectedClient(client)}
-                        className="px-4 py-2 bg-slate-800 hover:bg-[#E01E37] text-white rounded-xl font-bold text-xs transition-colors cursor-pointer"
+                        className="px-4 py-2 bg-slate-800 hover:bg-brand-primary text-white rounded-xl font-bold text-xs transition-colors cursor-pointer"
                       >
                         View Details
                       </button>
@@ -134,7 +134,7 @@ export default function DossiersModule({ dossiers, setDossiers }) {
       {selectedClient && (
         <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm animate-fadeIn">
           <div 
-            className="w-full max-w-lg bg-slate-900 border-l border-slate-800 h-full flex flex-col shadow-2xl p-6 overflow-y-auto space-y-6 text-slate-100"
+            className="w-full max-w-lg bg-brand-surfaceLight border-l border-slate-800 h-full flex flex-col shadow-2xl p-6 overflow-y-auto space-y-6 text-slate-100"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Drawer Header */}
@@ -153,11 +153,11 @@ export default function DossiersModule({ dossiers, setDossiers }) {
             </div>
 
             {/* Contact Details */}
-            <div className="bg-slate-950 border border-slate-800 p-4 rounded-2xl space-y-3 text-xs">
+            <div className="bg-brand-darkBg border border-slate-800 p-4 rounded-xl space-y-3 text-xs">
               <div className="font-mono uppercase font-bold text-slate-400 text-[10px]">CONTACT INFORMATION</div>
               
               <div className="flex items-center gap-3 text-slate-200">
-                <Phone className="w-4 h-4 text-[#E01E37]" />
+                <Phone className="w-4 h-4 text-brand-primary" />
                 <span className="font-mono font-semibold">{selectedClient.phone}</span>
               </div>
 
@@ -167,34 +167,34 @@ export default function DossiersModule({ dossiers, setDossiers }) {
               </div>
 
               <div className="flex items-center gap-3 text-slate-200">
-                <FileText className="w-4 h-4 text-amber-400" />
+                <FileText className="w-4 h-4 text-brand-goldLight" />
                 <span className="font-mono">Passport: {selectedClient.passportNo}</span>
               </div>
             </div>
 
             {/* Document Vault Section */}
-            <div className="bg-slate-950 border border-slate-800 p-4 rounded-2xl space-y-4 text-xs">
+            <div className="bg-brand-darkBg border border-slate-800 p-4 rounded-xl space-y-4 text-xs">
               <div className="flex items-center justify-between">
                 <div className="font-mono uppercase font-bold text-slate-400 text-[10px]">DOCUMENT VAULT</div>
                 <button
                   onClick={handleSimulatedUpload}
-                  className="px-3 py-1.5 bg-[#E01E37] text-white rounded-lg font-bold text-[11px] flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 bg-brand-primary text-white rounded-lg font-bold text-[11px] flex items-center gap-1 cursor-pointer"
                 >
                   <UploadCloud className="w-3.5 h-3.5" /> Upload PDF
                 </button>
               </div>
 
               {uploadSuccess && (
-                <div className="p-2.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl text-xs font-semibold flex items-center gap-2">
+                <div className="p-2.5 bg-emerald-500/10 border border-brand-gold/30 text-brand-goldLight rounded-xl text-xs font-semibold flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4" /> Document uploaded to secure vault successfully!
                 </div>
               )}
 
               {/* Sample Documents List */}
               <div className="space-y-2">
-                <div className="p-3 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between">
+                <div className="p-3 bg-brand-surfaceLight border border-slate-800 rounded-xl flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <FileText className="w-4 h-4 text-[#E01E37]" />
+                    <FileText className="w-4 h-4 text-brand-primary" />
                     <div>
                       <div className="font-bold text-white">Passport_Copy.pdf</div>
                       <div className="text-[10px] text-slate-400 font-mono">Verified PDF • 2.4 MB</div>
@@ -209,9 +209,9 @@ export default function DossiersModule({ dossiers, setDossiers }) {
                   </button>
                 </div>
 
-                <div className="p-3 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between">
+                <div className="p-3 bg-brand-surfaceLight border border-slate-800 rounded-xl flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <FileText className="w-4 h-4 text-emerald-400" />
+                    <FileText className="w-4 h-4 text-brand-goldLight" />
                     <div>
                       <div className="font-bold text-white">Visa_Entry_Permit.pdf</div>
                       <div className="text-[10px] text-slate-400 font-mono">Issued Document • 1.1 MB</div>
@@ -229,9 +229,9 @@ export default function DossiersModule({ dossiers, setDossiers }) {
             </div>
 
             {/* Firebase Sync Status Note */}
-            <div className="p-3 bg-slate-950 border border-slate-800/80 rounded-xl text-[11px] font-mono text-slate-400 flex items-center justify-between">
+            <div className="p-3 bg-brand-darkBg border border-slate-800/80 rounded-xl text-[11px] font-mono text-slate-400 flex items-center justify-between">
               <span>Firebase Realtime Sync: Ready</span>
-              <span className="text-emerald-400 font-bold">Synced</span>
+              <span className="text-brand-goldLight font-bold">Synced</span>
             </div>
 
           </div>

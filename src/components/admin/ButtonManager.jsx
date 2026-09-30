@@ -2,18 +2,42 @@ import React, { useState } from 'react';
 import { Save, CheckCircle2, MousePointerClick, Plus, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
 
 export default function ButtonManager({ cmsConfig, setCmsConfig }) {
-  const [buttons, setButtons] = useState(
-    cmsConfig?.global?.buttons || [
-      {
-        id: 'btn-1',
-        label: 'Talk to us',
-        link: 'whatsapp',
-        bgColor: '#E01E37',
-        textColor: '#FFFFFF',
-        icon: 'Phone'
-      }
-    ]
-  );
+  const defaultButtons = [
+    {
+      id: 'btn-1',
+      label: 'Services',
+      link: '#services',
+      bgColor: '#D4AF37',
+      textColor: '#000000',
+      icon: 'LayoutGrid',
+      location: 'navbar'
+    },
+    {
+      id: 'btn-2',
+      label: 'Visa Calculator',
+      link: 'calculator',
+      bgColor: '#1E293B', // slate-800
+      textColor: '#FFFFFF',
+      icon: 'Calculator',
+      location: 'hero'
+    },
+    {
+      id: 'btn-3',
+      label: 'Talk to Us',
+      link: 'whatsapp',
+      bgColor: '#FFFFFF',
+      textColor: '#000000',
+      icon: 'Globe',
+      location: 'all'
+    }
+  ];
+
+  // If there are less than 3 buttons saved in config, reset it to defaults to ensure all existing btns show up
+  const initialButtons = (cmsConfig?.global?.buttons && cmsConfig.global.buttons.length >= 3) 
+    ? cmsConfig.global.buttons 
+    : defaultButtons;
+
+  const [buttons, setButtons] = useState(initialButtons);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   const handleAddButton = () => {
@@ -23,7 +47,8 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
       link: '/contact',
       bgColor: '#1E293B',
       textColor: '#FFFFFF',
-      icon: 'ArrowRight'
+      icon: 'ArrowRight',
+      location: 'navbar'
     };
     setButtons([...buttons, newBtn]);
   };
@@ -73,7 +98,6 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
           buttons: buttons
         }
       };
-      localStorage.setItem('app_cms_config', JSON.stringify(newConfig));
     }
 
     setSaveSuccess(true);
@@ -83,16 +107,16 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
   return (
     <div className="max-w-4xl space-y-8 animate-fadeIn">
       {saveSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
+        <div className="p-4 bg-emerald-500/10 border border-brand-gold/30 rounded-xl text-brand-goldLight text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
           <CheckCircle2 className="w-5 h-5 shrink-0" />
           <span>Navigation buttons published to live website!</span>
         </div>
       )}
 
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+      <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-2xl bg-indigo-500/15 text-indigo-500">
+            <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
               <MousePointerClick className="w-6 h-6" />
             </div>
             <div>
@@ -110,7 +134,7 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
             </button>
             <button
               onClick={handleSave}
-              className="px-5 py-2.5 bg-[#E01E37] hover:bg-[#B81A2C] text-white text-xs font-bold rounded-xl shadow-lg shadow-[#E01E37]/30 flex items-center gap-2 transition-all"
+              className="px-5 py-2.5 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 text-xs font-bold rounded-xl shadow-lg shadow-[#D4AF37]/30 flex items-center gap-2 transition-all"
             >
               <Save className="w-4 h-4" /> Publish
             </button>
@@ -119,13 +143,13 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
 
         <div className="space-y-4">
           {buttons.map((btn, idx) => (
-            <div key={btn.id} className="p-5 bg-slate-950 border border-slate-800 rounded-2xl space-y-4 relative">
+            <div key={btn.id} className="p-5 bg-brand-darkBg border border-slate-800 rounded-xl space-y-4 relative">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-[#E01E37]">BUTTON #{idx + 1}</span>
+                <span className="text-xs font-mono font-bold text-brand-primary">BUTTON #{idx + 1}</span>
                 <div className="flex items-center gap-1.5">
-                  <button type="button" disabled={idx === 0} onClick={() => handleMove(idx, 'up')} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                  <button type="button" disabled={idx === buttons.length - 1} onClick={() => handleMove(idx, 'down')} className={`p-1.5 rounded-lg border transition-colors ${idx === buttons.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
-                  <button type="button" onClick={() => handleDelete(btn.id)} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                  <button type="button" disabled={idx === 0} onClick={() => handleMove(idx, 'up')} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                  <button type="button" disabled={idx === buttons.length - 1} onClick={() => handleMove(idx, 'down')} className={`p-1.5 rounded-lg border transition-colors ${idx === buttons.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                  <button type="button" onClick={() => handleDelete(btn.id)} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                 </div>
               </div>
 
@@ -136,7 +160,7 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
                     type="text"
                     value={btn.label}
                     onChange={(e) => handleUpdate(idx, 'label', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]"
+                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary"
                     placeholder="e.g. Free Consultation"
                   />
                 </div>
@@ -146,7 +170,7 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
                     type="text"
                     value={btn.link}
                     onChange={(e) => handleUpdate(idx, 'link', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs font-mono focus:outline-none focus:border-[#E01E37]"
+                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs font-mono focus:outline-none focus:border-brand-primary"
                     placeholder="URL or route (e.g. /contact, whatsapp)"
                   />
                 </div>
@@ -155,15 +179,15 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
                   <div className="flex gap-2">
                     <input
                       type="color"
-                      value={btn.bgColor || '#E01E37'}
+                      value={btn.bgColor || '#D4AF37'}
                       onChange={(e) => handleUpdate(idx, 'bgColor', e.target.value)}
-                      className="w-10 h-10 rounded-xl cursor-pointer bg-slate-900 border border-slate-800"
+                      className="w-10 h-10 rounded-xl cursor-pointer bg-brand-surfaceLight border border-slate-800"
                     />
                     <input
                       type="text"
-                      value={btn.bgColor || '#E01E37'}
+                      value={btn.bgColor || '#D4AF37'}
                       onChange={(e) => handleUpdate(idx, 'bgColor', e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 text-white text-xs font-mono focus:outline-none focus:border-[#E01E37]"
+                      className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl px-3 text-white text-xs font-mono focus:outline-none focus:border-brand-primary"
                     />
                   </div>
                 </div>
@@ -174,15 +198,28 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
                       type="color"
                       value={btn.textColor || '#FFFFFF'}
                       onChange={(e) => handleUpdate(idx, 'textColor', e.target.value)}
-                      className="w-10 h-10 rounded-xl cursor-pointer bg-slate-900 border border-slate-800"
+                      className="w-10 h-10 rounded-xl cursor-pointer bg-brand-surfaceLight border border-slate-800"
                     />
                     <input
                       type="text"
                       value={btn.textColor || '#FFFFFF'}
                       onChange={(e) => handleUpdate(idx, 'textColor', e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 text-white text-xs font-mono focus:outline-none focus:border-[#E01E37]"
+                      className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl px-3 text-white text-xs font-mono focus:outline-none focus:border-brand-primary"
                     />
                   </div>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">Display Location</label>
+                  <select
+                    value={btn.location || 'all'}
+                    onChange={(e) => handleUpdate(idx, 'location', e.target.value)}
+                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-mono focus:outline-none focus:border-brand-primary cursor-pointer"
+                  >
+                    <option value="all">All Locations</option>
+                    <option value="navbar">Navbar Only</option>
+                    <option value="hero">Hero Section</option>
+                    <option value="footer">Footer</option>
+                  </select>
                 </div>
               </div>
 
@@ -190,7 +227,7 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
           ))}
 
           {buttons.length === 0 && (
-            <div className="p-8 border-2 border-dashed border-slate-800 rounded-2xl text-center text-slate-500 font-bold text-sm">
+            <div className="p-8 border-2 border-dashed border-slate-800 rounded-xl text-center text-content-muted font-bold text-sm">
               No buttons configured. Click "Add Button" to create one.
             </div>
           )}

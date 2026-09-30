@@ -25,7 +25,7 @@ export default function DesktopWhatsAppFAB({ cmsConfig }) {
         </svg>
 
         {/* Hover Tooltip */}
-        <span className="absolute right-16 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-semibold whitespace-nowrap shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+        <span className="absolute right-16 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-xl bg-brand-surfaceLight text-white text-xs font-semibold whitespace-nowrap shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
           Chat on WhatsApp
         </span>
       </motion.a>

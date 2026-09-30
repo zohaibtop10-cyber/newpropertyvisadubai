@@ -1,0 +1,776 @@
+﻿commit 4722d60e76c63dd09cc73a764c4b08e3385b25ab
+Author: Zohaib <opzohaib90@gmail.com>
+Date:   Fri Sep 25 19:33:52 2026 +0500
+
+    Your descriptive commit message here
+
+diff --git a/src/components/Home.jsx b/src/components/Home.jsx
+index 4c06039..789f940 100644
+--- a/src/components/Home.jsx
++++ b/src/components/Home.jsx
+@@ -1,4 +1,5 @@
+ import React, { useState, useEffect, useRef } from 'react';
++import WhatsAppIcon from './WhatsAppIcon';
+ import { motion, AnimatePresence, useInView } from 'framer-motion';
+ import {
+   Heart,
+@@ -13,7 +14,8 @@ import {
+   ChevronRight,
+   ChevronDown,
+   Building2,
+-  MessageSquare,
++  ThumbsUp,
++  FileText,
+   CheckCircle2,
+   XCircle,
+   Clock,
+@@ -41,7 +43,7 @@ import {
+ // Icon map: resolve lucide icon by string name (used when CMS config stores icon as a string)
+ const ICON_MAP = {
+   Heart, Baby, Users, Crown, Shield, ShieldCheck, ArrowRight, Calculator,
+-  Star, ChevronRight, Building2, MessageSquare, CheckCircle2, XCircle,
++  Star, ChevronRight, Building2, CheckCircle2, XCircle,
+   Clock, Sparkles, FileCheck, Stethoscope, IdCard, Languages, Scale,
+   Award, Trophy, Zap, Check, AlertTriangle, BookOpen, Calendar, User,
+   MapPin, Briefcase, Building, BadgeCheck
+@@ -64,14 +66,14 @@ import {
+ function useCounter(end, duration = 2000, startOnView = false, isInView = true) {
+   const [count, setCount] = useState(0);
+   const hasStarted = useRef(false);
+-  
++
+   useEffect(() => {
+     if (!isInView || hasStarted.current) return;
+     hasStarted.current = true;
+-    
++
+     const num = parseFloat(String(end).replace(/[^0-9.]/g, ''));
+     if (isNaN(num)) return;
+-    
++
+     const startTime = Date.now();
+     const timer = setInterval(() => {
+       const elapsed = Date.now() - startTime;
+@@ -81,10 +83,10 @@ function useCounter(end, duration = 2000, startOnView = false, isInView = true)
+       setCount(Math.floor(num * eased));
+       if (progress >= 1) clearInterval(timer);
+     }, 16);
+-    
++
+     return () => clearInterval(timer);
+   }, [end, duration, isInView]);
+-  
++
+   return count;
+ }
+ 
+@@ -92,15 +94,15 @@ function useCounter(end, duration = 2000, startOnView = false, isInView = true)
+ function RevealSection({ children, className = '', delay = 0, id }) {
+   const ref = useRef(null);
+   const isInView = useInView(ref, { once: true, margin: '-80px' });
+-  
++
+   return (
+     <motion.section
+       ref={ref}
+       id={id}
+       initial={{ opacity: 0, y: 50 }}
+       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+-      transition={{ 
+-        duration: 0.7, 
++      transition={{
++        duration: 0.7,
+         delay,
+         ease: [0.16, 1, 0.3, 1]
+       }}
+@@ -283,14 +285,14 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+     }
+   ];
+ 
+-  const filteredServices = serviceCategory === 'all' 
+-    ? categorizedServices 
++  const filteredServices = serviceCategory === 'all'
++    ? categorizedServices
+     : categorizedServices.filter(s => {
+-        if (serviceCategory === 'visas') return s.tag === 'Visas';
+-        if (serviceCategory === 'emiratesId') return s.tag === 'Emirates ID & Medical';
+-        if (serviceCategory === 'legal') return s.tag === 'Legal & Attestation';
+-        return true;
+-      });
++      if (serviceCategory === 'visas') return s.tag === 'Visas';
++      if (serviceCategory === 'emiratesId') return s.tag === 'Emirates ID & Medical';
++      if (serviceCategory === 'legal') return s.tag === 'Legal & Attestation';
++      return true;
++    });
+ 
+   // Achievements Data
+   const achievements = cmsConfig?.achievements?.items || [
+@@ -330,23 +332,23 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+     solution: p.solutionTitle,
+     desc: p.desc
+   })) || [
+-    {
+-      problem: "Standing in 5 different queues at Amer centers, medical clinics, and typing offices.",
+-      solution: "100% Online WhatsApp Concierge. Send scans from home ΓÇö we handle all government counters for you."
+-    },
+-    {
+-      problem: "Hidden service center surcharges and mysterious fee markups on government tariffs.",
+-      solution: "Itemized Unbundled Billing. We pass on exact GDRFA/ICP fees at cost with official receipts."
+-    },
+-    {
+-      problem: "Visa rejections caused by improper MOFA attestation stamps or Ejari errors.",
+-      solution: "Free Pre-Flight Document Audit. We verify your certificates before you spend a single Dirham."
+-    },
+-    {
+-      problem: "Heavy daily overstay fines while waiting for status change or medical checkups.",
+-      solution: "Guaranteed Fast-Track SLA. In-country status change cleared in 24-48 hours with zero fine risk."
+-    }
+-  ];
++      {
++        problem: "Standing in 5 different queues at Amer centers, medical clinics, and typing offices.",
++        solution: "100% Online WhatsApp Concierge. Send scans from home ΓÇö we handle all government counters for you."
++      },
++      {
++        problem: "Hidden service center surcharges and mysterious fee markups on government tariffs.",
++        solution: "Itemized Unbundled Billing. We pass on exact GDRFA/ICP fees at cost with official receipts."
++      },
++      {
++        problem: "Visa rejections caused by improper MOFA attestation stamps or Ejari errors.",
++        solution: "Free Pre-Flight Document Audit. We verify your certificates before you spend a single Dirham."
++      },
++      {
++        problem: "Heavy daily overstay fines while waiting for status change or medical checkups.",
++        solution: "Guaranteed Fast-Track SLA. In-country status change cleared in 24-48 hours with zero fine risk."
++      }
++    ];
+ 
+   // Packages Data
+   const packages = cmsConfig?.packages?.items || [
+@@ -363,7 +365,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+         "WhatsApp Application Tracking",
+         "Government Receipts Provided"
+       ],
+-      buttonText: "Choose Essential",
++
+       calcTab: "spouse"
+     },
+     {
+@@ -476,9 +478,9 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+               animate="show"
+               className="grid lg:grid-cols-12 gap-12 items-center"
+             >
+-              <div className="lg:col-span-7 space-y-6">
+-                <motion.h1 variants={itemVariants} className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+-                  <span className="text-gradient-red">{heroMainHeadline.split(' ').slice(0, 3).join(' ')}</span>{' '}
++              <div className="lg:col-span-7 space-y-6 md:space-y-8">
++                <motion.h1 variants={itemVariants} className="font-display text-[2.5rem] sm:text-5xl lg:text-[4rem] font-extrabold tracking-tight leading-[1.05]">
++                  <span className="text-[#E01E37]">{heroMainHeadline.split(' ').slice(0, 3).join(' ')}</span>{' '}
+                   <span className="text-slate-900 dark:text-white">{heroMainHeadline.split(' ').slice(3).join(' ')}</span>
+                 </motion.h1>
+ 
+@@ -488,7 +490,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+ 
+                 <motion.ul variants={itemVariants} className="space-y-3 pt-1">
+                   {[heroStat1, heroStat2, heroStat3].map((stat, i) => (
+-                    <motion.li 
++                    <motion.li
+                       key={i}
+                       initial={{ opacity: 0, x: -20 }}
+                       animate={{ opacity: 1, x: 0 }}
+@@ -525,19 +527,24 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                     className="flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-4 rounded-2xl font-bold text-base transition-all shadow-md shadow-emerald-600/20 relative overflow-hidden group"
+                   >
+                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/15 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+-                    <MessageSquare className="w-5 h-5 relative z-10" />
++                    <svg className="w-5 h-5 relative z-10 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
++                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
++                    </svg>
+                     <span className="relative z-10">WhatsApp Specialist</span>
+                   </motion.a>
+                 </motion.div>
+               </div>
+ 
+               {/* Right Floating Glass Card */}
+-              <motion.div variants={itemVariants} className="lg:col-span-5">
++              <motion.div variants={itemVariants} className="lg:col-span-5 relative z-20">
+                 <motion.div
+-                  animate={{ y: [-6, 6, -6] }}
++                  animate={{ y: [-4, 4, -4] }}
+                   transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+-                  className="p-6 sm:p-7 rounded-3xl glass-panel-premium shadow-2xl space-y-6 animate-border-glow"
++                  className="p-6 sm:p-8 rounded-3xl bg-white/70 dark:bg-black/40 backdrop-blur-3xl border border-white/40 dark:border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] dark:shadow-2xl space-y-6 relative overflow-hidden"
+                 >
++                  {/* Inner Glass Highlights */}
++                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none rounded-3xl dark:from-white/5" />
++
+                   <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/10 pb-4">
+                     <div>
+                       <div className="text-xs font-mono font-bold text-[#E01E37] uppercase tracking-wider">INSTANT ELIGIBILITY CHECKER</div>
+@@ -562,11 +569,10 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                           animate={{ opacity: 1, x: 0 }}
+                           transition={{ delay: 0.3 + i * 0.1 }}
+                           onClick={() => onOpenCalculator(item.tab)}
+-                          className={`w-full p-3.5 rounded-2xl border text-left flex items-center justify-between transition-all cursor-pointer group ${
+-                            item.special 
++                          className={`w-full p-3.5 rounded-2xl border text-left flex items-center justify-between transition-all cursor-pointer group ${item.special
+                               ? 'bg-amber-500/10 border-amber-500/30 hover:border-amber-500'
+                               : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37]'
+-                          }`}
++                            }`}
+                         >
+                           <div className="flex items-center gap-3">
+                             <div className={`p-2.5 rounded-xl ${item.special ? 'bg-amber-500/20 text-amber-500' : 'bg-white dark:bg-white/10 text-[#E01E37]'}`}>
+@@ -586,11 +592,11 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                   <motion.button
+                     whileHover={{ scale: 1.02 }}
+                     onClick={() => onOpenCalculator('spouse')}
+-                    className="w-full bg-gradient-to-r from-[#E01E37] to-[#B81A2C] hover:from-[#C8102E] hover:to-[#8B0A1E] text-white py-3.5 rounded-xl font-bold text-xs transition-colors shadow-md shadow-[#E01E37]/20 cursor-pointer flex items-center justify-center gap-2 relative overflow-hidden group"
++                    className="w-full bg-[#E01E37] text-white py-4 rounded-xl font-bold text-sm transition-all shadow-xl shadow-[#E01E37]/25 cursor-pointer flex items-center justify-center gap-2 relative overflow-hidden group hover:shadow-[#E01E37]/40"
+                   >
+                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                     <span className="relative z-10">Launch Tariff Calculator</span>
+-                    <ArrowRight className="w-4 h-4 relative z-10" />
++                    <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+                   </motion.button>
+                 </motion.div>
+               </motion.div>
+@@ -604,7 +610,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+             <div ref={statsRef} className="bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-slate-700/50 rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
+               {/* Decorative glow */}
+               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-[#E01E37]/8 rounded-full blur-[100px] pointer-events-none" />
+-              
++
+               <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-700/50 text-center relative z-10">
+                 {statsMetrics.map((m, i) => (
+                   <motion.div
+@@ -625,56 +631,71 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+ 
+       case 'achievements':
+         return (
+-          <RevealSection key="achievements" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
+-            <div className="text-center max-w-3xl mx-auto space-y-3">
+-              <div className="text-[#E01E37] font-mono text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+-                <Trophy className="w-4 h-4 text-amber-400" />
+-                <span>EXCELLENCE & RECOGNITION</span>
++          <RevealSection key="achievements" className="w-full relative z-10 my-16 py-16 px-4 sm:px-6 bg-gradient-to-r from-slate-950 via-[#0a0a0a] to-slate-950 shadow-[inset_0_4px_20px_rgba(0,0,0,0.5)] border-y border-white/5">
++            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 mix-blend-overlay pointer-events-none" />
++            <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-5 gap-8 md:gap-4 text-center items-center relative z-10">
++
++              {/* Item 1 */}
++              <div className="flex flex-col items-center space-y-4">
++                <div className="relative group">
++                  <div className="absolute -inset-4 bg-gradient-to-r from-red-500/20 to-red-700/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-70 group-hover:opacity-100"></div>
++                  <Trophy className="w-10 h-10 sm:w-12 sm:h-12 text-white relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]" strokeWidth={1.5} />
++                </div>
++                <div className="space-y-1">
++                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-display tracking-tight">No #1</div>
++                  <div className="text-[#E01E37] text-xs sm:text-sm font-bold uppercase tracking-wider">Top Agency</div>
++                </div>
+               </div>
+-              <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+-                {cmsConfig?.achievements?.title || "Our Key Industry Achievements"}
+-              </h2>
+-              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+-                {cmsConfig?.achievements?.subtext || "Recognized as the UAE's premier document clearing and family residency advisory firm."}
+-              </p>
+-            </div>
+ 
+-            <motion.div 
+-              variants={cardGridVariants}
+-              initial="hidden"
+-              whileInView="show"
+-              viewport={{ once: true, margin: '-80px' }}
+-              className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+-            >
+-              {achievements.map((item, idx) => {
+-                const Icon = resolveIcon(item.icon);
+-                return (
+-                  <motion.div
+-                    key={idx}
+-                    variants={cardItemVariants}
+-                    whileHover={{ y: -8, scale: 1.02 }}
+-                    className="card-premium p-7 rounded-3xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 space-y-4 flex flex-col justify-between"
+-                  >
+-                    <div className="space-y-3">
+-                      <div className="flex items-center justify-between">
+-                        <div className="p-3 rounded-2xl bg-gradient-to-br from-[#E01E37]/15 to-[#E01E37]/5 text-[#E01E37]">
+-                          <Icon className="w-6 h-6" />
+-                        </div>
+-                        <span className="text-[10px] font-mono font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-full uppercase">
+-                          {item.badge}
+-                        </span>
+-                      </div>
+-                      <h3 className="font-display font-bold text-lg text-slate-900 dark:text-white">{item.title}</h3>
+-                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+-                    </div>
+-                    <div className="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+-                      <span className="text-xs font-mono font-bold text-[#E01E37]">{item.stat || item.badge}</span>
+-                      <Award className="w-4 h-4 text-amber-400" />
+-                    </div>
+-                  </motion.div>
+-                );
+-              })}
+-            </motion.div>
++              {/* Item 2 */}
++              <div className="flex flex-col items-center space-y-4">
++                <div className="relative group">
++                  <div className="absolute -inset-4 bg-gradient-to-r from-red-500/20 to-red-700/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-70 group-hover:opacity-100"></div>
++                  <Star className="w-10 h-10 sm:w-12 sm:h-12 text-white fill-white/20 relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]" strokeWidth={1.5} />
++                </div>
++                <div className="space-y-1">
++                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-display tracking-tight">4.9*</div>
++                  <div className="text-[#E01E37] text-xs sm:text-sm font-bold uppercase tracking-wider">Google Rating</div>
++                </div>
++              </div>
++
++              {/* Item 3 */}
++              <div className="flex flex-col items-center space-y-4">
++                <div className="relative group">
++                  <div className="absolute -inset-4 bg-gradient-to-r from-red-500/20 to-red-700/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-70 group-hover:opacity-100"></div>
++                  <ThumbsUp className="w-10 h-10 sm:w-12 sm:h-12 text-white relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]" strokeWidth={1.5} />
++                </div>
++                <div className="space-y-1">
++                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-display tracking-tight">100%</div>
++                  <div className="text-[#E01E37] text-xs sm:text-sm font-bold uppercase tracking-wider">Client Satisfaction</div>
++                </div>
++              </div>
++
++              {/* Item 4 */}
++              <div className="flex flex-col items-center space-y-4">
++                <div className="relative group">
++                  <div className="absolute -inset-4 bg-gradient-to-r from-red-500/20 to-red-700/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-70 group-hover:opacity-100"></div>
++                  <Users className="w-10 h-10 sm:w-12 sm:h-12 text-white relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]" strokeWidth={1.5} />
++                </div>
++                <div className="space-y-1">
++                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-display tracking-tight">15+</div>
++                  <div className="text-[#E01E37] text-xs sm:text-sm font-bold uppercase tracking-wider">Expert PROs</div>
++                </div>
++              </div>
++
++              {/* Item 5 */}
++              <div className="flex flex-col items-center space-y-4 col-span-2 lg:col-span-1">
++                <div className="relative group">
++                  <div className="absolute -inset-4 bg-gradient-to-r from-red-500/20 to-red-700/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-70 group-hover:opacity-100"></div>
++                  <FileText className="w-10 h-10 sm:w-12 sm:h-12 text-white relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]" strokeWidth={1.5} />
++                </div>
++                <div className="space-y-1">
++                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-display tracking-tight">5500+</div>
++                  <div className="text-[#E01E37] text-xs sm:text-sm font-bold uppercase tracking-wider">Visas Issued</div>
++                </div>
++              </div>
++
++            </div>
+           </RevealSection>
+         );
+ 
+@@ -686,7 +707,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+               <div className="absolute inset-0 dot-pattern opacity-30 pointer-events-none" />
+               {/* Decorative glow */}
+               <div className="absolute -top-20 -right-20 w-[400px] h-[400px] bg-[#E01E37]/8 rounded-full blur-[120px] pointer-events-none" />
+-              
++
+               <div className="text-center max-w-2xl mx-auto space-y-2 relative z-10">
+                 <div className="text-[#E01E37] font-mono text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                   <AlertTriangle className="w-4 h-4 text-[#E01E37]" />
+@@ -696,7 +717,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                 <p className="text-slate-300 text-sm">{cmsConfig?.problems?.subtext || "Avoid bureaucracy, surprise fees, and endless waiting queues at service centers."}</p>
+               </div>
+ 
+-              <motion.div 
++              <motion.div
+                 variants={cardGridVariants}
+                 initial="hidden"
+                 whileInView="show"
+@@ -704,8 +725,8 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                 className="grid md:grid-cols-2 gap-6 relative z-10"
+               >
+                 {problemsSolved.map((item, idx) => (
+-                  <motion.div 
+-                    key={idx} 
++                  <motion.div
++                    key={idx}
+                     variants={cardItemVariants}
+                     whileHover={{ scale: 1.02 }}
+                     className="p-6 rounded-2xl bg-slate-950/80 border border-slate-700/50 space-y-4 backdrop-blur-sm"
+@@ -753,9 +774,8 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                     whileHover={{ scale: 1.05 }}
+                     whileTap={{ scale: 0.95 }}
+                     onClick={() => setServiceCategory(cat.key)}
+-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+-                      serviceCategory === cat.key ? 'bg-[#E01E37] text-white shadow-md shadow-[#E01E37]/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+-                    }`}
++                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${serviceCategory === cat.key ? 'bg-[#E01E37] text-white shadow-md shadow-[#E01E37]/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
++                      }`}
+                   >
+                     {cat.label}
+                   </motion.button>
+@@ -763,7 +783,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+               </div>
+             </div>
+ 
+-            <motion.div 
++            <motion.div
+               layout
+               variants={cardGridVariants}
+               initial="hidden"
+@@ -782,15 +802,16 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                       initial="hidden"
+                       animate="show"
+                       exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+-                      whileHover={{ y: -8, scale: 1.02 }}
+-                      className="card-premium p-7 rounded-3xl border flex flex-col justify-between bg-white dark:bg-[#141414] border-slate-200 dark:border-white/10 group"
++                      whileHover={{ y: -10, scale: 1.02 }}
++                      className="card-premium p-7 rounded-3xl border flex flex-col justify-between bg-white dark:bg-[#141414] border-slate-200 dark:border-white/10 group shadow-sm hover:shadow-xl hover:shadow-[#E01E37]/5 transition-all duration-300 relative overflow-hidden"
+                     >
+-                      <div className="space-y-4">
++                      <div className="absolute inset-0 bg-gradient-to-b from-[#E01E37]/0 to-[#E01E37]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
++                      <div className="space-y-4 relative z-10">
+                         <div className="flex items-center justify-between">
+-                          <div className="p-3 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-white/10 dark:to-white/5 border border-slate-200 dark:border-white/10 text-[#E01E37] group-hover:shadow-lg group-hover:shadow-[#E01E37]/10 transition-shadow">
+-                            <Icon className="w-6 h-6 text-[#E01E37]" />
++                          <div className="p-3 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-white/10 dark:to-white/5 border border-slate-200 dark:border-white/10 text-[#E01E37] group-hover:bg-[#E01E37] group-hover:border-[#E01E37] group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-md group-hover:shadow-[#E01E37]/30">
++                            <Icon className="w-6 h-6 transition-colors duration-300" />
+                           </div>
+-                          <span className="text-[10px] font-mono font-bold text-[#E01E37] bg-[#E01E37]/10 border border-[#E01E37]/20 px-2.5 py-1 rounded-full uppercase">
++                          <span className="text-[10px] font-mono font-bold text-[#E01E37] bg-[#E01E37]/10 border border-[#E01E37]/20 px-2.5 py-1 rounded-full uppercase transition-colors group-hover:bg-[#E01E37]/20">
+                             {srv.tag || srv.category || 'Visa'}
+                           </span>
+                         </div>
+@@ -800,7 +821,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                         </div>
+                       </div>
+ 
+-                      <div className="pt-6 mt-6 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
++                      <div className="pt-6 mt-6 border-t border-slate-100 dark:border-white/5 flex items-center justify-between relative z-10">
+                         <button
+                           onClick={() => onNavigate('service', srv.linkId || srv.id)}
+                           className="text-xs font-bold text-[#E01E37] group-hover:underline cursor-pointer flex items-center gap-1"
+@@ -811,7 +832,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+ 
+                         <button
+                           onClick={() => onOpenCalculator('spouse')}
+-                          className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-[#E01E37] dark:hover:text-[#E01E37] cursor-pointer transition-colors"
++                          className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-[#E01E37] dark:hover:text-[#E01E37] cursor-pointer transition-colors bg-slate-100 dark:bg-white/5 px-3 py-1.5 rounded-lg group-hover:bg-[#E01E37]/10 group-hover:text-[#E01E37]"
+                         >
+                           Calculate ΓåÆ
+                         </button>
+@@ -833,7 +854,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+               <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">Fixed retainer fees. All statutory government charges (GDRFA, ICP, Medical) are billed separately at exact cost with official receipts.</p>
+             </div>
+ 
+-            <motion.div 
++            <motion.div
+               variants={cardGridVariants}
+               initial="hidden"
+               whileInView="show"
+@@ -845,22 +866,17 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                   key={idx}
+                   variants={cardItemVariants}
+                   whileHover={{ y: -10 }}
+-                  className={`p-8 rounded-3xl border transition-all duration-300 flex flex-col justify-between relative overflow-hidden ${
+-                    pkg.popular
++                  className={`p-8 rounded-3xl border transition-all duration-300 flex flex-col justify-between relative overflow-hidden ${pkg.popular
+                       ? 'bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white border-[#E01E37] shadow-2xl shadow-[#E01E37]/15 ring-2 ring-[#E01E37] animate-border-glow'
+                       : 'card-premium bg-white dark:bg-[#141414] text-slate-900 dark:text-white border-slate-200 dark:border-white/10'
+-                  }`}
++                    }`}
+                 >
+                   {/* Decorative gradient for popular */}
+                   {pkg.popular && (
+                     <div className="absolute top-0 right-0 w-48 h-48 bg-[#E01E37]/10 rounded-full blur-[80px] pointer-events-none" />
+                   )}
+-                  
+-                  {pkg.popular && (
+-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#E01E37] to-[#B81A2C] text-white text-[10px] font-mono font-extrabold uppercase px-4 py-1 rounded-full shadow-lg z-10">
+-                      Γÿà MOST POPULAR
+-                    </div>
+-                  )}
++
++                  {/* Removed absolute MOST POPULAR badge per user request */}
+ 
+                   <div className="space-y-6 relative z-10">
+                     <div>
+@@ -869,9 +885,12 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{pkg.tagline || pkg.subtext || ''}</p>
+                     </div>
+ 
+-                    <div className="p-4 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-baseline gap-2">
+-                      <span className="font-display text-3xl font-extrabold text-gradient-red">{pkg.fee || pkg.price}</span>
+-                      <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">/ applicant</span>
++                    <div className={`p-4 rounded-2xl border flex items-baseline gap-2 ${pkg.popular
++                        ? 'bg-white/10 border-white/20'
++                        : 'bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10'
++                      }`}>
++                      <span className="font-display text-3xl font-extrabold text-[#E01E37] drop-shadow-sm">{pkg.fee || pkg.price}</span>
++                      <span className={`text-xs font-semibold ${pkg.popular ? 'text-slate-300' : 'text-slate-500 dark:text-slate-400'}`}>/ applicant</span>
+                     </div>
+ 
+                     <ul className="space-y-3 text-xs font-semibold">
+@@ -891,11 +910,10 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                       whileHover={{ scale: 1.03 }}
+                       whileTap={{ scale: 0.97 }}
+                       onClick={() => onOpenCalculator(pkg.calcTab || 'spouse')}
+-                      className={`w-full py-3.5 rounded-2xl font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-2 relative overflow-hidden group ${
+-                        pkg.popular
++                      className={`w-full py-3.5 rounded-2xl font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-2 relative overflow-hidden group ${pkg.popular
+                           ? 'bg-gradient-to-r from-[#E01E37] to-[#B81A2C] hover:from-[#C8102E] hover:to-[#8B0A1E] text-white shadow-lg shadow-[#E01E37]/30'
+                           : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-[#E01E37] dark:hover:bg-[#E01E37] dark:hover:text-white'
+-                      }`}
++                        }`}
+                     >
+                       <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/15 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                       <span className="relative z-10">{pkg.buttonText || 'Get Started'}</span>
+@@ -914,43 +932,65 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+             <div className="bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white rounded-3xl p-8 sm:p-12 border border-slate-700/50 space-y-10 relative overflow-hidden">
+               <div className="absolute inset-0 dot-pattern opacity-20 pointer-events-none" />
+               <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-[#E01E37]/5 rounded-full blur-[120px] pointer-events-none" />
+-              
++
+               <div className="text-center max-w-2xl mx-auto space-y-2 relative z-10">
+                 <div className="text-[#E01E37] font-mono text-xs font-bold uppercase tracking-widest">OFFICIAL LICENSE 800 DOCS LLC SOC</div>
+                 <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight">Why Families Choose Us</h2>
+                 <p className="text-slate-300 text-sm">We eliminate administrative delays and guarantee full transparency on every government fee.</p>
+               </div>
+ 
+-              <motion.div 
+-                variants={cardGridVariants}
+-                initial="hidden"
+-                whileInView="show"
+-                viewport={{ once: true, margin: '-60px' }}
+-                className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10"
+-              >
+-                {(cmsConfig?.whyUs?.items || [
++              {(() => {
++                const whyUsItems = cmsConfig?.whyUs?.items || [
+                   { icon: ShieldCheck, color: 'from-[#E01E37]/15 to-[#E01E37]/5', iconColor: 'text-[#E01E37]', title: 'Direct GDRFA & ICP Portal', desc: 'Direct government integration ensures your family file is submitted directly into immigration servers without third-party delay.' },
+                   { icon: Calculator, color: 'from-amber-500/15 to-amber-500/5', iconColor: 'text-amber-500', title: 'Zero Hidden Charges', desc: 'Itemized breakdown before payment starts. You receive official government receipts for all ICP, GDRFA, and Emirates ID fees.' },
+-                  { icon: MessageSquare, color: 'from-emerald-500/15 to-emerald-500/5', iconColor: 'text-emerald-500', title: 'Dedicated WhatsApp PRO', desc: 'Enjoy 1-on-1 direct communication with your assigned PRO specialist. Instant updates every step of the way.' },
++                  { icon: WhatsAppIcon, color: 'from-emerald-500/15 to-emerald-500/5', iconColor: 'text-emerald-500', title: 'Dedicated WhatsApp PRO', desc: 'Enjoy 1-on-1 direct communication with your assigned PRO specialist. Instant updates every step of the way.' },
+                   { icon: Sparkles, color: 'from-sky-500/15 to-sky-500/5', iconColor: 'text-sky-500', title: '24-48 Hr Fast Track', desc: 'Need your visa urgently? Our VIP fast-track option gets entry permits and medical checkup approvals cleared in 24 to 48 hours.' },
+-                ]).map((item, idx) => {
+-                  const Icon = resolveIcon(item.icon);
+-                  return (
+-                    <motion.div 
+-                      key={idx} 
+-                      variants={cardItemVariants}
+-                      whileHover={{ y: -6, scale: 1.03 }}
+-                      className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3 backdrop-blur-sm hover:bg-white/10 transition-all"
+-                    >
+-                      <div className={`p-3 rounded-xl bg-gradient-to-br ${item.color} ${item.iconColor} w-fit`}>
+-                        <Icon className="w-6 h-6" />
+-                      </div>
+-                      <h3 className="font-display font-bold text-base text-white">{item.title}</h3>
+-                      <p className="text-xs text-slate-300 leading-relaxed">{item.desc}</p>
+-                    </motion.div>
+-                  );
+-                })}
+-              </motion.div>
++                ];
++                const lgGrid = whyUsItems.length === 3 ? 'lg:grid-cols-3' : whyUsItems.length === 2 ? 'lg:grid-cols-2' : whyUsItems.length === 1 ? 'lg:grid-cols-1' : 'lg:grid-cols-4';
++
++                return (
++                  <motion.div
++                    variants={cardGridVariants}
++                    initial="hidden"
++                    whileInView="show"
++                    viewport={{ once: true, margin: '-60px' }}
++                    className={`grid md:grid-cols-2 ${lgGrid} gap-6 relative z-10`}
++                  >
++                    {whyUsItems.map((item, idx) => {
++                      const Icon = resolveIcon(item.icon) || ShieldCheck;
++                      // Dynamic fallback colors if missing from CMS
++                      const colorThemes = [
++                        { bg: 'from-[#E01E37]/20 to-[#E01E37]/5', text: 'text-[#E01E37]', border: 'border-[#E01E37]/30' },
++                        { bg: 'from-blue-500/20 to-indigo-500/5', text: 'text-blue-400', border: 'border-blue-500/30' },
++                        { bg: 'from-amber-500/20 to-orange-500/5', text: 'text-amber-400', border: 'border-amber-500/30' },
++                        { bg: 'from-emerald-500/20 to-teal-500/5', text: 'text-emerald-400', border: 'border-emerald-500/30' },
++                        { bg: 'from-purple-500/20 to-fuchsia-500/5', text: 'text-purple-400', border: 'border-purple-500/30' },
++                      ];
++                      const theme = colorThemes[idx % colorThemes.length];
++
++                      return (
++                        <motion.div
++                          key={idx}
++                          variants={cardItemVariants}
++                          whileHover={{ y: -8, scale: 1.02 }}
++                          className="p-8 rounded-3xl bg-slate-800/40 border border-slate-700/50 hover:border-slate-500/50 space-y-6 backdrop-blur-xl transition-all group relative overflow-hidden"
++                        >
++                          {/* Ambient glow effect on hover */}
++                          <div className={`absolute inset-0 bg-gradient-to-br ${theme.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
++
++                          <div className="relative z-10">
++                            <div className={`p-4 rounded-2xl bg-slate-900/80 border ${theme.border} w-fit shadow-xl group-hover:scale-110 transition-transform duration-500`}>
++                              <Icon className={`w-8 h-8 ${theme.text}`} strokeWidth={1.5} />
++                            </div>
++                            <h3 className="font-display font-extrabold text-xl text-white mt-6 mb-3 tracking-tight">{item.title}</h3>
++                            <p className="text-sm text-slate-300 leading-relaxed font-medium">{item.desc}</p>
++                          </div>
++                        </motion.div>
++                      );
++                    })}
++                  </motion.div>
++                );
++              })()}
+             </div>
+           </RevealSection>
+         );
+@@ -960,7 +1000,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+           <RevealSection key="process" id="process" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
+             <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white border border-slate-700/50 space-y-10 relative overflow-hidden">
+               <div className="absolute inset-0 dot-pattern opacity-15 pointer-events-none" />
+-              
++
+               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                 <div>
+                   <div className="text-xs font-mono text-[#E01E37] font-semibold uppercase tracking-wider mb-1">STEP-BY-STEP SLA WORKFLOW</div>
+@@ -975,9 +1015,8 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                       whileHover={{ scale: 1.05 }}
+                       whileTap={{ scale: 0.95 }}
+                       onClick={() => setGuideTab(tab)}
+-                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+-                        guideTab === tab ? 'bg-[#E01E37] text-white shadow-md shadow-[#E01E37]/30' : 'text-slate-400 hover:text-white'
+-                      }`}
++                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${guideTab === tab ? 'bg-[#E01E37] text-white shadow-md shadow-[#E01E37]/30' : 'text-slate-400 hover:text-white'
++                        }`}
+                     >
+                       {tab === 'newVisa' ? 'New Family Visa' : 'Visa Renewal'}
+                     </motion.button>
+@@ -993,12 +1032,12 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                 className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10"
+               >
+                 {activeGuide.steps.map((st, i) => (
+-                  <motion.div 
+-                    key={st.num} 
++                  <motion.div
++                    key={st.num}
+                     initial={{ opacity: 0, y: 20 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     transition={{ delay: i * 0.1, duration: 0.4 }}
+-                    whileHover={{ y: -6 }} 
++                    whileHover={{ y: -6 }}
+                     className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3 hover:bg-white/10 transition-all backdrop-blur-sm"
+                   >
+                     <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#E01E37] to-[#B81A2C] text-white font-mono font-bold text-xs flex items-center justify-center shadow-md shadow-[#E01E37]/30">
+@@ -1026,17 +1065,16 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+               {homepageFaqs.map((faq, idx) => {
+                 const isOpen = openFaqIndex === idx;
+                 return (
+-                  <motion.div 
+-                    key={idx} 
++                  <motion.div
++                    key={idx}
+                     initial={{ opacity: 0, y: 15 }}
+                     whileInView={{ opacity: 1, y: 0 }}
+                     viewport={{ once: true }}
+                     transition={{ delay: idx * 0.06, duration: 0.4 }}
+-                    className={`rounded-2xl border transition-all overflow-hidden shadow-sm ${
+-                      isOpen 
+-                        ? 'bg-white dark:bg-[#141414] border-[#E01E37]/30 shadow-md shadow-[#E01E37]/5' 
++                    className={`rounded-2xl border transition-all overflow-hidden shadow-sm ${isOpen
++                        ? 'bg-white dark:bg-[#141414] border-[#E01E37]/30 shadow-md shadow-[#E01E37]/5'
+                         : 'bg-white dark:bg-[#141414] border-slate-200 dark:border-white/10 hover:border-[#E01E37]/20'
+-                    }`}
++                      }`}
+                   >
+                     <button
+                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+@@ -1086,19 +1124,19 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+               <div className="marquee-track">
+                 {/* First copy */}
+                 {infiniteReviews.map((rev, idx) => (
+-                  <div key={`a-${idx}`} className="w-[340px] sm:w-[380px] p-6 rounded-3xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 space-y-4 shadow-sm shrink-0 hover:shadow-xl transition-shadow duration-300">
+-                    <div className="flex items-center justify-between">
++                  <div key={`a-${idx}`} className="w-[340px] sm:w-[380px] min-h-[200px] p-6 rounded-3xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 flex flex-col shadow-sm shrink-0 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 whitespace-normal">
++                    <div className="flex items-center justify-between mb-4">
+                       <div className="flex items-center gap-1 text-amber-400">
+                         {[...Array(rev.rating)].map((_, i) => (
+                           <Star key={i} className="w-4 h-4 fill-amber-400" />
+                         ))}
+                       </div>
+-                      <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+-                        Verified Residency Client
++                      <span className="text-[9px] font-mono font-bold text-emerald-500 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 uppercase tracking-widest">
++                        Verified Client
+                       </span>
+                     </div>
+-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 italic leading-relaxed">"{rev.comment}"</p>
+-                    <div className="pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs font-mono">
++                    <p className="text-sm text-slate-700 dark:text-slate-300 italic leading-relaxed flex-1 overflow-hidden break-words">{rev.comment}</p>
++                    <div className="pt-4 mt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs font-mono">
+                       <span className="font-bold text-slate-900 dark:text-white">{rev.name}</span>
+                       <span className="text-slate-400">{rev.role}</span>
+                     </div>
+@@ -1106,19 +1144,19 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                 ))}
+                 {/* Second copy for seamless loop */}
+                 {infiniteReviews.map((rev, idx) => (
+-                  <div key={`b-${idx}`} className="w-[340px] sm:w-[380px] p-6 rounded-3xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 space-y-4 shadow-sm shrink-0 hover:shadow-xl transition-shadow duration-300">
+-                    <div className="flex items-center justify-between">
++                  <div key={`b-${idx}`} className="w-[340px] sm:w-[380px] min-h-[200px] p-6 rounded-3xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 flex flex-col shadow-sm shrink-0 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 whitespace-normal">
++                    <div className="flex items-center justify-between mb-4">
+                       <div className="flex items-center gap-1 text-amber-400">
+                         {[...Array(rev.rating)].map((_, i) => (
+                           <Star key={i} className="w-4 h-4 fill-amber-400" />
+                         ))}
+                       </div>
+-                      <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+-                        Verified Residency Client
++                      <span className="text-[9px] font-mono font-bold text-emerald-500 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 uppercase tracking-widest">
++                        Verified Client
+                       </span>
+                     </div>
+-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 italic leading-relaxed">"{rev.comment}"</p>
+-                    <div className="pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs font-mono">
++                    <p className="text-sm text-slate-700 dark:text-slate-300 italic leading-relaxed flex-1 overflow-hidden break-words">{rev.comment}</p>
++                    <div className="pt-4 mt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs font-mono">
+                       <span className="font-bold text-slate-900 dark:text-white">{rev.name}</span>
+                       <span className="text-slate-400">{rev.role}</span>
+                     </div>
+@@ -1152,7 +1190,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+               </motion.button>
+             </div>
+ 
+-            <motion.div 
++            <motion.div
+               variants={cardGridVariants}
+               initial="hidden"
+               whileInView="show"
+@@ -1209,9 +1247,9 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+               <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none animate-float-slow" />
+               <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-2xl pointer-events-none animate-float" />
+               <div className="absolute inset-0 dot-pattern opacity-10 pointer-events-none" />
+-              
++
+               <div className="max-w-2xl mx-auto space-y-3 relative z-10">
+-                <motion.h2 
++                <motion.h2
+                   initial={{ opacity: 0, y: 20 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true }}
+@@ -1220,7 +1258,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                 >
+                   {cmsConfig?.cta?.headline || "Ready to bring your family to Dubai?"}
+                 </motion.h2>
+-                <motion.p 
++                <motion.p
+                   initial={{ opacity: 0, y: 15 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true }}
+@@ -1230,7 +1268,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                   {cmsConfig?.cta?.subtext || "Speak to a licensed UAE visa specialist on WhatsApp or calculate your exact government fee in 60 seconds."}
+                 </motion.p>
+               </div>
+-              <motion.div 
++              <motion.div
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 viewport={{ once: true }}
+@@ -1255,7 +1293,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig }) {
+                   rel="noopener noreferrer"
+                   className="w-full sm:w-auto px-8 py-4 bg-slate-950 hover:bg-slate-900 text-white font-bold text-base rounded-2xl shadow-xl transition-all flex items-center justify-center gap-2"
+                 >
+-                  <MessageSquare className="w-5 h-5 text-emerald-400" />
++                  <WhatsAppIcon className="w-5 h-5 text-emerald-400" />
+                   <span>Chat on WhatsApp</span>
+                 </motion.a>
+               </motion.div>

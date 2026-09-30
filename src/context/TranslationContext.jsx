@@ -17,49 +17,77 @@ export function TranslationProvider({ children, language, setLanguage }) {
   const dict = dictionaries[language] || en;
 
   useEffect(() => {
-    // Handle RTL for Arabic natively
+    // Handle RTL for Arabic & Urdu natively
     const html = document.documentElement;
-    if (language === 'AR') {
+    if (language === 'AR' || language === 'UR') {
       html.setAttribute('dir', 'rtl');
-      html.lang = 'ar';
+      html.lang = language === 'UR' ? 'ur' : 'ar';
     } else {
       html.setAttribute('dir', 'ltr');
       html.lang = language.toLowerCase();
     }
 
-    // Trigger Google Translate for the entire website DOM
     const gtMap = {
-      EN: 'en', // Or empty string to clear
+      EN: 'en',
       AR: 'ar',
       RU: 'ru',
       DE: 'de',
       ES: 'es',
       FR: 'fr',
       TR: 'tr',
-      ZH: 'zh-CN'
+      ZH: 'zh-CN',
+      TL: 'tl',
+      HI: 'hi',
+      UR: 'ur'
     };
 
+    // Trigger Google Translate via Cookie
     const triggerGoogleTranslate = () => {
+      const code = gtMap[language];
+      const cookieName = 'googtrans';
+      const expectedCookie = `/en/${code}`;
+
+      // Helper to clear cookies
+      const clearCookies = () => {
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        if (window.location.hostname !== 'localhost') {
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.${window.location.hostname}; path=/;`;
+          // Sometimes google sets it on the root domain without the leading dot
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=${window.location.hostname}; path=/;`;
+        }
+      };
+
+      // Helper to set cookies
+      const setCookie = (val) => {
+        document.cookie = `${cookieName}=${val}; path=/;`;
+        if (window.location.hostname !== 'localhost') {
+          document.cookie = `${cookieName}=${val}; domain=.${window.location.hostname}; path=/;`;
+        }
+      };
+
+      const getCookie = () => {
+        const match = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
+        return match ? match[2] : null;
+      };
+
+      const currentCookie = getCookie();
+
       if (language === 'EN') {
-        // Only reload if the translation cookie actually exists
-        if (document.cookie.includes('googtrans=')) {
-          document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-          document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.${window.location.hostname}; path=/;`;
+        if (currentCookie) {
+          clearCookies();
           window.location.reload();
         }
-        return;
-      }
-
-      const selectElement = document.querySelector('.goog-te-combo');
-      
-      if (selectElement) {
-        selectElement.value = gtMap[language];
-        selectElement.dispatchEvent(new Event('change'));
+      } else {
+        if (currentCookie !== expectedCookie) {
+          clearCookies();
+          setCookie(expectedCookie);
+          window.location.reload();
+        }
       }
     };
 
-    // Give it a small timeout in case the Google script is still initializing
-    setTimeout(triggerGoogleTranslate, 300);
+    // Execute
+    triggerGoogleTranslate();
 
   }, [language]);
 

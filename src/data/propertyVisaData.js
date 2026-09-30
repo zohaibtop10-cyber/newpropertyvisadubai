@@ -12,9 +12,16 @@ export const siteConfig = {
   accreditation: "DLD & ICP Accredited Real Estate Residency Partner",
   languages: [
     { code: "EN", name: "English" },
-    { code: "AR", name: "العربية" },
-    { code: "RU", name: "Русский" },
-    { code: "ZH", name: "中文" }
+    { code: "AR", name: "Arabic" },
+    { code: "RU", name: "Russian" },
+    { code: "DE", name: "Deutsch" },
+    { code: "FR", name: "Français" },
+    { code: "TR", name: "Türkçe" },
+    { code: "ES", name: "Español" },
+    { code: "ZH", name: "Chinese" },
+    { code: "TL", name: "Tagalog" },
+    { code: "HI", name: "Hindi" },
+    { code: "UR", name: "Urdu" }
   ]
 };
 

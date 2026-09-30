@@ -1,23 +1,13 @@
 import React, { useState } from 'react';
 import { 
   FileText, Save, CheckCircle2, Info, Phone, 
-  MapPin, HelpCircle, Shield, FileCheck, Layers
+  MapPin, HelpCircle, Shield, FileCheck, Layers, Building2
 } from 'lucide-react';
+import AboutPageEditor from './AboutPageEditor';
 
 export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
   const [activeTab, setActiveTab] = useState('about');
   const [saveSuccess, setSaveSuccess] = useState(false);
-
-  // About Page State
-  const [aboutHeadline, setAboutHeadline] = useState(
-    cmsConfig?.pages?.about?.headline || "We Are 800 DOCS LLC SOC"
-  );
-  const [aboutSubtext, setAboutSubtext] = useState(
-    cmsConfig?.pages?.about?.subtext || "On your side, working on your behalf. Providing 100% online family residency documentation advisory across Dubai, Abu Dhabi, and the UAE."
-  );
-  const [aboutLicensedEntity, setAboutLicensedEntity] = useState(
-    cmsConfig?.pages?.about?.licensedEntity || "Registered as 800 DOCS LLC SOC in Dubai, UAE under Commercial Registration for document clearing services."
-  );
 
   // Contact Page State
   const [contactHeadline, setContactHeadline] = useState(
@@ -38,13 +28,8 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
   const [contactHours, setContactHours] = useState(
     cmsConfig?.pages?.contact?.hours || "Mon - Sat: 8:00 AM - 7:00 PM (GST)"
   );
-
-  // Pricing Page State
-  const [pricingHeadline, setPricingHeadline] = useState(
-    cmsConfig?.pages?.pricing?.headline || "Transparent Govt Tariffs & Advisory Pricing"
-  );
-  const [pricingSubtext, setPricingSubtext] = useState(
-    cmsConfig?.pages?.pricing?.subtext || "No hidden typing fees. Government statutory charges billed at cost with an unbundled advisory retainer."
+  const [contactMarkdown, setContactMarkdown] = useState(
+    cmsConfig?.pages?.contact?.contentMarkdown || ""
   );
 
   // Checklist Page State
@@ -54,6 +39,9 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
   const [checklistSubtext, setChecklistSubtext] = useState(
     cmsConfig?.pages?.checklist?.subtext || "Ensure your file passes government compliance audit on the first submission."
   );
+  const [checklistMarkdown, setChecklistMarkdown] = useState(
+    cmsConfig?.pages?.checklist?.contentMarkdown || ""
+  );
 
   // Locations Page State
   const [dubaiOffice, setDubaiOffice] = useState(
@@ -61,6 +49,9 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
   );
   const [abudhabiOffice, setAbuDhabiOffice] = useState(
     cmsConfig?.pages?.locations?.abuDhabi || "Al Maqam Tower, ADGM Square, Maryah Island, Abu Dhabi"
+  );
+  const [locationsMarkdown, setLocationsMarkdown] = useState(
+    cmsConfig?.pages?.locations?.contentMarkdown || ""
   );
 
   // Terms & Privacy State
@@ -71,15 +62,26 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
     cmsConfig?.pages?.terms?.body || "FamilyVisa.ae is an independent document clearing consultancy operated by 800 DOCS LLC SOC..."
   );
 
+  // Property Page State
+  const [propertyHeadline, setPropertyHeadline] = useState(
+    cmsConfig?.pages?.property?.headline || "Comprehensive Property Investor Services"
+  );
+  const [propertySubtext, setPropertySubtext] = useState(
+    cmsConfig?.pages?.property?.subtext || "End-to-end management for property investors. From DLD registration to Golden Visa processing through real estate investment."
+  );
+  const [propertyMarkdown, setPropertyMarkdown] = useState(
+    cmsConfig?.pages?.property?.contentMarkdown || ""
+  );
+
   const handleSave = (e) => {
     e.preventDefault();
     const newPagesConfig = {
-      about: { headline: aboutHeadline, subtext: aboutSubtext, licensedEntity: aboutLicensedEntity },
-      contact: { headline: contactHeadline, subtext: contactSubtext, address: contactAddress, phone: contactPhone, email: contactEmail, hours: contactHours },
-      pricing: { headline: pricingHeadline, subtext: pricingSubtext },
-      checklist: { headline: checklistHeadline, subtext: checklistSubtext },
-      locations: { dubai: dubaiOffice, abuDhabi: abudhabiOffice },
-      terms: { headline: termsHeadline, body: termsBody }
+      about: { ...cmsConfig?.pages?.about },
+      contact: { headline: contactHeadline, subtext: contactSubtext, address: contactAddress, phone: contactPhone, email: contactEmail, hours: contactHours, contentMarkdown: contactMarkdown },
+      checklist: { headline: checklistHeadline, subtext: checklistSubtext, contentMarkdown: checklistMarkdown },
+      locations: { dubai: dubaiOffice, abuDhabi: abudhabiOffice, contentMarkdown: locationsMarkdown },
+      terms: { headline: termsHeadline, body: termsBody },
+      property: { headline: propertyHeadline, subtext: propertySubtext, contentMarkdown: propertyMarkdown }
     };
 
     if (setCmsConfig) {
@@ -92,7 +94,6 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
     if (typeof window !== 'undefined') {
       const currentConfig = cmsConfig || {};
       const updatedConfig = { ...currentConfig, pages: newPagesConfig };
-      localStorage.setItem('app_cms_config', JSON.stringify(updatedConfig));
     }
 
     setSaveSuccess(true);
@@ -102,24 +103,24 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
   const pagesList = [
     { id: 'about', label: 'About Us Page', icon: Info },
     { id: 'contact', label: 'Contact Us Page', icon: Phone },
-    { id: 'pricing', label: 'Pricing Page', icon: Layers },
     { id: 'checklist', label: 'Document Checklist', icon: FileCheck },
     { id: 'locations', label: 'Locations Page', icon: MapPin },
-    { id: 'terms', label: 'Terms & Privacy', icon: Shield }
+    { id: 'terms', label: 'Terms & Privacy', icon: Shield },
+    { id: 'property', label: 'Property Page', icon: Building2 }
   ];
 
   return (
     <div className="max-w-5xl space-y-8 animate-fadeIn">
       
       {saveSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
+        <div className="p-4 bg-emerald-500/10 border border-brand-gold/30 rounded-xl text-brand-goldLight text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
           <CheckCircle2 className="w-5 h-5 shrink-0" />
           <span>Inner page CMS content published! Live site updated seamlessly.</span>
         </div>
       )}
 
       {/* Sub-Tab Navigation for Inner Pages */}
-      <div className="flex flex-wrap gap-2 bg-slate-900 border border-slate-800 p-2 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap gap-2 bg-brand-surfaceLight border border-slate-800 p-2 rounded-xl shadow-xl">
         {pagesList.map((p) => {
           const Icon = p.icon;
           const isActive = activeTab === p.id;
@@ -130,7 +131,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
               onClick={() => setActiveTab(p.id)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
                 isActive 
-                  ? 'bg-[#E01E37] text-white shadow-md shadow-[#E01E37]/20' 
+                  ? 'bg-brand-primary text-white shadow-md shadow-[#D4AF37]/20' 
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/80'
               }`}
             >
@@ -145,9 +146,9 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
         
         {/* TAB 1: ABOUT US PAGE */}
         {activeTab === 'about' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
-            <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-blue-500/15 text-blue-500">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
+            <div className="flex items-center gap-3 border-b border-slate-800 pb-5 mb-8">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <Info className="w-6 h-6" />
               </div>
               <div>
@@ -156,45 +157,15 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
               </div>
             </div>
 
-            <div className="space-y-6">
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-2">Main Page Headline</label>
-                <input
-                  type="text"
-                  value={aboutHeadline}
-                  onChange={(e) => setAboutHeadline(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm focus:outline-none focus:border-[#E01E37]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-2">Subheadline Description</label>
-                <textarea
-                  rows={3}
-                  value={aboutSubtext}
-                  onChange={(e) => setAboutSubtext(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-[#E01E37]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-2">Licensed Entity Disclosure Text</label>
-                <textarea
-                  rows={2}
-                  value={aboutLicensedEntity}
-                  onChange={(e) => setAboutLicensedEntity(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs focus:outline-none focus:border-[#E01E37]"
-                />
-              </div>
-            </div>
+            <AboutPageEditor cmsConfig={cmsConfig} setCmsConfig={setCmsConfig} isEmbedded={true} />
           </div>
         )}
 
         {/* TAB 2: CONTACT US PAGE */}
         {activeTab === 'contact' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-emerald-500/15 text-emerald-500">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <Phone className="w-6 h-6" />
               </div>
               <div>
@@ -210,7 +181,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactHeadline}
                   onChange={(e) => setContactHeadline(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -220,7 +191,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactSubtext}
                   onChange={(e) => setContactSubtext(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -230,7 +201,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactAddress}
                   onChange={(e) => setContactAddress(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -240,7 +211,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactPhone}
                   onChange={(e) => setContactPhone(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-mono text-xs focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-mono text-xs focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -250,7 +221,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="email"
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-mono text-xs focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-mono text-xs focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -260,55 +231,30 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactHours}
                   onChange={(e) => setContactHours(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs focus:outline-none focus:border-[#E01E37]"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 3: PRICING PAGE */}
-        {activeTab === 'pricing' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
-            <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-500">
-                <Layers className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="font-display font-extrabold text-xl text-white">Pricing Page Content</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit headline and fee transparency text</p>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-2">Pricing Headline</label>
-                <input
-                  type="text"
-                  value={pricingHeadline}
-                  onChange={(e) => setPricingHeadline(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-2">Pricing Subheadline / Disclaimer</label>
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-bold text-slate-300 mb-2">Page Body Content (Markdown)</label>
                 <textarea
-                  rows={3}
-                  value={pricingSubtext}
-                  onChange={(e) => setPricingSubtext(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-[#E01E37]"
+                  rows={6}
+                  placeholder="Optional: Add detailed Markdown content here..."
+                  value={contactMarkdown}
+                  onChange={(e) => setContactMarkdown(e.target.value)}
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs font-mono leading-relaxed focus:outline-none focus:border-brand-primary"
                 />
               </div>
             </div>
           </div>
         )}
+
 
         {/* TAB 4: CHECKLIST PAGE */}
         {activeTab === 'checklist' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-purple-500/15 text-purple-500">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <FileCheck className="w-6 h-6" />
               </div>
               <div>
@@ -324,7 +270,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={checklistHeadline}
                   onChange={(e) => setChecklistHeadline(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -334,7 +280,18 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   rows={3}
                   value={checklistSubtext}
                   onChange={(e) => setChecklistSubtext(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-brand-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-300 mb-2">Page Body Content (Markdown)</label>
+                <textarea
+                  rows={6}
+                  placeholder="Optional: Add detailed Markdown content here..."
+                  value={checklistMarkdown}
+                  onChange={(e) => setChecklistMarkdown(e.target.value)}
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs font-mono leading-relaxed focus:outline-none focus:border-brand-primary"
                 />
               </div>
             </div>
@@ -343,9 +300,9 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
 
         {/* TAB 5: LOCATIONS PAGE */}
         {activeTab === 'locations' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-[#E01E37]/15 text-[#E01E37]">
+              <div className="p-3 rounded-xl bg-brand-primary/15 text-brand-primary">
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
@@ -361,7 +318,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={dubaiOffice}
                   onChange={(e) => setDubaiOffice(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-semibold text-xs focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold text-xs focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -371,7 +328,18 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={abudhabiOffice}
                   onChange={(e) => setAbuDhabiOffice(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-semibold text-xs focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold text-xs focus:outline-none focus:border-brand-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-300 mb-2">Page Body Content (Markdown)</label>
+                <textarea
+                  rows={6}
+                  placeholder="Optional: Add detailed Markdown content here..."
+                  value={locationsMarkdown}
+                  onChange={(e) => setLocationsMarkdown(e.target.value)}
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs font-mono leading-relaxed focus:outline-none focus:border-brand-primary"
                 />
               </div>
             </div>
@@ -380,9 +348,9 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
 
         {/* TAB 6: TERMS & PRIVACY */}
         {activeTab === 'terms' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-cyan-500/15 text-cyan-500">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <Shield className="w-6 h-6" />
               </div>
               <div>
@@ -398,7 +366,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={termsHeadline}
                   onChange={(e) => setTermsHeadline(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -408,7 +376,55 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   rows={8}
                   value={termsBody}
                   onChange={(e) => setTermsBody(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-brand-primary"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 7: PROPERTY PAGE */}
+        {activeTab === 'property' && (
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
+            <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
+                <Building2 className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="font-display font-extrabold text-xl text-white">Property Page Content</h2>
+                <p className="text-slate-400 text-xs mt-0.5">Edit headline and description for real estate investor services</p>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <label className="block text-xs font-bold text-slate-300 mb-2">Property Page Headline</label>
+                <input
+                  type="text"
+                  value={propertyHeadline}
+                  onChange={(e) => setPropertyHeadline(e.target.value)}
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-brand-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-300 mb-2">Property Description Text</label>
+                <textarea
+                  rows={3}
+                  value={propertySubtext}
+                  onChange={(e) => setPropertySubtext(e.target.value)}
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-brand-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-300 mb-2">Page Body Content (Markdown)</label>
+                <textarea
+                  rows={6}
+                  placeholder="Optional: Add detailed Markdown content here..."
+                  value={propertyMarkdown}
+                  onChange={(e) => setPropertyMarkdown(e.target.value)}
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs font-mono leading-relaxed focus:outline-none focus:border-brand-primary"
                 />
               </div>
             </div>
@@ -418,7 +434,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
         {/* Save Button */}
         <button
           type="submit"
-          className="w-full py-4 bg-[#E01E37] hover:bg-[#B81A2C] text-white font-bold text-base rounded-2xl shadow-xl shadow-[#E01E37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
+          className="w-full py-4 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 font-bold text-base rounded-xl shadow-xl shadow-[#D4AF37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
         >
           <Save className="w-5 h-5" />
           <span>Publish Inner Page Changes</span>

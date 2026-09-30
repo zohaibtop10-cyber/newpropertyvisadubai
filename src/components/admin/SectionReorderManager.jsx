@@ -131,10 +131,10 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
   };
 
   return (
-    <div className="max-w-4xl space-y-8 animate-fadeIn">
+    <div className="max-w-4xl space-y-12 animate-fadeIn">
       
       {saveSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
+        <div className="p-4 bg-emerald-500/10 border border-brand-gold/30 rounded-xl text-brand-goldLight text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
           <CheckCircle2 className="w-5 h-5 shrink-0" />
           <span>Homepage section order and navbar configurations updated cleanly on live site!</span>
         </div>
@@ -145,10 +145,10 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
       {/* ------------------------------------------------------------------ */}
       <form onSubmit={handleSaveAll} className="space-y-8">
         
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
           <div className="flex items-center justify-between border-b border-slate-800 pb-5">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-[#E01E37]/15 text-[#E01E37]">
+              <div className="p-3 rounded-xl bg-brand-primary/15 text-brand-primary">
                 <Move className="w-6 h-6" />
               </div>
               <div>
@@ -157,7 +157,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
               </div>
             </div>
 
-            <span className="text-xs font-mono text-slate-400 bg-slate-950 px-3 py-1.5 rounded-full border border-slate-800">
+            <span className="text-xs font-mono text-slate-400 bg-brand-darkBg px-3 py-1.5 rounded-full border border-slate-800">
               {sectionOrder.length} Total Sections
             </span>
           </div>
@@ -170,14 +170,14 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
               return (
                 <div
                   key={sectionId}
-                  className={`p-4 rounded-2xl border flex items-center justify-between gap-4 transition-all ${
+                  className={`p-4 rounded-xl border flex items-center justify-between gap-4 transition-all ${
                     isVisible 
-                      ? 'bg-slate-950 border-slate-800 text-white' 
-                      : 'bg-slate-950/40 border-slate-800/40 text-slate-500 opacity-60'
+                      ? 'bg-brand-darkBg border-slate-800 text-white' 
+                      : 'bg-brand-darkBg/40 border-slate-800/40 text-content-muted opacity-60'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="w-7 h-7 rounded-xl bg-slate-900 text-[#E01E37] font-mono text-xs font-bold flex items-center justify-center border border-slate-800 shrink-0">
+                    <span className="w-7 h-7 rounded-xl bg-brand-surfaceLight text-brand-primary font-mono text-xs font-bold flex items-center justify-center border border-slate-800 shrink-0">
                       {idx + 1}
                     </span>
                     <span className="font-bold text-sm truncate">{label}</span>
@@ -191,8 +191,8 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                       onClick={() => handleMoveUp(idx)}
                       className={`p-2 rounded-xl border border-slate-800 transition-colors ${
                         idx === 0 
-                          ? 'text-slate-600 border-slate-800/40 cursor-not-allowed' 
-                          : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-[#E01E37] cursor-pointer'
+                          ? 'text-content-muted border-slate-800/40 cursor-not-allowed' 
+                          : 'bg-brand-surfaceLight text-slate-300 hover:text-white hover:bg-brand-primary cursor-pointer'
                       }`}
                       title="Move section up"
                     >
@@ -206,8 +206,8 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                       onClick={() => handleMoveDown(idx)}
                       className={`p-2 rounded-xl border border-slate-800 transition-colors ${
                         idx === sectionOrder.length - 1 
-                          ? 'text-slate-600 border-slate-800/40 cursor-not-allowed' 
-                          : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-[#E01E37] cursor-pointer'
+                          ? 'text-content-muted border-slate-800/40 cursor-not-allowed' 
+                          : 'bg-brand-surfaceLight text-slate-300 hover:text-white hover:bg-brand-primary cursor-pointer'
                       }`}
                       title="Move section down"
                     >
@@ -220,8 +220,8 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                       onClick={() => handleToggleVisibility(sectionId)}
                       className={`px-3 py-2 rounded-xl border text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5 ${
                         isVisible 
-                          ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20' 
-                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                          ? 'bg-emerald-500/10 border-brand-gold/30 text-brand-goldLight hover:bg-emerald-500/20' 
+                          : 'bg-brand-surfaceLight border-slate-800 text-slate-400 hover:text-white'
                       }`}
                     >
                       {isVisible ? (
@@ -244,9 +244,9 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
         {/* ------------------------------------------------------------------ */}
         {/* 2. NAVBAR NAVIGATION LINKS MANAGER                                 */}
         {/* ------------------------------------------------------------------ */}
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
           <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-            <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-500">
+            <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
               <Menu className="w-6 h-6" />
             </div>
             <div>
@@ -256,7 +256,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
           </div>
 
           {/* Add New Nav Link Form */}
-          <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-4">
+          <div className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-4">
             <span className="text-xs font-mono font-bold text-slate-300 uppercase">ADD NEW NAVBAR ITEM</span>
             <div className="grid sm:grid-cols-12 gap-3">
               <div className="sm:col-span-6">
@@ -265,7 +265,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                   placeholder="Nav Item Label (e.g. Services)"
                   value={newNavLabel}
                   onChange={(e) => setNewNavLabel(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -273,7 +273,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                 <select
                   value={newNavView}
                   onChange={(e) => setNewNavView(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-semibold focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-semibold focus:outline-none focus:border-brand-primary"
                 >
                   <option value="home">Home Page ('home')</option>
                   <option value="service">Services Page ('service')</option>
@@ -288,7 +288,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                 <button
                   type="button"
                   onClick={handleAddNavLink}
-                  className="w-full h-full py-2.5 bg-slate-800 hover:bg-[#E01E37] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1 transition-colors cursor-pointer"
+                  className="w-full h-full py-2.5 bg-slate-800 hover:bg-brand-primary text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1 transition-colors cursor-pointer"
                 >
                   <Plus className="w-4 h-4" /> Add
                 </button>
@@ -299,11 +299,11 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
           {/* Existing Nav Links */}
           <div className="space-y-3">
             {navLinks.map((item) => (
-              <div key={item.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-center justify-between gap-4 text-xs font-bold text-white">
+              <div key={item.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl flex items-center justify-between gap-4 text-xs font-bold text-white">
                 <div className="flex items-center gap-3">
-                  <Compass className="w-4 h-4 text-[#E01E37]" />
+                  <Compass className="w-4 h-4 text-brand-primary" />
                   <span>{item.label}</span>
-                  <span className="text-[10px] font-mono text-slate-400 bg-slate-900 px-2 py-0.5 rounded-full border border-slate-800">
+                  <span className="text-[10px] font-mono text-slate-400 bg-brand-surfaceLight px-2 py-0.5 rounded-full border border-slate-800">
                     Target View: {item.view}
                   </span>
                 </div>
@@ -314,7 +314,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                     disabled={navLinks.findIndex(n => n.id === item.id) === 0}
                     onClick={() => handleNavMoveUp(navLinks.findIndex(n => n.id === item.id))}
                     className={`p-2 rounded-xl border border-slate-800 transition-colors cursor-pointer ${
-                      navLinks.findIndex(n => n.id === item.id) === 0 ? 'text-slate-600 border-slate-800/40 cursor-not-allowed' : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-[#E01E37]'
+                      navLinks.findIndex(n => n.id === item.id) === 0 ? 'text-content-muted border-slate-800/40 cursor-not-allowed' : 'bg-brand-surfaceLight text-slate-300 hover:text-white hover:bg-brand-primary'
                     }`}
                   >
                     <ArrowUp className="w-3 h-3" />
@@ -325,7 +325,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                     disabled={navLinks.findIndex(n => n.id === item.id) === navLinks.length - 1}
                     onClick={() => handleNavMoveDown(navLinks.findIndex(n => n.id === item.id))}
                     className={`p-2 rounded-xl border border-slate-800 transition-colors cursor-pointer ${
-                      navLinks.findIndex(n => n.id === item.id) === navLinks.length - 1 ? 'text-slate-600 border-slate-800/40 cursor-not-allowed' : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-[#E01E37]'
+                      navLinks.findIndex(n => n.id === item.id) === navLinks.length - 1 ? 'text-content-muted border-slate-800/40 cursor-not-allowed' : 'bg-brand-surfaceLight text-slate-300 hover:text-white hover:bg-brand-primary'
                     }`}
                   >
                     <ArrowDown className="w-3 h-3" />
@@ -336,8 +336,8 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                     onClick={() => handleToggleNavVisibility(item.id)}
                     className={`px-3 py-1.5 rounded-xl border text-[11px] font-bold transition-colors cursor-pointer flex items-center gap-1 ${
                       item.visible !== false
-                        ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
-                        : 'bg-slate-900 border-slate-800 text-slate-500'
+                        ? 'bg-emerald-500/10 border-brand-gold/30 text-brand-goldLight'
+                        : 'bg-brand-surfaceLight border-slate-800 text-content-muted'
                     }`}
                   >
                     {item.visible !== false ? 'Active' : 'Hidden'}
@@ -346,7 +346,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                   <button
                     type="button"
                     onClick={() => handleDeleteNavLink(item.id)}
-                    className="p-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-colors cursor-pointer"
+                    className="p-2 bg-brand-primary/100/10 hover:bg-brand-primary/100/20 text-brand-primary rounded-xl transition-colors cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -359,7 +359,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
         {/* Single Prominent Save Button */}
         <button
           type="submit"
-          className="w-full py-4 bg-[#E01E37] hover:bg-[#B81A2C] text-white font-bold text-base rounded-2xl shadow-xl shadow-[#E01E37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
+          className="w-full py-4 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 font-bold text-base rounded-xl shadow-xl shadow-[#D4AF37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
         >
           <Save className="w-5 h-5" />
           <span>Publish Section Order & Navbar Changes</span>

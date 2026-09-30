@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import WhatsAppIcon from './WhatsAppIcon';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -18,11 +18,13 @@ import {
   Scale,
   FileCheck,
   ShieldCheck,
-  TrendingUp,
   Stethoscope,
   Search,
   Shield,
-  ArrowRight
+  Sparkles,
+  ArrowRight,
+  Briefcase,
+  Globe
 } from 'lucide-react';
 import { siteConfig } from '../data/cmsData';
 
@@ -32,61 +34,38 @@ export default function ServicesMegaMenu({
   onOpenCalculator,
   onNavigate
 }) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('all');
+
   const topFeatured = [
-    {
-      title: 'Family Visa',
-      icon: Users,
-      bg: 'bg-rose-50 text-rose-600 border-rose-100 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-900/30',
-      action: () => { onClose(); onNavigate('service', 'spouse-visa'); }
-    },
-    {
-      title: 'Golden Visa',
-      icon: Award,
-      bg: 'bg-amber-50 text-amber-600 border-amber-100 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-900/30',
-      action: () => { onClose(); onNavigate('service', 'golden-visa'); }
-    },
-    {
-      title: 'Property Visa',
-      icon: Building,
-      bg: 'bg-blue-50 text-blue-600 border-blue-100 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-900/30',
-      action: () => { onClose(); onNavigate('service', 'property-visa'); }
-    },
-    {
-      title: 'Newborn Visa',
-      icon: Baby,
-      bg: 'bg-emerald-50 text-emerald-600 border-emerald-100 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-900/30',
-      action: () => { onClose(); onNavigate('service', 'new-born'); }
-    },
-    {
-      title: 'Maid Visa',
-      icon: UserCheck,
-      bg: 'bg-purple-50 text-purple-600 border-purple-100 dark:bg-purple-950/40 dark:text-purple-400 dark:border-purple-900/30',
-      action: () => { onClose(); onNavigate('service', 'maid-visa'); }
-    },
-    {
-      title: 'Emirates ID',
-      icon: CreditCard,
-      bg: 'bg-cyan-50 text-cyan-600 border-cyan-100 dark:bg-cyan-950/40 dark:text-cyan-400 dark:border-cyan-900/30',
-      action: () => { onClose(); onNavigate('service', 'emirates-id'); }
-    }
+    { title: 'Family Visa', subtitle: 'Spouse & Children', icon: Users, serviceId: 'family-visa', category: 'residency', tag: 'Popular' },
+    { title: 'Golden Visa', subtitle: '10-Year Residency', icon: Award, serviceId: 'golden-visa', category: 'golden', tag: '10-Year VIP' },
+    { title: 'Property Visa', subtitle: 'Real Estate Investor', icon: Building, serviceId: 'property-visa', category: 'golden', tag: 'DLD Direct' },
+    { title: 'Newborn Visa', subtitle: 'UAE Born Infant', icon: Baby, serviceId: 'new-born-visa', category: 'residency', tag: 'Express' },
+    { title: 'Maid Visa', subtitle: 'Nanny / Housemaid', icon: UserCheck, serviceId: 'maid-visa', category: 'residency', tag: 'Domestic' },
+    { title: 'Emirates ID', subtitle: 'ICP Smart Card', icon: CreditCard, serviceId: 'emirates-id', category: 'residency', tag: 'Fast-Track' }
   ];
 
-  const column1Services = [
-    { title: 'Corporate PRO Services', icon: FileText, serviceId: 'pro-services' },
-    { title: 'Business Setup & Licensing', icon: Building2, serviceId: 'business-setup' },
-    { title: 'Document Attestation (MOFA)', icon: CheckCircle2, serviceId: 'attestation' },
-    { title: 'Legal Translation (Arabic)', icon: Languages, serviceId: 'legal-translation' },
-    { title: 'Power of Attorney (Notary)', icon: Scale, serviceId: 'power-of-attorney' },
-    { title: 'Wills & Estate Planning', icon: FileCheck, serviceId: 'wills-testament' }
+  const allServicesList = [
+    { title: 'PRO Services', subtitle: 'Government Quota & File Opening', icon: FileText, serviceId: 'pro-services', category: 'corporate' },
+    { title: 'Amer Center', subtitle: 'GDRFA Immigration Services', icon: Building2, serviceId: 'amer-center', category: 'residency' },
+    { title: 'Document Attestation', subtitle: 'MOFA & Embassy Attestation', icon: CheckCircle2, serviceId: 'attestation', category: 'legal' },
+    { title: 'Legal Translation', subtitle: 'Arabic Sworn Translation', icon: Languages, serviceId: 'translation', category: 'legal' },
+    { title: 'Power of Attorney', subtitle: 'POA Drafting & Notary', icon: Scale, serviceId: 'poa', category: 'legal' },
+    { title: 'Wills & Testament', subtitle: 'DIFC & Dubai Court Wills', icon: FileCheck, serviceId: 'wills-testament', category: 'legal' },
+    { title: 'DLD Trustee Services', subtitle: 'Property Sale & Transfer NOC', icon: ShieldCheck, serviceId: 'dld-trustee', category: 'golden' },
+    { title: 'Property Revaluation', subtitle: 'Official DLD Valuation Certificate', icon: Building, serviceId: 'property-revaluation', category: 'golden' },
+    { title: 'Medical & EID Package', subtitle: 'DHA Medical Fitness & Biometrics', icon: Stethoscope, serviceId: 'medical-eid', category: 'residency' },
+    { title: 'Visa Validity Checker', subtitle: 'ICP / GDRFA Status Audit', icon: Search, serviceId: 'visa-checker', category: 'residency' },
+    { title: 'ILOE Insurance', subtitle: 'Mandatory Unemployment Shield', icon: Shield, serviceId: 'iloe-insurance', category: 'corporate' }
   ];
 
-  const column2Services = [
-    { title: 'DLD Trustee & Revaluation', icon: ShieldCheck, serviceId: 'dld-trustee' },
-    { title: 'VIP Medical Fitness (30-Min)', icon: Stethoscope, serviceId: 'medical-fitness' },
-    { title: 'Amer Services at Home', icon: Building2, serviceId: 'amer-services' },
-    { title: 'Health Insurance (DHA)', icon: ShieldCheck, serviceId: 'health-insurance' },
-    { title: 'ILOE Unemployment Cover', icon: Shield, serviceId: 'iloe-insurance' },
-    { title: 'Visa Status & Overstay Fines', icon: Search, serviceId: 'visa-status' }
+  const categories = [
+    { id: 'all', label: 'All Services' },
+    { id: 'residency', label: 'Family & Residency' },
+    { id: 'golden', label: 'Golden & Property' },
+    { id: 'corporate', label: 'Business & PRO' },
+    { id: 'legal', label: 'Attestation & Legal' }
   ];
 
   const handleItemClick = (serviceId) => {
@@ -96,6 +75,18 @@ export default function ServicesMegaMenu({
     }
   };
 
+  const filteredFeatured = topFeatured.filter(item => {
+    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || item.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCat = activeCategory === 'all' || item.category === activeCategory;
+    return matchesSearch && matchesCat;
+  });
+
+  const filteredOthers = allServicesList.filter(item => {
+    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || item.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCat = activeCategory === 'all' || item.category === activeCategory;
+    return matchesSearch && matchesCat;
+  });
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -103,241 +94,209 @@ export default function ServicesMegaMenu({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-md overflow-y-auto"
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md overflow-y-auto"
         >
-          {/* Modal Container with Spring Physics */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            initial={{ opacity: 0, scale: 0.96, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            transition={{ type: 'spring', stiffness: 80, damping: 15 }}
-            className="w-full max-w-4xl bg-white dark:bg-[#141414] border border-slate-200 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden relative my-auto text-slate-900 dark:text-white transition-colors duration-200 flex flex-col max-h-[90vh]"
+            exit={{ opacity: 0, scale: 0.96, y: 15 }}
+            transition={{ type: 'spring', stiffness: 120, damping: 18 }}
+            className="w-full max-w-[960px] bg-[#0c0e12] border-[1.5px] border-brand-gold/40 rounded-2xl shadow-[0_0_60px_rgba(212,175,55,0.2)] overflow-hidden flex flex-col max-h-[92vh] text-white my-auto relative"
           >
+            {/* Gold Shimmer Top Accent Bar */}
+            <div className="h-1.5 w-full bg-gradient-to-r from-[#B8860B] via-[#F3E5AB] to-[#D4AF37] shrink-0" />
+
             {/* Header */}
-            <div className="p-5 sm:p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-white dark:bg-[#141414] sticky top-0 z-20">
+            <div className="p-4 sm:p-6 border-b border-white/10 bg-gradient-to-b from-[#16181f] to-[#0c0e12] shrink-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <h3 className="font-display font-bold text-xl sm:text-2xl text-slate-900 dark:text-white tracking-tight leading-none">
-                  Property Visa Dubai
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
-                  All services in one place
+                <div className="flex items-center gap-2">
+                  <span className="font-display font-extrabold text-xl sm:text-2xl text-white tracking-tight">
+                    Emirates<span className="text-brand-gold">Prime</span>
+                  </span>
+                  <span className="bg-brand-gold/20 text-brand-gold border border-brand-gold/40 text-[10px] uppercase font-mono font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" /> Service Directory
+                  </span>
+                </div>
+                <p className="text-slate-400 text-xs mt-1 font-medium">
+                  Official Dubai Residency, Business Setup & Legal Documentation
                 </p>
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={onClose}
-                aria-label="Close mega menu"
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-600 dark:text-white flex items-center justify-center transition-colors cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </motion.button>
-            </div>
-
-            {/* Scrollable Body Content */}
-            <div className="p-5 sm:p-8 space-y-8 overflow-y-auto flex-1">
-              
-              {/* Top Featured Row (Square Cards) */}
-              <div>
-                <div className="text-xs font-mono font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">
-                  PRIMARY VISA TRACKS
-                </div>
-                
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                  {topFeatured.map((item, idx) => {
-                    const IconComp = item.icon;
-                    return (
-                      <motion.button
-                        key={idx}
-                        whileHover={{ y: -4, scale: 1.02 }}
-                        whileTap={{ scale: 0.97 }}
-                        transition={{ type: 'spring', stiffness: 120, damping: 14 }}
-                        onClick={item.action}
-                        className="p-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1A1A1A] hover:bg-slate-50 dark:hover:bg-white/10 transition-all duration-200 shadow-sm hover:shadow-md flex flex-col items-center justify-center text-center group cursor-pointer"
-                      >
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-2.5 transition-transform group-hover:scale-110 border ${item.bg}`}>
-                          <IconComp className="w-6 h-6" />
-                        </div>
-                        <span className="font-display font-bold text-xs text-slate-900 dark:text-white group-hover:text-[#E01E37] transition-colors leading-tight">
-                          {item.title}
-                        </span>
-                      </motion.button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Promotional Conversion Banners */}
-              <div className="grid sm:grid-cols-2 gap-4">
-                
-                {/* Promo 1: Golden Visa Package */}
-                <motion.div
-                  whileHover={{ y: -3, scale: 1.01 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => { onClose(); onNavigate('service', 'golden-visa'); }}
-                  className="p-5 rounded-2xl border border-amber-200 dark:border-amber-900/40 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent relative overflow-hidden group cursor-pointer hover:shadow-lg transition-all"
-                >
-                  <div className="flex items-start gap-4">
-                    <img
-                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80"
-                      alt="Professional Couple"
-                      className="w-14 h-14 rounded-xl object-cover border border-amber-300 dark:border-amber-800 shrink-0"
-                    />
-                    <div className="space-y-1.5 flex-1">
-                      <span className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded uppercase">
-                        10-YEAR GOLDEN VISA PROMO
-                      </span>
-                      <p className="text-xs font-semibold text-slate-900 dark:text-white leading-snug">
-                        10-year residency from AED 11,553 all-inclusive, approvals in 24 hours.
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-xs font-bold text-[#E01E37] group-hover:underline pt-0.5">
-                        <span>See packages</span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Promo 2: Medical + Emirates ID */}
-                <motion.div
-                  whileHover={{ y: -3, scale: 1.01 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => { onClose(); onNavigate('service', 'emirates-id'); }}
-                  className="p-5 rounded-2xl border border-emerald-200 dark:border-emerald-900/40 bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent relative overflow-hidden group cursor-pointer hover:shadow-lg transition-all"
-                >
-                  <div className="flex items-start gap-4">
-                    <img
-                      src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=200&q=80"
-                      alt="Executive Group"
-                      className="w-14 h-14 rounded-xl object-cover border border-emerald-300 dark:border-emerald-800 shrink-0"
-                    />
-                    <div className="space-y-1.5 flex-1">
-                      <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded uppercase">
-                        VIP MEDICAL & EID TYPING
-                      </span>
-                      <p className="text-xs font-semibold text-slate-900 dark:text-white leading-snug">
-                        VIP medical in 30 minutes (AED 750) and typing included with every ID.
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:underline pt-0.5">
-                        <span>View fees</span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-
-              </div>
-
-              {/* Bottom Section: Two Columns */}
-              <div className="grid md:grid-cols-2 gap-6 pt-2">
-                
-                {/* Column 1: Other Services */}
-                <div className="space-y-3">
-                  <h4 className="font-display font-bold text-sm text-slate-900 dark:text-white flex items-center">
-                    <span className="w-2 h-2 rounded-full bg-[#E01E37] inline-block mr-2" />
-                    Other Services
-                  </h4>
-
-                  <div className="space-y-2">
-                    {column1Services.map((srv, idx) => {
-                      const IconComponent = srv.icon;
-                      return (
-                        <motion.button
-                          key={idx}
-                          whileHover={{ x: 5 }}
-                          onClick={() => handleItemClick(srv.serviceId)}
-                          className="w-full p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1A1A1A] hover:bg-slate-50 dark:hover:bg-white/5 transition-all flex items-center justify-between text-left group cursor-pointer"
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 group-hover:text-[#E01E37] group-hover:bg-[#E01E37]/10 transition-colors">
-                              <IconComponent className="w-4 h-4" />
-                            </div>
-                            <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-[#E01E37] transition-colors">
-                              {srv.title}
-                            </span>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                        </motion.button>
-                      );
-                    })}
-                  </div>
+              <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                {/* Search Bar */}
+                <div className="relative flex-1 sm:w-64">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search services..."
+                    className="w-full pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-xl text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-gold transition-colors font-medium"
+                  />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
+                      ×
+                    </button>
+                  )}
                 </div>
 
-                {/* Column 2: Property & Support */}
-                <div className="space-y-3">
-                  <h4 className="font-display font-bold text-sm text-slate-900 dark:text-white flex items-center">
-                    <span className="w-2 h-2 rounded-full bg-[#E01E37] inline-block mr-2" />
-                    Property & Support
-                  </h4>
-
-                  <div className="space-y-2">
-                    {column2Services.map((srv, idx) => {
-                      const IconComponent = srv.icon;
-                      return (
-                        <motion.button
-                          key={idx}
-                          whileHover={{ x: 5 }}
-                          onClick={() => handleItemClick(srv.serviceId)}
-                          className="w-full p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1A1A1A] hover:bg-slate-50 dark:hover:bg-white/5 transition-all flex items-center justify-between text-left group cursor-pointer"
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 group-hover:text-[#E01E37] group-hover:bg-[#E01E37]/10 transition-colors">
-                              <IconComponent className="w-4 h-4" />
-                            </div>
-                            <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-[#E01E37] transition-colors">
-                              {srv.title}
-                            </span>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                        </motion.button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            {/* Sticky Bottom Bar */}
-            <div className="p-4 bg-white dark:bg-[#141414] border-t-2 border-[#E01E37] flex items-center gap-3 shadow-lg sticky bottom-0 z-20">
-              <div className="grid grid-cols-2 gap-3 w-full">
-                
-                {/* White Button with Red Outline: Visa Calculator */}
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    onClose();
-                    if (onOpenCalculator) onOpenCalculator('spouse');
-                  }}
-                  className="flex items-center justify-center gap-2 border-2 border-[#E01E37] bg-white dark:bg-transparent text-[#E01E37] hover:bg-[#E01E37]/5 font-display font-bold text-xs sm:text-sm py-3 rounded-xl transition-all cursor-pointer shadow-sm"
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={onClose}
+                  aria-label="Close mega menu"
+                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-brand-gold/50 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer shrink-0"
                 >
-                  <Calculator className="w-4 h-4 text-[#E01E37]" />
-                  <span>Visa Calculator</span>
+                  <X className="w-4 h-4" />
                 </motion.button>
-
-                {/* Solid Green Button: WhatsApp */}
-                <motion.a
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  href={`https://wa.me/${siteConfig.whatsappRaw}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-display font-bold text-xs sm:text-sm py-3 rounded-xl transition-all shadow-md shadow-emerald-600/20"
-                >
-                  <WhatsAppIcon className="w-4 h-4 fill-white" />
-                  <span>WhatsApp</span>
-                </motion.a>
-
               </div>
             </div>
 
+            {/* Category Navigation Filter Tabs */}
+            <div className="bg-[#12141a] px-4 sm:px-6 py-2.5 border-b border-white/5 flex items-center gap-2 overflow-x-auto shrink-0 scrollbar-none">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer ${
+                    activeCategory === cat.id
+                      ? 'bg-brand-gold text-black shadow-md shadow-brand-gold/30'
+                      : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Scrollable Main Content */}
+            <div className="p-5 sm:p-7 space-y-6 overflow-y-auto flex-1 bg-gradient-to-b from-[#0c0e12] via-[#101217] to-[#0c0e12]">
+
+              {/* Top Featured Services (Grid of Square Luxury Cards) */}
+              {filteredFeatured.length > 0 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-mono text-xs uppercase font-bold text-brand-gold tracking-widest flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5" /> Featured Flagship Services
+                    </h4>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                    {filteredFeatured.map((item, idx) => {
+                      const IconComp = item.icon;
+                      return (
+                        <motion.button
+                          key={idx}
+                          whileHover={{ y: -3, scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => handleItemClick(item.serviceId)}
+                          className="p-3.5 rounded-xl border border-white/10 bg-white/[0.03] hover:border-brand-gold hover:bg-brand-gold/10 hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] transition-all duration-300 flex flex-col items-center justify-center text-center group cursor-pointer relative overflow-hidden"
+                        >
+                          <span className="absolute top-1.5 right-1.5 text-[8px] font-mono font-bold text-brand-gold bg-brand-gold/10 px-1.5 py-0.5 rounded border border-brand-gold/20">
+                            {item.tag}
+                          </span>
+
+                          <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/30 text-brand-gold flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-black transition-all">
+                            <IconComp className="w-5 h-5" />
+                          </div>
+
+                          <span className="font-extrabold text-xs text-white group-hover:text-brand-gold transition-colors leading-tight mb-1">
+                            {item.title}
+                          </span>
+                          <span className="text-[10px] text-slate-400 font-medium leading-snug line-clamp-1">
+                            {item.subtitle}
+                          </span>
+                        </motion.button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* All Services Organized List */}
+              {filteredOthers.length > 0 && (
+                <div className="bg-white/[0.02] border border-white/10 p-5 rounded-2xl">
+                  <h4 className="font-mono text-xs uppercase font-bold text-white tracking-wider flex items-center border-b border-white/5 pb-3 mb-3 gap-2">
+                    <span className="w-2 h-2 rounded-full bg-brand-gold" />
+                    Additional UAE Services & Solutions
+                  </h4>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {filteredOthers.map((srv, idx) => {
+                      const IconComponent = srv.icon;
+                      return (
+                        <motion.button
+                          key={idx}
+                          whileHover={{ x: 4, backgroundColor: 'rgba(212, 175, 55, 0.08)' }}
+                          onClick={() => handleItemClick(srv.serviceId)}
+                          className="w-full px-3.5 py-3 rounded-xl transition-all flex items-center justify-between text-left group cursor-pointer border border-white/5 hover:border-brand-gold/40"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 text-slate-400 group-hover:border-brand-gold/40 group-hover:bg-brand-gold/10 group-hover:text-brand-gold flex items-center justify-center shrink-0 transition-colors">
+                              <IconComponent className="w-4 h-4" />
+                            </div>
+                            <div className="truncate">
+                              <div className="text-xs font-bold text-slate-200 group-hover:text-white transition-colors truncate">
+                                {srv.title}
+                              </div>
+                              <div className="text-[10px] text-slate-400 font-medium truncate">
+                                {srv.subtitle}
+                              </div>
+                            </div>
+                          </div>
+
+                          <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-brand-gold opacity-0 group-hover:opacity-100 transition-all shrink-0 ml-2" />
+                        </motion.button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {filteredFeatured.length === 0 && filteredOthers.length === 0 && (
+                <div className="text-center py-12">
+                  <Search className="w-10 h-10 text-slate-600 mx-auto mb-3" />
+                  <p className="text-slate-400 font-medium text-sm">No matching services found for "{searchQuery}".</p>
+                  <button onClick={() => { setSearchQuery(''); setActiveCategory('all'); }} className="mt-3 text-xs text-brand-gold font-bold underline">
+                    Clear Search Filters
+                  </button>
+                </div>
+              )}
+
+            </div>
+
+            {/* Sticky Action Footer */}
+            <div className="p-4 sm:p-5 bg-[#0e1015] border-t border-white/10 flex flex-row items-center justify-between gap-3 shrink-0">
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  onClose();
+                  if (onOpenCalculator) onOpenCalculator();
+                }}
+                className="flex-1 px-4 py-3 bg-white/5 hover:bg-brand-gold/10 border-2 border-brand-gold/40 hover:border-brand-gold text-white font-extrabold rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer text-xs sm:text-sm btn-shine-effect"
+              >
+                <Calculator className="w-4 h-4 text-brand-gold" />
+                <span>Launch Visa Calculator</span>
+              </motion.button>
+
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href={siteConfig.whatsapp.link}
+                target="_blank"
+                rel="noreferrer"
+                className="flex-1 px-4 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_0_20px_rgba(37,211,102,0.3)] text-xs sm:text-sm"
+              >
+                <WhatsAppIcon className="w-4 h-4 fill-current" />
+                <span>WhatsApp Instant Help</span>
+              </motion.a>
+            </div>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
   );
 }
+

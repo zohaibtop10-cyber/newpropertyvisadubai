@@ -45,14 +45,14 @@ export default function CommandPaletteModal({ isOpen, onClose, onSelectAction, d
   ].filter(a => cleanQuery === '' || a.title.toLowerCase().includes(cleanQuery));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-brand-darkBg/80 backdrop-blur-md animate-fadeIn">
       <div 
-        className="w-full max-w-2xl bg-slate-900 border border-slate-700/60 rounded-2xl shadow-2xl overflow-hidden flex flex-col text-slate-100"
+        className="w-full max-w-2xl bg-brand-surfaceLight border border-slate-700/60 rounded-xl shadow-2xl overflow-hidden flex flex-col text-slate-100"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Input Header */}
-        <div className="flex items-center px-4 py-3.5 border-b border-slate-800 bg-slate-900/90 gap-3">
-          <Search className="w-5 h-5 text-[#E01E37] shrink-0" />
+        <div className="flex items-center px-4 py-3.5 border-b border-slate-800 bg-brand-surfaceLight/90 gap-3">
+          <Search className="w-5 h-5 text-brand-primary shrink-0" />
           <input
             type="text"
             autoFocus
@@ -85,15 +85,15 @@ export default function CommandPaletteModal({ isOpen, onClose, onSelectAction, d
                     <button
                       key={i}
                       onClick={() => { onSelectAction(act.module); onClose(); }}
-                      className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-[#E01E37]/15 hover:border hover:border-[#E01E37]/30 transition-all text-sm group"
+                      className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-brand-primary/15 hover:border hover:border-brand-primary/30 transition-all text-sm group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="p-1.5 rounded-lg bg-slate-800 text-slate-300 group-hover:bg-[#E01E37] group-hover:text-white transition-colors">
+                        <div className="p-1.5 rounded-lg bg-slate-800 text-slate-300 group-hover:bg-brand-primary group-hover:text-white transition-colors">
                           <Icon className="w-4 h-4" />
                         </div>
                         <span className="font-medium text-slate-200 group-hover:text-white">{act.title}</span>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-[#E01E37] transition-colors" />
+                      <ArrowRight className="w-4 h-4 text-content-muted group-hover:text-brand-primary transition-colors" />
                     </button>
                   );
                 })}
@@ -115,7 +115,7 @@ export default function CommandPaletteModal({ isOpen, onClose, onSelectAction, d
                     className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-800 transition-colors text-sm"
                   >
                     <div className="flex items-center gap-3">
-                      <User className="w-4 h-4 text-[#E01E37]" />
+                      <User className="w-4 h-4 text-brand-primary" />
                       <div>
                         <div className="font-semibold text-white">{dos.clientName} <span className="text-xs text-slate-400 font-normal">({dos.passportNo})</span></div>
                         <div className="text-xs text-slate-400">{dos.dossierNumber} • {dos.serviceTitle}</div>
@@ -144,13 +144,13 @@ export default function CommandPaletteModal({ isOpen, onClose, onSelectAction, d
                     className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-800 transition-colors text-sm"
                   >
                     <div className="flex items-center gap-3">
-                      <Calculator className="w-4 h-4 text-emerald-400" />
+                      <Calculator className="w-4 h-4 text-brand-goldLight" />
                       <div>
                         <div className="font-medium text-slate-200">{trf.itemName}</div>
                         <div className="text-xs text-slate-400">{trf.authority} • Code: {trf.itemCode}</div>
                       </div>
                     </div>
-                    <span className="text-xs font-bold text-emerald-400">
+                    <span className="text-xs font-bold text-brand-goldLight">
                       AED {(trf.govtFeeAED + trf.retainerMarkupAED).toLocaleString()}
                     </span>
                   </button>
@@ -168,13 +168,13 @@ export default function CommandPaletteModal({ isOpen, onClose, onSelectAction, d
         </div>
 
         {/* Footer Shortcut Legend */}
-        <div className="px-4 py-2.5 border-t border-slate-800 bg-slate-950/60 flex items-center justify-between text-xs text-slate-400">
+        <div className="px-4 py-2.5 border-t border-slate-800 bg-brand-darkBg/60 flex items-center justify-between text-xs text-slate-400">
           <div className="flex items-center gap-2">
             <span className="px-1.5 py-0.5 bg-slate-800 rounded text-slate-300 font-mono text-[10px]">ESC</span> to close
             <span className="px-1.5 py-0.5 bg-slate-800 rounded text-slate-300 font-mono text-[10px]">↑↓</span> to navigate
           </div>
           <div className="text-slate-400">
-            <span className="font-semibold text-[#E01E37]">EmiratesPrime</span> Admin Search Engine
+            <span className="font-semibold text-brand-primary">EmiratesPrime</span> Admin Search Engine
           </div>
         </div>
 

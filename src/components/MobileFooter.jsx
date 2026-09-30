@@ -5,12 +5,12 @@ import { siteConfig } from '../data/propertyVisaData';
 
 export default function MobileFooter({  onOpenCalculator , cmsConfig }) {
   return (
-    <div className="fixed bottom-0 w-full flex md:hidden z-[100] bg-[#0A0A0A] border-t border-white/10 p-2 shadow-2xl">
+    <div className="fixed bottom-0 w-full flex md:hidden z-[100] bg-brand-darkBg border-t border-white/10 p-2 shadow-2xl">
       <div className="grid grid-cols-2 gap-2 w-full">
         {/* Left 50%: Dark Background "Calculate Fees" */}
         <button
           onClick={() => onOpenCalculator()}
-          className="flex items-center justify-center gap-2 bg-[#1A1A1A] hover:bg-[#252525] text-white py-3 rounded-xl font-semibold text-xs transition-all border border-white/10 shadow-md cursor-pointer"
+          className="flex items-center justify-center gap-2 bg-brand-surfaceLight hover:bg-[#252525] text-white py-3 rounded-xl font-semibold text-xs transition-all border border-white/10 shadow-md cursor-pointer"
         >
           <Calculator className="w-4 h-4 text-[#0284C7]" />
           <span>Calculate Fees</span>

@@ -1,357 +1,274 @@
 import React, { useState, useEffect } from 'react';
-import { FileText, Plus, Trash2, Save, CheckCircle2, DollarSign, HelpCircle, ListCheck } from 'lucide-react';
+import { FileText, Plus, Trash2, Save, CheckCircle2, DollarSign, HelpCircle, ListCheck, Sparkles, Navigation } from 'lucide-react';
+import { servicesData } from '../../data/cmsData';
+import { visaServices } from '../../data/propertyVisaData';
 
-const SERVICE_PAGES = [
-  { id: 'golden-visa', name: '10-Year Property Golden Visa' },
-  { id: 'spouse-visa', name: 'Spouse Residence Visa' },
-  { id: 'children-visa', name: 'Children Dependant Visa' },
-  { id: 'parents-visa', name: 'Parents Residency Visa' },
-  { id: 'maid-visa', name: 'Maid & Domestic Helper Visa' }
-];
+// Combine all possible services into a dropdown list
+const allServices = [...servicesData, ...visaServices];
+const SERVICE_PAGES = allServices.map(s => ({ id: s.id, name: s.title }));
 
 export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
-  const [selectedService, setSelectedService] = useState('golden-visa');
+  const [selectedService, setSelectedService] = useState(SERVICE_PAGES[0]?.id || 'golden-visa');
   const [saveSuccess, setSaveSuccess] = useState(false);
 
+  // Form State
+  const [slug, setSlug] = useState('');
+  const [title, setTitle] = useState('');
+  const [subtitle, setSubtitle] = useState('');
+  const [heroDescription, setHeroDescription] = useState('');
+  const [startingPrice, setStartingPrice] = useState('');
+  const [processingTime, setProcessingTime] = useState('');
+  const [benefits, setBenefits] = useState([]);
+  const [requirements, setRequirements] = useState([]);
+  const [processSteps, setProcessSteps] = useState([]);
 
   useEffect(() => {
-    if (cmsConfig?.servicePages?.[selectedService]) {
-      const data = cmsConfig.servicePages[selectedService];
-      if (data.feeRows) setFeeRows(data.feeRows);
-      if (data.requirements) setRequirements(data.requirements);
-      if (data.faqs) setFaqs(data.faqs);
-    } else {
-      // Default dummy data if nothing is saved yet
-      setFeeRows([
-        { id: 1, name: 'Statutory Government Tariff (ICP/GDRFA)', govtFee: '4,850', serviceFee: '1,450' },
-        { id: 2, name: 'VIP Smart Medical Fitness & Emirates ID', govtFee: '1,195', serviceFee: '500' }
-      ]);
-      setRequirements([
-        'Valid passport copy with minimum 6 months validity',
-        'Health Insurance coverage in Dubai/UAE'
-      ]);
-      setFaqs([
-        { id: 1, question: 'What is the processing timeframe?', answer: 'Initial approval is issued within 24 to 48 hours.' }
-      ]);
-    }
+    // Load from CMS Config if overridden, otherwise load from hardcoded default data
+    const overrideData = cmsConfig?.servicePages?.[selectedService];
+    const defaultData = allServices.find(s => s.id === selectedService) || {};
+
+    const activeData = { ...defaultData, ...overrideData };
+
+    setSlug(activeData.slug || activeData.id || '');
+    setTitle(activeData.title || '');
+    setSubtitle(activeData.subtitle || '');
+    setHeroDescription(activeData.heroDescription || activeData.overview || '');
+    setStartingPrice(activeData.pricing?.totalEstimate || activeData.startingPrice || '');
+    setProcessingTime(activeData.processingTime || '');
+    
+    setBenefits(activeData.benefits || []);
+    setRequirements(activeData.requirements || activeData.documents || []);
+    setProcessSteps(activeData.processSteps || []);
   }, [selectedService, cmsConfig]);
 
-  // Fees repeater state
-  const [feeRows, setFeeRows] = useState([
-    { id: 1, name: 'Statutory Government Tariff (ICP/GDRFA)', govtFee: '4,850', serviceFee: '1,450' },
-    { id: 2, name: 'VIP Smart Medical Fitness & Emirates ID', govtFee: '1,195', serviceFee: '500' }
-  ]);
-
-  // Requirements repeater state
-  const [requirements, setRequirements] = useState([
-    'Title Deed issued by Dubai Land Department (DLD) with valuation of AED 2,000,000+',
-    'Valid passport copy with minimum 6 months validity',
-    'Health Insurance coverage in Dubai/UAE'
-  ]);
-
-  // FAQ repeater state
-  const [faqs, setFaqs] = useState([
-    { id: 1, question: 'Can I sponsor my spouse and children under the 10-Year Golden Visa?', answer: 'Yes! Golden Visa holders can sponsor their spouse, sons (up to age 25), and unmarried daughters for the full 10-year duration.' },
-    { id: 2, question: 'Is physical presence in the UAE required every 6 months?', answer: 'No. Golden Visa holders are exempt from the standard rule that invalidates residency if outside the UAE for more than 6 months.' }
-  ]);
-
-  // Handlers for Fees
-  const handleAddFeeRow = () => {
-    setFeeRows([
-      ...feeRows,
-      { id: Date.now(), name: 'New Fee Item', govtFee: '1,000', serviceFee: '500' }
-    ]);
+  // Array Handlers
+  const handleAddBenefit = () => setBenefits([...benefits, { title: 'New Benefit', desc: '' }]);
+  const handleUpdateBenefit = (idx, field, value) => {
+    const updated = [...benefits];
+    updated[idx][field] = value;
+    setBenefits(updated);
   };
+  const handleDeleteBenefit = (idx) => setBenefits(benefits.filter((_, i) => i !== idx));
 
-  const handleUpdateFee = (id, field, value) => {
-    setFeeRows(feeRows.map(row => row.id === id ? { ...row, [field]: value } : row));
-  };
-
-  const handleDeleteFee = (id) => {
-    setFeeRows(feeRows.filter(row => row.id !== id));
-  };
-
-  // Handlers for Requirements
-  const handleAddRequirement = () => {
-    setRequirements([...requirements, 'New eligibility requirement detail']);
-  };
-
+  const handleAddRequirement = () => setRequirements([...requirements, 'New requirement']);
   const handleUpdateRequirement = (idx, value) => {
     const updated = [...requirements];
     updated[idx] = value;
     setRequirements(updated);
   };
+  const handleDeleteRequirement = (idx) => setRequirements(requirements.filter((_, i) => i !== idx));
 
-  const handleDeleteRequirement = (idx) => {
-    setRequirements(requirements.filter((_, i) => i !== idx));
+  const handleAddProcessStep = () => setProcessSteps([...processSteps, { title: 'New Step', desc: '' }]);
+  const handleUpdateProcessStep = (idx, field, value) => {
+    const updated = [...processSteps];
+    updated[idx][field] = value;
+    setProcessSteps(updated);
   };
+  const handleDeleteProcessStep = (idx) => setProcessSteps(processSteps.filter((_, i) => i !== idx));
 
-  // Handlers for FAQs
-  const handleAddFaq = () => {
-    setFaqs([
-      ...faqs,
-      { id: Date.now(), question: 'What is the processing timeframe?', answer: 'Initial nomination approval is issued within 24 to 48 hours.' }
-    ]);
-  };
+  // Save Handler
+  const handleSave = () => {
+    // Mock save process with console.log
+    console.log("Saving Service Data:", {
+      slug, title, subtitle, heroDescription, startingPrice, processingTime, benefits, requirements, processSteps
+    });
 
-  const handleUpdateFaq = (id, field, value) => {
-    setFaqs(faqs.map(faq => faq.id === id ? { ...faq, [field]: value } : faq));
-  };
+    const updatedServiceData = {
+      slug,
+      title,
+      subtitle,
+      heroDescription,
+      startingPrice,
+      processingTime,
+      benefits,
+      requirements,
+      processSteps
+    };
 
-  const handleDeleteFaq = (id) => {
-    setFaqs(faqs.filter(faq => faq.id !== id));
-  };
-
-  const handleSave = (e) => {
-    e.preventDefault();
-    if (setCmsConfig) {
-      setCmsConfig(prev => ({
-        ...prev,
-        servicePages: {
-          ...prev?.servicePages,
-          [selectedService]: {
-            feeRows,
-            requirements,
-            faqs
-          }
-        }
-      }));
-    }
-
-    if (typeof window !== 'undefined') {
-      const currentConfig = cmsConfig || {};
-      const newConfig = {
-        ...currentConfig,
-        servicePages: {
-          ...currentConfig.servicePages,
-          [selectedService]: { feeRows, requirements, faqs }
-        }
-      };
-      localStorage.setItem('app_cms_config', JSON.stringify(newConfig));
-    }
+    setCmsConfig(prev => ({
+      ...prev,
+      servicePages: {
+        ...(prev.servicePages || {}),
+        [selectedService]: updatedServiceData
+      }
+    }));
 
     setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 3500);
+    setTimeout(() => setSaveSuccess(false), 3000);
   };
 
   return (
-    <div className="max-w-4xl space-y-8 animate-fadeIn">
-      
-      {saveSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
-          <CheckCircle2 className="w-5 h-5 shrink-0" />
-          <span>Service page updates published cleanly to live website!</span>
-        </div>
-      )}
-
-      {/* Target Service Page Selector */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-1">
-            SELECT SERVICE PAGE TO EDIT
-          </label>
-          <div className="font-display font-bold text-lg text-white">Target Visa Service</div>
+          <h2 className="text-xl font-display font-bold text-brand-gold flex items-center gap-2">
+            <FileText className="w-5 h-5" />
+            Services Manager
+          </h2>
+          <p className="text-sm text-slate-400 mt-1">Manage standard inputs and dynamic arrays for your services.</p>
         </div>
 
-        <select
-          value={selectedService}
-          onChange={(e) => setSelectedService(e.target.value)}
-          className="bg-slate-950 border border-slate-800 text-white font-bold text-sm rounded-2xl p-4 focus:outline-none focus:border-[#E01E37] cursor-pointer min-w-[280px]"
-        >
-          {SERVICE_PAGES.map(page => (
-            <option key={page.id} value={page.id} className="bg-slate-900 text-white">
-              {page.name}
-            </option>
-          ))}
-        </select>
+        <div className="flex items-center gap-3">
+          <select
+            value={selectedService}
+            onChange={(e) => setSelectedService(e.target.value)}
+            className="px-4 py-2 bg-transparent border border-white/20 rounded-lg text-sm font-medium text-white focus:outline-none focus:border-brand-gold min-w-[200px]"
+          >
+            {SERVICE_PAGES.map(page => (
+              <option key={page.id} value={page.id} className="bg-[#121417] text-white">{page.name}</option>
+            ))}
+          </select>
+
+          <button
+            onClick={handleSave}
+            className="flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] hover:opacity-90 text-black px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-md"
+          >
+            {saveSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+            {saveSuccess ? 'Saved' : 'Save Changes'}
+          </button>
+        </div>
       </div>
 
-      <form onSubmit={handleSave} className="space-y-8">
-        
-        {/* 1. PRICING & FEES REPEATER */}
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-5">
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-blue-500/15 text-blue-500">
-                <DollarSign className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="font-display font-extrabold text-xl text-white">Pricing & Fees Table</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit government tariffs and service retainer fees for this page</p>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleAddFeeRow}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-[#E01E37] text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
-            >
-              <Plus className="w-4 h-4" /> Add Fee Row
-            </button>
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Basic Info Column */}
+        <div className="bg-[#121417] border border-white/10 rounded-xl p-6 space-y-4">
+          <h3 className="text-lg font-bold text-white mb-4">Standard Information</h3>
+          
+          <div>
+            <label className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase">ID (Slug)</label>
+            <input
+              type="text"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              className="w-full bg-transparent border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+            />
           </div>
-
-          <div className="space-y-4">
-            {feeRows.map((row) => (
-              <div key={row.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
-                <div className="sm:col-span-5">
-                  <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">Fee Item Name</label>
-                  <input
-                    type="text"
-                    value={row.name}
-                    onChange={(e) => handleUpdateFee(row.id, 'name', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-semibold focus:outline-none focus:border-[#E01E37]"
-                  />
-                </div>
-
-                <div className="sm:col-span-3">
-                  <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">Govt Fee (AED)</label>
-                  <input
-                    type="text"
-                    value={row.govtFee}
-                    onChange={(e) => handleUpdateFee(row.id, 'govtFee', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-mono font-bold focus:outline-none focus:border-[#E01E37]"
-                  />
-                </div>
-
-                <div className="sm:col-span-3">
-                  <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">Service Fee (AED)</label>
-                  <input
-                    type="text"
-                    value={row.serviceFee}
-                    onChange={(e) => handleUpdateFee(row.id, 'serviceFee', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-emerald-400 text-xs font-mono font-bold focus:outline-none focus:border-[#E01E37]"
-                  />
-                </div>
-
-                <div className="sm:col-span-1 flex justify-end pt-4 sm:pt-0">
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteFee(row.id)}
-                    className="p-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-colors cursor-pointer"
-                    title="Delete Fee Row"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            ))}
+          <div>
+            <label className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase">Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full bg-transparent border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase">Subtitle</label>
+            <input
+              type="text"
+              value={subtitle}
+              onChange={(e) => setSubtitle(e.target.value)}
+              className="w-full bg-transparent border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase">Hero Description</label>
+            <textarea
+              value={heroDescription}
+              onChange={(e) => setHeroDescription(e.target.value)}
+              rows="3"
+              className="w-full bg-transparent border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold resize-none"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase">Starting Price</label>
+              <input
+                type="text"
+                value={startingPrice}
+                onChange={(e) => setStartingPrice(e.target.value)}
+                className="w-full bg-transparent border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+                placeholder="AED 5,000"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase">Processing Time</label>
+              <input
+                type="text"
+                value={processingTime}
+                onChange={(e) => setProcessingTime(e.target.value)}
+                className="w-full bg-transparent border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+                placeholder="3-5 Days"
+              />
+            </div>
           </div>
         </div>
 
-        {/* 2. REQUIREMENTS LIST BUILDER */}
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-5">
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-emerald-500/15 text-emerald-500">
-                <ListCheck className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="font-display font-extrabold text-xl text-white">Eligibility Requirements List</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Bullet points outlining requirements for applicants</p>
-              </div>
+        {/* Dynamic Arrays Column */}
+        <div className="space-y-6">
+          
+          {/* Benefits Array */}
+          <div className="bg-[#121417] border border-white/10 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-brand-gold" />
+                Benefits
+              </h3>
+              <button onClick={handleAddBenefit} className="text-xs font-bold text-brand-gold hover:opacity-80 flex items-center gap-1">
+                <Plus className="w-4 h-4" /> Add Item
+              </button>
             </div>
-
-            <button
-              type="button"
-              onClick={handleAddRequirement}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-[#E01E37] text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
-            >
-              <Plus className="w-4 h-4" /> Add Requirement
-            </button>
-          </div>
-
-          <div className="space-y-3">
-            {requirements.map((req, idx) => (
-              <div key={idx} className="flex items-center gap-3">
-                <input
-                  type="text"
-                  value={req}
-                  onChange={(e) => handleUpdateRequirement(idx, e.target.value)}
-                  className="flex-1 bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white text-sm font-semibold focus:outline-none focus:border-[#E01E37]"
-                />
-                <button
-                  type="button"
-                  onClick={() => handleDeleteRequirement(idx)}
-                  className="p-3 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-2xl transition-colors cursor-pointer shrink-0"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 3. FAQ BUILDER */}
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-5">
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-purple-500/15 text-purple-500">
-                <HelpCircle className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="font-display font-extrabold text-xl text-white">Frequently Asked Questions (FAQs)</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Add question and answer pairs displayed at the bottom of the page</p>
-              </div>
+            <div className="space-y-3">
+              {benefits.map((item, idx) => (
+                <div key={idx} className="flex gap-3 bg-surface/5 p-3 rounded-xl border border-white/10">
+                  <div className="flex-1 space-y-2">
+                    <input type="text" value={item.title} onChange={(e) => handleUpdateBenefit(idx, 'title', e.target.value)} className="w-full bg-transparent border-b border-white/20 px-2 py-1 text-sm font-bold text-white focus:outline-none focus:border-brand-gold" placeholder="Benefit Title" />
+                    <input type="text" value={item.desc} onChange={(e) => handleUpdateBenefit(idx, 'desc', e.target.value)} className="w-full bg-transparent border-none px-2 py-1 text-sm text-slate-300 focus:outline-none" placeholder="Description" />
+                  </div>
+                  <button onClick={() => handleDeleteBenefit(idx)} className="text-content-muted hover:text-red-500 p-2 h-fit"><Trash2 className="w-4 h-4" /></button>
+                </div>
+              ))}
             </div>
-
-            <button
-              type="button"
-              onClick={handleAddFaq}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-[#E01E37] text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
-            >
-              <Plus className="w-4 h-4" /> Add New FAQ
-            </button>
           </div>
 
-          <div className="space-y-6">
-            {faqs.map((faq) => (
-              <div key={faq.id} className="p-5 bg-slate-950 border border-slate-800 rounded-2xl space-y-4 relative">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-bold text-purple-400 uppercase">FAQ QUESTION & ANSWER</span>
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteFaq(faq.id)}
-                    className="p-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-colors cursor-pointer"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+          {/* Requirements Array */}
+          <div className="bg-[#121417] border border-white/10 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <ListCheck className="w-5 h-5 text-brand-gold" />
+                Requirements
+              </h3>
+              <button onClick={handleAddRequirement} className="text-xs font-bold text-brand-gold hover:opacity-80 flex items-center gap-1">
+                <Plus className="w-4 h-4" /> Add Item
+              </button>
+            </div>
+            <div className="space-y-3">
+              {requirements.map((req, idx) => (
+                <div key={idx} className="flex gap-3 bg-surface/5 p-3 rounded-xl border border-white/10 items-center">
+                  <input type="text" value={req} onChange={(e) => handleUpdateRequirement(idx, e.target.value)} className="flex-1 bg-transparent border-none px-2 py-1 text-sm text-white focus:outline-none" placeholder="Requirement string" />
+                  <button onClick={() => handleDeleteRequirement(idx)} className="text-content-muted hover:text-red-500 p-2"><Trash2 className="w-4 h-4" /></button>
                 </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">Question</label>
-                  <input
-                    type="text"
-                    value={faq.question}
-                    onChange={(e) => handleUpdateFaq(faq.id, 'question', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white font-bold text-sm focus:outline-none focus:border-[#E01E37]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">Answer</label>
-                  <textarea
-                    rows={3}
-                    value={faq.answer}
-                    onChange={(e) => handleUpdateFaq(faq.id, 'answer', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-[#E01E37]"
-                  />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
+          {/* Process Steps Array */}
+          <div className="bg-[#121417] border border-white/10 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <Navigation className="w-5 h-5 text-brand-gold" />
+                Process Steps
+              </h3>
+              <button onClick={handleAddProcessStep} className="text-xs font-bold text-brand-gold hover:opacity-80 flex items-center gap-1">
+                <Plus className="w-4 h-4" /> Add Item
+              </button>
+            </div>
+            <div className="space-y-3">
+              {processSteps.map((step, idx) => (
+                <div key={idx} className="flex gap-3 bg-surface/5 p-3 rounded-xl border border-white/10">
+                  <div className="flex-1 space-y-2">
+                    <input type="text" value={step.title} onChange={(e) => handleUpdateProcessStep(idx, 'title', e.target.value)} className="w-full bg-transparent border-b border-white/20 px-2 py-1 text-sm font-bold text-white focus:outline-none focus:border-brand-gold" placeholder="Step Title" />
+                    <textarea value={step.desc} onChange={(e) => handleUpdateProcessStep(idx, 'desc', e.target.value)} rows="2" className="w-full bg-transparent border-none px-2 py-1 text-sm text-slate-300 focus:outline-none resize-none" placeholder="Step Description" />
+                  </div>
+                  <button onClick={() => handleDeleteProcessStep(idx)} className="text-content-muted hover:text-red-500 p-2 h-fit"><Trash2 className="w-4 h-4" /></button>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
-
-        {/* Single Prominent Save Button */}
-        <button
-          type="submit"
-          className="w-full py-4 bg-[#E01E37] hover:bg-[#B81A2C] text-white font-bold text-base rounded-2xl shadow-xl shadow-[#E01E37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
-        >
-          <Save className="w-5 h-5" />
-          <span>Publish Service Page Changes</span>
-        </button>
-
-      </form>
-
+      </div>
     </div>
   );
 }

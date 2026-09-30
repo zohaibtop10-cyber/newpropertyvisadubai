@@ -1,14 +1,15 @@
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
 @variant dark (&:where(.dark, .dark *));
 
 :root {
   /* Universal Brand & Status Accents (From Design Spec Image) */
-  --accent-red: #E01E37;               /* Primary */
-  --accent-red-hover: #B81A2C;         /* Secondary */
-  --accent-red-tertiary: #C8102E;      /* Tertiary */
-  --accent-red-tint: rgba(224, 30, 55, 0.08);
-  --accent-red-border: rgba(224, 30, 55, 0.25);
+  --accent-gold: #D4AF37;               /* Primary */
+  --accent-gold-hover: #996515;         /* Secondary */
+  --accent-gold-tertiary: #C5A059;      /* Tertiary */
+  --accent-gold-tint: rgba(212, 175, 55, 0.08);
+  --accent-gold-border: rgba(212, 175, 55, 0.25);
   --whatsapp-green: #25D366;
   --whatsapp-green-hover: #20BD5A;
   --status-emerald: #10B981;
@@ -41,26 +42,26 @@ body, html {
   display: none !important;
 }
 
-/* Light Mode Palette (Design Spec Clean Canvas & Elevated Cards) */
+/* Light Mode Palette (Clean White Theme with Golden Accents) */
 :root {
-  --bg-canvas: #EEF0F4;
-  --bg-surface: #F8F9FC;
-  --bg-surface-elevated: #E4E7EE;
-  --bg-surface-hover: #DADEE7;
-  --text-primary: #121417;              /* Neutral */
-  --text-secondary: #3D434E;
-  --text-muted: #6B7280;
-  --border-subtle: #DCE0E8;
-  --border-strong: #C5CBD8;
-  --glass-bg: rgba(248, 249, 252, 0.85);
-  --glass-border: rgba(18, 20, 23, 0.08);
-  --shadow-card: 0 4px 20px -2px rgba(18, 20, 23, 0.05), 0 2px 6px -1px rgba(18, 20, 23, 0.03);
-  --shadow-modal: 0 25px 50px -12px rgba(18, 20, 23, 0.18);
-  --shadow-ambient-glow: 0 0 40px -10px rgba(224, 30, 55, 0.08);
+  --bg-canvas: #FDFBF7;                 /* Warm Off-White / Cream */
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F6F4EB;       /* Slightly warmer elevated */
+  --bg-surface-hover: #EBE6D5;
+  --text-primary: #1C1A17;              /* Warm Dark */
+  --text-secondary: #4A463F;
+  --text-muted: #807A6E;
+  --border-subtle: #E8DEB7;
+  --border-strong: #D4AF37;
+  --glass-bg: rgba(253, 247, 229, 0.85);
+  --glass-border: rgba(212, 175, 55, 0.15);
+  --shadow-card: 0 4px 20px -2px rgba(212, 175, 55, 0.08), 0 2px 6px -1px rgba(212, 175, 55, 0.05);
+  --shadow-modal: 0 25px 50px -12px rgba(212, 175, 55, 0.15);
+  --shadow-ambient-glow: 0 0 40px -10px rgba(212, 175, 55, 0.2);
 
   /* Fonts (Headline: Plus Jakarta Sans | Body & Label: Inter | Data: JetBrains Mono) */
-  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   font-family: var(--font-sans);
@@ -69,21 +70,21 @@ body, html {
 
 .dark {
   /* Dark Mode Palette (Neutral #121417 OLED Dark Canvas) */
-  --bg-canvas: #121417;                 /* Neutral */
-  --bg-surface: #1A1D23;
-  --bg-surface-elevated: #22262F;
+  --bg-canvas: #050505;                 /* Neutral */
+  --bg-surface: #121212;
+  --bg-surface-elevated: #1E1E1E;
   --bg-surface-hover: #2C313C;
   --text-primary: #FFFFFF;
   --text-secondary: #D1D5DB;
   --text-muted: #9CA3AF;
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.16);
-  --accent-red-tint: rgba(224, 30, 55, 0.15);
+  --accent-gold-tint: rgba(212, 175, 55, 0.15);
   --glass-bg: rgba(18, 20, 23, 0.85);
   --glass-border: rgba(255, 255, 255, 0.08);
   --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
   --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
-  --shadow-ambient-glow: 0 0 50px -10px rgba(224, 30, 55, 0.15);
+  --shadow-ambient-glow: 0 0 50px -10px rgba(212, 175, 55, 0.15);
 }
 
 @theme {
@@ -99,18 +100,29 @@ body, html {
   --color-border-subtle: var(--border-subtle);
   --color-border-strong: var(--border-strong);
 
-  --color-brand-red: var(--accent-red);
-  --color-brand-red-hover: var(--accent-red-hover);
-  --color-brand-red-tertiary: var(--accent-red-tertiary);
-  --color-brand-red-tint: var(--accent-red-tint);
-  --color-brand-red-border: var(--accent-red-border);
+  --color-brand-gold: #D4AF37;
+  --color-brand-goldLight: #FDF2CB;
+  --color-brand-goldDark: #996515;
+  --color-brand-goldMuted: #C5A059;
+  --color-brand-darkBg: #050505;
+  --color-brand-surface: #121212;
+  --color-brand-surfaceLight: #1E1E1E;
+  --color-brand-textMain: #E2E8F0;
+  --color-brand-textMuted: #94A3B8;
+  --color-brand-primary: #D4AF37;
+  --color-brand-hover: #996515;
+
+  --background-image-gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+  --background-image-gold-shimmer: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+  --background-image-surface-gradient: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+
   --color-brand-whatsapp: var(--whatsapp-green);
   --color-brand-whatsapp-hover: var(--whatsapp-green-hover);
   --color-brand-emerald: var(--status-emerald);
   --color-brand-amber: var(--status-amber);
 
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -160,7 +172,7 @@ code, pre, .font-mono, .tabular-nums {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-red);
+  background: var(--accent-gold);
 }
 
 /* ================================================
@@ -168,7 +180,7 @@ code, pre, .font-mono, .tabular-nums {
    ================================================ */
 
 /* Pulsing live status indicator */
-@keyframes pulse-red {
+@keyframes pulse-gold {
   0%, 100% {
     opacity: 1;
     transform: scale(1);
@@ -179,8 +191,8 @@ code, pre, .font-mono, .tabular-nums {
   }
 }
 
-.animate-pulse-red {
-  animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.animate-pulse-gold {
+  animation: pulse-gold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Fade in animation for modal and cards */
@@ -296,10 +308,10 @@ code, pre, .font-mono, .tabular-nums {
 /* Border glow pulse */
 @keyframes borderGlow {
   0%, 100% {
-    box-shadow: 0 0 15px -3px rgba(224, 30, 55, 0.15);
+    box-shadow: 0 0 15px -3px rgba(212, 175, 55, 0.15);
   }
   50% {
-    box-shadow: 0 0 30px -3px rgba(224, 30, 55, 0.35);
+    box-shadow: 0 0 30px -3px rgba(212, 175, 55, 0.35);
   }
 }
 
@@ -375,7 +387,7 @@ code, pre, .font-mono, .tabular-nums {
   background: var(--glass-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--accent-red-border);
+  border: 1px solid var(--accent-gold-border);
   box-shadow: var(--shadow-ambient-glow);
 }
 
@@ -411,7 +423,7 @@ code, pre, .font-mono, .tabular-nums {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, #E01E37, #F59E0B, #E01E37);
+  background: linear-gradient(135deg, #D4AF37, #F59E0B, #D4AF37);
   background-size: 200% 200%;
   animation: gradientShift 4s ease infinite;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -427,7 +439,7 @@ code, pre, .font-mono, .tabular-nums {
 }
 
 .hover-glow:hover {
-  border-color: var(--accent-red-border);
+  border-color: var(--accent-gold-border);
   box-shadow: var(--shadow-ambient-glow);
   transform: translateY(-4px);
 }
@@ -446,7 +458,7 @@ code, pre, .font-mono, .tabular-nums {
   border-radius: inherit;
   opacity: 0;
   transition: opacity 0.4s ease;
-  background: linear-gradient(135deg, rgba(224, 30, 55, 0.05), transparent 60%);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), transparent 60%);
   pointer-events: none;
 }
 
@@ -457,19 +469,19 @@ code, pre, .font-mono, .tabular-nums {
 .card-premium:hover {
   transform: translateY(-6px);
   box-shadow: 
-    0 20px 40px -12px rgba(224, 30, 55, 0.12),
+    0 20px 40px -12px rgba(212, 175, 55, 0.12),
     0 4px 16px -2px rgba(0, 0, 0, 0.06);
 }
 
 .dark .card-premium:hover {
   box-shadow: 
-    0 20px 40px -12px rgba(224, 30, 55, 0.2),
+    0 20px 40px -12px rgba(212, 175, 55, 0.2),
     0 4px 16px -2px rgba(0, 0, 0, 0.4);
 }
 
 /* Gradient text utility */
-.text-gradient-red {
-  background: linear-gradient(135deg, #E01E37 0%, #F05A6A 50%, #E01E37 100%);
+.text-gradient-gold {
+  background: linear-gradient(135deg, #D4AF37 0%, #FDF2CB 50%, #D4AF37 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -477,7 +489,7 @@ code, pre, .font-mono, .tabular-nums {
 }
 
 .text-gradient-shimmer {
-  background: linear-gradient(90deg, #E01E37 0%, #FF6B6B 25%, #E01E37 50%, #FF6B6B 75%, #E01E37 100%);
+  background: linear-gradient(90deg, #D4AF37 0%, #FDF2CB 25%, #D4AF37 50%, #FDF2CB 75%, #D4AF37 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -537,7 +549,7 @@ code, pre, .font-mono, .tabular-nums {
     90deg,
     transparent 0%,
     var(--border-subtle) 20%,
-    var(--accent-red-border) 50%,
+    var(--accent-gold-border) 50%,
     var(--border-subtle) 80%,
     transparent 100%
   );
@@ -573,14 +585,14 @@ button, a, input, select, textarea {
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid var(--accent-red);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 /* Selection color */
 ::selection {
-  background: rgba(224, 30, 55, 0.2);
+  background: rgba(212, 175, 55, 0.2);
   color: inherit;
 }
 
@@ -627,4 +639,51 @@ img {
 
 .marquee-container:hover .marquee-track {
   animation-play-state: paused;
+}
+
+/* ================================================
+   GOLDEN SHINE BUTTON ANIMATION
+   ================================================ */
+
+.btn-shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(212,175,55,0) 0%, rgba(212,175,55,0.6) 50%, rgba(212,175,55,0) 100%);
+  transform: skewX(-25deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* Fix native select option colors in dark mode and admin panel */
+.dark select option,
+.bg-brand-surfaceLight select option,
+select option.bg-\[\#121417\] {
+  background-color: #121417;
+  color: #ffffff;
+}
+
+/* Base override for any select that has dark text in dark mode */
+.dark select option {
+  background-color: #121417 !important;
+  color: #ffffff !important;
+}
+
+/* Admin specific overrides */
+.min-h-screen.bg-\[\#0A0B0D\] select option {
+  background-color: #121417 !important;
+  color: #ffffff !important;
 }

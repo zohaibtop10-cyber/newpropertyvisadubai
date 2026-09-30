@@ -5,6 +5,7 @@ import {
   CheckCircle, Workflow, HelpCircle, Star, Megaphone, Plus, Trash2,
   Grid, Clock, BookOpen, ArrowUp, ArrowDown
 } from 'lucide-react';
+import BlogModule from './BlogModule';
 
 export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection }) {
   const [activeSection, setActiveSection] = useState(initialSection || 'hero');
@@ -60,10 +61,29 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
   const [servSubtext, setServSubtext] = useState(cmsConfig?.services?.subtext || "Select your dependant category to calculate government fees and view required documents.");
   const [servicesList, setServicesList] = useState(cmsConfig?.services?.items || []);
 
-  // 6. Packages State
-  const [pkgTitle, setPkgTitle] = useState(cmsConfig?.packages?.title || "Unbundled Service Retainer Packages");
-  const [pkgSubtext, setPkgSubtext] = useState(cmsConfig?.packages?.subtext || "Choose your preferred level of advisory support. All government fees are billed strictly at cost.");
-  const [packagesList, setPackagesList] = useState(cmsConfig?.packages?.items || []);
+  // 6. Packages State (Now Property & Support)
+  const [pkgTitle, setPkgTitle] = useState(cmsConfig?.packages?.title || "Comprehensive Property Investor Services");
+  const [pkgSubtext, setPkgSubtext] = useState(cmsConfig?.packages?.subtext || "End-to-end management for property investors. From DLD registration to Golden Visa processing.");
+  const [packagesList, setPackagesList] = useState(cmsConfig?.packages?.items || [
+    {
+      id: 'pkg-1',
+      title: 'Property Investor Visa',
+      desc: 'End-to-end processing for the 2-Year and 10-Year (Golden) Property Investor visas. We handle everything from the initial DLD taskeen to medical checks and Emirates ID issuance.',
+      features: ['DLD Taskeen Application Processing', '10-Year Golden Visa via Real Estate (AED 2M+)', '2-Year Property Visa (AED 750k+)', 'Complete Family Sponsorship Inclusion'],
+      btnText: 'Calculate Property Visa Cost',
+      btnLink: 'calculator',
+      icon: 'Building2'
+    },
+    {
+      id: 'pkg-2',
+      title: 'DLD Trustee & Revaluation',
+      desc: 'Complete representation at the Dubai Land Department. We assist with official property revaluation for visa eligibility, title deed transfers, and POA management.',
+      features: ['Title Deed Updates & Amendments', 'Official Property Revaluation for Visa', 'Representation via Power of Attorney (POA)', 'Ejari Registration & Management'],
+      btnText: 'Talk to an Expert',
+      btnLink: 'whatsapp',
+      icon: 'Scale'
+    }
+  ]);
 
   // 7. Why Us State
   const [whyTitle, setWhyTitle] = useState(cmsConfig?.whyUs?.title || "Why Families Choose Us Over Typing Centers");
@@ -89,6 +109,13 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
   // 10. Reviews State
   const [revTitle, setRevTitle] = useState(cmsConfig?.reviews?.title || "What Families Say About Our PRO Advisory");
   const [revSubtext, setRevSubtext] = useState(cmsConfig?.reviews?.subtext || "Over 500+ five-star reviews on Google & Trustpilot.");
+  const [reviewsList, setReviewsList] = useState(
+    cmsConfig?.reviews?.items || [
+      { id: 'rev-1', author: 'Mohammed Al Hashmi', text: 'Excellent PRO service, they got my Golden Visa in record time.', rating: 5, platform: 'Google' },
+      { id: 'rev-2', author: 'Sarah Jenkins', text: 'Highly recommended for family sponsorships. Transparent pricing.', rating: 5, platform: 'Trustpilot' },
+      { id: 'rev-3', author: 'David Chen', text: 'Smooth process for company setup and employee visas.', rating: 5, platform: 'Google' }
+    ]
+  );
 
   // 11. Blog Teaser State
   const [blogTitle, setBlogTitle] = useState(cmsConfig?.blogSection?.title || "Latest UAE Visa & Residency Guides");
@@ -97,6 +124,12 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
   // 12. Final CTA State
   const [ctaHeadline, setCtaHeadline] = useState(cmsConfig?.cta?.headline || "Ready to Sponsor Your Family in the UAE?");
   const [ctaSubtext, setCtaSubtext] = useState(cmsConfig?.cta?.subtext || "Get an itemized fee breakdown in 30 seconds or chat with a Senior PRO Consultant now.");
+  const [ctaButtons, setCtaButtons] = useState(
+    cmsConfig?.cta?.buttons || [
+      { id: 'btn-1', label: 'Calculate Visa Cost', link: 'calculator', isPrimary: true },
+      { id: 'btn-2', label: 'Talk to Us', link: 'whatsapp', isPrimary: false }
+    ]
+  );
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -132,9 +165,9 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
           steps: processList
         },
         faqs: { ...prev?.faqs, title: faqsTitle, subtext: faqsSubtext, items: faqItems },
-        reviews: { ...prev?.reviews, title: revTitle, subtext: revSubtext },
+        reviews: { ...prev?.reviews, title: revTitle, subtext: revSubtext, items: reviewsList },
         blogSection: { title: blogTitle, subtext: blogSubtext },
-        cta: { ...prev?.cta, headline: ctaHeadline, subtext: ctaSubtext }
+        cta: { ...prev?.cta, headline: ctaHeadline, subtext: ctaSubtext, buttons: ctaButtons }
       }));
     }
 
@@ -151,11 +184,10 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
         whyUs: { ...currentConfig?.whyUs, title: whyTitle, subtext: whySubtext, items: whyUsList },
         process: { ...currentConfig?.process, title: procTitle, subtext: procSubtext, steps: processList },
         faqs: { ...currentConfig?.faqs, title: faqsTitle, subtext: faqsSubtext, items: faqItems },
-        reviews: { ...currentConfig?.reviews, title: revTitle, subtext: revSubtext },
+        reviews: { ...currentConfig?.reviews, title: revTitle, subtext: revSubtext, items: reviewsList },
         blogSection: { title: blogTitle, subtext: blogSubtext },
-        cta: { ...currentConfig?.cta, headline: ctaHeadline, subtext: ctaSubtext }
+        cta: { ...currentConfig?.cta, headline: ctaHeadline, subtext: ctaSubtext, buttons: ctaButtons }
       };
-      localStorage.setItem('app_cms_config', JSON.stringify(updatedConfig));
     }
 
     setSavedSuccess(true);
@@ -168,7 +200,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
     { id: 'achievements', label: '3. Achievements', icon: Award },
     { id: 'problems', label: '4. Problems', icon: AlertTriangle },
     { id: 'services', label: '5. Services Grid', icon: Grid },
-    { id: 'packages', label: '6. Packages', icon: Layers },
+    { id: 'packages', label: '6. Property & Support', icon: Layers },
     { id: 'whyUs', label: '7. Why Choose Us', icon: CheckCircle },
     { id: 'process', label: '8. 4-Step Process', icon: Workflow },
     { id: 'faqs', label: '9. FAQs Accordion', icon: HelpCircle },
@@ -181,14 +213,14 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
     <div className="max-w-5xl space-y-8 animate-fadeIn">
       
       {savedSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
+        <div className="p-4 bg-emerald-500/10 border border-brand-gold/30 rounded-xl text-brand-goldLight text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
           <CheckCircle2 className="w-5 h-5 shrink-0" />
           <span>Homepage section updates published! Live website updated seamlessly.</span>
         </div>
       )}
 
       {/* Sub-Tabs for All 12 Homepage Sections */}
-      <div className="flex flex-wrap gap-2 bg-slate-900 border border-slate-800 p-2 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap gap-2 bg-brand-surfaceLight border border-slate-800 p-2 rounded-xl shadow-xl">
         {sectionsList.map((sec) => {
           const Icon = sec.icon;
           const isActive = activeSection === sec.id;
@@ -199,7 +231,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
               onClick={() => setActiveSection(sec.id)}
               className={`flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-xs transition-all cursor-pointer ${
                 isActive 
-                  ? 'bg-[#E01E37] text-white shadow-md shadow-[#E01E37]/20' 
+                  ? 'bg-brand-primary text-white shadow-md shadow-[#D4AF37]/20' 
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/80'
               }`}
             >
@@ -215,9 +247,9 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
         {/* SECTION 1: HERO & BADGES */}
         {activeSection === 'hero' && (
           <div className="space-y-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+            <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
               <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-                <div className="p-3 rounded-2xl bg-[#E01E37]/15 text-[#E01E37]">
+                <div className="p-3 rounded-xl bg-brand-primary/15 text-brand-primary">
                   <Layout className="w-6 h-6" />
                 </div>
                 <div>
@@ -235,7 +267,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                     rows={2}
                     value={heroHeadline}
                     onChange={(e) => setHeroHeadline(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-base focus:outline-none focus:border-[#E01E37]"
+                    className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-base focus:outline-none focus:border-brand-primary"
                   />
                 </div>
 
@@ -245,16 +277,16 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                     rows={3}
                     value={heroSubtext}
                     onChange={(e) => setHeroSubtext(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-[#E01E37]"
+                    className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-brand-primary"
                   />
                 </div>
               </div>
             </div>
 
             {/* 3 Callout Badges */}
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+            <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
               <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-                <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-500">
+                <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <div>
@@ -270,7 +302,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                     type="text"
                     value={badge1}
                     onChange={(e) => setBadge1(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-xs focus:outline-none focus:border-[#E01E37]"
+                    className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-xs focus:outline-none focus:border-brand-primary"
                   />
                 </div>
                 <div>
@@ -279,7 +311,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                     type="text"
                     value={badge2}
                     onChange={(e) => setBadge2(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-xs focus:outline-none focus:border-[#E01E37]"
+                    className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-xs focus:outline-none focus:border-brand-primary"
                   />
                 </div>
                 <div>
@@ -288,7 +320,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                     type="text"
                     value={badge3}
                     onChange={(e) => setBadge3(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-xs focus:outline-none focus:border-[#E01E37]"
+                    className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-xs focus:outline-none focus:border-brand-primary"
                   />
                 </div>
               </div>
@@ -298,9 +330,9 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 2: METRICS & STATS BAR */}
         {activeSection === 'stats' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-blue-500/15 text-blue-500">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <BarChart2 className="w-6 h-6" />
               </div>
               <div>
@@ -316,33 +348,33 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                   type="text"
                   value={statsTitle}
                   onChange={(e) => setStatsTitle(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm focus:outline-none focus:border-[#E01E37]"
+                  className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-2">
-                  <label className="block text-xs font-mono font-bold text-blue-400 uppercase">Metric 1</label>
-                  <input type="text" value={m1Val} onChange={(e) => setM1Val(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
-                  <input type="text" value={m1Lbl} onChange={(e) => setM1Lbl(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                <div className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-2">
+                  <label className="block text-xs font-mono font-bold text-brand-goldLight uppercase">Metric 1</label>
+                  <input type="text" value={m1Val} onChange={(e) => setM1Val(e.target.value)} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
+                  <input type="text" value={m1Lbl} onChange={(e) => setM1Lbl(e.target.value)} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
                 </div>
 
-                <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-2">
-                  <label className="block text-xs font-mono font-bold text-emerald-400 uppercase">Metric 2</label>
-                  <input type="text" value={m2Val} onChange={(e) => setM2Val(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
-                  <input type="text" value={m2Lbl} onChange={(e) => setM2Lbl(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                <div className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-2">
+                  <label className="block text-xs font-mono font-bold text-brand-goldLight uppercase">Metric 2</label>
+                  <input type="text" value={m2Val} onChange={(e) => setM2Val(e.target.value)} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
+                  <input type="text" value={m2Lbl} onChange={(e) => setM2Lbl(e.target.value)} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
                 </div>
 
-                <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-2">
-                  <label className="block text-xs font-mono font-bold text-purple-400 uppercase">Metric 3</label>
-                  <input type="text" value={m3Val} onChange={(e) => setM3Val(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
-                  <input type="text" value={m3Lbl} onChange={(e) => setM3Lbl(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                <div className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-2">
+                  <label className="block text-xs font-mono font-bold text-brand-goldLight uppercase">Metric 3</label>
+                  <input type="text" value={m3Val} onChange={(e) => setM3Val(e.target.value)} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
+                  <input type="text" value={m3Lbl} onChange={(e) => setM3Lbl(e.target.value)} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
                 </div>
 
-                <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-2">
-                  <label className="block text-xs font-mono font-bold text-amber-400 uppercase">Metric 4</label>
-                  <input type="text" value={m4Val} onChange={(e) => setM4Val(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
-                  <input type="text" value={m4Lbl} onChange={(e) => setM4Lbl(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                <div className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-2">
+                  <label className="block text-xs font-mono font-bold text-brand-goldLight uppercase">Metric 4</label>
+                  <input type="text" value={m4Val} onChange={(e) => setM4Val(e.target.value)} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
+                  <input type="text" value={m4Lbl} onChange={(e) => setM4Lbl(e.target.value)} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
                 </div>
               </div>
             </div>
@@ -351,10 +383,10 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 3: ACHIEVEMENTS */}
         {activeSection === 'achievements' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
-                <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-500">
+                <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                   <Award className="w-6 h-6" />
                 </div>
                 <div>
@@ -367,32 +399,32 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Section Headline</label>
-                <input type="text" value={achTitle} onChange={(e) => setAchTitle(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <input type="text" value={achTitle} onChange={(e) => setAchTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
 
               <div className="space-y-4">
                 {achievementsList.map((ach, idx) => (
-                  <div key={ach.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
+                  <div key={ach.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-amber-400">ACHIEVEMENT ITEM #{idx + 1}</span>
+                      <span className="text-xs font-mono font-bold text-brand-goldLight">ACHIEVEMENT ITEM #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...achievementsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === achievementsList.length - 1} onClick={() => { const u = [...achievementsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === achievementsList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
-                        <button type="button" onClick={() => { const u = [...achievementsList]; u.splice(idx, 1); setAchievementsList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...achievementsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === achievementsList.length - 1} onClick={() => { const u = [...achievementsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === achievementsList.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...achievementsList]; u.splice(idx, 1); setAchievementsList(u); }} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={ach.title} onChange={(e) => { const u = [...achievementsList]; u[idx].title = e.target.value; setAchievementsList(u); }} placeholder="Achievement Title" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
-                      <input type="text" value={ach.badge} onChange={(e) => { const u = [...achievementsList]; u[idx].badge = e.target.value; setAchievementsList(u); }} placeholder="Badge (e.g. GOLD AWARD)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
+                      <input type="text" value={ach.title} onChange={(e) => { const u = [...achievementsList]; u[idx].title = e.target.value; setAchievementsList(u); }} placeholder="Achievement Title" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary" />
+                      <input type="text" value={ach.badge} onChange={(e) => { const u = [...achievementsList]; u[idx].badge = e.target.value; setAchievementsList(u); }} placeholder="Badge (e.g. GOLD AWARD)" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-brand-goldLight font-mono text-xs font-bold focus:outline-none focus:border-brand-primary" />
                     </div>
-                    <textarea rows={2} value={ach.desc} onChange={(e) => { const u = [...achievementsList]; u[idx].desc = e.target.value; setAchievementsList(u); }} placeholder="Achievement Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
+                    <textarea rows={2} value={ach.desc} onChange={(e) => { const u = [...achievementsList]; u[idx].desc = e.target.value; setAchievementsList(u); }} placeholder="Achievement Description" className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-brand-primary" />
                   </div>
                 ))}
                 
                 <button
                   type="button"
                   onClick={() => setAchievementsList([...achievementsList, { id: `ach-${Date.now()}`, title: 'New Achievement', badge: 'NEW BADGE', desc: 'New description' }])}
-                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-brand-primary hover:text-brand-primary transition-colors flex items-center justify-center gap-2"
                 >
                   <Plus className="w-4 h-4" /> Add Achievement
                 </button>
@@ -403,9 +435,9 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 4: PROBLEMS */}
         {activeSection === 'problems' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-rose-500/15 text-rose-500">
+              <div className="p-3 rounded-xl bg-brand-primary/100/15 text-brand-primary">
                 <AlertTriangle className="w-6 h-6" />
               </div>
               <div>
@@ -417,28 +449,28 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Section Headline</label>
-                <input type="text" value={probTitle} onChange={(e) => setProbTitle(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <input type="text" value={probTitle} onChange={(e) => setProbTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
 
               <div className="space-y-4">
                 {problemsList.map((prb, idx) => (
-                  <div key={prb.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
+                  <div key={prb.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-rose-400">PROBLEM CARD #{idx + 1}</span>
+                      <span className="text-xs font-mono font-bold text-brand-primary">PROBLEM CARD #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...problemsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === problemsList.length - 1} onClick={() => { const u = [...problemsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === problemsList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
-                        <button type="button" onClick={() => { const u = [...problemsList]; u.splice(idx, 1); setProblemsList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...problemsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === problemsList.length - 1} onClick={() => { const u = [...problemsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === problemsList.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...problemsList]; u.splice(idx, 1); setProblemsList(u); }} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 gap-3">
                       <div className="space-y-1.5">
-                        <label className="text-[10px] uppercase font-bold text-slate-500">The Problem</label>
-                        <input type="text" value={prb.problemTitle} onChange={(e) => { const u = [...problemsList]; u[idx].problemTitle = e.target.value; setProblemsList(u); }} placeholder="The pain point..." className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-rose-300 font-bold text-xs focus:outline-none focus:border-rose-500" />
+                        <label className="text-[10px] uppercase font-bold text-content-muted">The Problem</label>
+                        <input type="text" value={prb.problemTitle} onChange={(e) => { const u = [...problemsList]; u[idx].problemTitle = e.target.value; setProblemsList(u); }} placeholder="The pain point..." className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 -brand-primary/20 font-bold text-xs focus:outline-none focus:-brand-primary" />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-[10px] uppercase font-bold text-slate-500">The Solution</label>
-                        <input type="text" value={prb.solutionTitle} onChange={(e) => { const u = [...problemsList]; u[idx].solutionTitle = e.target.value; setProblemsList(u); }} placeholder="How we solve it..." className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-emerald-400 font-bold text-xs focus:outline-none focus:border-emerald-500" />
+                        <label className="text-[10px] uppercase font-bold text-content-muted">The Solution</label>
+                        <input type="text" value={prb.solutionTitle} onChange={(e) => { const u = [...problemsList]; u[idx].solutionTitle = e.target.value; setProblemsList(u); }} placeholder="How we solve it..." className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-brand-goldLight font-bold text-xs focus:outline-none focus:border-emerald-500" />
                       </div>
                     </div>
                   </div>
@@ -447,7 +479,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 <button
                   type="button"
                   onClick={() => setProblemsList([...problemsList, { id: `prb-${Date.now()}`, problemTitle: 'New Problem', solutionTitle: 'New Solution', desc: '' }])}
-                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-brand-primary hover:text-brand-primary transition-colors flex items-center justify-center gap-2"
                 >
                   <Plus className="w-4 h-4" /> Add Problem
                 </button>
@@ -458,9 +490,9 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 5: SERVICES GRID */}
         {activeSection === 'services' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-cyan-500/15 text-cyan-500">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <Grid className="w-6 h-6" />
               </div>
               <div>
@@ -472,37 +504,37 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Services Section Headline</label>
-                <input type="text" value={servTitle} onChange={(e) => setServTitle(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <input type="text" value={servTitle} onChange={(e) => setServTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Services Subtext</label>
-                <textarea rows={2} value={servSubtext} onChange={(e) => setServSubtext(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs" />
+                <textarea rows={2} value={servSubtext} onChange={(e) => setServSubtext(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs" />
               </div>
 
               {/* Services List UI */}
               <div className="space-y-4">
                 <label className="block text-xs font-bold text-slate-300 mb-2">Categorized Services Items</label>
                 {servicesList.map((srv, idx) => (
-                  <div key={srv.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
+                  <div key={srv.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-cyan-400">SERVICE #{idx + 1}</span>
+                      <span className="text-xs font-mono font-bold text-brand-goldLight">SERVICE #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...servicesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === servicesList.length - 1} onClick={() => { const u = [...servicesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === servicesList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
-                        <button type="button" onClick={() => { const u = [...servicesList]; u.splice(idx, 1); setServicesList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...servicesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === servicesList.length - 1} onClick={() => { const u = [...servicesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === servicesList.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...servicesList]; u.splice(idx, 1); setServicesList(u); }} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={srv.title} onChange={(e) => { const u = [...servicesList]; u[idx].title = e.target.value; setServicesList(u); }} placeholder="Service Title" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
-                      <input type="text" value={srv.tag} onChange={(e) => { const u = [...servicesList]; u[idx].tag = e.target.value; setServicesList(u); }} placeholder="Tag (e.g. Visa)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-[#E01E37]" />
+                      <input type="text" value={srv.title} onChange={(e) => { const u = [...servicesList]; u[idx].title = e.target.value; setServicesList(u); }} placeholder="Service Title" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary" />
+                      <input type="text" value={srv.tag} onChange={(e) => { const u = [...servicesList]; u[idx].tag = e.target.value; setServicesList(u); }} placeholder="Tag (e.g. Visa)" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-brand-primary" />
                     </div>
-                    <textarea rows={2} value={srv.desc} onChange={(e) => { const u = [...servicesList]; u[idx].desc = e.target.value; setServicesList(u); }} placeholder="Service Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
+                    <textarea rows={2} value={srv.desc} onChange={(e) => { const u = [...servicesList]; u[idx].desc = e.target.value; setServicesList(u); }} placeholder="Service Description" className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-brand-primary" />
                   </div>
                 ))}
                 <button
                   type="button"
                   onClick={() => setServicesList([...servicesList, { id: `srv-${Date.now()}`, title: 'New Service', tag: 'Category', desc: 'Description', category: 'visas' }])}
-                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-brand-primary hover:text-brand-primary transition-colors flex items-center justify-center gap-2"
                 >
                   <Plus className="w-4 h-4" /> Add Service
                 </button>
@@ -513,54 +545,59 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 6: PACKAGES */}
         {activeSection === 'packages' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-purple-500/15 text-purple-500">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <Layers className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="font-display font-extrabold text-xl text-white">6. Service Retainer Packages</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit package titles and retainer callouts</p>
+                <h2 className="font-display font-extrabold text-xl text-white">6. Property & Support</h2>
+                <p className="text-slate-400 text-xs mt-0.5">Edit property support items and titles</p>
               </div>
             </div>
 
             <div className="space-y-6">
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-2">Packages Headline</label>
-                <input type="text" value={pkgTitle} onChange={(e) => setPkgTitle(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <label className="block text-xs font-bold text-slate-300 mb-2">Property Support Headline</label>
+                <input type="text" value={pkgTitle} onChange={(e) => setPkgTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-2">Packages Subtitle</label>
-                <textarea rows={2} value={pkgSubtext} onChange={(e) => setPkgSubtext(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs" />
+                <label className="block text-xs font-bold text-slate-300 mb-2">Property Support Subtitle</label>
+                <textarea rows={2} value={pkgSubtext} onChange={(e) => setPkgSubtext(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs" />
               </div>
 
               {/* Packages List UI */}
               <div className="space-y-4">
-                <label className="block text-xs font-bold text-slate-300 mb-2">Retainer Packages Items</label>
+                <label className="block text-xs font-bold text-slate-300 mb-2">Property Support Items</label>
                 {packagesList.map((pkg, idx) => (
-                  <div key={pkg.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
+                  <div key={pkg.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-purple-400">PACKAGE #{idx + 1}</span>
+                      <span className="text-xs font-mono font-bold text-brand-goldLight">CARD #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...packagesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === packagesList.length - 1} onClick={() => { const u = [...packagesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === packagesList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
-                        <button type="button" onClick={() => { const u = [...packagesList]; u.splice(idx, 1); setPackagesList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...packagesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === packagesList.length - 1} onClick={() => { const u = [...packagesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === packagesList.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...packagesList]; u.splice(idx, 1); setPackagesList(u); }} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={pkg.name} onChange={(e) => { const u = [...packagesList]; u[idx].name = e.target.value; setPackagesList(u); }} placeholder="Package Name" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
-                      <input type="text" value={pkg.fee} onChange={(e) => { const u = [...packagesList]; u[idx].fee = e.target.value; setPackagesList(u); }} placeholder="Fee (e.g. 5,000 AED)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-emerald-400 font-mono text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
+                      <input type="text" value={pkg.title} onChange={(e) => { const u = [...packagesList]; u[idx].title = e.target.value; setPackagesList(u); }} placeholder="Card Title" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary" />
+                      <input type="text" value={pkg.icon} onChange={(e) => { const u = [...packagesList]; u[idx].icon = e.target.value; setPackagesList(u); }} placeholder="Lucide Icon (e.g. Building2)" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-brand-goldLight font-mono text-xs focus:outline-none focus:border-brand-primary" />
                     </div>
-                    <input type="text" value={pkg.tagline} onChange={(e) => { const u = [...packagesList]; u[idx].tagline = e.target.value; setPackagesList(u); }} placeholder="Package Tagline" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
-                    <textarea rows={2} value={pkg.features.join(', ')} onChange={(e) => { const u = [...packagesList]; u[idx].features = e.target.value.split(',').map(s=>s.trim()); setPackagesList(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" placeholder="Comma separated features" />
+                    <textarea rows={2} value={pkg.desc} onChange={(e) => { const u = [...packagesList]; u[idx].desc = e.target.value; setPackagesList(u); }} placeholder="Card Description" className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-brand-primary" />
+                    <textarea rows={2} value={pkg.features.join(', ')} onChange={(e) => { const u = [...packagesList]; u[idx].features = e.target.value.split(',').map(s=>s.trim()); setPackagesList(u); }} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-brand-primary" placeholder="Comma separated feature checklist" />
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <input type="text" value={pkg.btnText} onChange={(e) => { const u = [...packagesList]; u[idx].btnText = e.target.value; setPackagesList(u); }} placeholder="Button Text (e.g. Talk to an Expert)" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary" />
+                      <input type="text" value={pkg.btnLink} onChange={(e) => { const u = [...packagesList]; u[idx].btnLink = e.target.value; setPackagesList(u); }} placeholder="Button Link (e.g. whatsapp)" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-brand-primary" />
+                    </div>
                   </div>
                 ))}
                 <button
                   type="button"
-                  onClick={() => setPackagesList([...packagesList, { id: `pkg-${Date.now()}`, name: 'New Package', fee: 'Custom', tagline: 'A great choice', features: ['Feature 1', 'Feature 2'], isPopular: false }])}
-                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                  onClick={() => setPackagesList([...packagesList, { id: `pkg-${Date.now()}`, title: 'New Service', icon: 'Star', desc: 'Description of the service', features: ['Feature 1', 'Feature 2'], btnText: 'Learn More', btnLink: 'contact' }])}
+                  className="w-full py-3 rounded-xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-brand-primary hover:text-brand-primary transition-colors flex items-center justify-center gap-2"
                 >
-                  <Plus className="w-4 h-4" /> Add Package
+                  <Plus className="w-4 h-4" /> Add Card
                 </button>
               </div>
             </div>
@@ -569,9 +606,9 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 7: WHY CHOOSE US */}
         {activeSection === 'whyUs' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-emerald-500/15 text-emerald-500">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <CheckCircle className="w-6 h-6" />
               </div>
               <div>
@@ -583,34 +620,34 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Section Headline</label>
-                <input type="text" value={whyTitle} onChange={(e) => setWhyTitle(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <input type="text" value={whyTitle} onChange={(e) => setWhyTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Section Subtext</label>
-                <textarea rows={2} value={whySubtext} onChange={(e) => setWhySubtext(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs" />
+                <textarea rows={2} value={whySubtext} onChange={(e) => setWhySubtext(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs" />
               </div>
 
               {/* Why Us List UI */}
               <div className="space-y-4">
                 <label className="block text-xs font-bold text-slate-300 mb-2">Why Us Feature Points</label>
                 {whyUsList.map((wu, idx) => (
-                  <div key={wu.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
+                  <div key={wu.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-emerald-400">FEATURE #{idx + 1}</span>
+                      <span className="text-xs font-mono font-bold text-brand-goldLight">FEATURE #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...whyUsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === whyUsList.length - 1} onClick={() => { const u = [...whyUsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === whyUsList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
-                        <button type="button" onClick={() => { const u = [...whyUsList]; u.splice(idx, 1); setWhyUsList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...whyUsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === whyUsList.length - 1} onClick={() => { const u = [...whyUsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === whyUsList.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...whyUsList]; u.splice(idx, 1); setWhyUsList(u); }} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
-                    <input type="text" value={wu.title} onChange={(e) => { const u = [...whyUsList]; u[idx].title = e.target.value; setWhyUsList(u); }} placeholder="Feature Title" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
-                    <textarea rows={2} value={wu.desc} onChange={(e) => { const u = [...whyUsList]; u[idx].desc = e.target.value; setWhyUsList(u); }} placeholder="Feature Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
+                    <input type="text" value={wu.title} onChange={(e) => { const u = [...whyUsList]; u[idx].title = e.target.value; setWhyUsList(u); }} placeholder="Feature Title" className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary" />
+                    <textarea rows={2} value={wu.desc} onChange={(e) => { const u = [...whyUsList]; u[idx].desc = e.target.value; setWhyUsList(u); }} placeholder="Feature Description" className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-brand-primary" />
                   </div>
                 ))}
                 <button
                   type="button"
                   onClick={() => setWhyUsList([...whyUsList, { id: `wu-${Date.now()}`, title: 'New Feature', desc: 'Description of the feature' }])}
-                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-brand-primary hover:text-brand-primary transition-colors flex items-center justify-center gap-2"
                 >
                   <Plus className="w-4 h-4" /> Add Feature
                 </button>
@@ -621,9 +658,9 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 8: 4-STEP PROCESS */}
         {activeSection === 'process' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-indigo-500/15 text-indigo-500">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <Workflow className="w-6 h-6" />
               </div>
               <div>
@@ -635,37 +672,37 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Process Section Headline</label>
-                <input type="text" value={procTitle} onChange={(e) => setProcTitle(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <input type="text" value={procTitle} onChange={(e) => setProcTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Process Section Subtext</label>
-                <textarea rows={2} value={procSubtext} onChange={(e) => setProcSubtext(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs" />
+                <textarea rows={2} value={procSubtext} onChange={(e) => setProcSubtext(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs" />
               </div>
 
               {/* Process List UI */}
               <div className="space-y-4">
                 <label className="block text-xs font-bold text-slate-300 mb-2">Workflow Steps</label>
                 {processList.map((stp, idx) => (
-                  <div key={stp.step} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 relative group">
+                  <div key={stp.step} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-indigo-400">STEP {stp.step}</span>
+                      <span className="text-xs font-mono font-bold text-brand-goldLight">STEP {stp.step}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...processList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === processList.length - 1} onClick={() => { const u = [...processList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === processList.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
-                        <button type="button" onClick={() => { const u = [...processList]; u.splice(idx, 1); setProcessList(u); }} className="p-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...processList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === processList.length - 1} onClick={() => { const u = [...processList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === processList.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...processList]; u.splice(idx, 1); setProcessList(u); }} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={stp.title} onChange={(e) => { const u = [...processList]; u[idx].title = e.target.value; setProcessList(u); }} placeholder="Step Title" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-[#E01E37]" />
-                      <input type="text" value={stp.time} onChange={(e) => { const u = [...processList]; u[idx].time = e.target.value; setProcessList(u); }} placeholder="Duration (e.g. Day 1)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-[#E01E37]" />
+                      <input type="text" value={stp.title} onChange={(e) => { const u = [...processList]; u[idx].title = e.target.value; setProcessList(u); }} placeholder="Step Title" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary" />
+                      <input type="text" value={stp.time} onChange={(e) => { const u = [...processList]; u[idx].time = e.target.value; setProcessList(u); }} placeholder="Duration (e.g. Day 1)" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-brand-primary" />
                     </div>
-                    <textarea rows={2} value={stp.desc} onChange={(e) => { const u = [...processList]; u[idx].desc = e.target.value; setProcessList(u); }} placeholder="Step Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-[#E01E37]" />
+                    <textarea rows={2} value={stp.desc} onChange={(e) => { const u = [...processList]; u[idx].desc = e.target.value; setProcessList(u); }} placeholder="Step Description" className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-brand-primary" />
                   </div>
                 ))}
                 <button
                   type="button"
                   onClick={() => setProcessList([...processList, { step: String(processList.length + 1), title: 'New Step', time: 'Day X', desc: 'Description' }])}
-                  className="w-full py-3 rounded-2xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-[#E01E37] hover:text-[#E01E37] transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-brand-primary hover:text-brand-primary transition-colors flex items-center justify-center gap-2"
                 >
                   <Plus className="w-4 h-4" /> Add Step
                 </button>
@@ -676,10 +713,10 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 9: FAQS ACCORDION */}
         {activeSection === 'faqs' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
-                <div className="p-3 rounded-2xl bg-purple-500/15 text-purple-500">
+                <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                   <HelpCircle className="w-6 h-6" />
                 </div>
                 <div>
@@ -690,7 +727,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
               <button
                 type="button"
                 onClick={() => setFaqItems([...faqItems, { id: `faq-${Date.now()}`, question: 'New Question', answer: 'Answer text...' }])}
-                className="px-3.5 py-2 bg-slate-800 hover:bg-[#E01E37] text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="px-3.5 py-2 bg-slate-800 hover:bg-brand-primary text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <Plus className="w-4 h-4" /> Add FAQ
               </button>
@@ -699,28 +736,28 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">FAQ Section Headline</label>
-                <input type="text" value={faqsTitle} onChange={(e) => setFaqsTitle(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <input type="text" value={faqsTitle} onChange={(e) => setFaqsTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
 
               <div className="space-y-4">
                 {faqItems.map((faq, idx) => (
-                  <div key={faq.id} className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
+                  <div key={faq.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-purple-400">FAQ #{idx + 1}</span>
+                      <span className="text-xs font-mono font-bold text-brand-goldLight">FAQ #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...faqItems]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setFaqItems(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === faqItems.length - 1} onClick={() => { const u = [...faqItems]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setFaqItems(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === faqItems.length - 1 ? 'border-slate-800 text-slate-600' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...faqItems]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setFaqItems(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === faqItems.length - 1} onClick={() => { const u = [...faqItems]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setFaqItems(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === faqItems.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button
                           type="button"
                           onClick={() => setFaqItems(faqItems.filter(f => f.id !== faq.id))}
-                          className="p-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-lg ml-2"
+                          className="p-1.5 bg-brand-primary/100/10 hover:bg-brand-primary/100/20 text-brand-primary rounded-lg ml-2"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
-                    <input type="text" value={faq.question} onChange={(e) => { const u = [...faqItems]; u[idx].question = e.target.value; setFaqItems(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold" />
-                    <textarea rows={2} value={faq.answer} onChange={(e) => { const u = [...faqItems]; u[idx].answer = e.target.value; setFaqItems(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                    <input type="text" value={faq.question} onChange={(e) => { const u = [...faqItems]; u[idx].question = e.target.value; setFaqItems(u); }} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold" />
+                    <textarea rows={2} value={faq.answer} onChange={(e) => { const u = [...faqItems]; u[idx].answer = e.target.value; setFaqItems(u); }} className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
                   </div>
                 ))}
               </div>
@@ -730,9 +767,9 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 10: REVIEWS */}
         {activeSection === 'reviews' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-500">
+              <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
                 <Star className="w-6 h-6" />
               </div>
               <div>
@@ -744,11 +781,40 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Reviews Section Headline</label>
-                <input type="text" value={revTitle} onChange={(e) => setRevTitle(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <input type="text" value={revTitle} onChange={(e) => setRevTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Reviews Section Subtitle</label>
-                <textarea rows={2} value={revSubtext} onChange={(e) => setRevSubtext(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs" />
+                <textarea rows={2} value={revSubtext} onChange={(e) => setRevSubtext(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs" />
+              </div>
+
+              {/* Reviews List UI */}
+              <div className="space-y-4">
+                <label className="block text-xs font-bold text-slate-300 mb-2">Customer Reviews</label>
+                {reviewsList.map((rev, idx) => (
+                  <div key={rev.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-3 relative group">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono font-bold text-brand-goldLight">REVIEW #{idx + 1}</span>
+                      <div className="flex items-center gap-1.5">
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...reviewsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setReviewsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === reviewsList.length - 1} onClick={() => { const u = [...reviewsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setReviewsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === reviewsList.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...reviewsList]; u.splice(idx, 1); setReviewsList(u); }} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <input type="text" value={rev.author} onChange={(e) => { const u = [...reviewsList]; u[idx].author = e.target.value; setReviewsList(u); }} placeholder="Customer Name" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary" />
+                      <input type="text" value={rev.platform} onChange={(e) => { const u = [...reviewsList]; u[idx].platform = e.target.value; setReviewsList(u); }} placeholder="Platform (e.g. Google, Trustpilot)" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-brand-primary" />
+                    </div>
+                    <textarea rows={2} value={rev.text} onChange={(e) => { const u = [...reviewsList]; u[idx].text = e.target.value; setReviewsList(u); }} placeholder="Review Content" className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-brand-primary" />
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => setReviewsList([...reviewsList, { id: `rev-${Date.now()}`, author: 'New Customer', text: 'Great experience!', rating: 5, platform: 'Google' }])}
+                  className="w-full py-3 rounded-xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-brand-primary hover:text-brand-primary transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Review
+                </button>
               </div>
             </div>
           </div>
@@ -756,9 +822,9 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 11: BLOG TEASER */}
         {activeSection === 'blog' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-sky-500/15 text-sky-500">
+              <div className="p-3 rounded-xl bg-sky-500/15 text-sky-500">
                 <BookOpen className="w-6 h-6" />
               </div>
               <div>
@@ -770,21 +836,32 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Blog Section Headline</label>
-                <input type="text" value={blogTitle} onChange={(e) => setBlogTitle(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <input type="text" value={blogTitle} onChange={(e) => setBlogTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">Blog Section Subtext</label>
-                <textarea rows={2} value={blogSubtext} onChange={(e) => setBlogSubtext(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs" />
+                <textarea rows={2} value={blogSubtext} onChange={(e) => setBlogSubtext(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs" />
               </div>
             </div>
+            
+            <div className="mt-12">
+              <div className="flex items-center gap-3 border-b border-slate-800 pb-5 mb-6">
+                <div>
+                  <h3 className="font-display font-extrabold text-lg text-white">Full Articles Manager</h3>
+                  <p className="text-slate-400 text-xs mt-0.5">Add, edit, remove, and manage article content directly.</p>
+                </div>
+              </div>
+              <BlogModule cmsConfig={cmsConfig} setCmsConfig={setCmsConfig} isEmbedded={true} />
+            </div>
+
           </div>
         )}
 
         {/* SECTION 12: CTA BANNER */}
         {activeSection === 'cta' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-              <div className="p-3 rounded-2xl bg-[#E01E37]/15 text-[#E01E37]">
+              <div className="p-3 rounded-xl bg-brand-primary/15 text-brand-primary">
                 <Megaphone className="w-6 h-6" />
               </div>
               <div>
@@ -796,11 +873,39 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">CTA Banner Headline</label>
-                <input type="text" value={ctaHeadline} onChange={(e) => setCtaHeadline(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-white font-bold text-sm" />
+                <input type="text" value={ctaHeadline} onChange={(e) => setCtaHeadline(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-bold text-sm" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-2">CTA Banner Subtext</label>
-                <textarea rows={2} value={ctaSubtext} onChange={(e) => setCtaSubtext(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-200 text-xs" />
+                <textarea rows={2} value={ctaSubtext} onChange={(e) => setCtaSubtext(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs" />
+              </div>
+
+              {/* CTA Buttons UI */}
+              <div className="space-y-4">
+                <label className="block text-xs font-bold text-slate-300 mb-2">CTA Action Buttons</label>
+                {ctaButtons.map((btn, idx) => (
+                  <div key={btn.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-3 relative group">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono font-bold text-brand-goldLight">BUTTON #{idx + 1}</span>
+                      <div className="flex items-center gap-1.5">
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...ctaButtons]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setCtaButtons(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === ctaButtons.length - 1} onClick={() => { const u = [...ctaButtons]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setCtaButtons(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === ctaButtons.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" onClick={() => { const u = [...ctaButtons]; u.splice(idx, 1); setCtaButtons(u); }} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <input type="text" value={btn.label} onChange={(e) => { const u = [...ctaButtons]; u[idx].label = e.target.value; setCtaButtons(u); }} placeholder="Button Label" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary" />
+                      <input type="text" value={btn.link} onChange={(e) => { const u = [...ctaButtons]; u[idx].link = e.target.value; setCtaButtons(u); }} placeholder="Action / Link (e.g. whatsapp)" className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-brand-primary" />
+                    </div>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => setCtaButtons([...ctaButtons, { id: `btn-${Date.now()}`, label: 'New Button', link: 'contact', isPrimary: false }])}
+                  className="w-full py-3 rounded-xl border-2 border-dashed border-slate-700 text-slate-400 font-bold text-xs hover:border-brand-primary hover:text-brand-primary transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" /> Add Button
+                </button>
               </div>
             </div>
           </div>
@@ -809,7 +914,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
         {/* Prominent Save Button */}
         <button
           type="submit"
-          className="w-full py-4 bg-[#E01E37] hover:bg-[#B81A2C] text-white font-bold text-base rounded-2xl shadow-xl shadow-[#E01E37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
+          className="w-full py-4 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 font-bold text-base rounded-xl shadow-xl shadow-[#D4AF37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
         >
           <Save className="w-5 h-5" />
           <span>Publish All Homepage Section Changes</span>

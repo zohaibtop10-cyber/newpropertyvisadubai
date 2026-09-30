@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Clock, Phone, Navigation, Search, Building2, Stethoscope, ShieldCheck, ExternalLink, CheckCircle } from 'lucide-react';
+import { marked } from 'marked';
 
 const LOCATIONS_DATA = [
   {
@@ -19,7 +20,7 @@ const LOCATIONS_DATA = [
     expressAvailable: true
   },
   {
-    id: 'dha-[#E01E37]-city',
+    id: 'dha-[#D4AF37]-city',
     name: 'Smart Salem Executive Medical Screening Centre - City Walk',
     city: 'Dubai',
     category: 'Medical Centre',
@@ -160,10 +161,20 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
   const [selectedCity, setSelectedCity] = useState('All');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const headline = cmsConfig?.pages?.locations?.headline || "Customer Happiness & Medical Screening Hubs";
-  const subtext = cmsConfig?.pages?.locations?.subtext || "Locate approved GDRFA, ICP, and Health Authority centres across Dubai, Abu Dhabi, and Sharjah for fingerprint biometrics and medical fitness tests.";
+  const headline = cmsConfig?.locationsPage?.headline || cmsConfig?.pages?.locations?.headline || "Customer Happiness & Medical Screening Hubs";
+  const subtext = cmsConfig?.locationsPage?.subtext || cmsConfig?.pages?.locations?.subtext || "Locate approved GDRFA, ICP, and Health Authority centres across Dubai, Abu Dhabi, and Sharjah for fingerprint biometrics and medical fitness tests.";
 
-  const filteredLocations = LOCATIONS_DATA.filter((loc) => {
+  // Use CMS locations if available, otherwise fallback to hardcoded data
+  const locationsSource = (cmsConfig?.locationsPage?.locations && cmsConfig.locationsPage.locations.length > 0) 
+    ? cmsConfig.locationsPage.locations.map(loc => ({
+        ...loc,
+        mapUrl: loc.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(loc.address)}`,
+        services: loc.services || [],
+        expressAvailable: loc.expressAvailable !== undefined ? loc.expressAvailable : loc.isVip
+      }))
+    : LOCATIONS_DATA;
+
+  const filteredLocations = locationsSource.filter((loc) => {
     const matchesCity = selectedCity === 'All' || loc.city === selectedCity;
     const matchesCategory = selectedCategory === 'All' || loc.category === selectedCategory;
     const matchesQuery = 
@@ -184,16 +195,16 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
         transition={{ type: 'spring', stiffness: 80, damping: 15 }}
         className="text-center max-w-3xl mx-auto space-y-4"
       >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-[#E01E37]/10 text-[#E01E37] border border-[#E01E37]/20">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-brand-primary/10 text-brand-primary border border-brand-primary/20">
           <MapPin className="w-4 h-4" />
           <span>UAE GOVERNMENT SERVICE CENTRES DIRECTORY</span>
         </div>
 
-        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-content-primary dark:text-white tracking-tight">
           {headline}
         </h1>
 
-        <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
+        <p className="text-content-muted dark:text-slate-400 text-base sm:text-lg leading-relaxed">
           {subtext}
         </p>
       </motion.section>
@@ -203,7 +214,7 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, type: 'spring', stiffness: 80, damping: 15 }}
-        className="bg-white dark:bg-[#141414] p-5 sm:p-6 rounded-3xl border border-slate-200 dark:border-white/10 shadow-lg space-y-4"
+        className="bg-surface dark:bg-brand-surface p-5 sm:p-6 rounded-xl border border-border-subtle dark:border-white/10 shadow-lg space-y-4"
       >
         <div className="flex flex-col md:flex-row items-center gap-4">
           
@@ -215,20 +226,20 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by centre name, area (e.g., Business Bay, Al Jafiliya)..."
-              className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl text-sm font-sans text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#E01E37] transition-colors"
+              className="w-full pl-12 pr-4 py-3 bg-canvas dark:bg-black/40 border border-border-subtle dark:border-white/10 rounded-xl text-sm font-sans text-content-primary dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-brand-primary transition-colors"
             />
           </div>
 
           {/* City Filter Pills */}
-          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-black/50 p-1.5 rounded-2xl w-full md:w-auto overflow-x-auto">
+          <div className="flex items-center gap-1.5 bg-surface-elevated dark:bg-black/50 p-1.5 rounded-xl w-full md:w-auto overflow-x-auto">
             {['All', 'Dubai', 'Abu Dhabi', 'Sharjah'].map((city) => (
               <button
                 key={city}
                 onClick={() => setSelectedCity(city)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   selectedCity === city
-                    ? 'bg-[#E01E37] text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-brand-primary text-white shadow-md'
+                    : 'text-content-muted dark:text-slate-400 hover:text-content-primary dark:hover:text-white'
                 }`}
               >
                 {city}
@@ -239,7 +250,7 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
         </div>
 
         {/* Category Pills */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border-subtle dark:border-white/5">
           <span className="text-xs font-mono font-semibold text-slate-400 uppercase mr-2">Filter Type:</span>
           {[
             { label: 'All Types', value: 'All' },
@@ -252,8 +263,8 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
               onClick={() => setSelectedCategory(cat.value)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
                 selectedCategory === cat.value
-                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 border-transparent shadow-sm'
-                  : 'bg-transparent text-slate-600 dark:text-slate-400 border-slate-200 dark:border-white/10 hover:border-slate-400'
+                  ? 'bg-brand-surfaceLight text-white dark:bg-white dark:text-slate-900 border-transparent shadow-sm'
+                  : 'bg-transparent text-content-muted dark:text-slate-400 border-border-subtle dark:border-white/10 hover:border-slate-400'
               }`}
             >
               {cat.label}
@@ -273,45 +284,45 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 80, damping: 15 }}
-              className="bg-white dark:bg-[#141414] rounded-3xl border border-slate-200 dark:border-white/10 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between space-y-6 relative overflow-hidden group"
+              className="bg-surface dark:bg-brand-surface rounded-xl border border-border-subtle dark:border-white/10 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between space-y-6 relative overflow-hidden group"
             >
               {/* Top Accent Line */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#E01E37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
               <div className="space-y-4">
                 {/* Header Row */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-surface-elevated dark:bg-white/10 text-content-secondary dark:text-slate-300">
                         {loc.city}
                       </span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#E01E37]/10 text-[#E01E37]">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-brand-primary/10 text-brand-primary">
                         {loc.category}
                       </span>
                       {loc.isVip && (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-brand-goldLight border border-amber-500/20">
                           VIP Express Hub
                         </span>
                       )}
                     </div>
-                    <h3 className="font-display font-bold text-lg text-slate-900 dark:text-white pt-1">
+                    <h3 className="font-display font-bold text-lg text-content-primary dark:text-white pt-1">
                       {loc.name}
                     </h3>
                     <p className="text-xs font-mono text-slate-400">
-                      Authority: <span className="text-slate-600 dark:text-slate-300 font-semibold">{loc.authority}</span>
+                      Authority: <span className="text-content-muted dark:text-slate-300 font-semibold">{loc.authority}</span>
                     </p>
                   </div>
 
-                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-white/5 shrink-0 text-[#E01E37]">
+                  <div className="p-3 rounded-xl bg-canvas dark:bg-white/5 shrink-0 text-brand-primary">
                     {loc.category === 'Medical Centre' ? <Stethoscope className="w-5 h-5" /> : <Building2 className="w-5 h-5" />}
                   </div>
                 </div>
 
                 {/* Details List */}
-                <div className="space-y-2.5 pt-2 text-xs border-t border-slate-100 dark:border-white/5 text-slate-600 dark:text-slate-300">
+                <div className="space-y-2.5 pt-2 text-xs border-t border-border-subtle dark:border-white/5 text-content-muted dark:text-slate-300">
                   <div className="flex items-start gap-2.5">
-                    <MapPin className="w-4 h-4 text-[#E01E37] shrink-0 mt-0.5" />
+                    <MapPin className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
                     <div>
                       <div>{loc.address}</div>
                       <div className="text-[11px] text-slate-400 italic">Landmark: {loc.landmark}</div>
@@ -319,7 +330,7 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
                   </div>
 
                   <div className="flex items-center gap-2.5">
-                    <Clock className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <Clock className="w-4 h-4 text-brand-gold shrink-0" />
                     <span className="font-mono">{loc.hours}</span>
                   </div>
 
@@ -334,8 +345,8 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
                   <div className="text-[11px] font-mono uppercase font-bold text-slate-400">Services Handled On-Site:</div>
                   <div className="flex flex-wrap gap-1.5">
                     {loc.services.map((serv, idx) => (
-                      <span key={idx} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-50 dark:bg-white/5 text-[11px] text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5">
-                        <CheckCircle className="w-3 h-3 text-emerald-500" />
+                      <span key={idx} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-canvas dark:bg-white/5 text-[11px] text-content-secondary dark:text-slate-300 border border-border-subtle/60 dark:border-white/5">
+                        <CheckCircle className="w-3 h-3 text-brand-gold" />
                         {serv}
                       </span>
                     ))}
@@ -344,19 +355,19 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center gap-3">
+              <div className="pt-4 border-t border-border-subtle dark:border-white/5 flex items-center gap-3">
                 <a
                   href={loc.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-2.5 px-4 bg-slate-900 dark:bg-white hover:bg-[#E01E37] dark:hover:bg-[#E01E37] text-white dark:text-slate-900 dark:hover:text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  className="flex-1 py-2.5 px-4 bg-brand-surfaceLight dark:bg-white hover:bg-brand-primary dark:hover:bg-brand-primary text-white dark:text-slate-900 dark:hover:text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
                   <Navigation className="w-4 h-4" /> Get Directions
                 </a>
 
                 <button
                   onClick={() => onOpenCalculator('spouse')}
-                  className="py-2.5 px-4 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-800 dark:text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="py-2.5 px-4 bg-surface-elevated dark:bg-white/10 hover:bg-surface-hover dark:hover:bg-surface/20 text-content-primary dark:text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   Book PRO Escort
                 </button>
@@ -368,10 +379,10 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
       </div>
 
       {filteredLocations.length === 0 && (
-        <div className="text-center py-16 bg-white dark:bg-[#141414] rounded-3xl border border-slate-200 dark:border-white/10 space-y-3">
+        <div className="text-center py-16 bg-surface dark:bg-brand-surface rounded-xl border border-border-subtle dark:border-white/10 space-y-3">
           <Building2 className="w-10 h-10 text-slate-400 mx-auto" />
-          <h3 className="font-display font-bold text-lg text-slate-900 dark:text-white">No Centres Match Your Search</h3>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto">Try clearing your search query or selecting "All" cities to view available service centres.</p>
+          <h3 className="font-display font-bold text-lg text-content-primary dark:text-white">No Centres Match Your Search</h3>
+          <p className="text-xs text-content-muted max-w-sm mx-auto">Try clearing your search query or selecting "All" cities to view available service centres.</p>
         </div>
       )}
 
@@ -380,10 +391,10 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-[#141414] text-white border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl relative overflow-hidden"
+        className="p-8 rounded-xl bg-gradient-to-r from-slate-900 via-slate-900 to-[#141414] text-white border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl relative overflow-hidden"
       >
         <div className="space-y-2 max-w-xl z-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[#E01E37]/20 text-[#E01E37] border border-[#E01E37]/30">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-brand-primary/20 text-brand-primary border border-brand-primary/30">
             <ShieldCheck className="w-3.5 h-3.5" /> VIP PRO CONCIERGE ESCORT
           </div>
           <h3 className="font-display font-bold text-2xl">Don't Want to Queue at Government Centres?</h3>
@@ -396,11 +407,22 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => onOpenCalculator('spouse')}
-          className="px-6 py-3.5 bg-[#E01E37] hover:bg-[#B81A2C] text-white font-bold text-xs rounded-2xl shadow-xl shadow-[#E01E37]/30 flex items-center gap-2 shrink-0 cursor-pointer z-10"
+          className="px-6 py-3.5 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 font-bold text-xs rounded-xl shadow-xl shadow-[#D4AF37]/30 flex items-center gap-2 shrink-0 cursor-pointer z-10"
         >
           Book VIP Escort Package <ExternalLink className="w-4 h-4" />
         </motion.button>
       </motion.div>
+
+      {/* Render Markdown Content if available */}
+      {cmsConfig?.pages?.locations?.contentMarkdown && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 p-8 rounded-xl bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 shadow-xl prose prose-invert max-w-none"
+          dangerouslySetInnerHTML={{ __html: marked.parse(cmsConfig.pages.locations.contentMarkdown) }}
+        />
+      )}
 
     </div>
   );

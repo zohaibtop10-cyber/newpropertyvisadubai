@@ -39,9 +39,9 @@ export default function TariffModule({ tariffs, setTariffs }) {
     <div className="space-y-6 animate-fadeIn">
       
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-brand-surfaceLight border border-slate-800 p-6 rounded-xl shadow-xl">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono text-brand-goldLight font-bold uppercase mb-1">
             <Zap className="w-3.5 h-3.5 fill-emerald-400" /> DYNAMIC NO-CODE TARIFF & MARGIN MATRIX
           </div>
           <h1 className="text-xl font-black text-white">Federal Tariffs & Advisory Retainer Engine</h1>
@@ -52,14 +52,14 @@ export default function TariffModule({ tariffs, setTariffs }) {
 
         <button
           onClick={handleSaveTariffs}
-          className="px-5 py-2.5 bg-[#E01E37] hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-[#E01E37]/30 flex items-center gap-2 transition-all cursor-pointer"
+          className="px-5 py-2.5 bg-brand-primary hover:-brand-hover/40 text-white rounded-xl font-bold text-xs shadow-lg shadow-[#D4AF37]/30 flex items-center gap-2 transition-all cursor-pointer"
         >
           <Save className="w-4 h-4" /> Deploy Pricing to Live Calculator
         </button>
       </div>
 
       {saveSuccessMessage && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-xs font-bold flex items-center gap-2 animate-fadeIn">
+        <div className="p-4 bg-emerald-500/10 border border-brand-gold/30 rounded-xl text-brand-goldLight text-xs font-bold flex items-center gap-2 animate-fadeIn">
           <CheckCircle2 className="w-4 h-4" /> Live Calculator Synced! Federal policy updates deployed across all frontend modal calculators.
         </div>
       )}
@@ -70,12 +70,12 @@ export default function TariffModule({ tariffs, setTariffs }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* VIP Profit Margin Slider */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Award className="w-4 h-4 text-amber-400" /> Advisory Retainer Margin Controller
+              <Award className="w-4 h-4 text-brand-goldLight" /> Advisory Retainer Margin Controller
             </h3>
-            <span className="text-xs font-mono text-amber-400 font-bold">+{vipMarginMultiplier}% Margin</span>
+            <span className="text-xs font-mono text-brand-goldLight font-bold">+{vipMarginMultiplier}% Margin</span>
           </div>
           <p className="text-xs text-slate-400">
             Dynamically boosts advisory retainer margins for VIP White-Glove escort processing.
@@ -87,18 +87,18 @@ export default function TariffModule({ tariffs, setTariffs }) {
             step="5"
             value={vipMarginMultiplier}
             onChange={(e) => setVipMarginMultiplier(Number(e.target.value))}
-            className="w-full accent-[#E01E37] cursor-pointer"
+            className="w-full accent-[#D4AF37] cursor-pointer"
           />
         </div>
 
         {/* Global Surcharge / Discount Slider */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Sliders className="w-4 h-4 text-[#E01E37]" /> Emergency Surcharge / Discount Modifier
+              <Sliders className="w-4 h-4 text-brand-primary" /> Emergency Surcharge / Discount Modifier
             </h3>
             <span className={`text-xs font-mono font-bold ${
-              emergencyDiscountSlider < 0 ? 'text-emerald-400' : 'text-rose-400'
+              emergencyDiscountSlider < 0 ? 'text-brand-goldLight' : 'text-brand-primary'
             }`}>
               {emergencyDiscountSlider > 0 ? `+${emergencyDiscountSlider}%` : `${emergencyDiscountSlider}%`}
             </span>
@@ -113,7 +113,7 @@ export default function TariffModule({ tariffs, setTariffs }) {
             step="1"
             value={emergencyDiscountSlider}
             onChange={(e) => setEmergencyDiscountSlider(Number(e.target.value))}
-            className="w-full accent-[#E01E37] cursor-pointer"
+            className="w-full accent-[#D4AF37] cursor-pointer"
           />
         </div>
 
@@ -122,11 +122,11 @@ export default function TariffModule({ tariffs, setTariffs }) {
       {/* ------------------------------------------------------------------ */}
       {/* 2. GOVERNMENT PASS-THROUGH FEE MATRIX TABLE                        */}
       {/* ------------------------------------------------------------------ */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl space-y-4 p-6">
+      <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl overflow-hidden shadow-xl space-y-4 p-6">
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <Calculator className="w-4 h-4 text-blue-400" /> Federal Government Tariffs & Retainer Items
+            <Calculator className="w-4 h-4 text-brand-goldLight" /> Federal Government Tariffs & Retainer Items
           </h3>
 
           {/* Category Filter */}
@@ -136,7 +136,7 @@ export default function TariffModule({ tariffs, setTariffs }) {
                 key={cat.id}
                 onClick={() => setActiveCategoryFilter(cat.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                  activeCategoryFilter === cat.id ? 'bg-[#E01E37] text-white' : 'bg-slate-950 text-slate-400 hover:text-slate-200'
+                  activeCategoryFilter === cat.id ? 'bg-brand-primary text-white' : 'bg-brand-darkBg text-slate-400 hover:text-slate-200'
                 }`}
               >
                 {cat.label}
@@ -148,7 +148,7 @@ export default function TariffModule({ tariffs, setTariffs }) {
         {/* Editable Table */}
         <div className="overflow-x-auto rounded-xl border border-slate-800">
           <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-950 text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800">
+            <thead className="bg-brand-darkBg text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800">
               <tr>
                 <th className="py-3 px-4">Item Code & Description</th>
                 <th className="py-3 px-4">Authority</th>
@@ -178,7 +178,7 @@ export default function TariffModule({ tariffs, setTariffs }) {
                         type="number"
                         value={trf.govtFeeAED}
                         onChange={(e) => handleUpdateFee(trf.id, 'govtFeeAED', e.target.value)}
-                        className="w-24 bg-slate-950 border border-slate-700/80 rounded-lg px-2.5 py-1 text-xs font-mono font-bold text-blue-400 focus:outline-none focus:border-[#E01E37]"
+                        className="w-24 bg-brand-darkBg border border-slate-700/80 rounded-lg px-2.5 py-1 text-xs font-mono font-bold text-brand-goldLight focus:outline-none focus:border-brand-primary"
                       />
                     </td>
 
@@ -188,7 +188,7 @@ export default function TariffModule({ tariffs, setTariffs }) {
                         type="number"
                         value={trf.retainerMarkupAED}
                         onChange={(e) => handleUpdateFee(trf.id, 'retainerMarkupAED', e.target.value)}
-                        className="w-24 bg-slate-950 border border-slate-700/80 rounded-lg px-2.5 py-1 text-xs font-mono font-bold text-[#E01E37] focus:outline-none focus:border-[#E01E37]"
+                        className="w-24 bg-brand-darkBg border border-slate-700/80 rounded-lg px-2.5 py-1 text-xs font-mono font-bold text-brand-primary focus:outline-none focus:border-brand-primary"
                       />
                     </td>
 
@@ -198,12 +198,12 @@ export default function TariffModule({ tariffs, setTariffs }) {
                         type="number"
                         value={trf.insideCountrySurchargeAED}
                         onChange={(e) => handleUpdateFee(trf.id, 'insideCountrySurchargeAED', e.target.value)}
-                        className="w-24 bg-slate-950 border border-slate-700/80 rounded-lg px-2.5 py-1 text-xs font-mono font-bold text-purple-400 focus:outline-none focus:border-[#E01E37]"
+                        className="w-24 bg-brand-darkBg border border-slate-700/80 rounded-lg px-2.5 py-1 text-xs font-mono font-bold text-brand-goldLight focus:outline-none focus:border-brand-primary"
                       />
                     </td>
 
                     {/* Effective Live Output */}
-                    <td className="py-3.5 px-4 text-right font-mono font-black text-emerald-400 text-sm">
+                    <td className="py-3.5 px-4 text-right font-mono font-black text-brand-goldLight text-sm">
                       AED {effectiveTotal.toLocaleString()}
                     </td>
                   </tr>
@@ -216,12 +216,12 @@ export default function TariffModule({ tariffs, setTariffs }) {
       </div>
 
       {/* Live Sandbox Output */}
-      <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <div className="bg-brand-darkBg border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
         <h3 className="text-base font-bold text-white flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-[#E01E37]" /> Frontend Modal Live Calculation Equation Sandbox
+          <Sparkles className="w-4 h-4 text-brand-primary" /> Frontend Modal Live Calculation Equation Sandbox
         </h3>
         
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs">
+        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs">
           <div className="space-y-1">
             <span className="text-slate-400">Sample Calculation: Spouse Visa (Inside UAE Status)</span>
             <div className="text-white font-bold text-sm">
@@ -231,7 +231,7 @@ export default function TariffModule({ tariffs, setTariffs }) {
 
           <div className="text-right">
             <div className="text-slate-400 text-[10px]">SYNCED FRONTEND QUOTE</div>
-            <div className="text-2xl font-black text-[#E01E37]">
+            <div className="text-2xl font-black text-brand-primary">
               AED {Math.round(7850 * (1 + (vipMarginMultiplier * 0.4 + emergencyDiscountSlider) / 100)).toLocaleString()}
             </div>
           </div>

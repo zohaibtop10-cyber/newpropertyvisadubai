@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
+    <script>
+      window.onerror = function(message, source, lineno, colno, error) {
+        document.body.innerHTML += '<div style="color:red; background:white; z-index:9999; position:fixed; top:0; left:0; padding:20px; width:100%; font-size:20px;">' + message + '<br>' + (error ? error.stack : '') + '</div>';
+        return false;
+      };
+      window.addEventListener('unhandledrejection', function(event) {
+        document.body.innerHTML += '<div style="color:red; background:white; z-index:9999; position:fixed; top:0; left:0; padding:20px; width:100%; font-size:20px;">Unhandled Rejection: ' + event.reason + '</div>';
+      });
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -63,7 +72,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-[var(--bg-canvas)] text-[var(--text-primary)] font-sans antialiased selection:bg-[#D31238] selection:text-white transition-colors duration-200">
+  <body class="bg-canvas dark:bg-brand-darkBg text-content-primary dark:text-brand-textMain font-sans antialiased selection:bg-brand-gold/30 transition-colors duration-200">
     <!-- Hidden Google Translate Widget -->
     <div id="google_translate_element" style="display:none;"></div>
     <script type="text/javascript">
@@ -71,7 +80,7 @@
         new google.translate.TranslateElement({
           pageLanguage: 'en',
           autoDisplay: false,
-          includedLanguages: 'en,ar,ru,de,es,fr,tr,zh-CN'
+          includedLanguages: 'en,ar,ru,de,es,fr,tr,zh-CN,tl,hi,ur'
         }, 'google_translate_element');
       }
     </script>

@@ -29,33 +29,33 @@ export default function OverlayMenu({
 
   const getIcon = (iconName) => {
     switch (iconName) {
-      case 'Heart': return <Heart className="w-5 h-5 text-[#E01E37]" />;
-      case 'Baby': return <Baby className="w-5 h-5 text-[#E01E37]" />;
-      case 'Users': return <Users className="w-5 h-5 text-[#E01E37]" />;
-      case 'Crown': return <Crown className="w-5 h-5 text-[#E01E37]" />;
-      case 'Shield': return <Shield className="w-5 h-5 text-[#E01E37]" />;
-      case 'Building2': return <Building2 className="w-5 h-5 text-[#E01E37]" />;
-      case 'FileCheck': return <FileCheck className="w-5 h-5 text-[#E01E37]" />;
-      default: return <FileText className="w-5 h-5 text-[#E01E37]" />;
+      case 'Heart': return <Heart className="w-5 h-5 text-brand-primary" />;
+      case 'Baby': return <Baby className="w-5 h-5 text-brand-primary" />;
+      case 'Users': return <Users className="w-5 h-5 text-brand-primary" />;
+      case 'Crown': return <Crown className="w-5 h-5 text-brand-primary" />;
+      case 'Shield': return <Shield className="w-5 h-5 text-brand-primary" />;
+      case 'Building2': return <Building2 className="w-5 h-5 text-brand-primary" />;
+      case 'FileCheck': return <FileCheck className="w-5 h-5 text-brand-primary" />;
+      default: return <FileText className="w-5 h-5 text-brand-primary" />;
     }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-2xl animate-modal-in overflow-y-auto">
       
-      <div className="w-full max-w-5xl bg-white dark:bg-[#121212] border border-slate-200 dark:border-white/15 rounded-3xl shadow-2xl overflow-hidden relative my-auto text-slate-900 dark:text-white">
+      <div className="w-full max-w-5xl bg-surface dark:bg-[#121212] border border-border-subtle dark:border-white/15 rounded-xl shadow-2xl overflow-hidden relative my-auto text-content-primary dark:text-white">
         
         {/* Header Bar */}
-        <div className="p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
+        <div className="p-6 border-b border-border-subtle dark:border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#E01E37]/10 flex items-center justify-center">
-              <ShieldCheck className="w-5 h-5 text-[#E01E37]" />
+            <div className="w-9 h-9 rounded-xl bg-brand-primary/10 flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5 text-brand-primary" />
             </div>
             <div>
               <div className="font-display font-bold text-lg leading-tight">
                 Family Residency Services Directory
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
+              <div className="text-xs text-content-muted dark:text-slate-400">
                 800 DOCS LLC SOC — Official Document Clearing Portal
               </div>
             </div>
@@ -63,7 +63,7 @@ export default function OverlayMenu({
 
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-white flex items-center justify-center border border-slate-200 dark:border-white/10 transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-xl bg-surface-elevated dark:bg-white/10 hover:bg-surface-hover dark:hover:bg-surface/20 text-content-secondary dark:text-white flex items-center justify-center border border-border-subtle dark:border-white/10 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -86,23 +86,23 @@ export default function OverlayMenu({
                     onClose();
                     onNavigate('service', service.id);
                   }}
-                  className="p-4 rounded-2xl border text-left transition-all group cursor-pointer bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 hover:border-[#E01E37]/50 hover:bg-slate-100 dark:hover:bg-white/[0.05]"
+                  className="p-4 rounded-xl border text-left transition-all group cursor-pointer bg-canvas dark:bg-white/[0.02] border-border-subtle dark:border-white/10 hover:border-brand-primary/50 hover:bg-surface-elevated dark:hover:bg-surface/[0.05]"
                 >
                   <div className="flex items-start justify-between">
-                    <div className="p-2 rounded-xl bg-white dark:bg-white/10 shadow-sm border border-slate-100 dark:border-white/10">
+                    <div className="p-2 rounded-xl bg-surface dark:bg-white/10 shadow-sm border border-border-subtle dark:border-white/10">
                       {getIcon(service.icon)}
                     </div>
-                    <span className="text-[10px] font-mono font-semibold text-[#E01E37] bg-[#E01E37]/10 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-mono font-semibold text-brand-primary bg-brand-primary/10 px-2 py-0.5 rounded">
                       {service.heroTag}
                     </span>
                   </div>
 
-                  <div className="font-display font-semibold text-sm mt-3 text-slate-900 dark:text-white group-hover:text-[#E01E37] transition-colors flex items-center justify-between">
+                  <div className="font-display font-semibold text-sm mt-3 text-content-primary dark:text-white group-hover:text-brand-primary transition-colors flex items-center justify-between">
                     <span>{service.title}</span>
                     <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
                   </div>
 
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                  <p className="text-xs text-content-muted dark:text-slate-400 mt-1 line-clamp-2">
                     {service.shortDesc}
                   </p>
                 </button>
@@ -123,7 +123,7 @@ export default function OverlayMenu({
                     onClose();
                     onNavigate('home');
                   }}
-                  className="w-full text-left p-3 rounded-xl border flex items-center justify-between text-xs font-medium bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all"
+                  className="w-full text-left p-3 rounded-xl border flex items-center justify-between text-xs font-medium bg-canvas dark:bg-white/5 border-border-subtle dark:border-white/10 hover:border-border-strong dark:hover:border-white/20 transition-all"
                 >
                   <span>Homepage Overview</span>
                   <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
@@ -134,10 +134,10 @@ export default function OverlayMenu({
                     onClose();
                     onNavigate('blog-index');
                   }}
-                  className="w-full text-left p-3 rounded-xl border flex items-center justify-between text-xs font-medium bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all"
+                  className="w-full text-left p-3 rounded-xl border flex items-center justify-between text-xs font-medium bg-canvas dark:bg-white/5 border-border-subtle dark:border-white/10 hover:border-border-strong dark:hover:border-white/20 transition-all"
                 >
                   <div className="flex items-center gap-2">
-                    <BookOpen className="w-3.5 h-3.5 text-[#E01E37]" />
+                    <BookOpen className="w-3.5 h-3.5 text-brand-primary" />
                     <span>Residency Guides & Blog</span>
                   </div>
                   <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
@@ -148,41 +148,32 @@ export default function OverlayMenu({
                     onClose();
                     onNavigate('about');
                   }}
-                  className="w-full text-left p-3 rounded-xl border flex items-center justify-between text-xs font-medium bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all"
+                  className="w-full text-left p-3 rounded-xl border flex items-center justify-between text-xs font-medium bg-canvas dark:bg-white/5 border-border-subtle dark:border-white/10 hover:border-border-strong dark:hover:border-white/20 transition-all"
                 >
                   <span>About 800 DOCS LLC SOC</span>
                   <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
                 </button>
 
-                <button
-                  onClick={() => {
-                    onClose();
-                    onNavigate('contact');
-                  }}
-                  className="w-full text-left p-3 rounded-xl border flex items-center justify-between text-xs font-medium bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all"
-                >
-                  <span>Contact Advisory Desk</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
-                </button>
+
 
                 <button
                   onClick={() => {
                     onClose();
                     onOpenCalculator('spouse');
                   }}
-                  className="w-full text-left p-3 rounded-xl border flex items-center justify-between text-xs font-medium bg-[#E01E37]/10 border-[#E01E37]/30 text-[#E01E37] hover:bg-[#E01E37]/20 transition-all cursor-pointer"
+                  className="w-full text-left p-3 rounded-xl border flex items-center justify-between text-xs font-medium bg-brand-primary/10 border-brand-primary/30 text-brand-primary hover:bg-brand-primary/20 transition-all cursor-pointer"
                 >
                   <div className="flex items-center gap-2 font-semibold">
                     <Calculator className="w-3.5 h-3.5" />
                     <span>Pop-Up Fee Calculator</span>
                   </div>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#E01E37]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-brand-primary" />
                 </button>
               </div>
             </div>
 
             {/* Direct Assistance Card */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#1E1E1E] to-[#121212] border border-white/15 text-white space-y-3">
+            <div className="p-4 rounded-xl bg-gradient-to-br from-[#1E1E1E] to-[#121212] border border-white/15 text-white space-y-3">
               <div className="text-xs font-semibold text-white">Need Urgent Family Residency Help?</div>
               <p className="text-xs text-slate-300 leading-relaxed">
                 Connect directly with a Senior GDRFA Dependant Specialist.
@@ -191,9 +182,9 @@ export default function OverlayMenu({
               <div className="space-y-2 pt-1">
                 <a
                   href={`tel:${cmsConfig?.global?.phoneRaw || siteConfig.phoneRaw}`}
-                  className="w-full flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 text-white py-2 rounded-xl text-xs font-medium border border-white/10 transition-colors"
+                  className="w-full flex items-center justify-center gap-2 bg-surface/10 hover:bg-surface/15 text-white py-2 rounded-xl text-xs font-medium border border-white/10 transition-colors"
                 >
-                  <Phone className="w-3.5 h-3.5 text-[#E01E37]" />
+                  <Phone className="w-3.5 h-3.5 text-brand-primary" />
                   <span>Call {cmsConfig?.global?.phone || siteConfig.phone}</span>
                 </a>
 
