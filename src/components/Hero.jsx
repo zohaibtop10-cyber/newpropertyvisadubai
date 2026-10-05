@@ -6,19 +6,19 @@ import { siteConfig } from '../data/cmsData';
 
 export default function Hero({ onOpenCalculator }) {
   return (
-    <section className="relative bg-gradient-to-b from-[#0a0c10] via-[#0f1117] to-[#0a0c10] text-white pt-24 sm:pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans border-b border-white/10">
+    <section className="relative w-full pt-16 pb-16 md:pt-20 md:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden font-sans border-b border-white/10 bg-gradient-to-b from-[#0a0c10] via-[#0f1117] to-[#0a0c10] text-white">
       {/* Subtle Radial Glow Effects */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-[#D4AF37]/15 to-transparent blur-[120px] pointer-events-none rounded-full" />
-      <div className="absolute top-1/3 right-0 w-[450px] h-[450px] bg-emerald-500/10 blur-[140px] pointer-events-none rounded-full hidden lg:block" />
+      <div className="absolute top-1/3 right-0 w-[450px] h-[450px] bg-[#D4AF37]/10 blur-[140px] pointer-events-none rounded-full hidden lg:block" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* Left Column: Headline, Trust Badges, USP Strip */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+          <div className="lg:col-span-7 flex flex-col items-start pt-0 lg:pt-8 space-y-6 sm:space-y-8">
             
             {/* Google Rating Badge */}
-            <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-xs sm:text-sm font-semibold backdrop-blur-md shadow-lg">
+            <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-[10px] px-4 py-2 text-xs sm:text-sm font-semibold backdrop-blur-md shadow-lg">
               <div className="flex items-center gap-1 text-[#FBBC05]">
                 <Star className="w-4 h-4 fill-current" />
                 <Star className="w-4 h-4 fill-current" />
@@ -48,7 +48,7 @@ export default function Hero({ onOpenCalculator }) {
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <button
                 onClick={() => onOpenCalculator && onOpenCalculator('family')}
-                className="bg-gradient-to-r from-[#D4AF37] via-[#FFF8DC] to-[#B8860B] text-black font-extrabold text-sm sm:text-base px-7 py-4 rounded-xl transition-all shadow-[0_0_25px_rgba(212,175,55,0.35)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)] hover:-translate-y-0.5 flex items-center gap-2.5 cursor-pointer btn-shine-effect tracking-wide"
+                className="bg-gradient-to-r from-[#D4AF37] via-[#FFF8DC] to-[#B8860B] text-black font-extrabold text-sm sm:text-base px-7 py-4 rounded-[10px] transition-all shadow-[0_0_25px_rgba(212,175,55,0.35)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)] hover:-translate-y-0.5 flex items-center gap-2.5 cursor-pointer btn-shine-effect tracking-wide"
               >
                 <CalcIcon className="w-5 h-5 text-black" />
                 <span>Calculate Visa Costs</span>
@@ -59,7 +59,7 @@ export default function Hero({ onOpenCalculator }) {
                 href={`https://wa.me/${siteConfig.whatsappRaw}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-sm sm:text-base px-7 py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:shadow-[0_0_30px_rgba(37,211,102,0.5)] flex items-center gap-2.5 cursor-pointer"
+                className="bg-dark-gold-gloss hover:bg-[#20bd5a] text-white font-extrabold text-sm sm:text-base px-7 py-4 rounded-[10px] transition-all shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:shadow-[0_0_30px_rgba(37,211,102,0.5)] flex items-center gap-2.5 cursor-pointer"
               >
                 <WhatsAppIcon className="w-5 h-5 fill-current" />
                 <span>WhatsApp Specialist</span>

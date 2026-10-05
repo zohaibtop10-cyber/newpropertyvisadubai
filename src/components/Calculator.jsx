@@ -17,40 +17,40 @@ export default function Calculator({ onLaunch }) {
       title: 'Family Residence Visa',
       subtitle: 'Sponsor Spouse, Children, or Parents',
       icon: Heart,
-      badge: 'Popular'
+      badge: 'Most Popular'
     },
     {
       id: 'golden',
       title: '10-Year Golden Visa',
       subtitle: 'Real Estate Title Deed or High Salary',
       icon: Crown,
-      badge: 'VIP VIP'
+      badge: '10-Yr Sovereign'
     },
     {
       id: 'domestic',
       title: 'Domestic Helper / Maid',
       subtitle: 'Sponsor Housemaid or Private Nanny',
       icon: UserCheck,
-      badge: 'Full PRO'
+      badge: 'Tadbeer Direct'
     }
   ];
 
   return (
-    <div className="w-full max-w-md mx-auto bg-gradient-to-b from-[#14161d]/90 via-[#0e1015]/95 to-[#0b0c10]/95 backdrop-blur-2xl rounded-[2rem] p-6 sm:p-7 shadow-[0_20px_60px_-15px_rgba(212,175,55,0.25)] border-[1.5px] border-brand-gold/40 hover:border-brand-gold/70 relative transition-all duration-300 group text-white">
+    <div className="w-full max-w-md mx-auto bg-gradient-to-b from-[#141720]/95 via-[#0A0B0E]/95 to-[#0A0B0E]/95 backdrop-blur-2xl rounded-3xl p-6 sm:p-7 shadow-[0_20px_60px_-15px_rgba(212,175,55,0.25)] border-[1.5px] border-brand-gold/40 hover:border-brand-gold/70 relative transition-all duration-300 group text-white">
       {/* Top Gold Shimmer Border Accent */}
       <div className="absolute top-0 left-8 right-8 h-[2px] bg-gradient-to-r from-transparent via-brand-gold to-transparent" />
 
       <div className="flex justify-between items-center mb-3">
         <span className="text-brand-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.5)] text-[11px] font-bold tracking-widest uppercase font-mono flex items-center gap-1.5">
-          <Sparkles className="w-3.5 h-3.5" /> INSTANT ELIGIBILITY CHECKER
+          <Sparkles className="w-3.5 h-3.5" /> INSTANT TARIFF CALCULATOR
         </span>
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)] animate-pulse" />
-          <span className="text-[10px] text-emerald-400 font-mono font-bold uppercase tracking-wider">LIVE CALCULATOR</span>
+          <span className="text-[10px] text-emerald-400 font-mono font-bold uppercase tracking-wider">LIVE AUDIT</span>
         </div>
       </div>
 
-      <h2 className="text-xl sm:text-2xl font-extrabold text-white mt-1 mb-5 tracking-tight font-display">
+      <h2 className="text-xl sm:text-2xl font-black text-white mt-1 mb-5 tracking-tight font-display">
         Select Sponsorship Goal
       </h2>
 
@@ -102,10 +102,10 @@ export default function Calculator({ onLaunch }) {
 
       <button
         onClick={() => onLaunch && onLaunch(selectedGoal)}
-        className="w-full mt-6 py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#FFF8DC] to-[#B8860B] text-black text-sm font-extrabold flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.7)] hover:-translate-y-0.5 transition-all cursor-pointer active:translate-y-0 btn-shine-effect tracking-wide"
+        className="w-full mt-6 py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#FFF8DC] to-[#B8860B] text-black text-sm font-extrabold flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.7)] hover:-translate-y-0.5 transition-all cursor-pointer active:translate-y-0 tracking-wide"
       >
         <ShieldCheck className="w-4 h-4 text-black" />
-        <span>Launch Tariff Calculator</span>
+        <span>Launch Full Tariff Calculator</span>
         <ArrowRight className="w-4 h-4 text-black stroke-[3]" />
       </button>
     </div>

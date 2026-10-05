@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  ArrowUp, ArrowDown, Eye, EyeOff, CheckCircle2, Save, Plus, Trash2, Menu, Layout, Move, Compass
+  ArrowUp, ArrowDown, Eye, EyeOff, CheckCircle2, Save, Plus, Trash2, Menu, Move, Compass, Sparkles
 } from 'lucide-react';
 
 const SECTION_LABELS = {
@@ -19,7 +19,6 @@ const SECTION_LABELS = {
 };
 
 export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
-  // Local state for homepage section order & visibility
   const [sectionOrder, setSectionOrder] = useState(
     cmsConfig?.homepageSectionOrder || [
       'hero', 'stats', 'achievements', 'problems', 'services', 'packages', 'whyUs', 'process', 'faqs', 'reviews', 'blog', 'cta'
@@ -32,7 +31,6 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
     }
   );
 
-  // Local state for Navbar Links
   const [navLinks, setNavLinks] = useState(
     cmsConfig?.navbarLinks || [
       { id: 'nav-1', label: 'Home', view: 'home', visible: true },
@@ -49,7 +47,6 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
   const [newNavView, setNewNavView] = useState('home');
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  // Handlers for Section Reordering
   const handleMoveUp = (index) => {
     if (index === 0) return;
     const updated = [...sectionOrder];
@@ -75,7 +72,6 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
     }));
   };
 
-  // Handlers for Navbar Links
   const handleToggleNavVisibility = (id) => {
     setNavLinks(navLinks.map(item => item.id === id ? { ...item, visible: !item.visible } : item));
   };
@@ -115,7 +111,6 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
     setNewNavLabel('');
   };
 
-  // Publish all changes
   const handleSaveAll = (e) => {
     e.preventDefault();
     if (setCmsConfig) {
@@ -131,34 +126,57 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
   };
 
   return (
-    <div className="max-w-4xl space-y-12 animate-fadeIn">
+    <div className="max-w-5xl space-y-8 animate-fadeIn pb-16">
       
+      {/* Header Banner */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-brand-darkSurface border border-slate-800 p-6 sm:p-8 shadow-2xl">
+        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Layout & Navigation Control</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
+              Section Reorder & Navbar Manager
+            </h1>
+            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+              Drag or reorder homepage sections, toggle visibility, and configure top navigation links.
+            </p>
+          </div>
+          <button
+            onClick={handleSaveAll}
+            className="px-6 py-3 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-black font-extrabold text-sm rounded-xl shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+          >
+            <Save className="w-4 h-4" />
+            <span>Publish Layout</span>
+          </button>
+        </div>
+      </div>
+
       {saveSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-brand-gold/30 rounded-xl text-brand-goldLight text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
-          <CheckCircle2 className="w-5 h-5 shrink-0" />
-          <span>Homepage section order and navbar configurations updated cleanly on live site!</span>
+        <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-sm font-semibold flex items-center gap-3 shadow-lg animate-fadeIn">
+          <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-400" />
+          <span>Homepage section order and navbar settings successfully published!</span>
         </div>
       )}
 
-      {/* ------------------------------------------------------------------ */}
-      {/* 1. HOMEPAGE SECTION ORDER & VISIBILITY MANAGER                     */}
-      {/* ------------------------------------------------------------------ */}
       <form onSubmit={handleSaveAll} className="space-y-8">
         
-        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-5">
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-xl bg-brand-primary/15 text-brand-primary">
+        {/* HOMEPAGE SECTION ORDER */}
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-5">
+            <div className="flex items-center gap-3.5">
+              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
                 <Move className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="font-display font-extrabold text-xl text-white">Homepage Section Reorder & Visibility</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Use ↑ and ↓ to rearrange homepage sections, or toggle visibility</p>
+                <h2 className="font-display font-bold text-lg text-white">Homepage Section Sequence & Visibility</h2>
+                <p className="text-slate-400 text-xs mt-0.5">Use ↑ and ↓ to reorder homepage blocks or hide sections</p>
               </div>
             </div>
 
-            <span className="text-xs font-mono text-slate-400 bg-brand-darkBg px-3 py-1.5 rounded-full border border-slate-800">
-              {sectionOrder.length} Total Sections
+            <span className="text-xs font-mono text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+              {sectionOrder.length} Sections
             </span>
           </div>
 
@@ -172,56 +190,53 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                   key={sectionId}
                   className={`p-4 rounded-xl border flex items-center justify-between gap-4 transition-all ${
                     isVisible 
-                      ? 'bg-brand-darkBg border-slate-800 text-white' 
-                      : 'bg-brand-darkBg/40 border-slate-800/40 text-content-muted opacity-60'
+                      ? 'bg-slate-950/80 border-slate-800/80 text-white' 
+                      : 'bg-slate-950/40 border-slate-900 text-slate-500 opacity-60'
                   }`}
                 >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="w-7 h-7 rounded-xl bg-brand-surfaceLight text-brand-primary font-mono text-xs font-bold flex items-center justify-center border border-slate-800 shrink-0">
+                  <div className="flex items-center gap-3.5 min-w-0">
+                    <span className="w-7 h-7 rounded-xl bg-slate-900 text-amber-400 font-mono text-xs font-bold flex items-center justify-center border border-slate-700/60 shrink-0">
                       {idx + 1}
                     </span>
-                    <span className="font-bold text-sm truncate">{label}</span>
+                    <span className="font-semibold text-sm truncate">{label}</span>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
-                    {/* Move Up */}
                     <button
                       type="button"
                       disabled={idx === 0}
                       onClick={() => handleMoveUp(idx)}
-                      className={`p-2 rounded-xl border border-slate-800 transition-colors ${
+                      className={`p-2 rounded-xl border transition-colors ${
                         idx === 0 
-                          ? 'text-content-muted border-slate-800/40 cursor-not-allowed' 
-                          : 'bg-brand-surfaceLight text-slate-300 hover:text-white hover:bg-brand-primary cursor-pointer'
+                          ? 'border-slate-800/50 text-slate-700 cursor-not-allowed' 
+                          : 'border-slate-700/60 text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer'
                       }`}
                       title="Move section up"
                     >
                       <ArrowUp className="w-4 h-4" />
                     </button>
 
-                    {/* Move Down */}
                     <button
                       type="button"
                       disabled={idx === sectionOrder.length - 1}
                       onClick={() => handleMoveDown(idx)}
-                      className={`p-2 rounded-xl border border-slate-800 transition-colors ${
+                      className={`p-2 rounded-xl border transition-colors ${
                         idx === sectionOrder.length - 1 
-                          ? 'text-content-muted border-slate-800/40 cursor-not-allowed' 
-                          : 'bg-brand-surfaceLight text-slate-300 hover:text-white hover:bg-brand-primary cursor-pointer'
+                          ? 'border-slate-800/50 text-slate-700 cursor-not-allowed' 
+                          : 'border-slate-700/60 text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer'
                       }`}
                       title="Move section down"
                     >
                       <ArrowDown className="w-4 h-4" />
                     </button>
 
-                    {/* Visibility Toggle */}
                     <button
                       type="button"
                       onClick={() => handleToggleVisibility(sectionId)}
-                      className={`px-3 py-2 rounded-xl border text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5 ${
+                      className={`px-3 py-2 rounded-xl border text-xs font-semibold transition-colors cursor-pointer flex items-center gap-1.5 ${
                         isVisible 
-                          ? 'bg-emerald-500/10 border-brand-gold/30 text-brand-goldLight hover:bg-emerald-500/20' 
-                          : 'bg-brand-surfaceLight border-slate-800 text-slate-400 hover:text-white'
+                          ? 'bg-amber-500/10 border-amber-500/20 text-amber-400' 
+                          : 'bg-slate-950 border-slate-800 text-slate-500'
                       }`}
                     >
                       {isVisible ? (
@@ -241,31 +256,28 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
           </div>
         </div>
 
-        {/* ------------------------------------------------------------------ */}
-        {/* 2. NAVBAR NAVIGATION LINKS MANAGER                                 */}
-        {/* ------------------------------------------------------------------ */}
-        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-            <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
+        {/* NAVBAR NAVIGATION LINKS MANAGER */}
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
+            <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
               <Menu className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="font-display font-extrabold text-xl text-white">Header Navbar Menu Links</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Manage navigation items displayed in the public website header</p>
+              <h2 className="font-display font-bold text-lg text-white">Header Navbar Navigation Items</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Manage custom navbar navigation links</p>
             </div>
           </div>
 
-          {/* Add New Nav Link Form */}
-          <div className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl space-y-4">
+          <div className="p-4 bg-slate-950/80 border border-slate-800/80 rounded-xl space-y-4">
             <span className="text-xs font-mono font-bold text-slate-300 uppercase">ADD NEW NAVBAR ITEM</span>
             <div className="grid sm:grid-cols-12 gap-3">
               <div className="sm:col-span-6">
                 <input
                   type="text"
-                  placeholder="Nav Item Label (e.g. Services)"
+                  placeholder="Nav Label (e.g. Services)"
                   value={newNavLabel}
                   onChange={(e) => setNewNavLabel(e.target.value)}
-                  className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary"
+                  className="w-full bg-slate-900 border border-slate-700/60 rounded-xl p-3 text-white text-xs font-semibold focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -273,7 +285,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                 <select
                   value={newNavView}
                   onChange={(e) => setNewNavView(e.target.value)}
-                  className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-semibold focus:outline-none focus:border-brand-primary"
+                  className="w-full bg-slate-900 border border-slate-700/60 rounded-xl p-3 text-white text-xs font-medium focus:outline-none focus:border-amber-500/50 cursor-pointer"
                 >
                   <option value="home">Home Page ('home')</option>
                   <option value="service">Services Page ('service')</option>
@@ -288,7 +300,7 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                 <button
                   type="button"
                   onClick={handleAddNavLink}
-                  className="w-full h-full py-2.5 bg-slate-800 hover:bg-brand-primary text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1 transition-colors cursor-pointer"
+                  className="w-full h-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1 transition-colors cursor-pointer"
                 >
                   <Plus className="w-4 h-4" /> Add
                 </button>
@@ -296,15 +308,14 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
             </div>
           </div>
 
-          {/* Existing Nav Links */}
           <div className="space-y-3">
             {navLinks.map((item) => (
-              <div key={item.id} className="p-4 bg-brand-darkBg border border-slate-800 rounded-xl flex items-center justify-between gap-4 text-xs font-bold text-white">
+              <div key={item.id} className="p-4 bg-slate-950/80 border border-slate-800/80 rounded-xl flex items-center justify-between gap-4 text-xs font-semibold text-white">
                 <div className="flex items-center gap-3">
-                  <Compass className="w-4 h-4 text-brand-primary" />
+                  <Compass className="w-4 h-4 text-amber-400" />
                   <span>{item.label}</span>
-                  <span className="text-[10px] font-mono text-slate-400 bg-brand-surfaceLight px-2 py-0.5 rounded-full border border-slate-800">
-                    Target View: {item.view}
+                  <span className="text-[10px] font-mono text-slate-400 bg-slate-900 px-2.5 py-1 rounded-full border border-slate-700/60">
+                    Route: {item.view}
                   </span>
                 </div>
 
@@ -313,31 +324,31 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
                     type="button"
                     disabled={navLinks.findIndex(n => n.id === item.id) === 0}
                     onClick={() => handleNavMoveUp(navLinks.findIndex(n => n.id === item.id))}
-                    className={`p-2 rounded-xl border border-slate-800 transition-colors cursor-pointer ${
-                      navLinks.findIndex(n => n.id === item.id) === 0 ? 'text-content-muted border-slate-800/40 cursor-not-allowed' : 'bg-brand-surfaceLight text-slate-300 hover:text-white hover:bg-brand-primary'
+                    className={`p-2 rounded-xl border transition-colors cursor-pointer ${
+                      navLinks.findIndex(n => n.id === item.id) === 0 ? 'border-slate-800/50 text-slate-700 cursor-not-allowed' : 'border-slate-700/60 text-slate-300 hover:text-white hover:bg-slate-800'
                     }`}
                   >
-                    <ArrowUp className="w-3 h-3" />
+                    <ArrowUp className="w-3.5 h-3.5" />
                   </button>
 
                   <button
                     type="button"
                     disabled={navLinks.findIndex(n => n.id === item.id) === navLinks.length - 1}
                     onClick={() => handleNavMoveDown(navLinks.findIndex(n => n.id === item.id))}
-                    className={`p-2 rounded-xl border border-slate-800 transition-colors cursor-pointer ${
-                      navLinks.findIndex(n => n.id === item.id) === navLinks.length - 1 ? 'text-content-muted border-slate-800/40 cursor-not-allowed' : 'bg-brand-surfaceLight text-slate-300 hover:text-white hover:bg-brand-primary'
+                    className={`p-2 rounded-xl border transition-colors cursor-pointer ${
+                      navLinks.findIndex(n => n.id === item.id) === navLinks.length - 1 ? 'border-slate-800/50 text-slate-700 cursor-not-allowed' : 'border-slate-700/60 text-slate-300 hover:text-white hover:bg-slate-800'
                     }`}
                   >
-                    <ArrowDown className="w-3 h-3" />
+                    <ArrowDown className="w-3.5 h-3.5" />
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleToggleNavVisibility(item.id)}
-                    className={`px-3 py-1.5 rounded-xl border text-[11px] font-bold transition-colors cursor-pointer flex items-center gap-1 ${
+                    className={`px-3 py-1.5 rounded-xl border text-[11px] font-semibold transition-colors cursor-pointer flex items-center gap-1 ${
                       item.visible !== false
-                        ? 'bg-emerald-500/10 border-brand-gold/30 text-brand-goldLight'
-                        : 'bg-brand-surfaceLight border-slate-800 text-content-muted'
+                        ? 'bg-amber-500/10 border-amber-500/20 text-amber-400'
+                        : 'bg-slate-950 border-slate-800 text-slate-500'
                     }`}
                   >
                     {item.visible !== false ? 'Active' : 'Hidden'}
@@ -345,8 +356,9 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
 
                   <button
                     type="button"
-                    onClick={() => handleDeleteNavLink(item.id)}
-                    className="p-2 bg-brand-primary/100/10 hover:bg-brand-primary/100/20 text-brand-primary rounded-xl transition-colors cursor-pointer"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteNavLink(item.id); }}
+                    className="p-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 rounded-xl transition-colors cursor-pointer"
+                    title="Delete Nav Link"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -356,17 +368,18 @@ export default function SectionReorderManager({ cmsConfig, setCmsConfig }) {
           </div>
         </div>
 
-        {/* Single Prominent Save Button */}
-        <button
-          type="submit"
-          className="w-full py-4 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 font-bold text-base rounded-xl shadow-xl shadow-[#D4AF37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
-        >
-          <Save className="w-5 h-5" />
-          <span>Publish Section Order & Navbar Changes</span>
-        </button>
+        {/* Save Button */}
+        <div className="pt-4 sticky bottom-4 z-20">
+          <button
+            type="submit"
+            className="w-full py-4 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-black font-extrabold text-base rounded-xl shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
+          >
+            <Save className="w-5 h-5" />
+            <span>Publish Section Order & Navbar Layout</span>
+          </button>
+        </div>
 
       </form>
-
     </div>
   );
 }

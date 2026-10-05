@@ -1,40 +1,60 @@
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
 
-export default function ThemeToggle({ theme, setTheme }) {
-  const isDark = theme === 'dark';
+export default function ThemeToggle({ theme: propTheme, setTheme: propSetTheme, className = '' }) {
+  const [localTheme, setLocalTheme] = React.useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved;
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'dark';
+    }
+    return 'dark';
+  });
+
+  const activeTheme = propTheme || localTheme;
 
   const toggleTheme = () => {
-    setTheme(isDark ? 'light' : 'dark');
+    const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+    if (propSetTheme) {
+      propSetTheme(nextTheme);
+    } else {
+      setLocalTheme(nextTheme);
+    }
+    localStorage.setItem('theme', nextTheme);
+
+    if (nextTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   };
 
   return (
     <button
       onClick={toggleTheme}
-      aria-label="Toggle Light/Dark Theme"
-      className="relative w-10 h-10 rounded-xl bg-surface-elevated dark:bg-white/10 border border-border-subtle dark:border-white/15 flex items-center justify-center text-content-primary dark:text-slate-100 transition-all duration-300 hover:scale-105 hover:border-brand-primary active:scale-95 shadow-sm backdrop-blur-md cursor-pointer overflow-hidden group"
+      aria-label={`Switch to ${activeTheme === 'dark' ? 'Light' : 'Dark'} mode`}
+      className={`relative p-2.5 rounded-[10px] bg-white/10 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-[#D4AF37]/50 text-slate-700 dark:text-slate-200 hover:text-[#D4AF37] transition-all duration-300 shadow-sm flex items-center justify-center cursor-pointer group ${className}`}
     >
-      {/* Sun Icon */}
-      <div
-        className={`absolute inset-0 flex items-center justify-center transition-all duration-500 transform ${
-          isDark
-            ? 'opacity-0 scale-50 rotate-90 pointer-events-none'
-            : 'opacity-100 scale-100 rotate-0 text-brand-gold'
-        }`}
-      >
-        <Sun className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
-      </div>
+      <div className="relative w-4 h-4">
+        {/* Sun Icon (Visible in Light Mode) */}
+        <Sun
+          className={`w-4 h-4 text-amber-500 absolute inset-0 transition-all duration-300 transform ${
+            activeTheme === 'dark'
+              ? 'opacity-0 rotate-90 scale-50 pointer-events-none'
+              : 'opacity-100 rotate-0 scale-100'
+          }`}
+        />
 
-      {/* Moon Icon */}
-      <div
-        className={`absolute inset-0 flex items-center justify-center transition-all duration-500 transform ${
-          isDark
-            ? 'opacity-100 scale-100 rotate-0 text-brand-goldLight'
-            : 'opacity-0 scale-50 -rotate-90 pointer-events-none'
-        }`}
-      >
-        <Moon className="w-5 h-5 group-hover:-rotate-12 transition-transform duration-300" />
+        {/* Moon Icon (Visible in Dark Mode) */}
+        <Moon
+          className={`w-4 h-4 text-[#D4AF37] absolute inset-0 transition-all duration-300 transform ${
+            activeTheme === 'dark'
+              ? 'opacity-100 rotate-0 scale-100'
+              : 'opacity-0 -rotate-90 scale-50 pointer-events-none'
+          }`}
+        />
       </div>
+      <span className="sr-only">Toggle theme</span>
     </button>
   );
 }

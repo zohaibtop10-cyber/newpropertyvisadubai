@@ -4,15 +4,22 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Universal Brand & Status Accents (From Design Spec Image) */
+  --radius: 10px;
+  /* Typography Configuration */
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--sans);
+  --font-display: var(--sans);
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Universal Brand & Status Accents */
   --accent-gold: #D4AF37;               /* Primary */
   --accent-gold-hover: #996515;         /* Secondary */
   --accent-gold-tertiary: #C5A059;      /* Tertiary */
   --accent-gold-tint: rgba(212, 175, 55, 0.08);
   --accent-gold-border: rgba(212, 175, 55, 0.25);
-  --whatsapp-green: #25D366;
-  --whatsapp-green-hover: #20BD5A;
-  --status-emerald: #10B981;
+  --whatsapp-green: #D4AF37;
+  --whatsapp-green-hover: #B8860B;
+  --status-emerald: #D4AF37;
   --status-amber: #F59E0B;
 
   /* Hide Google Translate Default UI elements completely */
@@ -42,49 +49,83 @@ body, html {
   display: none !important;
 }
 
-/* Light Mode Palette (Clean White Theme with Golden Accents) */
 :root {
-  --bg-canvas: #FDFBF7;                 /* Warm Off-White / Cream */
-  --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #F6F4EB;       /* Slightly warmer elevated */
-  --bg-surface-hover: #EBE6D5;
-  --text-primary: #1C1A17;              /* Warm Dark */
-  --text-secondary: #4A463F;
-  --text-muted: #807A6E;
-  --border-subtle: #E8DEB7;
-  --border-strong: #D4AF37;
-  --glass-bg: rgba(253, 247, 229, 0.85);
-  --glass-border: rgba(212, 175, 55, 0.15);
-  --shadow-card: 0 4px 20px -2px rgba(212, 175, 55, 0.08), 0 2px 6px -1px rgba(212, 175, 55, 0.05);
-  --shadow-modal: 0 25px 50px -12px rgba(212, 175, 55, 0.15);
-  --shadow-ambient-glow: 0 0 40px -10px rgba(212, 175, 55, 0.2);
+  /* LIGHT MODE */
+  --bg-primary: #FAFAFA;
+  --surface-primary: #FFFFFF;
+  --text-main: #0F172A;
+  --brand-gold-text: #996515; 
+  --brand-gold-bg: #E8D399;
+  --gold-gradient: linear-gradient(135deg, #B8860B, #996515);
 
-  /* Fonts (Headline: Plus Jakarta Sans | Body & Label: Inter | Data: JetBrains Mono) */
-  --font-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Core Metallic Gold Palette */
+  --color-gold-base: #D4AF37;
+  --color-gold-light: #F3E5AB;
+  --color-gold-dark: #B8860B;
+  --color-gold-glow: rgba(212, 175, 55, 0.25);
+
+  /* Light Mode Palette (Default) */
+  --color-background: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #F1F5F9;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748B;
+  --color-border: rgba(15, 23, 42, 0.1);
+  --color-border-gold: rgba(212, 175, 55, 0.3);
+
+  /* Legacy Mappings for Backward Compatibility */
+  --bg-canvas: var(--color-background);
+  --bg-surface: var(--color-surface);
+  --bg-surface-elevated: var(--color-surface-elevated);
+  --bg-surface-hover: #E2E8F0;
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
+  --border-subtle: var(--color-border);
+  --border-strong: var(--color-gold-base);
+
+  /* Typography Configuration */
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--sans);
+  --font-display: var(--sans);
   --font-mono: 'JetBrains Mono', monospace;
 
-  font-family: var(--font-sans);
+  font-family: var(--sans);
   color-scheme: light dark;
 }
 
 .dark {
-  /* Dark Mode Palette (Neutral #121417 OLED Dark Canvas) */
-  --bg-canvas: #050505;                 /* Neutral */
-  --bg-surface: #121212;
-  --bg-surface-elevated: #1E1E1E;
-  --bg-surface-hover: #2C313C;
+  --radius: 10px;
+  /* DARK MODE */
+  --bg-primary: #050505;
+  --surface-primary: #111111;
+  --text-main: #F8FAFC;
+  --brand-gold-text: #D4AF37; 
+  --brand-gold-bg: #D4AF37;
+  --gold-gradient: linear-gradient(135deg, #F59E0B, #D4AF37);
+
+  /* Dark Mode Palette */
+  --color-background: #050505;
+  --color-surface: #111111;
+  --color-surface-elevated: #1A1A1A;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #CBD5E1;
+  --color-text-muted: #94A3B8;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-gold: rgba(212, 175, 55, 0.4);
+  --color-gold-glow: rgba(212, 175, 55, 0.4);
+
+  /* Legacy Mappings */
+  --bg-canvas: #050505;
+  --bg-surface: #111111;
+  --bg-surface-elevated: #1A1A1A;
+  --bg-surface-hover: #262626;
   --text-primary: #FFFFFF;
-  --text-secondary: #D1D5DB;
-  --text-muted: #9CA3AF;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --accent-gold-tint: rgba(212, 175, 55, 0.15);
-  --glass-bg: rgba(18, 20, 23, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
-  --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
-  --shadow-ambient-glow: 0 0 50px -10px rgba(212, 175, 55, 0.15);
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
 }
 
 @theme {
@@ -100,19 +141,21 @@ body, html {
   --color-border-subtle: var(--border-subtle);
   --color-border-strong: var(--border-strong);
 
-  --color-brand-gold: #D4AF37;
+  --color-brand-gold: var(--brand-gold-text);
+  --color-brand-goldText: var(--brand-gold-text);
+  --color-brand-goldBg: var(--brand-gold-bg);
   --color-brand-goldLight: #FDF2CB;
   --color-brand-goldDark: #996515;
   --color-brand-goldMuted: #C5A059;
-  --color-brand-darkBg: #050505;
-  --color-brand-surface: #121212;
-  --color-brand-surfaceLight: #1E1E1E;
-  --color-brand-textMain: #E2E8F0;
-  --color-brand-textMuted: #94A3B8;
-  --color-brand-primary: #D4AF37;
-  --color-brand-hover: #996515;
+  --color-brand-darkBg: var(--bg-canvas);
+  --color-brand-surface: var(--bg-surface);
+  --color-brand-surfaceLight: var(--bg-surface-elevated);
+  --color-brand-textMain: var(--text-primary);
+  --color-brand-textMuted: var(--text-muted);
+  --color-brand-primary: var(--brand-gold-text);
+  --color-brand-hover: var(--color-gold-dark);
 
-  --background-image-gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+  --background-image-gold-gradient: var(--gold-gradient);
   --background-image-gold-shimmer: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
   --background-image-surface-gradient: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
 
@@ -669,21 +712,30 @@ img {
 }
 
 /* Fix native select option colors in dark mode and admin panel */
-.dark select option,
-.bg-brand-surfaceLight select option,
-select option.bg-\[\#121417\] {
-  background-color: #121417;
-  color: #ffffff;
-}
-
-/* Base override for any select that has dark text in dark mode */
-.dark select option {
-  background-color: #121417 !important;
+select, select option {
+  background-color: #111111 !important;
   color: #ffffff !important;
 }
 
-/* Admin specific overrides */
-.min-h-screen.bg-\[\#0A0B0D\] select option {
-  background-color: #121417 !important;
-  color: #ffffff !important;
+@layer utilities {
+  /* 1. Bright, Luxurious Polished Gold Background */
+  .bg-dark-gold-gloss {
+    background: linear-gradient(135deg, #D4AF37 0%, #FFF099 35%, #E6C363 70%, #AA771C 100%);
+    background-size: 200% auto;
+    transition: background-position 0.5s ease;
+  }
+  
+  .bg-dark-gold-gloss:hover {
+    background-position: right center;
+  }
+
+  /* 2. Brilliant Gold Text Gradient */
+  .text-dark-gold-shine {
+    background: linear-gradient(135deg, #B8860B 0%, #D4AF37 30%, #FFF099 50%, #D4AF37 70%, #B8860B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
 }
+

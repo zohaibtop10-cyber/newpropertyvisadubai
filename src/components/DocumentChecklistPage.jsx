@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import WhatsAppIcon from './WhatsAppIcon';
 import { motion } from 'framer-motion';
-import { FileCheck, CheckCircle2 } from 'lucide-react';
+import { FileCheck, CheckCircle2, Sparkles, ArrowRight } from 'lucide-react';
 import { siteConfig } from '../data/cmsData';
 import { marked } from 'marked';
 
@@ -61,8 +61,12 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
   const currentChecklist = checklists[selectedCategory];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 pb-24 space-y-16 relative z-10">
+    <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto space-y-12 relative z-10 font-sans transition-colors duration-200">
       
+      {/* Ambient Radial Glow Lighting */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.12)_0%,transparent_70%)] opacity-70 pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:32px_32px] opacity-10 pointer-events-none -z-10" />
+
       {/* Header */}
       <motion.section
         initial={{ opacity: 0, y: 25 }}
@@ -70,62 +74,46 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
         transition={{ type: 'spring', stiffness: 80, damping: 15 }}
         className="text-center max-w-3xl mx-auto space-y-4"
       >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-brand-primary/10 text-brand-primary border border-brand-primary/20">
-          <FileCheck className="w-4 h-4" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[10px] bg-[#8C5E00]/10 dark:bg-[#8C5E00]/20 border border-[#8C5E00]/30 dark:border-[#D4AF37]/30 text-[#8C5E00] dark:text-[#FFE58F] text-xs font-mono font-bold uppercase tracking-widest shadow-md">
+          <FileCheck className="w-4 h-4 text-[#8C5E00] dark:text-[#D4AF37]" />
           <span>DOCUMENT PREPARATION GUIDE</span>
         </div>
 
-        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-content-primary dark:text-white tracking-tight">
-          {headline}
+        <h1 className="font-display font-black text-4xl sm:text-6xl text-slate-900 dark:text-white tracking-tight leading-tight">
+          {headline.includes("Checklist") ? (
+            <>
+              {headline.replace("Checklist", "")}
+              <span className="text-dark-gold-shine">Checklist</span>
+            </>
+          ) : headline}
         </h1>
 
-        <p className="text-content-muted dark:text-slate-400 text-base sm:text-lg leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed font-medium">
           {subtext}
         </p>
       </motion.section>
 
       {/* Category Tabs */}
       <div className="flex items-center justify-center gap-2 overflow-x-auto pb-2">
-        <button
-          onClick={() => setSelectedCategory('spouse')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'spouse' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
-          }`}
-        >
-          Spouse Visa
-        </button>
-        <button
-          onClick={() => setSelectedCategory('children')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'children' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
-          }`}
-        >
-          Children Visa
-        </button>
-        <button
-          onClick={() => setSelectedCategory('golden')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'golden' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
-          }`}
-        >
-          Golden Visa
-        </button>
-        <button
-          onClick={() => setSelectedCategory('property')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'property' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
-          }`}
-        >
-          Property Visa
-        </button>
-        <button
-          onClick={() => setSelectedCategory('maid')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            selectedCategory === 'maid' ? 'bg-brand-primary text-white shadow-md' : 'bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 text-content-secondary dark:text-slate-300'
-          }`}
-        >
-          Maid Visa
-        </button>
+        {[
+          { id: 'spouse', label: 'Spouse Visa' },
+          { id: 'children', label: 'Children Visa' },
+          { id: 'golden', label: 'Golden Visa' },
+          { id: 'property', label: 'Property Visa' },
+          { id: 'maid', label: 'Maid Visa' }
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setSelectedCategory(tab.id)}
+            className={`px-5 py-2.5 rounded-[10px] text-xs font-bold uppercase tracking-wider font-mono transition-all cursor-pointer whitespace-nowrap ${
+              selectedCategory === tab.id
+                ? 'bg-dark-gold-gloss text-slate-950 font-black shadow-[0_0_20px_rgba(212,175,55,0.4)]'
+                : 'bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-[#D4AF37]/40 hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
       {/* Checklist Card */}
@@ -134,37 +122,39 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3 }}
-        className="max-w-3xl mx-auto p-8 rounded-xl bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 shadow-xl space-y-6"
+        className="max-w-3xl mx-auto p-8 sm:p-10 rounded-[16px] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-2xl border border-slate-200 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-2xl space-y-6 relative overflow-hidden"
       >
-        <div className="flex items-center justify-between border-b border-border-subtle dark:border-white/10 pb-4">
-          <h2 className="font-display font-bold text-xl text-content-primary dark:text-white">
+        <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-5">
+          <h2 className="font-display font-black text-2xl text-slate-900 dark:text-white tracking-tight">
             {currentChecklist.title}
           </h2>
-          <span className="text-xs font-mono text-brand-gold font-semibold bg-emerald-500/10 px-3 py-1 rounded-full">
-            READY FOR WHATSAPP UPLOAD
+          <span className="text-[10px] font-mono text-[#B8860B] dark:text-[#D4AF37] font-bold bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-3 py-1.5 rounded-[10px] uppercase tracking-wider">
+            READY FOR AUDIT
           </span>
         </div>
 
         <div className="space-y-3">
           {currentChecklist.items.map((item, idx) => (
-            <div key={idx} className="p-4 rounded-xl bg-canvas dark:bg-black/30 border border-border-subtle dark:border-white/5 flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+            <div key={idx} className="p-4 rounded-[12px] bg-slate-50 dark:bg-[#1a1a1a] border border-slate-200/60 dark:border-white/5 flex items-start gap-3.5 hover:border-[#D4AF37]/30 transition-all">
+              <div className="p-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 shrink-0 mt-0.5">
+                <CheckCircle2 className="w-4 h-4 text-[#B8860B] dark:text-[#D4AF37]" />
+              </div>
               <div>
-                <div className="font-bold text-sm text-content-primary dark:text-white">{item.title}</div>
-                <div className="text-xs text-content-muted dark:text-slate-400 mt-0.5">{item.note}</div>
+                <div className="font-bold text-sm text-slate-900 dark:text-white font-sans">{item.title}</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-sans">{item.note}</div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="pt-4 flex flex-col sm:flex-row gap-3">
+        <div className="pt-4 flex flex-col sm:flex-row gap-3.5">
           <motion.a
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             href={`https://wa.me/${cmsConfig?.global?.whatsappRaw || siteConfig.whatsappRaw}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md flex items-center justify-center gap-2"
+            className="flex-1 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-[10px] text-xs font-black uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer"
           >
             <WhatsAppIcon className="w-4 h-4" /> Send Scans via WhatsApp
           </motion.a>
@@ -173,9 +163,10 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onOpenCalculator('spouse')}
-            className="py-3.5 px-6 bg-brand-primary text-white rounded-xl text-xs font-bold shadow-md cursor-pointer"
+            className="py-4 px-8 bg-dark-gold-gloss text-slate-950 font-black rounded-[10px] text-xs uppercase tracking-wider shadow-[0_8px_16px_rgba(212,175,55,0.25)] hover:shadow-[0_12px_24px_rgba(212,175,55,0.4)] flex items-center justify-center gap-2 cursor-pointer"
           >
-            Calculate Fees →
+            <span>Calculate Fees</span>
+            <ArrowRight className="w-4 h-4" />
           </motion.button>
         </div>
       </motion.div>
@@ -186,7 +177,7 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto mt-12 p-8 rounded-xl bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 shadow-xl prose prose-invert max-w-none"
+          className="max-w-3xl mx-auto mt-12 p-8 sm:p-10 rounded-[16px] bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 shadow-xl prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300"
           dangerouslySetInnerHTML={{ __html: marked.parse(cmsConfig.pages.checklist.contentMarkdown) }}
         />
       )}

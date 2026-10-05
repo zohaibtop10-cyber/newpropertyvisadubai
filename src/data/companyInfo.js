@@ -1,0 +1,16 @@
+export const companyInfo = {
+  name: "PropertyVisa Dubai",
+  operatorName: "Operated by Brightlink Consulting",
+  legalEntity: "Brightlink Management Consultancy LLC",
+  tagline: "Official Dubai Residency, Business Setup & Real Estate Investor Visa Portal",
+  email: "info@propertyvisadubai.com",
+  phone: "+971 56 655 6645",
+  phoneRaw: "+971566556645",
+  whatsapp: "+971 56 655 6645",
+  whatsappRaw: "971566556645",
+  address: "Suite 402, Block B, Business Village, Deira, Dubai, UAE",
+  workingHours: "Mon-Sat: 8:00 AM - 8:00 PM GST",
+  copyright: `© 2026 PropertyVisa Dubai. All rights reserved.`,
+  googleRating: 4.9,
+  totalReviews: 1240,
+};

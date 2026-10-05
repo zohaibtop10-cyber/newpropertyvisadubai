@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings, Save, CheckCircle2, Phone, Clock, ShieldCheck, FileText, MapPin } from 'lucide-react';
+import { Settings, Save, CheckCircle2, Phone, ShieldCheck, FileText, MapPin, Sparkles, Sliders, Share2, Layers, Compass } from 'lucide-react';
 import { siteConfig } from '../../data/cmsData';
 
 export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
@@ -47,7 +47,6 @@ export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
     { id: 'nav-3', label: 'About Us', view: 'about', visible: true }
   ];
 
-  // Map over existing config to overwrite 'Property Support' to 'About Us' if it exists.
   const initialNavLinks = (cmsConfig?.navbarLinks || defaultNavLinks).map(link => 
     (link.label === 'Property Support') ? { ...link, label: 'About Us', view: 'about' } : link
   );
@@ -57,7 +56,7 @@ export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
   // Theme & Branding
   const [primaryColor, setPrimaryColor] = useState(cmsConfig?.global?.theme?.primaryColor || '#D4AF37');
   const [fontFamily, setFontFamily] = useState(cmsConfig?.global?.theme?.fontFamily || '"Inter", system-ui, -apple-system, sans-serif');
-  const [buttonRadius, setButtonRadius] = useState(cmsConfig?.global?.theme?.buttonRadius || '9999px');
+  const [buttonRadius, setButtonRadius] = useState(cmsConfig?.global?.theme?.buttonRadius && cmsConfig.global.theme.buttonRadius !== '9999px' ? cmsConfig.global.theme.buttonRadius : '10px');
 
   const [saveSuccess, setSaveSuccess] = useState(false);
 
@@ -87,331 +86,312 @@ export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
       }));
     }
 
-    if (typeof window !== 'undefined') {
-      const currentConfig = cmsConfig || {};
-      const newConfig = { ...currentConfig, global: updatedGlobal, navbarLinks: navLinks };
-    }
-
     setSaveSuccess(true);
     setTimeout(() => setSaveSuccess(false), 3500);
   };
 
   return (
-    <div className="max-w-4xl space-y-8 animate-fadeIn">
-      
+    <div className="max-w-5xl space-y-8 animate-fadeIn pb-16">
+      {/* Header Banner */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-brand-darkSurface border border-slate-800 p-6 sm:p-8 shadow-2xl">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-xs font-semibold">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>System-wide Preferences</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
+              Global Site Settings
+            </h1>
+            <p className="text-slate-400 text-sm max-w-xl">
+              Configure brand colors, contact channels, office locations, footer disclaimers, and top navbar destinations.
+            </p>
+          </div>
+          <button
+            onClick={handleSave}
+            className="px-6 py-3 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-black font-extrabold text-sm rounded-xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-200 flex items-center gap-2.5 shrink-0 cursor-pointer"
+          >
+            <Save className="w-4 h-4" />
+            <span>Publish Changes</span>
+          </button>
+        </div>
+      </div>
+
       {saveSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-brand-gold/30 rounded-xl text-brand-goldLight text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
-          <CheckCircle2 className="w-5 h-5 shrink-0" />
-          <span>Global website settings published and saved to live site!</span>
+        <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-sm font-semibold flex items-center gap-3 shadow-lg animate-fadeIn">
+          <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-400" />
+          <span>Global website settings successfully saved and synced across all pages!</span>
         </div>
       )}
 
       <form onSubmit={handleSave} className="space-y-8">
         
         {/* Theme & UI Branding Card */}
-        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-            <div className="p-3 rounded-xl bg-fuchsia-500/15 text-fuchsia-500">
-              <Settings className="w-6 h-6" />
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-5">
+            <div className="flex items-center gap-3.5">
+              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                <Sliders className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="font-display font-bold text-lg text-white">Theme & UI Styling</h2>
+                <p className="text-slate-400 text-xs mt-0.5">Control global brand palette, typography, and border radius</p>
+              </div>
             </div>
-            <div>
-              <h2 className="font-display font-extrabold text-xl text-white">Theme & UI Branding</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Control global aesthetics: colors, typography, and button styles</p>
-            </div>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/50">Theme Tokens</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Primary Brand Color</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Primary Accent Color</label>
               <div className="flex gap-3">
-                <input
-                  type="color"
-                  value={primaryColor}
-                  onChange={(e) => setPrimaryColor(e.target.value)}
-                  className="w-14 h-14 bg-brand-darkBg border border-slate-800 rounded-xl cursor-pointer"
-                />
+                <div className="relative">
+                  <input
+                    type="color"
+                    value={primaryColor}
+                    onChange={(e) => setPrimaryColor(e.target.value)}
+                    className="w-12 h-12 bg-slate-950 border border-slate-700/60 rounded-xl cursor-pointer p-1"
+                  />
+                </div>
                 <input
                   type="text"
                   value={primaryColor}
                   onChange={(e) => setPrimaryColor(e.target.value)}
-                  className="flex-1 bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-mono focus:outline-none focus:border-brand-primary"
+                  className="flex-1 bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-amber-500/50 transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Button Border Radius</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Button Border Radius</label>
               <select
                 value={buttonRadius}
                 onChange={(e) => setButtonRadius(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary appearance-none"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50 transition-colors appearance-none"
               >
-                <option value="0px">Sharp (0px)</option>
-                <option value="0.375rem">Slightly Rounded (Sm)</option>
-                <option value="0.75rem">Rounded (Md)</option>
-                <option value="1rem">Highly Rounded (Lg)</option>
-                <option value="9999px">Fully Rounded (Pill)</option>
+                <option value="10px">Default Luxury Boxy (10px)</option>
+                <option value="0px">Sharp Angles (0px)</option>
+                <option value="0.375rem">Slightly Rounded (6px)</option>
+                <option value="0.75rem">Smooth Curve (12px)</option>
+                <option value="1rem">High Round (16px)</option>
+                <option value="9999px">Full Pill (Rounded)</option>
               </select>
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-bold text-slate-300 mb-2">Global Font Family</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Global Font Stack</label>
               <input
                 type="text"
                 value={fontFamily}
                 onChange={(e) => setFontFamily(e.target.value)}
                 placeholder='"Inter", system-ui, sans-serif'
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-mono focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50 transition-colors"
               />
-              <p className="text-[10px] text-content-muted mt-2">Example: "Inter", system-ui, -apple-system, sans-serif</p>
+              <p className="text-[11px] text-slate-400 mt-1.5">Default fallback: "Inter", system-ui, -apple-system, sans-serif</p>
             </div>
           </div>
         </div>
 
         {/* Contact Info & Office Hours Card */}
-        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-            <div className="p-3 rounded-xl bg-sky-500/15 text-sky-500">
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
+            <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400">
               <Phone className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="font-display font-extrabold text-xl text-white">Contact & Operating Hours</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Edit phone numbers and operational hours shown across headers and footers</p>
+              <h2 className="font-display font-bold text-lg text-white">Contact & Operating Hours</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Edit phone numbers, WhatsApp routing, and office hours across site headers and footers</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Display Phone Number</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Display Phone Number</label>
               <input
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-mono font-bold focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono font-medium focus:outline-none focus:border-amber-500/50 transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">WhatsApp Raw Number (with country code)</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">WhatsApp Number (Direct International)</label>
               <input
                 type="text"
                 value={whatsapp}
                 onChange={(e) => setWhatsapp(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-brand-goldLight font-mono font-bold focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-emerald-400 font-mono font-medium focus:outline-none focus:border-amber-500/50 transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Official Email Address</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Official Advisory Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-mono font-bold focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono focus:outline-none focus:border-amber-500/50 transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Physical Office Address</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Primary Office Address</label>
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-bold text-slate-300 mb-2">Office Operating Hours</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Working Hours Schedule</label>
               <input
                 type="text"
                 value={hours}
                 onChange={(e) => setHours(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors"
               />
             </div>
           </div>
         </div>
 
         {/* Accreditation & Legal Disclaimer Card */}
-        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-            <div className="p-3 rounded-xl bg-brand-primary/15 text-brand-primary">
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
+            <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="font-display font-extrabold text-xl text-white">Accreditation & Disclaimer</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Edit license accreditation badges and footer legal text</p>
+              <h2 className="font-display font-bold text-lg text-white">Legal & Government Accreditation</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Manage trade license accreditation badges and compliance footers</p>
             </div>
           </div>
 
-          <div className="space-y-4 text-sm">
+          <div className="space-y-5 text-sm">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Government Accreditation Badge Text</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Official Accreditation Badge Text</label>
               <input
                 type="text"
                 value={accreditation}
                 onChange={(e) => setAccreditation(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Footer Legal Disclaimer Copy</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Footer Legal Disclaimer Notice</label>
               <textarea
                 rows={3}
                 value={disclaimer}
                 onChange={(e) => setDisclaimer(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50 transition-colors"
               />
             </div>
           </div>
         </div>
 
         {/* Locations Card */}
-        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-            <div className="p-3 rounded-xl bg-orange-500/15 text-orange-500">
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
+            <div className="p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400">
               <MapPin className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="font-display font-extrabold text-xl text-white">Office Locations</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Edit physical office locations across Dubai & Abu Dhabi</p>
+              <h2 className="font-display font-bold text-lg text-white">Branch Office Locations</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Edit exact office suite addresses for Dubai HQ and Abu Dhabi branches</p>
             </div>
           </div>
 
-          <div className="space-y-4 text-sm">
+          <div className="space-y-5 text-sm">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Dubai Main HQ Address</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Dubai Main HQ Address</label>
               <input
                 type="text"
                 value={dubaiOffice}
                 onChange={(e) => setDubaiOffice(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Abu Dhabi Branch Address</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Abu Dhabi Financial Center Branch</label>
               <input
                 type="text"
                 value={abudhabiOffice}
                 onChange={(e) => setAbuDhabiOffice(e.target.value)}
-                className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary"
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors"
               />
             </div>
           </div>
         </div>
 
         {/* Social Media Links Card */}
-        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-            <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
-              <Phone className="w-6 h-6" />
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
+            <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+              <Share2 className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="font-display font-extrabold text-xl text-white">Social Media Links</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Edit links to your social media profiles</p>
+              <h2 className="font-display font-bold text-lg text-white">Social Media Channels</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Link official corporate social profiles across all platform footers</p>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 text-sm">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Facebook URL</label>
-              <input type="text" value={facebook} onChange={(e) => setFacebook(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary" />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Instagram URL</label>
-              <input type="text" value={instagram} onChange={(e) => setInstagram(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary" />
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Facebook URL</label>
+              <input type="text" value={facebook} onChange={(e) => setFacebook(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">LinkedIn URL</label>
-              <input type="text" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary" />
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Instagram URL</label>
+              <input type="text" value={instagram} onChange={(e) => setInstagram(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">X (Twitter) URL</label>
-              <input type="text" value={twitter} onChange={(e) => setTwitter(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary" />
+              <label className="block text-xs font-semibold text-slate-300 mb-2">LinkedIn URL</label>
+              <input type="text" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">YouTube URL</label>
-              <input type="text" value={youtube} onChange={(e) => setYoutube(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary" />
+              <label className="block text-xs font-semibold text-slate-300 mb-2">X (Twitter) URL</label>
+              <input type="text" value={twitter} onChange={(e) => setTwitter(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">TikTok URL</label>
-              <input type="text" value={tiktok} onChange={(e) => setTiktok(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary" />
+              <label className="block text-xs font-semibold text-slate-300 mb-2">YouTube Channel</label>
+              <input type="text" value={youtube} onChange={(e) => setYoutube(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Pinterest URL</label>
-              <input type="text" value={pinterest} onChange={(e) => setPinterest(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary" />
+              <label className="block text-xs font-semibold text-slate-300 mb-2">TikTok Profile</label>
+              <input type="text" value={tiktok} onChange={(e) => setTiktok(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Telegram URL</label>
-              <input type="text" value={telegram} onChange={(e) => setTelegram(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-4 text-white font-semibold focus:outline-none focus:border-brand-primary" />
-            </div>
-          </div>
-        </div>
-
-        {/* Logo & Branding Card */}
-        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-            <div className="p-3 rounded-xl bg-purple-500/15 text-purple-500">
-              <Settings className="w-6 h-6" />
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Pinterest URL</label>
+              <input type="text" value={pinterest} onChange={(e) => setPinterest(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors" />
             </div>
             <div>
-              <h2 className="font-display font-extrabold text-xl text-white">Logo & Navbar Branding</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Edit your logo texts and header action buttons</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Logo Icon Badge (Main Text)</label>
-              <input type="text" value={logoIcon} onChange={(e) => setLogoIcon(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-3 text-white font-semibold focus:outline-none focus:border-brand-primary" />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Logo Icon Subtext</label>
-              <input type="text" value={logoSubtext} onChange={(e) => setLogoSubtext(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-3 text-white font-semibold focus:outline-none focus:border-brand-primary" />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Brand Title (Main Name)</label>
-              <input type="text" value={brandTitle} onChange={(e) => setBrandTitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-3 text-white font-semibold focus:outline-none focus:border-brand-primary" />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Brand Subtitle</label>
-              <input type="text" value={brandSubtitle} onChange={(e) => setBrandSubtitle(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-3 text-white font-semibold focus:outline-none focus:border-brand-primary" />
-            </div>
-            <div className="sm:col-span-2 mt-2 border-t border-slate-800 pt-4">
-              <h3 className="text-sm font-bold text-slate-300 mb-3">Navbar Buttons</h3>
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Services Button Label</label>
-              <input type="text" value={btnServices} onChange={(e) => setBtnServices(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-3 text-white font-semibold focus:outline-none focus:border-brand-primary" />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Calculator Button Label</label>
-              <input type="text" value={btnCalculator} onChange={(e) => setBtnCalculator(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-3 text-white font-semibold focus:outline-none focus:border-brand-primary" />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Talk to Us Button Label</label>
-              <input type="text" value={btnTalk} onChange={(e) => setBtnTalk(e.target.value)} className="w-full bg-brand-darkBg border border-slate-800 rounded-xl p-3 text-white font-semibold focus:outline-none focus:border-brand-primary" />
+              <label className="block text-xs font-semibold text-slate-300 mb-2">Telegram Support Channel</label>
+              <input type="text" value={telegram} onChange={(e) => setTelegram(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500/50 transition-colors" />
             </div>
           </div>
         </div>
 
-        {/* Nav Links Card */}
-        <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
-            <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
-              <FileText className="w-6 h-6" />
+        {/* Dynamic Nav Links Card */}
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
+            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              <Compass className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="font-display font-extrabold text-xl text-white">Dynamic Navigation Links</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Edit the exact labels and destinations for the main navigation menu</p>
+              <h2 className="font-display font-bold text-lg text-white">Dynamic Header Navigation Links</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Customize main navigation bar titles and page target destinations</p>
             </div>
           </div>
           <div className="space-y-4">
             {navLinks.map((link, index) => (
-              <div key={link.id} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-brand-darkBg/50 p-4 rounded-xl border border-slate-800">
+              <div key={link.id} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
                 <div className="flex-1 w-full">
-                  <label className="block text-xs font-bold text-slate-400 mb-1.5">Link Label</label>
+                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">Link Display Label</label>
                   <input 
                     type="text" 
                     value={link.label} 
@@ -420,11 +400,11 @@ export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
                       newLinks[index].label = e.target.value;
                       setNavLinks(newLinks);
                     }} 
-                    className="w-full bg-brand-darkBg border border-slate-700 rounded-lg p-2.5 text-white font-semibold focus:outline-none focus:border-brand-primary text-sm" 
+                    className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3.5 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50 text-sm" 
                   />
                 </div>
                 <div className="flex-1 w-full">
-                  <label className="block text-xs font-bold text-slate-400 mb-1.5">Navigation Destination (View)</label>
+                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">Destination View</label>
                   <select 
                     value={link.view} 
                     onChange={(e) => {
@@ -432,7 +412,7 @@ export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
                       newLinks[index].view = e.target.value;
                       setNavLinks(newLinks);
                     }} 
-                    className="w-full bg-brand-darkBg border border-slate-700 rounded-lg p-2.5 text-white font-semibold focus:outline-none focus:border-brand-primary text-sm"
+                    className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3.5 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50 text-sm"
                   >
                     <option value="home">Home Page</option>
                     <option value="about">About Us Page</option>
@@ -445,17 +425,18 @@ export default function GlobalSettings({ cmsConfig, setCmsConfig }) {
           </div>
         </div>
 
-        {/* Single Save Button */}
-        <button
-          type="submit"
-          className="w-full py-4 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 font-bold text-base rounded-xl shadow-xl shadow-[#D4AF37]/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
-        >
-          <Save className="w-5 h-5" />
-          <span>Publish & Save Global Settings</span>
-        </button>
+        {/* Save Button Bar */}
+        <div className="pt-4 sticky bottom-4 z-20">
+          <button
+            type="submit"
+            className="w-full py-4 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-black font-extrabold text-base rounded-xl shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 flex items-center justify-center gap-2.5 transition-all duration-200 cursor-pointer"
+          >
+            <Save className="w-5 h-5" />
+            <span>Save & Publish All Global Settings</span>
+          </button>
+        </div>
 
       </form>
-
     </div>
   );
 }

@@ -86,9 +86,7 @@ export function TranslationProvider({ children, language, setLanguage }) {
       }
     };
 
-    // Execute
     triggerGoogleTranslate();
-
   }, [language]);
 
   // Deep key translation function (e.g. t('navbar.home'))

@@ -52,8 +52,8 @@ const ICON_MAP = {
 
 // Resolve icon: accepts a React component OR a string name
 function resolveIcon(icon) {
-  if (!icon) return Trophy;
-  if (typeof icon === 'string') return ICON_MAP[icon] || Trophy;
+  if (!icon) return null;
+  if (typeof icon === 'string') return ICON_MAP[icon] || null;
   return icon;
 }
 import {
@@ -62,6 +62,7 @@ import {
   blogPostsData,
   siteConfig
 } from '../data/cmsData';
+import ProcessTimeline from './ProcessTimeline';
 
 // Animated counter hook
 function useCounter(end, duration = 2000, startOnView = false, isInView = true) {
@@ -290,8 +291,9 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
   ];
 
   const filteredServices = serviceCategory === 'all'
-    ? categorizedServices
-    : categorizedServices.filter(s => {
+    ? (categorizedServices || [])
+    : (categorizedServices || []).filter(s => {
+      if (!s) return false;
       if (serviceCategory === 'visas') return s.tag === 'Visas';
       if (serviceCategory === 'emiratesId') return s.tag === 'Emirates ID & Medical';
       if (serviceCategory === 'legal') return s.tag === 'Legal & Attestation';
@@ -475,19 +477,15 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
     switch (id) {
       case 'hero':
         return (
-          <section key="hero" id="top" className="pt-12 sm:pt-16 lg:pt-20 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 min-h-[85vh] flex flex-col justify-center">
-            {/* Animated Background Blobs */}
-            <motion.div 
-              animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute top-10 -left-64 w-[500px] h-[500px] bg-brand-primary/20 rounded-full blur-[120px] pointer-events-none -z-10" 
+          <section key="hero" id="top" className="pt-6 sm:pt-8 lg:pt-10 pb-12 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 min-h-[75vh] lg:min-h-[80vh] flex flex-col justify-center" style={{ backgroundImage: "radial-gradient(ellipse 80% 80% at 50% -20%, rgba(212,175,55,0.12), rgba(255,255,255,0))" }}>
+            {/* Luxury Ambient Lighting Layer */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.05),transparent_50%)] pointer-events-none -z-10 mix-blend-screen" />
+            <motion.div
+              animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-0 right-1/4 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.1)_0%,transparent_60%)] pointer-events-none -z-10"
             />
-            <motion.div 
-              animate={{ scale: [1, 1.5, 1], rotate: [0, -90, 0], opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute top-40 right-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none -z-10 hidden lg:block" 
-            />
-            
+
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -497,16 +495,15 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
               {/* Left Column: Text & CTA */}
               <div className="lg:col-span-7 space-y-8 md:space-y-10 relative z-20">
                 <div className="space-y-4">
-                  <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-xs font-bold uppercase tracking-widest">
-                    <Star className="w-3.5 h-3.5 fill-brand-primary" />
-                    Premium Visa Consultancy
+                  <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[10px] bg-[#D4AF37]/5 border border-[#D4AF37]/40 text-[#B8860B] text-xs font-extrabold uppercase tracking-widest shadow-sm">
+                    <span className="text-[#B37700] animate-pulse">★</span> Premium Visa Consultancy
                   </motion.div>
                   <motion.h1 variants={itemVariants} className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-black tracking-tight leading-[1.05] drop-shadow-sm">
                     <span className="text-content-primary dark:text-white drop-shadow-sm">
                       {heroMainHeadline.split(' ').slice(0, 3).join(' ')}
                     </span>
                     <br />
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D4AF37] via-[#F0D782] to-[#B8860B]">
+                    <span className="text-dark-gold-shine font-black tracking-tight drop-shadow-[0_2px_4px_rgba(89,58,0,0.15)]">
                       {heroMainHeadline.split(' ').slice(3).join(' ')}
                     </span>
                   </motion.h1>
@@ -525,7 +522,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                       transition={{ delay: 0.6 + i * 0.15, duration: 0.5 }}
                       className="flex items-center gap-3 text-sm font-bold text-content-secondary dark:text-slate-200"
                     >
-                      <div className="p-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                      <div className="p-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20">
                         <CheckCircle2 className="w-4 h-4 text-brand-gold" />
                       </div>
                       <span>{stat}</span>
@@ -534,16 +531,14 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                 </motion.ul>
 
                 <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <motion.button
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
+                  <button
                     onClick={() => onOpenCalculator('property')}
-                    className="flex items-center justify-center gap-3 bg-gradient-to-r from-[#D4AF37] to-[#996515] hover:from-[#E5C158] hover:to-[#A67822] text-white px-8 py-4.5 rounded-xl font-extrabold text-base transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_35px_rgba(212,175,55,0.5)] cursor-pointer group relative overflow-hidden border border-[#F0D782]/30 btn-shine-effect"
+                    className="group relative px-8 py-4 rounded-[10px] bg-dark-gold-gloss text-slate-950 font-black text-sm tracking-widest uppercase shadow-[0_8px_16px_rgba(212,175,55,0.25)] hover:shadow-[0_12px_24px_rgba(212,175,55,0.4)] hover:-translate-y-1 transition-all duration-500 overflow-hidden cursor-pointer"
                   >
-                    <Calculator className="w-5 h-5 relative z-10" />
-                    <span className="relative z-10">Calculate Property Visa</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform relative z-10" />
-                  </motion.button>
+                    <span className="relative z-10">Calculate Property Visa &rarr;</span>
+                    {/* Magnetic Sweeping Shine Effect */}
+                    <div className="absolute inset-0 w-[200%] -translate-x-[150%] skew-x-[-25deg] bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:translate-x-[50%] transition-transform duration-1000 ease-in-out pointer-events-none" />
+                  </button>
 
                   <motion.a
                     whileHover={{ scale: 1.05, y: -2 }}
@@ -551,7 +546,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                     href={`https://wa.me/${cmsConfig?.global?.whatsappRaw || siteConfig.whatsappRaw}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 bg-surface dark:bg-white/5 hover:bg-canvas dark:hover:bg-surface/10 text-content-primary dark:text-white px-8 py-4.5 rounded-xl font-extrabold text-base transition-all shadow-md border border-border-subtle dark:border-white/10 group cursor-pointer"
+                    className="flex items-center justify-center gap-3 bg-surface dark:bg-white/5 hover:bg-canvas dark:hover:bg-surface/10 text-content-primary dark:text-white px-8 py-4.5 rounded-[10px] font-extrabold text-base transition-all shadow-md border border-border-subtle dark:border-white/10 group cursor-pointer"
                   >
                     <WhatsAppIcon className="w-5 h-5 text-brand-gold" />
                     <span>WhatsApp Specialist</span>
@@ -566,18 +561,16 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                 <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-brand-primary/10 rounded-full blur-2xl pointer-events-none" />
 
                 <motion.div
-                  className="rounded-3xl bg-surface dark:bg-[#0A0B0E]/95 backdrop-blur-xl border border-border-subtle dark:border-brand-primary/20 shadow-[0_8px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_40px_rgba(212,175,55,0.15)] relative overflow-hidden flex flex-col"
+                  className="rounded-[10px] bg-white/70 dark:bg-[#0A0B0E]/70 backdrop-blur-2xl border border-white/50 dark:border-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.1)] dark:shadow-[0_30px_60px_-20px_rgba(212,175,55,0.15)] relative overflow-hidden flex flex-col"
                 >
                   {/* Calculator Header (Inspired by familyvisa.ae) */}
-                  <div className="bg-gradient-to-r from-[#D4AF37] to-[#996515] p-5 flex items-center justify-between text-black shadow-md">
-                    <div className="flex items-center gap-3">
-                      <Calculator className="w-5 h-5 text-black" />
-                      <h3 className="font-extrabold text-base tracking-tight uppercase">Instant Visa Calculator</h3>
-                    </div>
-                    <div className="flex items-center gap-1.5 bg-black/10 border border-black/20 px-3 py-1 rounded-full">
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-700 animate-pulse"></div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-black">Live</span>
-                    </div>
+                  <div className="w-full px-6 py-4 bg-[#0A0A0A] rounded-t-[10px] border-b border-[#D4AF37]/40 flex justify-between items-center shadow-sm">
+                    <h3 className="font-bold tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#FCE181]">
+                      Instant Visa Calculator
+                    </h3>
+                    <span className="px-2 py-0.5 rounded-[10px] bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/30 text-[10px] font-black uppercase tracking-wider animate-pulse">
+                      Live
+                    </span>
                   </div>
 
                   {/* Calculator Body */}
@@ -599,20 +592,20 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                           <div
                             key={item.id}
                             onClick={() => onOpenCalculator(item.tab)}
-                            className="group flex items-center gap-4 p-4 rounded-2xl border border-border-subtle dark:border-white/10 bg-canvas dark:bg-black/40 cursor-pointer transition-all hover:border-brand-primary hover:bg-brand-primary/5 hover:shadow-md"
+                            className="group flex items-center gap-4 p-4 rounded-[10px] border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-black/40 backdrop-blur-sm cursor-pointer transition-all hover:border-[#D4AF37]/50 hover:bg-[#D4AF37]/5 hover:shadow-[0_10px_20px_-10px_rgba(212,175,55,0.2)]"
                           >
                             <div className="flex-none w-5 h-5 rounded-full border-2 border-border-strong dark:border-slate-600 relative group-hover:border-brand-primary transition-colors">
-                              <div className="absolute inset-1 rounded-full bg-brand-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                              <div className="absolute inset-1 rounded-full bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             </div>
                             <div className="flex-1">
-                              <span className="block font-bold text-sm text-content-primary dark:text-white group-hover:text-brand-primary transition-colors">
+                              <span className="block font-bold text-sm text-content-primary dark:text-white group-hover:text-[#B8860B] transition-colors">
                                 {item.title}
                               </span>
                               <span className="block text-xs text-content-muted dark:text-slate-400 mt-0.5">
                                 {item.desc}
                               </span>
                             </div>
-                            <Icon className="flex-none w-5 h-5 text-content-muted dark:text-slate-400 group-hover:text-brand-primary transition-colors" />
+                            <Icon className="flex-none w-5 h-5 text-content-muted dark:text-slate-400 group-hover:text-[#B8860B] transition-colors" />
                           </div>
                         );
                       })}
@@ -637,10 +630,10 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={statsInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ delay: i * 0.1, duration: 0.5, type: 'spring' }}
-                    className={`space-y-1.5 ${i > 0 ? 'pt-6 sm:pt-0' : ''}`}
+                    className={`space-y-1.5 ${i > 0 ? 'pt-6 sm:pt-0' : ''} group`}
                   >
-                    <div className="font-display font-extrabold text-3xl sm:text-4xl text-brand-primary dark:text-gradient-shimmer">{m.val}</div>
-                    <div className="text-xs sm:text-sm font-semibold text-content-secondary dark:text-slate-400">{m.label}</div>
+                    <div className="font-display font-black text-3xl sm:text-4xl bg-gradient-to-br from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">{m.val}</div>
+                    <div className="text-xs sm:text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{m.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -652,7 +645,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
         return (
           <RevealSection key="achievements" className="w-full relative z-10 px-4 sm:px-6">
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 mix-blend-overlay pointer-events-none" />
-            <motion.div 
+            <motion.div
               variants={cardGridVariants}
               initial="hidden"
               whileInView="show"
@@ -661,62 +654,67 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
             >
 
               {/* Item 1 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-surface dark:bg-black/40 border border-border-subtle dark:border-white/5 backdrop-blur-sm group hover:border-brand-primary/30 transition-colors shadow-sm">
+              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-r from-brand-primary/40 to-brand-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <Trophy className="w-10 h-10 sm:w-12 sm:h-12 text-brand-primary relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                  <Trophy className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
                 </div>
-                <div className="space-y-1">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-content-primary dark:text-white font-display tracking-tight">No #1</div>
-                  <div className="text-brand-primary text-xs sm:text-sm font-bold uppercase tracking-wider">Top Agency</div>
+                <div className="space-y-1 relative z-10">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">No #1</div>
+                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Top Agency</div>
                 </div>
               </motion.div>
 
               {/* Item 2 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-surface dark:bg-black/40 border border-border-subtle dark:border-white/5 backdrop-blur-sm group hover:border-brand-primary/30 transition-colors shadow-sm">
+              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-r from-brand-primary/40 to-brand-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <Star className="w-10 h-10 sm:w-12 sm:h-12 text-brand-primary fill-brand-primary/20 relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                  <Star className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] fill-[#D4AF37]/20 relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
                 </div>
-                <div className="space-y-1">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-content-primary dark:text-white font-display tracking-tight">4.9*</div>
-                  <div className="text-brand-primary text-xs sm:text-sm font-bold uppercase tracking-wider">Google Rating</div>
+                <div className="space-y-1 relative z-10">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">4.9*</div>
+                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Google Rating</div>
                 </div>
               </motion.div>
 
               {/* Item 3 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-surface dark:bg-black/40 border border-border-subtle dark:border-white/5 backdrop-blur-sm group hover:border-brand-primary/30 transition-colors shadow-sm">
+              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-r from-brand-primary/40 to-brand-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <ThumbsUp className="w-10 h-10 sm:w-12 sm:h-12 text-brand-primary relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                  <ThumbsUp className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
                 </div>
-                <div className="space-y-1">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-content-primary dark:text-white font-display tracking-tight">100%</div>
-                  <div className="text-brand-primary text-xs sm:text-sm font-bold uppercase tracking-wider">Client Satisfaction</div>
+                <div className="space-y-1 relative z-10">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">100%</div>
+                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Client Satisfaction</div>
                 </div>
               </motion.div>
 
               {/* Item 4 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-surface dark:bg-black/40 border border-border-subtle dark:border-white/5 backdrop-blur-sm group hover:border-brand-primary/30 transition-colors shadow-sm">
+              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-r from-brand-primary/40 to-brand-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <Users className="w-10 h-10 sm:w-12 sm:h-12 text-brand-primary relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                  <Users className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
                 </div>
-                <div className="space-y-1">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-content-primary dark:text-white font-display tracking-tight">15+</div>
-                  <div className="text-brand-primary text-xs sm:text-sm font-bold uppercase tracking-wider">Expert PROs</div>
+                <div className="space-y-1 relative z-10">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">15+</div>
+                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Expert PROs</div>
                 </div>
               </motion.div>
 
               {/* Item 5 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 col-span-2 lg:col-span-1 p-6 rounded-2xl bg-surface dark:bg-black/40 border border-border-subtle dark:border-white/5 backdrop-blur-sm group hover:border-brand-primary/30 transition-colors shadow-sm">
+              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 col-span-2 lg:col-span-1 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-r from-brand-primary/40 to-brand-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <FileText className="w-10 h-10 sm:w-12 sm:h-12 text-brand-primary relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                  <FileText className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
                 </div>
-                <div className="space-y-1">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-content-primary dark:text-white font-display tracking-tight">5500+</div>
-                  <div className="text-brand-primary text-xs sm:text-sm font-bold uppercase tracking-wider">Visas Issued</div>
+                <div className="space-y-1 relative z-10">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">5500+</div>
+                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Visas Issued</div>
                 </div>
               </motion.div>
 
@@ -727,14 +725,16 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
       case 'problems':
         return (
           <RevealSection key="problems" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
-            <div className="bg-surface dark:bg-black/20 backdrop-blur-md rounded-3xl p-8 sm:p-12 border border-border-subtle dark:border-white/5 space-y-10 shadow-[var(--shadow-card)] relative overflow-hidden">
-              <div className="text-center max-w-2xl mx-auto space-y-2 relative z-10">
-                <div className="text-brand-primary font-mono text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-brand-primary" />
-                  <span>THE 800 DOCS ADVANTAGE</span>
-                </div>
-                <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-content-primary dark:text-white tracking-tight">{cmsConfig?.problems?.title || "The Problems We Solve"}</h2>
-                <p className="text-content-muted dark:text-slate-400 text-sm">{cmsConfig?.problems?.subtext || "Avoid bureaucracy, surprise fees, and endless waiting queues at service centers."}</p>
+            <div className="bg-white/80 dark:bg-[#0a0a0a]/90 backdrop-blur-2xl rounded-[24px] p-8 sm:p-12 border border-slate-200 dark:border-white/10 space-y-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/5 blur-3xl rounded-full pointer-events-none -mr-20 -mt-20" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#D4AF37]/5 blur-3xl rounded-full pointer-events-none -ml-20 -mb-20" />
+              
+              <div className="text-center max-w-2xl mx-auto space-y-4 relative z-10">
+                <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
+                  THE 800 DOCS ADVANTAGE
+                </span>
+                <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{cmsConfig?.problems?.title || "The Problems We Solve"}</h2>
+                <p className="text-slate-500 dark:text-slate-400 text-sm">{cmsConfig?.problems?.subtext || "Avoid bureaucracy, surprise fees, and endless waiting queues at service centers."}</p>
               </div>
 
               <motion.div
@@ -749,19 +749,21 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                     key={idx}
                     variants={cardItemVariants}
                     whileHover={{ scale: 1.02 }}
-                    className="p-6 rounded-xl bg-surface dark:bg-black/40 border border-border-subtle dark:border-white/5 space-y-4 shadow-sm"
+                    className="p-6 rounded-[16px] bg-slate-50 dark:bg-[#111111] border border-slate-200 dark:border-white/5 space-y-4 shadow-sm hover:border-[#D4AF37]/30 transition-all duration-300 relative overflow-hidden group"
                   >
-                    <div className="flex items-start gap-3 p-3.5 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-900 dark:text-red-200 text-xs leading-relaxed">
-                      <XCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    
+                    <div className="flex items-start gap-4 p-4 rounded-[12px] bg-slate-100 dark:bg-[#1a1a1a] border border-transparent text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                      <XCircle className="w-5 h-5 text-slate-400 dark:text-slate-500 shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold text-red-600 dark:text-red-400 block mb-0.5">THE OLD WAY / PROBLEM:</span>
+                        <span className="font-bold text-slate-700 dark:text-slate-300 block mb-1 text-[10px] tracking-widest uppercase">The Old Way / Problem:</span>
                         {item.problem}
                       </div>
                     </div>
-                    <div className="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-900 dark:text-emerald-200 text-xs leading-relaxed">
-                      <CheckCircle2 className="w-4 h-4 text-brand-gold dark:text-brand-goldLight shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-4 p-4 rounded-[12px] bg-white dark:bg-[#111111] border border-[#D4AF37]/30 text-slate-900 dark:text-white text-xs leading-relaxed shadow-[0_4px_20px_rgba(212,175,55,0.08)]">
+                      <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold text-emerald-600 dark:text-brand-goldLight block mb-0.5">HOW WE SOLVE IT:</span>
+                        <span className="font-bold text-[#B8860B] dark:text-[#D4AF37] block mb-1 text-[10px] tracking-widest uppercase">How We Solve It:</span>
                         {item.solution || item.desc}
                       </div>
                     </div>
@@ -776,13 +778,15 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
         return (
           <RevealSection key="services" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div className="space-y-2 max-w-2xl">
-                <div className="text-brand-primary font-mono text-xs font-bold uppercase tracking-widest">END-TO-END SERVICES</div>
-                <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-content-primary dark:text-white tracking-tight">Everything We Handle</h2>
-                <p className="text-content-muted dark:text-slate-400 text-sm sm:text-base">One dedicated advisory team for residency visas, identity cards, medical checkups, and document attestation.</p>
+              <div className="space-y-4 max-w-2xl">
+                <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
+                  END-TO-END SERVICES
+                </span>
+                <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Everything We Handle</h2>
+                <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">One dedicated advisory team for residency visas, identity cards, medical checkups, and document attestation.</p>
               </div>
 
-              <div className="flex flex-wrap gap-2 bg-surface-elevated dark:bg-brand-surfaceLight p-1.5 rounded-xl border border-border-subtle dark:border-slate-800">
+              <div className="flex flex-wrap gap-2 bg-slate-100 dark:bg-[#1a1a1a] p-1.5 rounded-[12px] border border-slate-200 dark:border-white/5 shadow-inner">
                 {[
                   { key: 'all', label: `All Services (${categorizedServices.length})` },
                   { key: 'visas', label: 'Visas' },
@@ -794,7 +798,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setServiceCategory(cat.key)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${serviceCategory === cat.key ? 'bg-brand-primary text-white shadow-md shadow-[#D4AF37]/20' : 'text-content-muted dark:text-slate-400 hover:text-content-primary dark:hover:text-white'
+                    className={`px-4 py-2 rounded-[10px] text-xs font-bold transition-all duration-300 cursor-pointer ${serviceCategory === cat.key ? 'bg-gradient-to-b from-[#F3E5AB] to-[#D4AF37] text-black shadow-[0_4px_12px_rgba(212,175,55,0.3)]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5'
                       }`}
                   >
                     {cat.label}
@@ -809,10 +813,10 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: '-60px' }}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               <AnimatePresence mode="popLayout">
-                {filteredServices.map((srv) => {
+                {filteredServices.map((srv, idx) => {
                   const Icon = resolveIcon(srv.icon);
                   return (
                     <motion.div
@@ -822,22 +826,22 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                       initial="hidden"
                       animate="show"
                       exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                      whileHover={{ y: -10, scale: 1.02 }}
-                      className="p-7 rounded-xl border flex flex-col justify-between bg-surface dark:bg-[#0A0B0E] border-border-subtle dark:border-white/10 group shadow-lg hover:shadow-2xl hover:shadow-brand-primary/10 transition-all duration-500 relative overflow-hidden"
+                      className="group relative bg-white/80 dark:bg-[#111111]/80 backdrop-blur-xl p-8 rounded-[12px] border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] hover:-translate-y-1 hover:border-[#D4AF37]/40 transition-all duration-500 overflow-hidden cursor-pointer flex flex-col justify-between"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                      {/* Animated inner glow on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                       <div className="space-y-4 relative z-10">
                         <div className="flex items-center justify-between">
-                          <div className="p-3 rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-white/10 dark:to-white/5 border border-border-subtle dark:border-white/10 text-brand-primary group-hover:bg-brand-primary group-hover:border-brand-primary group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-md group-hover:shadow-[#D4AF37]/30">
+                          <div className="p-3 rounded-[12px] bg-slate-50 dark:bg-[#1a1a1a] border border-slate-200 dark:border-white/5 text-[#B8860B] dark:text-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-black transition-all duration-300 shadow-sm group-hover:shadow-[0_4px_15px_rgba(212,175,55,0.4)]">
                             <Icon className="w-6 h-6 transition-colors duration-300" />
                           </div>
-                          <span className="text-[10px] font-mono font-bold text-brand-primary bg-brand-primary/10 border border-brand-primary/20 px-2.5 py-1 rounded-full uppercase transition-colors group-hover:bg-brand-primary/20">
+                          <span className="text-[9px] font-mono font-bold text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-2.5 py-1 rounded-full uppercase transition-colors group-hover:bg-[#D4AF37]/20">
                             {srv.tag || srv.category || 'Visa'}
                           </span>
                         </div>
                         <div>
-                          <h3 className="font-display text-xl font-bold text-content-primary dark:text-white group-hover:text-brand-primary transition-colors">{srv.title}</h3>
-                          <p className="text-content-muted dark:text-slate-400 text-xs leading-relaxed mt-2">{srv.desc || srv.shortDesc}</p>
+                          <h3 className="font-display text-xl font-black text-slate-900 dark:text-white group-hover:text-[#B8860B] transition-colors">{srv.title}</h3>
+                          <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mt-2 font-medium">{srv.desc || srv.shortDesc}</p>
                         </div>
                       </div>
 
@@ -847,15 +851,21 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                           className="text-xs font-bold text-brand-primary group-hover:underline cursor-pointer flex items-center gap-1"
                         >
                           <span>View Details</span>
-                          <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </button>
 
                         <button
                           onClick={() => onOpenCalculator('spouse')}
-                          className="text-xs font-semibold text-content-muted dark:text-slate-400 hover:text-brand-primary dark:hover:text-brand-primary cursor-pointer transition-colors bg-surface-elevated dark:bg-white/5 px-3 py-1.5 rounded-lg group-hover:bg-brand-primary/10 group-hover:text-brand-primary"
+                          className="relative z-20 text-xs font-bold bg-[#D4AF37]/10 text-[#B8860B] px-4 py-2 rounded-[10px] group-hover:bg-dark-gold-gloss group-hover:text-black transition-all cursor-pointer"
                         >
                           Calculate →
                         </button>
+                      </div>
+                      
+                      {/* Animated Arrow */}
+                      <div className="absolute bottom-6 right-6 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[#D4AF37] pointer-events-none">
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
                       </div>
                     </motion.div>
                   );
@@ -868,91 +878,93 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
       case 'transparency':
         return (
           <RevealSection key="transparency" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
-            <div className="text-center max-w-3xl mx-auto space-y-3">
-              <div className="text-brand-gold font-mono text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-brand-gold" />
-                <span>TOTAL TRANSPARENCY GUARANTEE</span>
-              </div>
-              <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-content-primary dark:text-white tracking-tight">
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
+                TOTAL TRANSPARENCY GUARANTEE
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                 Unbundled Billing. Zero Hidden Surprises.
               </h2>
-              <p className="text-content-muted dark:text-slate-400 text-sm sm:text-base">
+              <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">
                 We split government statutory fees and our professional fee line-by-line so you know exactly where every Dirham goes.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* Left Card: Official Government Tariffs */}
-              <div className="bg-surface dark:bg-[#0c0e12] border border-border-subtle dark:border-white/10 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden">
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md border border-slate-200 dark:border-white/5 rounded-[20px] p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 dark:bg-white/5 blur-3xl rounded-full pointer-events-none" />
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4 relative z-10">
                   <div>
-                    <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider block">Official Government Tariffs</span>
-                    <h3 className="font-extrabold text-xl text-white">Government & Authority Fees</h3>
+                    <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block">Official Government Tariffs</span>
+                    <h3 className="font-black text-xl text-slate-900 dark:text-white mt-1">Government & Authority Fees</h3>
                   </div>
-                  <span className="bg-white/10 text-white font-mono text-xs font-bold px-3 py-1 rounded-full uppercase">At Official Cost</span>
+                  <span className="bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white font-mono text-[10px] font-bold px-3 py-1 rounded-[10px] uppercase">At Official Cost</span>
                 </div>
 
-                <ul className="space-y-3.5 text-sm text-slate-300">
-                  <li className="flex items-center justify-between py-2 border-b border-white/5">
+                <ul className="space-y-3.5 text-sm text-slate-600 dark:text-slate-300 relative z-10">
+                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
                     <span>GDRFA File Opening & Sponsor Clearance</span>
-                    <span className="font-mono font-bold text-white">AED 268.90</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 268.90</span>
                   </li>
-                  <li className="flex items-center justify-between py-2 border-b border-white/5">
+                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
                     <span>Entry Permit E-Visa Clearance</span>
-                    <span className="font-mono font-bold text-white">AED 1,125.65</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 1,125.65</span>
                   </li>
-                  <li className="flex items-center justify-between py-2 border-b border-white/5">
+                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
                     <span>Status Change (In-Country Transfer)</span>
-                    <span className="font-mono font-bold text-white">AED 675.65</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 675.65</span>
                   </li>
-                  <li className="flex items-center justify-between py-2 border-b border-white/5">
+                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
                     <span>DHA / EHS Medical Fitness Test</span>
-                    <span className="font-mono font-bold text-white">AED 320.00</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 320.00</span>
                   </li>
-                  <li className="flex items-center justify-between py-2 border-b border-white/5">
+                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
                     <span>ICP Emirates ID Card (2-Year Validity)</span>
-                    <span className="font-mono font-bold text-white">AED 390.00</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 390.00</span>
                   </li>
                 </ul>
 
-                <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between">
-                  <span className="text-xs text-slate-400 font-medium">Original GDRFA & ICP Government Receipts Provided</span>
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                <div className="p-4 rounded-[12px] bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center justify-between relative z-10">
+                  <span className="text-xs text-emerald-900 dark:text-emerald-300 font-bold tracking-tight">Original GDRFA & ICP Government Receipts Provided</span>
+                  <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                 </div>
               </div>
 
               {/* Right Card: Fixed Service Retainer */}
-              <div className="bg-gradient-to-br from-brand-gold/15 via-[#0c0e12] to-[#0c0e12] border-2 border-brand-gold/40 rounded-2xl p-6 sm:p-8 space-y-6 shadow-[0_0_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
-                <div className="flex items-center justify-between border-b border-brand-gold/30 pb-4">
+              <div className="bg-gradient-to-br from-white to-slate-50 dark:from-[#1a1a1a] dark:to-[#111111] border-2 border-[#D4AF37]/40 rounded-[20px] p-6 sm:p-8 space-y-6 shadow-[0_8px_30px_rgba(212,175,55,0.15)] relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#D4AF37]/10 blur-3xl rounded-full pointer-events-none -mr-10 -mt-10" />
+                
+                <div className="flex items-center justify-between border-b border-[#D4AF37]/30 pb-4 relative z-10">
                   <div>
-                    <span className="text-xs font-mono font-bold text-brand-gold uppercase tracking-wider block">One Flat Retainer</span>
-                    <h3 className="font-extrabold text-xl text-white">Our Professional Service Charge</h3>
+                    <span className="text-[10px] font-mono font-bold text-[#B8860B] dark:text-[#D4AF37] uppercase tracking-wider block">One Flat Retainer</span>
+                    <h3 className="font-black text-xl text-slate-900 dark:text-white mt-1">Our Professional Service Charge</h3>
                   </div>
-                  <span className="bg-brand-gold text-black font-mono text-sm font-extrabold px-3.5 py-1.5 rounded-full uppercase shadow-md shadow-brand-gold/30">AED 1,450 Flat</span>
+                  <span className="bg-[#D4AF37] text-black font-mono text-[10px] font-black px-3.5 py-1.5 rounded-[10px] uppercase shadow-md shadow-[#D4AF37]/30">AED 1,450 Flat</span>
                 </div>
 
-                <ul className="space-y-3.5 text-sm text-slate-200">
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0" />
+                <ul className="space-y-4 text-sm text-slate-700 dark:text-slate-300 relative z-10 font-medium">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
                     <span>100% Online File Preparation & Pre-Flight Document Check</span>
                   </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0" />
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
                     <span>Dedicated Personal PRO Specialist on WhatsApp</span>
                   </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0" />
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
                     <span>VIP Priority Scheduling for Medical & Biometrics</span>
                   </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0" />
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
                     <span>Guaranteed Approval SLA & Emirates ID Courier Home Delivery</span>
                   </li>
                 </ul>
 
-                <div className="pt-4 border-t border-brand-gold/30 flex items-center justify-between">
-                  <span className="text-xs font-mono font-bold text-brand-gold uppercase">Zero Hidden Surcharges</span>
-                  <button onClick={() => onOpenCalculator('family')} className="bg-brand-gold text-black font-extrabold text-xs px-4 py-2.5 rounded-lg hover:brightness-110 transition-all btn-shine-effect cursor-pointer">
+                <div className="pt-6 border-t border-[#D4AF37]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+                  <span className="text-[10px] font-mono font-black text-[#B8860B] dark:text-[#D4AF37] uppercase tracking-widest">Zero Hidden Surcharges</span>
+                  <button onClick={() => onOpenCalculator('family')} className="bg-dark-gold-gloss text-slate-950 font-black text-xs px-5 py-3 rounded-[10px] hover:brightness-110 hover:-translate-y-1 transition-all shadow-[0_4px_15px_rgba(212,175,55,0.3)] cursor-pointer tracking-wider uppercase">
                     Calculate Exact Total →
                   </button>
                 </div>
@@ -964,61 +976,63 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
       case 'packages':
         return (
           <RevealSection key="packages" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
-            <div className="text-center max-w-3xl mx-auto space-y-3">
-              <div className="text-brand-primary font-mono text-xs font-bold uppercase tracking-widest">REAL ESTATE & INVESTORS</div>
-              <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-content-primary dark:text-white tracking-tight">Complete Property Support</h2>
-              <p className="text-content-muted dark:text-slate-400 text-sm sm:text-base">Comprehensive assistance for property investors. From DLD registration to Golden Visa processing through real estate investment.</p>
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
+                REAL ESTATE & INVESTORS
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Complete Property Support</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">Comprehensive assistance for property investors. From DLD registration to Golden Visa processing through real estate investment.</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* Feature 1 */}
-              <div className="group p-8 rounded-xl border border-border-subtle dark:border-brand-primary/10 bg-surface dark:bg-black/40 backdrop-blur-md hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-primary/10 transition-all duration-500 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="group p-8 rounded-[20px] border border-slate-200 dark:border-white/5 bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md hover:-translate-y-2 shadow-sm hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/30 transition-all duration-500 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-[#1a1a1a] border border-slate-200 dark:border-white/5 text-[#B8860B] dark:text-[#D4AF37] flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] group-hover:text-black group-hover:scale-110 transition-all duration-300 shadow-sm group-hover:shadow-[0_4px_15px_rgba(212,175,55,0.4)]">
                     <Building2 className="w-7 h-7" />
                   </div>
-                  <h3 className="text-2xl font-bold text-content-primary dark:text-white mb-3 font-display tracking-tight">Property Investor Visa</h3>
-                  <p className="text-content-muted dark:text-slate-400 text-sm leading-relaxed mb-6">
+                  <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-3 font-display tracking-tight group-hover:text-[#B8860B] transition-colors">Property Investor Visa</h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">
                     End-to-end processing for the 2-Year and 10-Year (Golden) Property Investor visas. We handle DLD taskeen, medical, and Emirates ID.
                   </p>
-                  <ul className="space-y-4 text-sm font-semibold text-content-secondary dark:text-slate-300">
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-emerald-500/10 text-brand-gold"><Check className="w-4 h-4" /></div> DLD Taskeen Application</li>
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-emerald-500/10 text-brand-gold"><Check className="w-4 h-4" /></div> Golden Visa via Real Estate</li>
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-emerald-500/10 text-brand-gold"><Check className="w-4 h-4" /></div> Family Sponsorship included</li>
+                  <ul className="space-y-4 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> DLD Taskeen Application</li>
+                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Golden Visa via Real Estate</li>
+                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Family Sponsorship included</li>
                   </ul>
                 </div>
               </div>
 
               {/* Feature 2 */}
-              <div className="group p-8 rounded-xl border border-border-subtle dark:border-brand-primary/10 bg-surface dark:bg-black/40 backdrop-blur-md hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-primary/10 transition-all duration-500 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-bl from-brand-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="group p-8 rounded-[20px] border border-slate-200 dark:border-white/5 bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md hover:-translate-y-2 shadow-sm hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/30 transition-all duration-500 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-bl from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-surface-elevated dark:bg-white/5 text-content-primary dark:text-brand-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-inner group-hover:bg-brand-primary/10 group-hover:text-brand-primary">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-[#1a1a1a] border border-slate-200 dark:border-white/5 text-[#B8860B] dark:text-[#D4AF37] flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] group-hover:text-black group-hover:scale-110 transition-all duration-300 shadow-sm group-hover:shadow-[0_4px_15px_rgba(212,175,55,0.4)]">
                     <Scale className="w-7 h-7" />
                   </div>
-                  <h3 className="text-2xl font-bold text-content-primary dark:text-white mb-3 font-display tracking-tight">DLD Trustee & Revaluation</h3>
-                  <p className="text-content-muted dark:text-slate-400 text-sm leading-relaxed mb-6">
+                  <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-3 font-display tracking-tight group-hover:text-[#B8860B] transition-colors">DLD Trustee & Revaluation</h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">
                     Complete representation at the Dubai Land Department. We assist with property revaluation for visa eligibility and title deed transfers.
                   </p>
-                  <ul className="space-y-4 text-sm font-semibold text-content-secondary dark:text-slate-300">
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-emerald-500/10 text-brand-gold"><Check className="w-4 h-4" /></div> Title Deed Updates</li>
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-emerald-500/10 text-brand-gold"><Check className="w-4 h-4" /></div> Official Property Revaluation</li>
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-emerald-500/10 text-brand-gold"><Check className="w-4 h-4" /></div> Representation via POA</li>
+                  <ul className="space-y-4 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Title Deed Updates</li>
+                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Official Property Revaluation</li>
+                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Representation via POA</li>
                   </ul>
                 </div>
               </div>
             </div>
-            
-            <div className="text-center pt-4">
-               <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+
+            <div className="text-center pt-8">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => onOpenCalculator('property')}
-                className="inline-flex items-center justify-center gap-2 bg-brand-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-[#D4AF37] transition-all shadow-lg shadow-[#D4AF37]/20"
+                className="inline-flex items-center justify-center gap-3 bg-dark-gold-gloss text-slate-950 font-black hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_15px_rgba(212,175,55,0.3)] hover:shadow-[0_8px_25px_rgba(212,175,55,0.5)] px-10 py-5 rounded-[12px] uppercase tracking-wider text-sm"
               >
                 <span>Calculate Property Visa Cost</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-5 h-5" />
               </motion.button>
             </div>
           </RevealSection>
@@ -1027,13 +1041,15 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
       case 'whyUs':
         return (
           <RevealSection key="whyUs" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
-            <div className="bg-surface dark:bg-black/20 backdrop-blur-md rounded-3xl p-8 sm:p-12 border border-border-subtle dark:border-white/5 space-y-10 shadow-[var(--shadow-card)] relative overflow-hidden">
+            <div className="bg-white/80 dark:bg-[#0a0a0a]/90 backdrop-blur-2xl rounded-[24px] p-8 sm:p-12 border border-slate-200 dark:border-white/10 space-y-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-2xl relative overflow-hidden">
               {/* Top gold accent */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-brand-primary/40 to-transparent" />
-              <div className="text-center max-w-2xl mx-auto space-y-2 relative z-10">
-                <div className="text-brand-primary font-mono text-xs font-bold uppercase tracking-widest">OFFICIAL LICENSE 800 DOCS LLC SOC</div>
-                <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-content-primary dark:text-white tracking-tight">Why Families Choose Us</h2>
-                <p className="text-content-muted dark:text-slate-400 text-sm">We eliminate administrative delays and guarantee full transparency on every government fee.</p>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-50" />
+              <div className="text-center max-w-2xl mx-auto space-y-4 relative z-10">
+                <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
+                  OFFICIAL LICENSE 800 DOCS LLC SOC
+                </span>
+                <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Why Families Choose Us</h2>
+                <p className="text-slate-500 dark:text-slate-400 text-sm">We eliminate administrative delays and guarantee full transparency on every government fee.</p>
               </div>
 
               {(() => {
@@ -1054,24 +1070,25 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                     className={`grid md:grid-cols-2 ${lgGrid} gap-6 relative z-10`}
                   >
                     {whyUsItems.map((item, idx) => {
-                      const Icon = resolveIcon(item.icon) || ShieldCheck;
+                      const fallbackIcons = [ShieldCheck, Calculator, WhatsAppIcon, Sparkles];
+                      const Icon = resolveIcon(item.icon) || fallbackIcons[idx % fallbackIcons.length];
 
                       return (
                         <motion.div
                           key={idx}
                           variants={cardItemVariants}
                           whileHover={{ y: -8, scale: 1.02 }}
-                          className="p-8 rounded-2xl bg-canvas dark:bg-black/40 border border-border-subtle dark:border-white/5 space-y-6 shadow-sm hover:shadow-[var(--shadow-card)] transition-all group relative overflow-hidden"
+                          className="p-8 rounded-[12px] bg-gradient-to-b from-white to-[#fcfaf5] dark:from-[#111111]/90 dark:to-[#0a0a0a]/90 border border-[#D4AF37]/20 space-y-6 shadow-[0_4px_20px_rgba(212,175,55,0.05)] hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 transition-all duration-500 group relative overflow-hidden flex flex-col h-full"
                         >
                           {/* Ambient glow effect on hover */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-                          <div className="relative z-10">
-                            <div className="p-4 rounded-xl bg-surface-elevated dark:bg-black/60 border border-border-subtle dark:border-white/5 w-fit shadow-sm group-hover:scale-110 group-hover:border-brand-primary/30 transition-all duration-500">
-                              <Icon className="w-8 h-8 text-brand-primary" strokeWidth={1.5} />
+                          <div className="relative z-10 flex flex-col h-full">
+                            <div className="p-4 rounded-[12px] bg-white dark:bg-[#1a1a1a] border border-[#D4AF37]/20 w-fit shadow-sm group-hover:scale-110 group-hover:bg-[#D4AF37] group-hover:text-black transition-all duration-500 text-[#B8860B] dark:text-[#D4AF37]">
+                              <Icon className="w-8 h-8 transition-colors duration-300" strokeWidth={1.5} />
                             </div>
-                            <h3 className="font-display font-extrabold text-xl text-content-primary dark:text-white mt-6 mb-3 tracking-tight">{item.title}</h3>
-                            <p className="text-sm text-content-muted dark:text-slate-400 leading-relaxed font-medium">{item.desc}</p>
+                            <h3 className="font-display font-black text-xl text-slate-900 dark:text-white mt-6 mb-3 tracking-tight group-hover:text-[#B8860B] transition-colors">{item.title}</h3>
+                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium flex-1">{item.desc}</p>
                           </div>
                         </motion.div>
                       );
@@ -1085,71 +1102,20 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
 
       case 'process':
         return (
-          <RevealSection key="process" id="process" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
-            <div className="p-8 sm:p-12 rounded-3xl bg-surface dark:bg-black/20 backdrop-blur-md border border-border-subtle dark:border-white/5 space-y-10 relative overflow-hidden shadow-[var(--shadow-card)]">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-                <div>
-                  <div className="text-xs font-mono text-brand-primary font-semibold uppercase tracking-wider mb-1">STEP-BY-STEP SLA WORKFLOW</div>
-                  <h2 className="font-display text-3xl font-extrabold text-content-primary dark:text-white tracking-tight">{activeGuide.title}</h2>
-                  <p className="text-xs sm:text-sm text-content-muted dark:text-slate-400 mt-1 max-w-xl">{activeGuide.subtitle}</p>
-                </div>
-
-                <div className="flex items-center bg-surface-elevated dark:bg-black/40 p-1.5 rounded-xl border border-border-subtle dark:border-white/5 shrink-0">
-                  {['newVisa', 'renewal'].map(tab => (
-                    <motion.button
-                      key={tab}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => setGuideTab(tab)}
-                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${guideTab === tab ? 'bg-brand-primary text-white shadow-md shadow-[#D4AF37]/30' : 'text-content-muted dark:text-slate-400 hover:text-content-primary dark:hover:text-white'
-                        }`}
-                    >
-                      {tab === 'newVisa' ? 'New Family Visa' : 'Visa Renewal'}
-                    </motion.button>
-                  ))}
-                </div>
-              </div>
-
-              <motion.div
-                key={guideTab}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, type: 'spring', stiffness: 80 }}
-                className="relative z-10 pt-10"
-              >
-                {/* Connecting Line (Desktop) */}
-                <div className="hidden lg:block absolute top-[5.5rem] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-brand-primary/50 to-transparent z-0 shadow-[0_0_10px_rgba(212,175,55,0.5)]" />
-
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-                  {activeGuide.steps.map((st, i) => (
-                    <motion.div
-                      key={st.num}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1, duration: 0.4 }}
-                      whileHover={{ y: -8, scale: 1.02 }}
-                      className="p-6 rounded-2xl bg-surface dark:bg-black/40 border border-border-subtle dark:border-brand-primary/20 space-y-4 shadow-sm group text-center"
-                    >
-                      <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-[#D4AF37] to-[#996515] text-white font-mono font-bold text-lg flex items-center justify-center shadow-lg shadow-[#D4AF37]/40 ring-4 ring-slate-100 dark:ring-black group-hover:ring-brand-primary/20 transition-all">
-                        {st.num}
-                      </div>
-                      <h3 className="font-display font-extrabold text-base text-content-primary dark:text-white tracking-tight">{st.title}</h3>
-                      <p className="text-sm text-content-muted dark:text-slate-400 leading-relaxed font-medium">{st.desc}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
+          <RevealSection key="process" id="process" className="relative z-10 w-full overflow-hidden">
+            <ProcessTimeline title={activeGuide.title} subtitle={activeGuide.subtitle} steps={activeGuide.steps} />
           </RevealSection>
         );
 
       case 'faqs':
         return (
-          <RevealSection key="faqs" className="px-4 sm:px-6 max-w-4xl mx-auto relative z-10 space-y-8">
-            <div className="text-center space-y-2">
-              <div className="text-brand-primary font-mono text-xs font-bold uppercase tracking-widest">GOT QUESTIONS?</div>
-              <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-content-primary dark:text-white tracking-tight">Frequently Asked Questions</h2>
-              <p className="text-content-muted dark:text-slate-400 text-sm">Everything you need to know about sponsoring family in Dubai & UAE.</p>
+          <RevealSection key="faqs" className="px-4 sm:px-6 max-w-4xl mx-auto relative z-10 space-y-10">
+            <div className="text-center space-y-4">
+              <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
+                GOT QUESTIONS?
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Frequently Asked Questions</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm">Everything you need to know about sponsoring family in Dubai & UAE.</p>
             </div>
 
             <div className="space-y-4">
@@ -1162,21 +1128,21 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.06, duration: 0.4 }}
-                    className={`rounded-xl border transition-all overflow-hidden shadow-sm ${isOpen
-                        ? 'bg-surface dark:bg-brand-surface border-brand-primary/30 shadow-md shadow-[#D4AF37]/5'
-                        : 'bg-surface dark:bg-brand-surface border-border-subtle dark:border-white/10 hover:border-brand-primary/20'
+                    className={`rounded-[16px] border transition-all overflow-hidden shadow-sm ${isOpen
+                      ? 'bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md border-[#D4AF37]/30 shadow-[0_8px_30px_rgba(212,175,55,0.1)]'
+                      : 'bg-white/50 dark:bg-black/40 backdrop-blur-sm border-slate-200 dark:border-white/5 hover:border-[#D4AF37]/20 hover:bg-white/80 dark:hover:bg-[#111111]/60'
                       }`}
                   >
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-content-primary dark:text-white cursor-pointer hover:text-brand-primary transition-colors"
+                      className="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer hover:text-[#B8860B] dark:hover:text-[#D4AF37] transition-colors"
                     >
                       <span>{faq.question}</span>
                       <motion.div
                         animate={{ rotate: isOpen ? 180 : 0 }}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
                       >
-                        <ChevronDown className={`w-5 h-5 shrink-0 ${isOpen ? 'text-brand-primary' : 'text-content-muted dark:text-slate-400'}`} />
+                        <ChevronDown className={`w-5 h-5 shrink-0 ${isOpen ? 'text-[#D4AF37]' : 'text-slate-400 dark:text-slate-500'}`} />
                       </motion.div>
                     </button>
 
@@ -1189,7 +1155,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
-                          <div className="px-5 pb-5 text-xs sm:text-sm text-content-muted dark:text-slate-300 leading-relaxed border-t border-border-subtle dark:border-white/5 pt-3">
+                          <div className="px-6 pb-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-4 font-medium">
                             {faq.answer}
                           </div>
                         </motion.div>
@@ -1204,10 +1170,12 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
 
       case 'reviews':
         return (
-          <RevealSection key="reviews" className="relative z-10 overflow-hidden py-6">
-            <div className="text-center max-w-3xl mx-auto mb-10 space-y-2 px-4">
-              <div className="text-brand-primary font-mono text-xs tracking-widest uppercase font-bold">VERIFIED CLIENT FEEDBACK</div>
-              <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-content-primary dark:text-white">4.9★ Rated on Google (500+ Client Reviews)</h2>
+          <RevealSection key="reviews" className="relative z-10 overflow-hidden py-10">
+            <div className="text-center max-w-3xl mx-auto mb-12 space-y-4 px-4 relative z-10">
+              <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
+                VERIFIED CLIENT FEEDBACK
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">4.9★ Rated on Google (500+ Client Reviews)</h2>
             </div>
 
             {/* Infinite Marquee with CSS animation — seamless loop */}
@@ -1215,58 +1183,59 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
               <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-50 dark:from-[#050505] to-transparent z-20 pointer-events-none" />
               <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-50 dark:from-[#050505] to-transparent z-20 pointer-events-none" />
               <div className="marquee-track">
-                {/* First copy */}
                 {infiniteReviews.map((rev, idx) => (
-                  <div key={`a-${idx}`} className="w-[340px] sm:w-[420px] min-h-[220px] p-8 rounded-2xl bg-surface dark:bg-black/40 backdrop-blur-md border border-border-subtle dark:border-brand-primary/10 flex flex-col shadow-sm hover:shadow-2xl hover:shadow-brand-primary/10 hover:-translate-y-2 transition-all duration-500 whitespace-normal group relative overflow-hidden shrink-0">
-                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none">
-                      <Quote className="w-24 h-24 text-brand-primary" />
+                  <div key={`a-${idx}`} className="w-[340px] sm:w-[420px] min-h-[220px] p-8 rounded-[24px] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-xl border border-slate-200 dark:border-[#D4AF37]/10 flex flex-col shadow-sm hover:shadow-[0_15px_40px_rgba(212,175,55,0.12)] hover:-translate-y-2 transition-all duration-500 whitespace-normal group relative overflow-hidden shrink-0">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    <div className="absolute top-0 right-0 p-4 opacity-[0.03] dark:opacity-5 group-hover:opacity-[0.06] dark:group-hover:opacity-10 transition-opacity duration-300 pointer-events-none">
+                      <Quote className="w-24 h-24 text-slate-900 dark:text-[#D4AF37]" />
                     </div>
                     <div className="flex items-center justify-between mb-6 relative z-10">
-                      <div className="flex items-center gap-1.5 text-brand-goldLight">
+                      <div className="flex items-center gap-1.5">
                         {[...Array(rev.rating)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-amber-400 drop-shadow-sm" />
+                          <Star key={i} className="w-5 h-5 fill-[#D4AF37] text-[#D4AF37] drop-shadow-sm" />
                         ))}
                       </div>
-                      <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-brand-goldLight bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20 uppercase tracking-widest flex items-center gap-1">
+                      <span className="text-[10px] font-mono font-bold text-[#B8860B] dark:text-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1.5 rounded-full border border-[#D4AF37]/20 uppercase tracking-widest flex items-center gap-1">
                         <CheckCircle2 className="w-3 h-3" /> Verified
                       </span>
                     </div>
-                    <p className="text-base text-content-secondary dark:text-slate-300 italic leading-relaxed flex-1 overflow-hidden break-words relative z-10 font-medium">"{rev.comment}"</p>
-                    <div className="pt-5 mt-5 border-t border-border-subtle dark:border-white/5 flex items-center gap-4 relative z-10">
-                      <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center font-display font-bold text-brand-primary uppercase ring-2 ring-brand-primary/20">
+                    <p className="text-base text-slate-600 dark:text-slate-300 italic leading-relaxed flex-1 overflow-hidden break-words relative z-10 font-medium">"{rev.comment}"</p>
+                    <div className="pt-6 mt-6 border-t border-slate-100 dark:border-white/5 flex items-center gap-4 relative z-10">
+                      <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[#1a1a1a] flex items-center justify-center font-display font-black text-[#B8860B] dark:text-[#D4AF37] uppercase ring-2 ring-[#D4AF37]/20 shadow-sm text-lg">
                         {rev.name.charAt(0)}
                       </div>
                       <div>
-                        <div className="font-extrabold text-content-primary dark:text-white text-sm tracking-tight">{rev.name}</div>
-                        <div className="text-xs text-brand-primary font-mono font-medium">{rev.role}</div>
+                        <div className="font-black text-slate-900 dark:text-white text-sm tracking-tight">{rev.name}</div>
+                        <div className="text-xs text-[#B8860B] dark:text-[#D4AF37] font-mono font-bold mt-0.5">{rev.role}</div>
                       </div>
                     </div>
                   </div>
                 ))}
                 {/* Second copy for seamless loop */}
                 {infiniteReviews.map((rev, idx) => (
-                  <div key={`b-${idx}`} className="w-[340px] sm:w-[420px] min-h-[220px] p-8 rounded-2xl bg-surface dark:bg-black/40 backdrop-blur-md border border-border-subtle dark:border-brand-primary/10 flex flex-col shadow-sm hover:shadow-2xl hover:shadow-brand-primary/10 hover:-translate-y-2 transition-all duration-500 whitespace-normal group relative overflow-hidden shrink-0">
-                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none">
-                      <Quote className="w-24 h-24 text-brand-primary" />
+                  <div key={`b-${idx}`} className="w-[340px] sm:w-[420px] min-h-[220px] p-8 rounded-[24px] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-xl border border-slate-200 dark:border-[#D4AF37]/10 flex flex-col shadow-sm hover:shadow-[0_15px_40px_rgba(212,175,55,0.12)] hover:-translate-y-2 transition-all duration-500 whitespace-normal group relative overflow-hidden shrink-0">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    <div className="absolute top-0 right-0 p-4 opacity-[0.03] dark:opacity-5 group-hover:opacity-[0.06] dark:group-hover:opacity-10 transition-opacity duration-300 pointer-events-none">
+                      <Quote className="w-24 h-24 text-slate-900 dark:text-[#D4AF37]" />
                     </div>
                     <div className="flex items-center justify-between mb-6 relative z-10">
-                      <div className="flex items-center gap-1.5 text-brand-goldLight">
+                      <div className="flex items-center gap-1.5">
                         {[...Array(rev.rating)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-amber-400 drop-shadow-sm" />
+                          <Star key={i} className="w-5 h-5 fill-[#D4AF37] text-[#D4AF37] drop-shadow-sm" />
                         ))}
                       </div>
-                      <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-brand-goldLight bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20 uppercase tracking-widest flex items-center gap-1">
+                      <span className="text-[10px] font-mono font-bold text-[#B8860B] dark:text-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1.5 rounded-full border border-[#D4AF37]/20 uppercase tracking-widest flex items-center gap-1">
                         <CheckCircle2 className="w-3 h-3" /> Verified
                       </span>
                     </div>
-                    <p className="text-base text-content-secondary dark:text-slate-300 italic leading-relaxed flex-1 overflow-hidden break-words relative z-10 font-medium">"{rev.comment}"</p>
-                    <div className="pt-5 mt-5 border-t border-border-subtle dark:border-white/5 flex items-center gap-4 relative z-10">
-                      <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center font-display font-bold text-brand-primary uppercase ring-2 ring-brand-primary/20">
+                    <p className="text-base text-slate-600 dark:text-slate-300 italic leading-relaxed flex-1 overflow-hidden break-words relative z-10 font-medium">"{rev.comment}"</p>
+                    <div className="pt-6 mt-6 border-t border-slate-100 dark:border-white/5 flex items-center gap-4 relative z-10">
+                      <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[#1a1a1a] flex items-center justify-center font-display font-black text-[#B8860B] dark:text-[#D4AF37] uppercase ring-2 ring-[#D4AF37]/20 shadow-sm text-lg">
                         {rev.name.charAt(0)}
                       </div>
                       <div>
-                        <div className="font-extrabold text-content-primary dark:text-white text-sm tracking-tight">{rev.name}</div>
-                        <div className="text-xs text-brand-primary font-mono font-medium">{rev.role}</div>
+                        <div className="font-black text-slate-900 dark:text-white text-sm tracking-tight">{rev.name}</div>
+                        <div className="text-xs text-[#B8860B] dark:text-[#D4AF37] font-mono font-bold mt-0.5">{rev.role}</div>
                       </div>
                     </div>
                   </div>
@@ -1280,19 +1249,18 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
         return (
           <RevealSection key="blog" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-              <div className="space-y-2 max-w-2xl">
-                <div className="text-brand-primary font-mono text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-brand-primary" />
-                  <span>OFFICIAL IMMIGRATION INSIGHTS</span>
-                </div>
-                <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-content-primary dark:text-white tracking-tight">Latest UAE Residency & Visa Guides</h2>
-                <p className="text-content-muted dark:text-slate-400 text-sm sm:text-base">Expert advice on GDRFA salary rules, Golden Visa benefits, Ejari requirements, and newborn clearance.</p>
+              <div className="space-y-4 max-w-2xl">
+                <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
+                  OFFICIAL IMMIGRATION INSIGHTS
+                </span>
+                <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Latest UAE Residency & Visa Guides</h2>
+                <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">Expert advice on GDRFA salary rules, Golden Visa benefits, Ejari requirements, and newborn clearance.</p>
               </div>
 
               <motion.button
                 whileHover={{ scale: 1.05, x: 3 }}
                 onClick={() => onNavigate('blog-index')}
-                className="text-xs font-bold text-brand-primary hover:underline cursor-pointer flex items-center gap-1.5 shrink-0 self-start sm:self-auto"
+                className="text-xs font-bold text-[#B8860B] dark:text-[#D4AF37] hover:underline cursor-pointer flex items-center gap-1.5 shrink-0 self-start sm:self-auto bg-[#D4AF37]/10 px-4 py-2.5 rounded-[10px]"
               >
                 <span>View All Guides ({blogPostsData.length})</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -1304,7 +1272,7 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: '-60px' }}
-              className="grid md:grid-cols-3 gap-6"
+              className="grid md:grid-cols-3 gap-8"
             >
               {blogPostsData.map((post) => (
                 <motion.article
@@ -1312,35 +1280,36 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
                   variants={cardItemVariants}
                   whileHover={{ y: -8, scale: 1.02 }}
                   onClick={() => onNavigate('blog-post', post.id)}
-                  className="card-premium p-6 rounded-xl bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 flex flex-col justify-between cursor-pointer group space-y-5"
+                  className="p-6 rounded-[20px] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md border border-slate-200 dark:border-white/5 flex flex-col justify-between cursor-pointer group space-y-5 shadow-sm hover:shadow-[0_15px_40px_rgba(212,175,55,0.12)] hover:border-[#D4AF37]/30 transition-all duration-500 overflow-hidden relative"
                 >
-                  <div className="space-y-4">
-                    <div className="relative h-48 rounded-xl overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="space-y-4 relative z-10">
+                    <div className="relative h-48 rounded-[12px] overflow-hidden">
                       <img src={post.featuredImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute top-3 left-3 bg-[#121417]/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-mono font-bold text-white border border-white/10 uppercase">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-100 transition-opacity duration-300" />
+                      <div className="absolute top-3 left-3 bg-[#111111]/80 backdrop-blur-md px-3 py-1 rounded-[8px] text-[9px] font-mono font-bold text-[#D4AF37] border border-[#D4AF37]/20 uppercase tracking-widest shadow-sm">
                         {post.category}
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-3 text-[11px] font-mono text-content-muted dark:text-slate-400">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3.5 h-3.5 text-brand-primary" />
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        <span className="flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-[#B8860B] dark:text-[#D4AF37]" />
                           {post.date}
                         </span>
                         <span>•</span>
                         <span>{post.readTime}</span>
                       </div>
-                      <h3 className="font-display text-lg font-bold text-content-primary dark:text-white group-hover:text-brand-primary transition-colors leading-snug">{post.title}</h3>
-                      <p className="text-content-muted dark:text-slate-400 text-xs leading-relaxed line-clamp-2">{post.excerpt}</p>
+                      <h3 className="font-display text-lg font-black text-slate-900 dark:text-white group-hover:text-[#B8860B] transition-colors leading-snug tracking-tight">{post.title}</h3>
+                      <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-2 font-medium">{post.excerpt}</p>
                     </div>
                   </div>
-                  <div className="pt-4 border-t border-border-subtle dark:border-white/5 flex items-center justify-between text-xs font-mono">
+                  <div className="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs font-mono relative z-10">
                     <div className="flex items-center gap-2">
-                      <User className="w-3.5 h-3.5 text-content-muted dark:text-slate-400" />
-                      <span className="font-semibold text-content-secondary dark:text-slate-300">{post.author}</span>
+                      <User className="w-3.5 h-3.5 text-slate-400" />
+                      <span className="font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">{post.author}</span>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-brand-primary group-hover:translate-x-1 transition-transform" />
+                    <ChevronRight className="w-4 h-4 text-[#D4AF37] group-hover:translate-x-1 transition-transform" />
                   </div>
                 </motion.article>
               ))}
@@ -1350,88 +1319,80 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
 
       case 'cta':
         return (
-          <RevealSection key="cta" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
-            <div className="bg-gradient-to-r from-[#D4AF37] via-[#D4AF37] to-[#996515] rounded-xl p-8 sm:p-14 text-white text-center shadow-2xl space-y-6 relative overflow-hidden animate-gradient-shift" style={{ backgroundSize: '200% 200%' }}>
-              {/* Animated decorative elements */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-surface/10 rounded-full blur-3xl pointer-events-none animate-float-slow" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-surface/5 rounded-full blur-2xl pointer-events-none animate-float" />
-              <div className="absolute inset-0 dot-pattern opacity-10 pointer-events-none" />
-
-              <div className="max-w-2xl mx-auto space-y-3 relative z-10">
+          <RevealSection key="cta" className="px-0 relative z-10">
+            <section className="relative w-full py-16 bg-[#050505] border-y border-[#D4AF37]/40 shadow-[inset_0_0_100px_rgba(212,175,55,0.05)] overflow-hidden">
+              {/* Subtle gold ambient glow behind the text */}
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.15)_0%,_rgba(5,5,5,0)_60%)] pointer-events-none"></div>
+              
+              <div className="relative z-10 text-center max-w-2xl mx-auto px-6">
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className="font-display font-extrabold text-3xl sm:text-5xl tracking-tight"
+                  className="text-3xl md:text-4xl font-black bg-gradient-to-r from-[#D4AF37] via-[#FFF3B0] to-[#D4AF37] bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(212,175,55,0.2)]"
                 >
-                  {cmsConfig?.cta?.headline || "Ready to bring your family to Dubai?"}
+                  {cmsConfig?.cta?.headline || "Ready to Sponsor Your Family in the UAE?"}
                 </motion.h2>
                 <motion.p
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1 }}
-                  className="text-white/90 text-sm sm:text-base leading-relaxed"
+                  className="text-slate-400 mt-4"
                 >
-                  {cmsConfig?.cta?.subtext || "Speak to a licensed UAE visa specialist on WhatsApp or calculate your exact government fee in 60 seconds."}
+                  {cmsConfig?.cta?.subtext || "Talk to a visa specialist today or calculate your exact government fee in 60 seconds."}
                 </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8"
+                >
+                  {(cmsConfig?.cta?.buttons || [
+                    { id: 'btn-1', label: 'Get Started Now', link: 'calculator', style: 'primary' },
+                    { id: 'btn-2', label: 'Chat on WhatsApp', link: 'whatsapp', style: 'secondary' }
+                  ]).map((btn) => {
+                    if (btn.link === 'calculator') {
+                      return (
+                        <button
+                          key={btn.id}
+                          onClick={() => onOpenCalculator('property')}
+                          className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-gradient-to-r from-[#C9981E] via-[#FCE181] to-[#C9981E] text-black font-extrabold shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),_0_0_20px_rgba(212,175,55,0.3)] hover:brightness-110 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                        >
+                          {btn.label}
+                        </button>
+                      );
+                    } else if (btn.link === 'whatsapp') {
+                      return (
+                        <a
+                          key={btn.id}
+                          href={`https://wa.me/${cmsConfig?.global?.whatsappRaw || siteConfig.whatsappRaw}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-[#111111] border border-white/10 text-white font-extrabold hover:bg-black transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                          <WhatsAppIcon className="w-5 h-5 text-[#D4AF37]" />
+                          <span>{btn.label}</span>
+                        </a>
+                      );
+                    } else {
+                      return (
+                        <a
+                          key={btn.id}
+                          href={btn.link}
+                          className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-[#111111] border border-white/10 text-white font-extrabold hover:bg-black transition-all duration-300 cursor-pointer"
+                        >
+                          {btn.label}
+                        </a>
+                      );
+                    }
+                  })}
+                </motion.div>
               </div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10 pt-4"
-              >
-                {(cmsConfig?.cta?.buttons || [
-                  { id: 'btn-1', label: 'Calculate Visa Cost', link: 'calculator', style: 'primary' },
-                  { id: 'btn-2', label: 'Chat on WhatsApp', link: 'whatsapp', style: 'secondary' }
-                ]).map((btn) => {
-                  if (btn.link === 'calculator') {
-                    return (
-                      <motion.button
-                        key={btn.id}
-                        whileHover={{ scale: 1.05, y: -3 }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={() => onOpenCalculator('property')}
-                        className="w-full sm:w-auto px-8 py-5 bg-surface text-content-primary hover:text-brand-primary font-extrabold text-lg rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_35px_rgba(255,255,255,0.5)] transition-all cursor-pointer flex items-center justify-center gap-3 relative overflow-hidden group border-2 border-transparent btn-shine-effect"
-                      >
-                        <Calculator className="w-6 h-6 relative z-10 text-brand-primary" />
-                        <span className="relative z-10">{btn.label}</span>
-                      </motion.button>
-                    );
-                  } else if (btn.link === 'whatsapp') {
-                    return (
-                      <motion.a
-                        key={btn.id}
-                        whileHover={{ scale: 1.05, y: -3 }}
-                        whileTap={{ scale: 0.97 }}
-                        href={`https://wa.me/${cmsConfig?.global?.whatsappRaw || siteConfig.whatsappRaw}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full sm:w-auto px-8 py-5 bg-slate-900 dark:bg-[#0A0B0E] hover:bg-black dark:hover:bg-[#15171C] text-white font-extrabold text-lg rounded-xl shadow-xl transition-all flex items-center justify-center gap-3 border border-brand-primary/20"
-                      >
-                        <WhatsAppIcon className="w-6 h-6 text-brand-goldLight" />
-                        <span>{btn.label}</span>
-                      </motion.a>
-                    );
-                  } else {
-                    return (
-                      <motion.a
-                        key={btn.id}
-                        whileHover={{ scale: 1.05, y: -3 }}
-                        whileTap={{ scale: 0.97 }}
-                        href={btn.link}
-                        className="w-full sm:w-auto px-8 py-5 bg-slate-900 dark:bg-[#0A0B0E] hover:bg-black dark:hover:bg-[#15171C] text-white font-extrabold text-lg rounded-xl shadow-xl transition-all flex items-center justify-center gap-3 border border-brand-primary/20"
-                      >
-                        <span>{btn.label}</span>
-                      </motion.a>
-                    );
-                  }
-                })}
-              </motion.div>
-            </div>
+            </section>
           </RevealSection>
         );
 
@@ -1446,17 +1407,17 @@ export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePage
       <motion.div
         animate={{ scale: [1, 1.25, 1], rotate: [0, 90, 0], x: [0, 40, 0], y: [0, -30, 0] }}
         transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-10 left-1/4 w-[550px] h-[550px] bg-brand-primary/8 rounded-full blur-[140px] pointer-events-none z-0"
+        className="absolute top-10 left-1/4 w-[550px] h-[550px] bg-[#D4AF37]/5 rounded-full blur-[140px] pointer-events-none z-0"
       />
       <motion.div
         animate={{ scale: [1.2, 1, 1.2], rotate: [90, 0, 90], x: [0, -50, 0], y: [0, 40, 0] }}
         transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/3 right-10 w-[600px] h-[600px] bg-emerald-500/3 rounded-full blur-[160px] pointer-events-none z-0"
+        className="absolute top-1/3 right-10 w-[600px] h-[600px] bg-[#D4AF37]/3 rounded-full blur-[160px] pointer-events-none z-0"
       />
       <motion.div
         animate={{ scale: [1, 1.15, 1], y: [0, -20, 0] }}
         transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-1/4 left-10 w-[400px] h-[400px] bg-amber-500/3 rounded-full blur-[120px] pointer-events-none z-0"
+        className="absolute bottom-1/4 left-10 w-[400px] h-[400px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none z-0"
       />
 
       {/* Render sections in dynamic order configured by CMS Admin */}

@@ -10,8 +10,8 @@ export default function TopTicker() {
     const tickerRef = ref(db, 'topBarTicker');
     const unsubscribe = onValue(tickerRef, (snapshot) => {
       const data = snapshot.val();
-      if (data) {
-        const parsed = Object.values(data).filter((item) => item.isActive !== false);
+      if (data && typeof data === 'object') {
+        const parsed = Object.values(data).filter((item) => item && item.isActive !== false);
         if (parsed.length > 0) {
           setItems(parsed);
         }
@@ -20,11 +20,11 @@ export default function TopTicker() {
     return () => unsubscribe();
   }, []);
 
-  const activeItems = items.filter((item) => item.isActive !== false);
+  const activeItems = (items || []).filter((item) => item && item.isActive !== false);
   if (activeItems.length === 0) return null;
 
   return (
-    <div className="w-full bg-[#050505] text-slate-200 border-b border-white/10 text-xs py-2 overflow-hidden relative z-50 selection:bg-brand-gold selection:text-black">
+    <div className="w-full bg-[#050505] text-slate-200 border-b border-white/10 text-xs py-2 overflow-hidden sticky top-0 z-50 selection:bg-brand-gold selection:text-black">
       <div className="w-full overflow-hidden whitespace-nowrap relative">
         <div className="inline-flex items-center space-x-10 animate-marquee font-sans tracking-wide">
           {/* Render 3 copies for seamless infinite loop */}

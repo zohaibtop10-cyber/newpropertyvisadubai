@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ShieldCheck, Lock, Mail, ArrowRight, ArrowLeft, AlertCircle, Eye, EyeOff, UserPlus, LogIn } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ShieldCheck, Lock, Mail, ArrowRight, ArrowLeft,
+  AlertCircle, Eye, EyeOff, LogIn, Sparkles
+} from 'lucide-react';
 import { auth } from '../../firebase';
 import {
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   sendPasswordResetEmail
 } from 'firebase/auth';
 
@@ -15,17 +17,15 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [mode, setMode] = useState('login'); // 'login' | 'register' | 'reset'
+  const [mode, setMode] = useState('login'); // 'login' | 'reset'
 
   const getFriendlyError = (code) => {
     switch (code) {
       case 'auth/user-not-found':
       case 'auth/invalid-credential':
-        return 'Invalid email or password. Please check your credentials and try again.';
+        return 'Invalid email or password. Please check your credentials.';
       case 'auth/wrong-password':
-        return 'Incorrect password. Try again or use "Forgot Password" to reset.';
-      case 'auth/email-already-in-use':
-        return 'This email is already registered. Please sign in instead.';
+        return 'Incorrect password. Try again or use "Forgot Password".';
       case 'auth/weak-password':
         return 'Password must be at least 6 characters long.';
       case 'auth/invalid-email':
@@ -35,41 +35,15 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
       case 'auth/network-request-failed':
         return 'Network error. Please check your internet connection.';
       default:
-        return 'Authentication failed. Please try again.';
+        return 'Authentication failed. Please check your Firebase credentials and try again.';
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccessMsg('');
-    setIsLoading(true);
-
+    setError(''); setSuccessMsg(''); setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email.trim(), password);
-      setIsLoading(false);
-      onLoginSuccess();
-    } catch (err) {
-      console.error("Login Error: ", err);
-      setIsLoading(false);
-      setError(getFriendlyError(err.code) + ' (' + err.message + ')');
-    }
-  };
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccessMsg('');
-    setIsLoading(true);
-
-    if (password.length < 6) {
-      setIsLoading(false);
-      setError('Password must be at least 6 characters long.');
-      return;
-    }
-
-    try {
-      await createUserWithEmailAndPassword(auth, email.trim(), password);
       setIsLoading(false);
       onLoginSuccess();
     } catch (err) {
@@ -80,10 +54,7 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccessMsg('');
-    setIsLoading(true);
-
+    setError(''); setSuccessMsg(''); setIsLoading(true);
     try {
       await sendPasswordResetEmail(auth, email.trim());
       setIsLoading(false);
@@ -94,190 +65,211 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
     }
   };
 
-  const handleSubmit = mode === 'login' ? handleLogin : mode === 'register' ? handleRegister : handleResetPassword;
+  const handleSubmit = mode === 'login' ? handleLogin : handleResetPassword;
+
+  const inputCls = "w-full bg-white/5 border border-white/10 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-white text-sm rounded-[10px] outline-none transition-all placeholder:text-slate-600 font-mono py-3 pr-4";
 
   return (
-    <div className="min-h-screen bg-[#0A0B0D] text-slate-100 flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans selection:bg-brand-primary selection:text-white">
-      {/* Background Ambient Glows */}
-      <div className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-primary/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="fixed bottom-0 right-10 w-[400px] h-[400px] bg-brand-primary/5 rounded-full blur-[140px] pointer-events-none" />
+    <div className="min-h-screen bg-[#07080a] text-slate-100 flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans">
 
-      {/* Top Bar Exit Link */}
-      <div className="absolute top-6 left-6 z-20">
-        <button
-          onClick={onExitAdmin}
-          className="flex items-center gap-2 text-xs text-slate-400 hover:text-white bg-brand-surfaceLight/80 hover:bg-slate-800 border border-slate-800 px-4 py-2 rounded-xl transition-all cursor-pointer"
-        >
-          <ArrowLeft className="w-4 h-4 text-brand-primary" />
-          <span>Back to Website</span>
-        </button>
+      {/* ── Ambient Background ───────────────────────── */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[30%] w-[700px] h-[700px] bg-[#D4AF37]/8 rounded-full blur-[180px]" />
+        <div className="absolute bottom-[-10%] right-[10%] w-[500px] h-[500px] bg-[#996515]/6 rounded-full blur-[160px]" />
+        <div className="absolute top-[60%] left-[-5%] w-[400px] h-[400px] bg-[#D4AF37]/4 rounded-full blur-[140px]" />
       </div>
 
-      {/* Login Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 20, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.3 }}
-        className="w-full max-w-md bg-brand-surfaceLight/90 border border-slate-800 backdrop-blur-2xl p-8 rounded-xl shadow-2xl shadow-black/80 relative z-10"
-      >
-        {/* Header Branding */}
-        <div className="text-center space-y-3 mb-8">
-          <div className="inline-flex w-14 h-14 rounded-xl bg-gradient-to-br from-[#D4AF37] via-[#996515] to-[#D4AF37] p-0.5 shadow-xl shadow-[#D4AF37]/30 mb-2">
-            <div className="w-full h-full bg-[#121417] rounded-[14px] flex items-center justify-center">
-              <ShieldCheck className="w-7 h-7 text-brand-primary" />
-            </div>
-          </div>
-          <h1 className="font-display font-extrabold text-2xl text-white tracking-tight">
-            {mode === 'login' && 'Admin Portal Sign In'}
-            {mode === 'register' && 'Create Admin Account'}
-            {mode === 'reset' && 'Reset Password'}
-          </h1>
-          <p className="text-slate-400 text-xs leading-relaxed">
-            {mode === 'login' && 'Firebase-secured admin access. Enter your credentials to manage website content.'}
-            {mode === 'register' && 'Register a new admin account. This will be authenticated via Firebase.'}
-            {mode === 'reset' && 'Enter your email address and we\'ll send you a password reset link.'}
-          </p>
-        </div>
+      {/* ── Decorative grid overlay ───────────────────── */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.015]"
+        style={{ backgroundImage: 'linear-gradient(#D4AF37 1px, transparent 1px), linear-gradient(90deg, #D4AF37 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+      />
 
-        {/* Error Alert */}
-        {error && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3 text-red-400 text-xs"
-          >
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-            <span>{error}</span>
-          </motion.div>
-        )}
+      {/* ── Back button ───────────────────────────────── */}
+      <div className="absolute top-6 left-6 z-20">
+        <motion.button
+          whileHover={{ x: -2 }}
+          onClick={onExitAdmin}
+          className="flex items-center gap-2 text-xs text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-[10px] transition-all cursor-pointer"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 text-[#D4AF37]" />
+          <span>Back to Website</span>
+        </motion.button>
+      </div>
 
-        {/* Success Alert */}
-        {successMsg && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-3 text-emerald-400 text-xs"
-          >
-            <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5" />
-            <span>{successMsg}</span>
-          </motion.div>
-        )}
+      {/* ── Brand watermark ──────────────────────────── */}
+      <div className="absolute top-6 right-6 z-20 flex items-center gap-2">
+        <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]/50" />
+        <span className="text-[11px] font-mono text-slate-600 uppercase tracking-widest">CMS v2.0</span>
+      </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-2">
-              Email Address
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-content-muted">
-                <Mail className="w-4 h-4" />
-              </div>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@propertyvisadubai.ae"
-                className="w-full bg-brand-darkBg/80 border border-slate-800 focus:border-brand-primary focus:ring-1 focus:ring-[#D4AF37] text-white text-sm rounded-xl pl-10 pr-4 py-3 outline-none transition-all placeholder:text-content-muted font-mono"
-              />
-            </div>
-          </div>
+      {/* ── Login Card ───────────────────────────────── */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={mode}
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -16, scale: 0.97 }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+          className="w-full max-w-[420px] relative z-10"
+        >
+          {/* Gold border glow effect */}
+          <div className="absolute -inset-[1px] rounded-[18px] bg-gradient-to-br from-[#D4AF37]/30 via-transparent to-[#996515]/20 pointer-events-none" />
 
-          {mode !== 'reset' && (
-            <div>
-              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-content-muted">
-                  <Lock className="w-4 h-4" />
+          <div className="relative bg-[#0d0f13]/95 backdrop-blur-2xl rounded-[18px] shadow-2xl shadow-black/60 overflow-hidden">
+
+            {/* Top accent line */}
+            <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+
+            <div className="p-8">
+              {/* ── Header ───────────────────────────────── */}
+              <div className="text-center space-y-3 mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-[14px] bg-gradient-to-br from-[#4A3000] via-[#8C5E00] to-[#D4AF37] p-[1.5px] shadow-[0_0_30px_rgba(212,175,55,0.25)]">
+                  <div className="w-full h-full bg-[#0d0f13] rounded-[13px] flex items-center justify-center">
+                    <ShieldCheck className="w-8 h-8 text-[#D4AF37]" />
+                  </div>
                 </div>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  minLength={6}
-                  className="w-full bg-brand-darkBg/80 border border-slate-800 focus:border-brand-primary focus:ring-1 focus:ring-[#D4AF37] text-white text-sm rounded-xl pl-10 pr-10 py-3 outline-none transition-all placeholder:text-content-muted font-mono"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-content-muted hover:text-slate-300 cursor-pointer"
+                <div>
+                  <h1 className="font-bold text-xl text-white tracking-tight">
+                    {mode === 'login' && 'Admin Sign In'}
+                    {mode === 'reset' && 'Reset Password'}
+                  </h1>
+                  <p className="text-slate-500 text-xs mt-1 leading-relaxed">
+                    {mode === 'login' && 'Authorized Firebase CMS credentials only'}
+                    {mode === 'reset' && 'Enter registered email to receive a password reset link'}
+                  </p>
+                </div>
+              </div>
+
+              {/* ── Alerts ───────────────────────────────── */}
+              <AnimatePresence>
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mb-5 p-3.5 rounded-[10px] bg-red-500/8 border border-red-500/25 flex items-start gap-2.5 text-red-400 text-xs"
+                  >
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                    <span>{error}</span>
+                  </motion.div>
+                )}
+                {successMsg && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mb-5 p-3.5 rounded-[10px] bg-emerald-500/8 border border-emerald-500/25 flex items-start gap-2.5 text-emerald-400 text-xs"
+                  >
+                    <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5" />
+                    <span>{successMsg}</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* ── Form ─────────────────────────────────── */}
+              <form onSubmit={handleSubmit} className="space-y-4">
+
+                {/* Email */}
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
+                  <div className="relative">
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 pointer-events-none" />
+                    <input
+                      type="email" required
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      placeholder="admin@propertyvisadubai.ae"
+                      className={`${inputCls} pl-10`}
+                    />
+                  </div>
+                </div>
+
+                {/* Password */}
+                {mode !== 'reset' && (
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Password</label>
+                    <div className="relative">
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 pointer-events-none" />
+                      <input
+                        type={showPassword ? 'text' : 'password'} required
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        placeholder="••••••••"
+                        minLength={6}
+                        className={`${inputCls} pl-10 pr-11`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-300 cursor-pointer transition-colors"
+                      >
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Forgot password */}
+                {mode === 'login' && (
+                  <div className="text-right">
+                    <button type="button" onClick={() => { setMode('reset'); setError(''); setSuccessMsg(''); }}
+                      className="text-[11px] text-[#D4AF37] hover:text-[#FFE58F] transition-colors cursor-pointer font-semibold"
+                    >
+                      Forgot Password?
+                    </button>
+                  </div>
+                )}
+
+                {/* Submit */}
+                <motion.button
+                  whileHover={{ scale: 1.015, brightness: 1.05 }}
+                  whileTap={{ scale: 0.985 }}
+                  disabled={isLoading}
+                  type="submit"
+                  className="w-full mt-1 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#C9A227] text-black py-3.5 px-6 rounded-[10px] font-extrabold text-sm transition-all shadow-[0_4px_20px_rgba(212,175,55,0.3)] hover:shadow-[0_6px_28px_rgba(212,175,55,0.45)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+                  {isLoading ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" className="opacity-25" />
+                        <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                      </svg>
+                      Authenticating...
+                    </span>
+                  ) : (
+                    <>
+                      {mode === 'login' && <><LogIn className="w-4 h-4" /><span>Sign In to CMS</span></>}
+                      {mode === 'reset' && <><Mail className="w-4 h-4" /><span>Send Reset Link</span></>}
+                      <ArrowRight className="w-4 h-4 ml-1" />
+                    </>
+                  )}
+                </motion.button>
+              </form>
+
+              {/* ── Footer ─────────────────────────── */}
+              <div className="mt-6 pt-5 border-t border-white/6 text-center space-y-2.5">
+                {mode === 'reset' && (
+                  <p className="text-xs text-slate-500">
+                    Remembered your credentials?{' '}
+                    <button onClick={() => { setMode('login'); setError(''); setSuccessMsg(''); }}
+                      className="text-[#D4AF37] hover:text-[#FFE58F] font-bold cursor-pointer transition-colors">
+                      Back to Sign In
+                    </button>
+                  </p>
+                )}
+                {mode === 'login' && (
+                  <p className="text-[11px] text-slate-500">
+                    Authorized access only. Account creation from public login is disabled.
+                  </p>
+                )}
+                <p className="text-[10px] text-slate-700 font-mono">
+                  🔒 Firebase Auth • 256-bit SSL • Encrypted
+                </p>
               </div>
             </div>
-          )}
-
-          {/* Forgot password link (login mode only) */}
-          {mode === 'login' && (
-            <div className="text-right">
-              <button
-                type="button"
-                onClick={() => { setMode('reset'); setError(''); setSuccessMsg(''); }}
-                className="text-xs text-brand-primary hover:text-brand-goldLight transition-colors cursor-pointer font-semibold"
-              >
-                Forgot Password?
-              </button>
-            </div>
-          )}
-
-          <motion.button
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
-            disabled={isLoading}
-            type="submit"
-            className="w-full mt-2 bg-gradient-to-r from-[#D4AF37] to-[#996515] hover:from-[#E5C158] hover:to-[#A67822] text-white py-3.5 px-6 rounded-xl font-bold text-sm transition-all shadow-lg shadow-[#D4AF37]/25 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-          >
-            {isLoading ? (
-              <span className="flex items-center gap-2">
-                <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-25" /><path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg>
-                Authenticating...
-              </span>
-            ) : (
-              <>
-                {mode === 'login' && <><LogIn className="w-4 h-4" /><span>Sign In to Admin CMS</span></>}
-                {mode === 'register' && <><UserPlus className="w-4 h-4" /><span>Create Admin Account</span></>}
-                {mode === 'reset' && <><Mail className="w-4 h-4" /><span>Send Reset Link</span></>}
-                <ArrowRight className="w-4 h-4" />
-              </>
-            )}
-          </motion.button>
-        </form>
-
-        {/* Mode Switcher */}
-        <div className="mt-6 pt-5 border-t border-slate-800/80 text-center space-y-3">
-          {mode === 'login' && (
-            <p className="text-xs text-slate-400">
-              Don't have an admin account?{' '}
-              <button
-                onClick={() => { setMode('register'); setError(''); setSuccessMsg(''); }}
-                className="text-brand-primary hover:text-brand-goldLight font-bold cursor-pointer transition-colors"
-              >
-                Register here
-              </button>
-            </p>
-          )}
-          {(mode === 'register' || mode === 'reset') && (
-            <p className="text-xs text-slate-400">
-              Already have an account?{' '}
-              <button
-                onClick={() => { setMode('login'); setError(''); setSuccessMsg(''); }}
-                className="text-brand-primary hover:text-brand-goldLight font-bold cursor-pointer transition-colors"
-              >
-                Sign in
-              </button>
-            </p>
-          )}
-          <p className="text-[11px] text-content-muted">
-            Secured by Firebase Authentication • 256-bit SSL Encryption
-          </p>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

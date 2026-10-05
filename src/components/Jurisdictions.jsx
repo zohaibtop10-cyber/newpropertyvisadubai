@@ -35,7 +35,7 @@ export default function Jurisdictions() {
     {
       name: "RAKEZ / MEYDAN",
       tag: "TECH & E-COM",
-      tagColor: "bg-emerald-500/10 text-brand-gold border-emerald-500/20",
+      tagColor: "bg-[#D4AF37]/10 text-brand-gold border-[#D4AF37]/20",
       desc: "Ideal for tech startups, digital nomad setups, and e-commerce scaleups.",
       spec1Label: "Nomad Friendly",
       spec1Value: "Yes",
@@ -51,7 +51,7 @@ export default function Jurisdictions() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-bold uppercase tracking-wider mb-2">
-              <span className="w-2 h-2 rounded-full bg-brand-primary" />
+              <span className="w-2 h-2 rounded-full bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)]" />
               FREE ZONE INTELLIGENCE
             </div>
             <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-content-primary dark:text-white tracking-tight">
@@ -72,7 +72,7 @@ export default function Jurisdictions() {
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-display font-extrabold text-lg text-content-primary dark:text-white group-hover:text-brand-primary transition-colors">
+                  <h3 className="font-display font-extrabold text-lg text-content-primary dark:text-white group-hover:text-[#B8860B] transition-colors">
                     {item.name}
                   </h3>
                   <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${item.tagColor}`}>

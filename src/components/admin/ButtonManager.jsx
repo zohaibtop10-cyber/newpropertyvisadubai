@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Save, CheckCircle2, MousePointerClick, Plus, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Save, CheckCircle2, MousePointerClick, Plus, Trash2, ArrowUp, ArrowDown, Sparkles } from 'lucide-react';
 
 export default function ButtonManager({ cmsConfig, setCmsConfig }) {
   const defaultButtons = [
@@ -16,7 +16,7 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
       id: 'btn-2',
       label: 'Visa Calculator',
       link: 'calculator',
-      bgColor: '#1E293B', // slate-800
+      bgColor: '#1E293B',
       textColor: '#FFFFFF',
       icon: 'Calculator',
       location: 'hero'
@@ -32,13 +32,18 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
     }
   ];
 
-  // If there are less than 3 buttons saved in config, reset it to defaults to ensure all existing btns show up
   const initialButtons = (cmsConfig?.global?.buttons && cmsConfig.global.buttons.length >= 3) 
     ? cmsConfig.global.buttons 
     : defaultButtons;
 
   const [buttons, setButtons] = useState(initialButtons);
   const [saveSuccess, setSaveSuccess] = useState(false);
+
+  useEffect(() => {
+    if (cmsConfig?.global?.buttons && Array.isArray(cmsConfig.global.buttons)) {
+      setButtons(cmsConfig.global.buttons);
+    }
+  }, [cmsConfig]);
 
   const handleAddButton = () => {
     const newBtn = {
@@ -89,131 +94,138 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
       }));
     }
 
-    if (typeof window !== 'undefined') {
-      const currentConfig = cmsConfig || {};
-      const newConfig = {
-        ...currentConfig,
-        global: {
-          ...currentConfig.global,
-          buttons: buttons
-        }
-      };
-    }
-
     setSaveSuccess(true);
     setTimeout(() => setSaveSuccess(false), 3000);
   };
 
   return (
-    <div className="max-w-4xl space-y-8 animate-fadeIn">
+    <div className="max-w-5xl space-y-8 animate-fadeIn pb-16">
+      
+      {/* Header Banner */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-brand-darkSurface border border-slate-800 p-6 sm:p-8 shadow-2xl">
+        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Interactive UI Controls</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
+              Global Action Buttons Manager
+            </h1>
+            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+              Configure labels, background colors, and destination links for primary buttons.
+            </p>
+          </div>
+          <button
+            onClick={handleSave}
+            className="px-6 py-3 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-black font-extrabold text-sm rounded-xl shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+          >
+            <Save className="w-4 h-4" />
+            <span>Publish Buttons</span>
+          </button>
+        </div>
+      </div>
+
       {saveSuccess && (
-        <div className="p-4 bg-emerald-500/10 border border-brand-gold/30 rounded-xl text-brand-goldLight text-sm font-bold flex items-center gap-2.5 animate-fadeIn">
-          <CheckCircle2 className="w-5 h-5 shrink-0" />
-          <span>Navigation buttons published to live website!</span>
+        <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-sm font-semibold flex items-center gap-3 shadow-lg animate-fadeIn">
+          <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-400" />
+          <span>Navigation and action buttons updated live across the website!</span>
         </div>
       )}
 
-      <div className="bg-brand-surfaceLight border border-slate-800 rounded-xl p-6 sm:p-8 shadow-xl space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-xl bg-brand-gold/15 text-brand-gold">
+            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
               <MousePointerClick className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="font-display font-extrabold text-xl text-white">Global Buttons CMS</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Manage action buttons in the Navbar and across the site.</p>
+              <h2 className="font-display font-bold text-lg text-white">Configured Buttons ({buttons.length})</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Edit colors, labels, and target URLs</p>
             </div>
           </div>
           
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handleAddButton}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors"
-            >
-              <Plus className="w-4 h-4" /> Add Button
-            </button>
-            <button
-              onClick={handleSave}
-              className="px-5 py-2.5 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 text-xs font-bold rounded-xl shadow-lg shadow-[#D4AF37]/30 flex items-center gap-2 transition-all"
-            >
-              <Save className="w-4 h-4" /> Publish
-            </button>
-          </div>
+          <button
+            onClick={handleAddButton}
+            className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl border border-slate-700/80 flex items-center gap-2 transition-colors cursor-pointer"
+          >
+            <Plus className="w-4 h-4 text-amber-400" /> Add Button
+          </button>
         </div>
 
         <div className="space-y-4">
           {buttons.map((btn, idx) => (
-            <div key={btn.id} className="p-5 bg-brand-darkBg border border-slate-800 rounded-xl space-y-4 relative">
+            <div key={btn.id} className="p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-brand-primary">BUTTON #{idx + 1}</span>
+                <span className="text-xs font-mono font-bold text-amber-400">BUTTON #{idx + 1}</span>
                 <div className="flex items-center gap-1.5">
-                  <button type="button" disabled={idx === 0} onClick={() => handleMove(idx, 'up')} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                  <button type="button" disabled={idx === buttons.length - 1} onClick={() => handleMove(idx, 'down')} className={`p-1.5 rounded-lg border transition-colors ${idx === buttons.length - 1 ? 'border-slate-800 text-content-muted' : 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
-                  <button type="button" onClick={() => handleDelete(btn.id)} className="p-1.5 rounded-lg border -brand-primary/30 text-brand-primary hover:bg-brand-primary/100/20 hover:-brand-primary/20 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
+                  <button type="button" disabled={idx === 0} onClick={() => handleMove(idx, 'up')} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                  <button type="button" disabled={idx === buttons.length - 1} onClick={() => handleMove(idx, 'down')} className={`p-1.5 rounded-lg border transition-colors ${idx === buttons.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                  <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(btn.id); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer" title="Delete Button"><Trash2 className="w-3.5 h-3.5" /></button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div>
-                  <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">Button Text</label>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Button Text</label>
                   <input
                     type="text"
                     value={btn.label}
                     onChange={(e) => handleUpdate(idx, 'label', e.target.value)}
-                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-brand-primary"
+                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50"
                     placeholder="e.g. Free Consultation"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">Link Destination</label>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Link Destination</label>
                   <input
                     type="text"
                     value={btn.link}
                     onChange={(e) => handleUpdate(idx, 'link', e.target.value)}
-                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-slate-300 text-xs font-mono focus:outline-none focus:border-brand-primary"
+                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-3 text-slate-300 text-xs font-mono focus:outline-none focus:border-amber-500/50"
                     placeholder="URL or route (e.g. /contact, whatsapp)"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">Background Color</label>
-                  <div className="flex gap-2">
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Background Color</label>
+                  <div className="flex gap-2.5">
                     <input
                       type="color"
                       value={btn.bgColor || '#D4AF37'}
                       onChange={(e) => handleUpdate(idx, 'bgColor', e.target.value)}
-                      className="w-10 h-10 rounded-xl cursor-pointer bg-brand-surfaceLight border border-slate-800"
+                      className="w-11 h-11 rounded-xl cursor-pointer bg-slate-900 border border-slate-700/60 p-1"
                     />
                     <input
                       type="text"
                       value={btn.bgColor || '#D4AF37'}
                       onChange={(e) => handleUpdate(idx, 'bgColor', e.target.value)}
-                      className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl px-3 text-white text-xs font-mono focus:outline-none focus:border-brand-primary"
+                      className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-4 text-white text-xs font-mono focus:outline-none focus:border-amber-500/50"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">Text Color</label>
-                  <div className="flex gap-2">
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Text Color</label>
+                  <div className="flex gap-2.5">
                     <input
                       type="color"
                       value={btn.textColor || '#FFFFFF'}
                       onChange={(e) => handleUpdate(idx, 'textColor', e.target.value)}
-                      className="w-10 h-10 rounded-xl cursor-pointer bg-brand-surfaceLight border border-slate-800"
+                      className="w-11 h-11 rounded-xl cursor-pointer bg-slate-900 border border-slate-700/60 p-1"
                     />
                     <input
                       type="text"
                       value={btn.textColor || '#FFFFFF'}
                       onChange={(e) => handleUpdate(idx, 'textColor', e.target.value)}
-                      className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl px-3 text-white text-xs font-mono focus:outline-none focus:border-brand-primary"
+                      className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-4 text-white text-xs font-mono focus:outline-none focus:border-amber-500/50"
                     />
                   </div>
                 </div>
-                <div>
-                  <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">Display Location</label>
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Display Location</label>
                   <select
                     value={btn.location || 'all'}
                     onChange={(e) => handleUpdate(idx, 'location', e.target.value)}
-                    className="w-full bg-brand-surfaceLight border border-slate-800 rounded-xl p-3 text-white text-xs font-mono focus:outline-none focus:border-brand-primary cursor-pointer"
+                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-3 text-white text-xs font-medium focus:outline-none cursor-pointer"
                   >
                     <option value="all">All Locations</option>
                     <option value="navbar">Navbar Only</option>
@@ -222,15 +234,25 @@ export default function ButtonManager({ cmsConfig, setCmsConfig }) {
                   </select>
                 </div>
               </div>
-
             </div>
           ))}
 
           {buttons.length === 0 && (
-            <div className="p-8 border-2 border-dashed border-slate-800 rounded-xl text-center text-content-muted font-bold text-sm">
+            <div className="p-8 border border-dashed border-slate-800 rounded-xl text-center text-slate-400 text-xs">
               No buttons configured. Click "Add Button" to create one.
             </div>
           )}
+        </div>
+
+        {/* Floating Save Button */}
+        <div className="pt-4 sticky bottom-4 z-20">
+          <button
+            onClick={handleSave}
+            className="w-full py-4 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-black font-extrabold text-base rounded-xl shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2.5 transition-all cursor-pointer"
+          >
+            <Save className="w-5 h-5" />
+            <span>Publish Action Buttons</span>
+          </button>
         </div>
       </div>
     </div>

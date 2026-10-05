@@ -174,13 +174,15 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
       }))
     : LOCATIONS_DATA;
 
-  const filteredLocations = locationsSource.filter((loc) => {
+  const filteredLocations = (locationsSource || []).filter((loc) => {
+    if (!loc) return false;
     const matchesCity = selectedCity === 'All' || loc.city === selectedCity;
     const matchesCategory = selectedCategory === 'All' || loc.category === selectedCategory;
+    const servicesArr = Array.isArray(loc.services) ? loc.services : [];
     const matchesQuery = 
-      loc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      loc.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      loc.services.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()));
+      (loc.name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (loc.address || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      servicesArr.some(s => (s || '').toLowerCase().includes(searchQuery.toLowerCase()));
 
     return matchesCity && matchesCategory && matchesQuery;
   });
@@ -238,7 +240,7 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
                 onClick={() => setSelectedCity(city)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   selectedCity === city
-                    ? 'bg-brand-primary text-white shadow-md'
+                    ? 'bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] text-white shadow-md'
                     : 'text-content-muted dark:text-slate-400 hover:text-content-primary dark:hover:text-white'
                 }`}
               >
@@ -360,7 +362,7 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
                   href={loc.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-2.5 px-4 bg-brand-surfaceLight dark:bg-white hover:bg-brand-primary dark:hover:bg-brand-primary text-white dark:text-slate-900 dark:hover:text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  className="flex-1 py-2.5 px-4 bg-brand-surfaceLight dark:bg-white hover:bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] dark:hover:bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] text-white dark:text-slate-900 dark:hover:text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
                   <Navigation className="w-4 h-4" /> Get Directions
                 </a>
@@ -407,7 +409,7 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => onOpenCalculator('spouse')}
-          className="px-6 py-3.5 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 font-bold text-xs rounded-xl shadow-xl shadow-[#D4AF37]/30 flex items-center gap-2 shrink-0 cursor-pointer z-10"
+          className="px-6 py-3.5 bg-gold-gradient btn-shine-effect text-black font-extrabold hover:brightness-110 font-bold text-xs rounded-xl shadow-xl shadow-[0_4px_12px_rgba(212,175,55,0.3)] flex items-center gap-2 shrink-0 cursor-pointer z-10"
         >
           Book VIP Escort Package <ExternalLink className="w-4 h-4" />
         </motion.button>

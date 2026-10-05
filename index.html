@@ -2,12 +2,11 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <script>
-      window.onerror = function(message, source, lineno, colno, error) {
-        document.body.innerHTML += '<div style="color:red; background:white; z-index:9999; position:fixed; top:0; left:0; padding:20px; width:100%; font-size:20px;">' + message + '<br>' + (error ? error.stack : '') + '</div>';
-        return false;
-      };
+      // Graceful error logging for development debugging (prevents external script rejections like Google Translate from breaking React UI)
       window.addEventListener('unhandledrejection', function(event) {
-        document.body.innerHTML += '<div style="color:red; background:white; z-index:9999; position:fixed; top:0; left:0; padding:20px; width:100%; font-size:20px;">Unhandled Rejection: ' + event.reason + '</div>';
+        if (event.reason && (event.reason.includes?.('M_ID') || event.reason.message?.includes?.('M_ID'))) {
+          event.preventDefault();
+        }
       });
     </script>
     <meta charset="UTF-8" />
@@ -71,21 +70,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-canvas dark:bg-brand-darkBg text-content-primary dark:text-brand-textMain font-sans antialiased selection:bg-brand-gold/30 transition-colors duration-200">
-    <!-- Hidden Google Translate Widget -->
-    <div id="google_translate_element" style="display:none;"></div>
+    <!-- Google Translate Script -->
     <script type="text/javascript">
       function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'en',
-          autoDisplay: false,
-          includedLanguages: 'en,ar,ru,de,es,fr,tr,zh-CN,tl,hi,ur'
-        }, 'google_translate_element');
+        if (window.google && window.google.translate) {
+          new window.google.translate.TranslateElement({
+            pageLanguage: 'en',
+            autoDisplay: false
+          }, 'google_translate_element');
+        }
       }
     </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </head>
+  <body class="bg-canvas dark:bg-brand-darkBg text-content-primary dark:text-brand-textMain font-sans antialiased selection:bg-brand-gold/30 transition-colors duration-200">
+    <div id="google_translate_element" style="display:none;"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -88,12 +88,12 @@ export default function CommandPaletteModal({ isOpen, onClose, onSelectAction, d
                       className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-brand-primary/15 hover:border hover:border-brand-primary/30 transition-all text-sm group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="p-1.5 rounded-lg bg-slate-800 text-slate-300 group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                        <div className="p-1.5 rounded-lg bg-slate-800 text-slate-300 group-hover:bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] group-hover:text-white transition-colors">
                           <Icon className="w-4 h-4" />
                         </div>
                         <span className="font-medium text-slate-200 group-hover:text-white">{act.title}</span>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-content-muted group-hover:text-brand-primary transition-colors" />
+                      <ArrowRight className="w-4 h-4 text-content-muted group-hover:text-[#B8860B] transition-colors" />
                     </button>
                   );
                 })}

@@ -8,6 +8,23 @@ import MobileFooter from './components/MobileFooter';
 import CalculatorModal from './components/CalculatorModal';
 import Home from './components/Home';
 import ServiceTemplate from './components/ServiceTemplate';
+import PropertyVisaPage from './pages/PropertyVisaPage';
+import GoldenVisaPage from './pages/GoldenVisaPage';
+import FamilyVisaPage from './pages/FamilyVisaPage';
+import NewbornVisaPage from './pages/NewbornVisaPage';
+import MaidVisaPage from './pages/MaidVisaPage';
+import EmiratesIDPage from './pages/EmiratesIDPage';
+import PROServicesPage from './pages/PROServicesPage';
+import AmerCenterPage from './pages/AmerCenterPage';
+import AttestationPage from './pages/AttestationPage';
+import LegalTranslationPage from './pages/LegalTranslationPage';
+import PowerOfAttorneyPage from './pages/PowerOfAttorneyPage';
+import WillsPage from './pages/WillsPage';
+import DLDTrusteePage from './pages/DLDTrusteePage';
+import PropertyRevaluationPage from './pages/PropertyRevaluationPage';
+import MedicalEIDPage from './pages/MedicalEIDPage';
+import ILOEInsurancePage from './pages/ILOEInsurancePage';
+import VisaValidityPage from './pages/VisaValidityPage';
 import BlogSystem from './components/BlogSystem';
 import AboutPage from './components/AboutPage';
 import TermsPage from './components/TermsPage';
@@ -18,6 +35,9 @@ import Footer from './components/Footer';
 import DesktopWhatsAppFAB from './components/DesktopWhatsAppFAB';
 import MobileToolsFAB from './components/MobileToolsFAB';
 import BackToTopFAB from './components/BackToTopFAB';
+import ErrorBoundary from './components/ErrorBoundary';
+
+import BlockPageBuilder from './components/admin/BlockPageBuilder';
 
 // Admin Suite Imports
 import AdminLayout from './components/admin/AdminLayout';
@@ -35,8 +55,9 @@ import {
 } from './data/adminState';
 
 export default function App() {
-  // Global Theme Mode ('light' | 'dark')
-  const [theme, setTheme] = useState('light');
+  // Global Theme Mode (strictly 100% dark mode)
+  const theme = 'dark';
+  const setTheme = () => {};
 
   // Global Language State ('EN' | 'AR' | 'RU' | 'DE' | 'ES' | 'FR' | 'TR' | 'ZH')
   const [language, setLanguage] = useState(() => {
@@ -52,20 +73,25 @@ export default function App() {
     }
   }, [language]);
 
-  // View Navigation State ('home' | 'service' | 'about' | 'contact' | 'privacy' | 'blog-index' | 'blog-post' | 'admin')
-  const [activeView, setActiveView] = useState(() => {
+  // Helper for initial URL route resolution
+  const getInitialRoute = () => {
     if (typeof window !== 'undefined') {
       const p = window.location.pathname.toLowerCase();
-      const h = window.location.hash.toLowerCase();
-      if (p === '/admin') {
-        return 'admin';
+      if (p === '/admin') return { view: 'admin', postId: null };
+      if (p === '/articles' || p === '/blog' || p === '/articles/') return { view: 'blog-index', postId: null };
+      if (p.startsWith('/articles/')) {
+        const parts = p.split('/').filter(Boolean);
+        if (parts[1]) return { view: 'blog-post', postId: parts[1] };
+        return { view: 'blog-index', postId: null };
       }
     }
-    return 'home';
-  });
+    return { view: 'home', postId: null };
+  };
 
+  const initialRoute = getInitialRoute();
+  const [activeView, setActiveView] = useState(initialRoute.view);
   const [selectedServiceId, setSelectedServiceId] = useState('spouse-visa');
-  const [selectedPostId, setSelectedPostId] = useState(null);
+  const [selectedPostId, setSelectedPostId] = useState(initialRoute.postId);
 
   // Admin Module State ('homepage' | 'services' | 'testimonials' | 'settings')
   const [adminModule, setAdminModule] = useState('homepage');
@@ -92,7 +118,15 @@ export default function App() {
   const [staffUsers] = useState(INITIAL_STAFF_USERS);
   const [currentUser, setCurrentUser] = useState(INITIAL_STAFF_USERS[0]);
   
-  const [homePageData, setHomePageData] = useState(null);
+  const [homePageData, setHomePageData] = useState({
+    hero: {
+      badgeText: "15,000+ Visas Processed",
+      title: "Bring your family to the UAE with 100% Guaranteed SLA Approval.",
+      subtitle: "We prepare, submit, and track family residence visas, 10-Year Golden Visas, and Emirates ID applications so you deal with one consultant instead of five counters.",
+      primaryButtonText: "Start Free Assessment",
+      secondaryButtonText: "Calculate Fees"
+    }
+  });
 
   useEffect(() => {
     try {
@@ -101,17 +135,6 @@ export default function App() {
       onValue(docRef, (snapshot) => {
         if (snapshot.exists()) {
           setHomePageData(snapshot.val());
-        } else {
-          // Default schema if not exists
-          setHomePageData({
-            hero: {
-              badgeText: "15,000+ Visas Processed",
-              title: "Stress-Free UAE Family Visas",
-              subtitle: "Bring your loved ones to the UAE with our end-to-end Family Visa services.",
-              primaryButtonText: "Start Free Assessment",
-              secondaryButtonText: "Calculate Fees"
-            }
-          });
         }
       });
     } catch (e) {
@@ -121,6 +144,21 @@ export default function App() {
 
   const [cmsConfig, setCmsConfigState] = useState(INITIAL_CMS_CONFIG);
 
+  // Helper to deeply merge website defaults with Firebase config
+  const deepMerge = (target, source) => {
+    if (!source) return target;
+    if (!target) return source;
+    const result = { ...target };
+    Object.keys(source).forEach(key => {
+      if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+        result[key] = deepMerge(target[key] || {}, source[key]);
+      } else if (source[key] !== undefined && source[key] !== null) {
+        result[key] = source[key];
+      }
+    });
+    return result;
+  };
+
   // Fetch cmsConfig from Firebase on mount
   useEffect(() => {
     try {
@@ -129,7 +167,10 @@ export default function App() {
       onValue(docRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const merged = { ...INITIAL_CMS_CONFIG, ...data };
+          if (data?.global?.theme?.buttonRadius === '9999px') {
+            data.global.theme.buttonRadius = '10px';
+          }
+          const merged = deepMerge(INITIAL_CMS_CONFIG, data);
           setCmsConfigState(merged);
         } else {
           // If no data exists yet in Firebase, populate it
@@ -180,15 +221,28 @@ export default function App() {
     } else {
       root.classList.remove('dark');
     }
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', theme);
+    }
   }, [theme]);
 
-  // Sync /admin URL Route
+  // Sync URL Routes for /admin, /articles, /articles/:slug
   useEffect(() => {
     const syncRouteFromUrl = () => {
       const p = window.location.pathname.toLowerCase();
-      const h = window.location.hash.toLowerCase();
       if (p === '/admin') {
         setActiveView('admin');
+      } else if (p === '/articles' || p === '/blog' || p === '/articles/') {
+        setActiveView('blog-index');
+        setSelectedPostId(null);
+      } else if (p.startsWith('/articles/')) {
+        const parts = p.split('/').filter(Boolean);
+        if (parts[1]) {
+          setSelectedPostId(parts[1]);
+          setActiveView('blog-post');
+        } else {
+          setActiveView('blog-index');
+        }
       } else {
         setActiveView(prev => (prev === 'admin' ? 'home' : prev));
       }
@@ -212,8 +266,16 @@ export default function App() {
       if (window.location.pathname !== '/admin') {
         window.history.pushState(null, '', '/admin');
       }
-    } else {
-      if (window.location.pathname === '/admin') {
+    } else if (view === 'blog-index') {
+      if (window.location.pathname !== '/articles') {
+        window.history.pushState(null, '', '/articles');
+      }
+    } else if (view === 'blog-post' && payload) {
+      if (window.location.pathname !== `/articles/${payload}`) {
+        window.history.pushState(null, '', `/articles/${payload}`);
+      }
+    } else if (view === 'home') {
+      if (window.location.pathname !== '/') {
         window.history.pushState(null, '', '/');
       }
     }
@@ -252,15 +314,17 @@ export default function App() {
 
     if (!isAuthenticated) {
       return (
-        <AdminLogin 
-          onLoginSuccess={() => setIsAuthenticated(true)} 
-          onExitAdmin={() => handleNavigate('home')} 
-        />
+        <div className="dark bg-[#0a0a0a] text-slate-100 min-h-screen">
+          <AdminLogin 
+            onLoginSuccess={() => setIsAuthenticated(true)} 
+            onExitAdmin={() => handleNavigate('home')} 
+          />
+        </div>
       );
     }
 
     return (
-      <div className="notranslate w-full min-h-screen" dir="ltr" translate="no">
+      <div className="dark bg-[#0a0a0a] text-slate-100 notranslate w-full min-h-screen" dir="ltr" translate="no">
         <AdminLayout
           activeModule={adminModule}
           setActiveModule={setAdminModule}
@@ -270,13 +334,16 @@ export default function App() {
           staffUsers={staffUsers}
         >
           
-                {adminModule === 'pagesEditor' ? (
+                {adminModule === 'blockBuilder' ? (
+                  <BlockPageBuilder slug="home" />
+                ) : adminModule === 'pagesEditor' ? (
                   <UniversalFormBuilder collectionPath="pages/home" data={homePageData} />
                 ) : (
                   <CMSModule
                     activeModule={adminModule}
                     cmsConfig={cmsConfig}
                     setCmsConfig={setCmsConfig}
+                    onNavigateModule={setAdminModule}
                   />
                 )}
         </AdminLayout>
@@ -296,7 +363,8 @@ export default function App() {
           :root {
             --primary-color: ${cmsConfig?.global?.theme?.primaryColor || '#D4AF37'};
             --font-family: ${cmsConfig?.global?.theme?.fontFamily || '"Inter", system-ui, -apple-system, sans-serif'};
-            --button-radius: ${cmsConfig?.global?.theme?.buttonRadius || '12px'};
+            --button-radius: ${cmsConfig?.global?.theme?.buttonRadius && cmsConfig.global.theme.buttonRadius !== '9999px' ? cmsConfig.global.theme.buttonRadius : '10px'};
+            --radius: 10px;
           }
           body, .font-sans, .font-display, h1, h2, h3, h4, h5, h6 {
             font-family: var(--font-family) !important;
@@ -307,14 +375,6 @@ export default function App() {
           .border-\\[\\#D4AF37\\] { border-color: var(--primary-color) !important; }
           .from-\\[\\#D4AF37\\]\\/15 { --tw-gradient-from: var(--primary-color) var(--tw-gradient-from-position); }
           .to-\\[\\#D4AF37\\]\\/5 { --tw-gradient-to: var(--primary-color) var(--tw-gradient-to-position); }
-          
-          /* Apply Button Radius */
-          button {
-            border-radius: var(--button-radius);
-          }
-          .rounded-full {
-            border-radius: var(--button-radius) !important;
-          }
         `}
       </style>
       
@@ -339,63 +399,101 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="relative z-10">
-        {activeView === 'home' && (
-          <Home
-            homePageData={homePageData}
-            onNavigate={handleNavigate}
-            onOpenCalculator={handleOpenCalculator}
-            cmsConfig={cmsConfig}
-          />
-        )}
+        <ErrorBoundary>
+          {activeView === 'home' && (
+            <Home
+              homePageData={homePageData}
+              onNavigate={handleNavigate}
+              onOpenCalculator={handleOpenCalculator}
+              cmsConfig={cmsConfig}
+            />
+          )}
 
-        {activeView === 'service' && (
-          <ServiceTemplate
-            serviceId={selectedServiceId}
-            onOpenCalculator={handleOpenCalculator}
-            onNavigate={handleNavigate}
-            cmsConfig={cmsConfig}
-          />
-        )}
+          {activeView === 'service' && (
+            selectedServiceId === 'property-visa' || selectedServiceId === 'property' ? (
+              <PropertyVisaPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'golden-visa' || selectedServiceId === 'golden' ? (
+              <GoldenVisaPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'family-visa' || selectedServiceId === 'spouse-visa' || selectedServiceId === 'child-visa' || selectedServiceId === 'parent-visa' ? (
+              <FamilyVisaPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'newborn-visa' || selectedServiceId === 'new-born' || selectedServiceId === 'new-born-visa' ? (
+              <NewbornVisaPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'maid-visa' || selectedServiceId === 'domestic-worker' || selectedServiceId === 'domestic-helper' ? (
+              <MaidVisaPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'emirates-id' || selectedServiceId === 'eid' || selectedServiceId === 'visa-medical-emirates-id-location' ? (
+              <EmiratesIDPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'pro-services' || selectedServiceId === 'pro' ? (
+              <PROServicesPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'amer-center' || selectedServiceId === 'amer' ? (
+              <AmerCenterPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'attestation' ? (
+              <AttestationPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'legal-translation' || selectedServiceId === 'translation' ? (
+              <LegalTranslationPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'poa' || selectedServiceId === 'power-of-attorney' ? (
+              <PowerOfAttorneyPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'wills-last-testament' || selectedServiceId === 'wills-testament' || selectedServiceId === 'wills' ? (
+              <WillsPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'dld-trustee-services' || selectedServiceId === 'dld-trustee' ? (
+              <DLDTrusteePage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'property-revaluation' ? (
+              <PropertyRevaluationPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'medical-eid' ? (
+              <MedicalEIDPage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'iloe' || selectedServiceId === 'iloe-insurance' ? (
+              <ILOEInsurancePage cmsConfig={cmsConfig} />
+            ) : selectedServiceId === 'visa-validity' || selectedServiceId === 'visa-checker' || selectedServiceId === 'check-visa-status-uae' ? (
+              <VisaValidityPage cmsConfig={cmsConfig} />
+            ) : (
+              <ServiceTemplate
+                serviceId={selectedServiceId}
+                onOpenCalculator={handleOpenCalculator}
+                onNavigate={handleNavigate}
+                cmsConfig={cmsConfig}
+              />
+            )
+          )}
 
-        {activeView === 'about' && (
-          <AboutPage
-            onOpenCalculator={handleOpenCalculator}
-            onNavigate={handleNavigate}
-            cmsConfig={cmsConfig}
-          />
-        )}
+          {activeView === 'about' && (
+            <AboutPage
+              onOpenCalculator={handleOpenCalculator}
+              onNavigate={handleNavigate}
+              cmsConfig={cmsConfig}
+            />
+          )}
 
-        {activeView === 'contact' && (
-          <ContactPage
-            onOpenCalculator={handleOpenCalculator}
-            cmsConfig={cmsConfig}
-          />
-        )}
+          {activeView === 'contact' && (
+            <ContactPage
+              onOpenCalculator={handleOpenCalculator}
+              cmsConfig={cmsConfig}
+            />
+          )}
 
-        {activeView === 'privacy' && (
-          <TermsPage cmsConfig={cmsConfig} />
-        )}
+          {activeView === 'privacy' && (
+            <TermsPage cmsConfig={cmsConfig} />
+          )}
 
-        {activeView === 'checklist' && (
-          <DocumentChecklistPage cmsConfig={cmsConfig} />
-        )}
+          {activeView === 'checklist' && (
+            <DocumentChecklistPage cmsConfig={cmsConfig} />
+          )}
 
-        {activeView === 'locations' && (
-          <LocationsPage
-            onOpenCalculator={handleOpenCalculator}
-            cmsConfig={cmsConfig}
-          />
-        )}
+          {activeView === 'locations' && (
+            <LocationsPage
+              onOpenCalculator={handleOpenCalculator}
+              cmsConfig={cmsConfig}
+            />
+          )}
 
-        {(activeView === 'blog-index' || activeView === 'blog-post') && (
-          <BlogSystem
-            cmsConfig={cmsConfig}
-            activePostId={activeView === 'blog-post' ? selectedPostId : null}
-            onNavigatePost={(postId) => handleNavigate('blog-post', postId)}
-            onBackToIndex={() => handleNavigate('blog-index')}
-            onOpenCalculator={handleOpenCalculator}
-          />
-        )}
+          {(activeView === 'blog-index' || activeView === 'blog-post') && (
+            <BlogSystem
+              cmsConfig={cmsConfig}
+              activePostId={activeView === 'blog-post' ? selectedPostId : null}
+              onNavigatePost={(postId) => handleNavigate('blog-post', postId)}
+              onBackToIndex={() => handleNavigate('blog-index')}
+              onOpenCalculator={handleOpenCalculator}
+            />
+          )}
+        </ErrorBoundary>
       </main>
 
       {/* Global Footer */}
@@ -416,6 +514,7 @@ export default function App() {
             onClose={() => setIsOverlayMenuOpen(false)}
             onNavigate={handleNavigate}
             onOpenCalculator={handleOpenCalculator}
+            cmsConfig={cmsConfig}
           />
         )}
       </AnimatePresence>
@@ -427,6 +526,7 @@ export default function App() {
             isOpen={isCalculatorOpen}
             onClose={() => setIsCalculatorOpen(false)}
             initialTab={calculatorTab}
+            cmsConfig={cmsConfig}
           />
         )}
       </AnimatePresence>

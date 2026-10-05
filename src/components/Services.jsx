@@ -8,7 +8,7 @@ export default function Services() {
         {/* Section Eyebrow & Title */}
         <div className="mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-bold uppercase tracking-wider mb-3">
-            <span className="w-2 h-2 rounded-full bg-brand-primary" />
+            <span className="w-2 h-2 rounded-full bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)]" />
             END-TO-END CORPORATE SERVICES
           </div>
           <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-content-primary tracking-tight max-w-3xl">
@@ -31,7 +31,7 @@ export default function Services() {
                 <span className="text-xs font-mono font-bold text-slate-400">01 / INCORPORATION</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-brand-primary transition-colors">
+              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
                 Company Formation Architecture
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">
@@ -70,7 +70,7 @@ export default function Services() {
                 <span className="text-xs font-mono font-bold text-slate-400">02 / IMMIGRATION</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-brand-primary transition-colors">
+              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
                 10-Year Golden Visa Services
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">
@@ -109,7 +109,7 @@ export default function Services() {
                 <span className="text-xs font-mono font-bold text-slate-400">03 / BANKING</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-brand-primary transition-colors">
+              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
                 Private & VIP Commercial Banking
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">
@@ -151,7 +151,7 @@ export default function Services() {
                 <span className="text-xs font-mono font-bold text-slate-400">04 / TAXATION & COMPLIANCE</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-brand-primary transition-colors">
+              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
                 Corporate Tax & OECD Pillar 2
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">
@@ -187,7 +187,7 @@ export default function Services() {
                 <span className="text-xs font-mono font-bold text-slate-400">05 / INTELLECTUAL PROPERTY</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-brand-primary transition-colors">
+              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
                 Trademarks & Sovereign IP Protection
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">

@@ -274,6 +274,225 @@ export const INITIAL_TARIFFS = [
 ];
 
 export const INITIAL_CMS_CONFIG = {
+  // About Page CMS Configuration
+  aboutPage: {
+    hero: {
+      badge: "Brightlink Management Consultancy • DET & GDRFA Accredited",
+      title: "Dubai. Documents. Done. Perfectly.",
+      subtitle: "Pioneering seamless business setup and visa processing in the UAE. We unify strategy, compliance, and execution into one flawless experience."
+    },
+    welcome: {
+      badge: "Our Philosophy & Heritage",
+      title: "Redefining UAE Relocation & Corporate Immigration",
+      p1: "Operating under The Brightlink Group from our executive headquarters in Crystal Tower, Business Bay, Dubai, Brightlink Management Consultancy has served as an authoritative bridge between global investors, families, corporations, and UAE government entities for over 15 years.",
+      p2: "Navigating UAE immigration shouldn't feel like navigating a maze. We founded our agency to replace bureaucratic friction, unexpected fee surcharges, and endless typing center queues with 100% digital transparency, upfront statutory fee accounting, and guaranteed SLA turnaround speeds.",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
+      ceo: {
+        name: "Bilal Saleem",
+        title: "Founder & CEO",
+        quote: "Pioneered transparent corporate immigration models in the UAE. Architect of Brightlink Group operations, establishing direct filing workflows with GDRFA, ICP, and Dubai Economy & Tourism."
+      }
+    },
+    license: {
+      badge: "Official Licensing & Accreditation",
+      title: "Officially Licensed Corporate Immigration Agency",
+      description: "Authorized by Dubai Economy & Tourism (DET) and General Directorate of Residency and Foreigners Affairs (GDRFA) to process government filings.",
+      daysImpact: "15+ Years",
+      card: {
+        authority: "Government of Dubai - Economy & Tourism (DET)",
+        licenseNo: "DET-789421-DXB",
+        businessName: "Brightlink Management Consultancy LLC",
+        registrationDate: "2011",
+        legalType: "LLC",
+        activities: "Management Consultancies | Documents Clearing Services | Corporate Immigration Partner"
+      }
+    },
+    strength: {
+      badge: "Strength in Numbers",
+      title: "Our Strength in Numbers",
+      subtitle: "Trusted UAE Consultants with 15+ Years of Excellence",
+      stats: [
+        { value: "15+ Years", label: "of Excellence" },
+        { value: "20,000+", label: "Visas Processed" },
+        { value: "4.9 / 5", label: "Google Rating" },
+        { value: "100%", label: "Statutory Transparency" }
+      ]
+    },
+    teamRoster: [
+      {
+        name: "Bilal Saleem",
+        role: "Founder & CEO",
+        bio: "Pioneered transparent corporate immigration models in the UAE. Architect of Brightlink Group operations, establishing direct filing workflows with GDRFA, ICP, and Dubai Economy & Tourism.",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
+        badge: "Executive Leadership"
+      },
+      {
+        name: "Muhammad Anas",
+        role: "Managing Director",
+        bio: "Oversees multi-emirate expansion, strategic partnership frameworks, and government relations across Dubai, Abu Dhabi, and Ras Al Khaimah.",
+        image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
+        badge: "Board of Directors"
+      },
+      {
+        name: "Aziza Kamilova",
+        role: "Director Operations",
+        bio: "Directs daily VIP concierge workflows, document legalization, and fast-track medical fitness operations across all 7 UAE Emirates.",
+        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
+        badge: "Operations Desk"
+      },
+      {
+        name: "Haroon Saleem",
+        role: "HR Manager",
+        bio: "Leads talent acquisition, accredited PRO officer training, and internal compliance protocols ensuring 100% adherence to UAE labor laws.",
+        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop",
+        badge: "Human Resources"
+      },
+      {
+        name: "Olga Kulish",
+        role: "Project Manager",
+        bio: "Manages complex Golden Visa investor files, real estate valuations, DLD Cube schedules, and corporate free zone establishment cards.",
+        image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop",
+        badge: "Golden Visa Specialist"
+      },
+      {
+        name: "Malika Ikramova",
+        role: "Executive Director",
+        bio: "Drives high-net-worth family office consultations, VIP domestic staff visas, and strategic commercial licensing portfolios.",
+        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop",
+        badge: "Executive Advisory"
+      },
+      {
+        name: "Ilya Merzlyakov",
+        role: "Marketing Manager",
+        bio: "Heads digital transparency initiatives, client feedback channels, user experience engineering, and multilingual client portals.",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop",
+        badge: "Brand & Media"
+      }
+    ]
+  },
+  // Service Pages CMS Overrides (Synced with Firebase)
+  servicePages: {
+    'property-visa': {
+      title: 'Dubai Property Investor Residence Visa',
+      subtitle: '2-Year & 10-Year Golden Visa for Real Estate Owners in Dubai',
+      heroDescription: 'Secure your UAE residence visa through property investment. Complete DLD valuation, title deed audit, and priority application filing.',
+      startingPrice: 'AED 4,000',
+      processingTime: '3-5 Business Days'
+    },
+    'golden-visa': {
+      title: '10-Year UAE Golden Visa Concierge',
+      subtitle: 'Long-Term Residency for Investors, Entrepreneurs & High-Earner Executives',
+      heroDescription: 'Direct nomination and GDRFA golden residency filing across property investment, salary (AED 30k+), and corporate nomination routes.',
+      startingPrice: 'AED 4,850',
+      processingTime: '48-72 Hours'
+    },
+    'family-visa': {
+      title: 'Family & Spouse Residence Visa',
+      subtitle: 'Sponsor Your Spouse, Children & Parents in Dubai',
+      heroDescription: 'End-to-end family sponsorship handling: GDRFA entry permits, in-country status change, DHA VIP medical fitness, and Emirates ID.',
+      startingPrice: 'AED 4,350',
+      processingTime: '5-7 Business Days'
+    },
+    'newborn-visa': {
+      title: 'Newborn Baby Residence Visa',
+      subtitle: 'Complete 120-Day Grace Period Registration in Dubai',
+      heroDescription: 'Hassle-free birth certificate attestation, entry permit issuance, and Emirates ID processing within the statutory 120-day grace period.',
+      startingPrice: 'AED 2,200',
+      processingTime: '3-5 Business Days'
+    },
+    'maid-visa': {
+      title: 'Maid & Domestic Worker Sponsorship',
+      subtitle: 'Official MOHRE & Tadbeer Domestic Residence Permits',
+      heroDescription: 'Legal sponsorship for housemaids, nannies, cooks, and personal drivers under official MOHRE contract guidelines.',
+      startingPrice: 'AED 5,100',
+      processingTime: '4-6 Business Days'
+    },
+    'emirates-id': {
+      title: 'Emirates ID & Medical Typing Concierge',
+      subtitle: 'VIP Fast-Track Screening & ICP Biometrics',
+      heroDescription: 'Fast-track 30-minute Smart Salem AI medical screening and priority ICP Emirates ID biometric fingerprint appointments.',
+      startingPrice: 'AED 820',
+      processingTime: '30-min to 24 Hours'
+    },
+    'pro-services': {
+      title: 'B2B Corporate PRO Services',
+      subtitle: 'Enterprise Government Affairs & MOHRE Work Permits',
+      heroDescription: 'Comprehensive corporate PRO retainers: trade license renewals, MOHRE work permits, establishment cards, and labor quota management.',
+      startingPrice: 'AED 1,500',
+      processingTime: '3-5 Business Days'
+    },
+    'amer-center': {
+      title: 'Amer Center Dubai Guide & Concierge',
+      subtitle: '100% Online GDRFA Visa Submissions without Queue Lines',
+      heroDescription: 'Avoid physical center waiting lines. Submit your family, visit, or corporate visa applications 100% online through our accredited GDRFA desk.',
+      startingPrice: 'AED 220',
+      processingTime: 'Instant / 24 Hours'
+    },
+    'attestation': {
+      title: 'MOFA & Embassy Certificate Attestation',
+      subtitle: 'Educational, Personal & Commercial Document Legalization',
+      heroDescription: 'Complete 5-stage legalisation chain across 100+ countries with free doorstep pickup and return anywhere in the UAE.',
+      startingPrice: 'AED 150',
+      processingTime: '24-48 Hours'
+    },
+    'legal-translation': {
+      title: 'Certified Sworn Legal Translation',
+      subtitle: 'Ministry of Justice (MOJ) Licensed Arabic Translation',
+      heroDescription: 'Court-stamped sworn legal translations accepted by Dubai Courts, Notary Public, GDRFA, MOHRE, and UAE Embassies.',
+      startingPrice: 'AED 75 / Page',
+      processingTime: '3-6 Hours Express'
+    },
+    'poa': {
+      title: 'Lawyer-Drafted Power of Attorney',
+      subtitle: 'Bilingual POA with Remote Video Call Notarization',
+      heroDescription: 'Custom bilingual (English/Arabic) Power of Attorney drafted by UAE legal advocates and notarized via official video call.',
+      startingPrice: 'AED 850',
+      processingTime: '24-48 Hours'
+    },
+    'wills-last-testament': {
+      title: 'UAE Wills Registration & Estate Protection',
+      subtitle: 'DIFC Courts & Dubai Courts Expat Estate Planning',
+      heroDescription: 'Protect your UAE real estate, bank accounts, and minor child guardianship under English Common Law or Dubai Notary Courts.',
+      startingPrice: 'AED 2,500',
+      processingTime: '3-7 Business Days'
+    },
+    'dld-trustee': {
+      title: 'Dubai Property Trustee Services',
+      subtitle: 'DLD Property Sale, Gift Transfer & Mortgage Registration',
+      heroDescription: 'Complete document pre-audit, developer NOC coordination, and priority booking at official DLD Real Estate Trustee offices.',
+      startingPrice: 'AED 2,000',
+      processingTime: 'Same-Day Transfer'
+    },
+    'property-revaluation': {
+      title: 'Official DLD Property Valuation Certificate',
+      subtitle: 'Market Appreciation Proof for 10-Year Golden Visa',
+      heroDescription: 'Certify your property market appreciation to AED 2 Million+ with an official DLD Valuation Certificate to unlock Golden Visa eligibility.',
+      startingPrice: 'AED 4,000',
+      processingTime: '3-5 Business Days'
+    },
+    'medical-eid': {
+      title: 'Visa Medical & Emirates ID Center Directory',
+      subtitle: 'Smart Salem 30-Min AI & ICP Biometrics Booking',
+      heroDescription: 'Official directory of DHA visa medical centers and ICP biometric locations sorted by proximity to your home.',
+      startingPrice: 'AED 320',
+      processingTime: '30-min VIP Available'
+    },
+    'iloe-insurance': {
+      title: 'ILOE Unemployment Insurance & Fine Audit',
+      subtitle: 'MOHRE Mandatory Scheme & Fine Clearance',
+      heroDescription: 'Check ILOE status by Emirates ID, calculate 60% unemployment payouts, and clear outstanding MOHRE fines online.',
+      startingPrice: 'AED 5 / Month',
+      processingTime: 'Instant Online'
+    },
+    'visa-validity': {
+      title: 'UAE Visa Expiry & Overstay Fine Audit',
+      subtitle: 'Live GDRFA Status Check & Fine Waiver Petitions',
+      heroDescription: 'Audit your visa validity date, calculate daily overstay penalties (AED 50/day), and request official GDRFA fine reduction petitions.',
+      startingPrice: 'AED 50 / Day Overstay',
+      processingTime: 'Instant Audit'
+    }
+  },
+
   // Global Site Identity
   global: {
     brandName: 'Property Visa',
@@ -477,6 +696,37 @@ export const INITIAL_CMS_CONFIG = {
     hero: true, stats: true, achievements: true, problems: true,
     services: true, packages: true, whyUs: true, process: true,
     faqs: true, reviews: true, blog: true, cta: true
+  },
+
+  // Footer CMS (editable via Footer Editor)
+  footer: {
+    logoIcon: 'PV',
+    logoSubtext: 'DUBAI',
+    brandTitle: 'PropertyVisaDubai',
+    brandSubtitle: 'operated by brightlink',
+    tagline: 'Calculate your exact government fees in seconds, or text us on WhatsApp — a friendly visa specialist replies in minutes.',
+    copyrightText: '© 2026 PropertyVisa Dubai. All rights reserved. Operated by Brightlink Management Consultancy.',
+    servicesColHeading: 'Residency Services',
+    legalColHeading: 'Platform & Legal',
+    contactColHeading: 'Advisory Desk & HQ',
+    portals: [
+      { label: 'icp.gov.ae', url: 'https://icp.gov.ae' },
+      { label: 'gdrfad.gov.ae', url: 'https://www.gdrfad.gov.ae' },
+      { label: 'u.ae', url: 'https://u.ae' }
+    ],
+    legalLinks: [
+      { label: 'Homepage', view: 'home' },
+      { label: 'Visa Calculator', view: 'calculator' },
+      { label: 'Residency Guides', view: 'blog-index' },
+      { label: 'About Us', view: 'about' },
+      { label: 'Terms & Privacy', view: 'privacy' }
+    ],
+    madeWithText: 'Made with ♥ in Dubai, UAE',
+    bottomBadge: 'Licensed PRO Document Clearing • DED Business Registration',
+    disclaimer: 'Propertyvisadubai.ae is operated by Brightlink Management Consultancy LLC, a private third-party service provider licensed in Dubai. We are not a government authority and have no affiliation with, or endorsement from, the Government of the UAE or any of its departments. We assist customers with visa-related typing, documentation, application filling and submission through the relevant official channels (GDRFA Dubai, ICP, MOFA), acting on the customer\'s behalf and with their consent. Government fees are set by the authorities and paid to them; our service fee is charged separately and disclosed before any commitment. Applicants can complete the same applications directly through the official portals: icp.gov.ae, gdrfad.gov.ae, u.ae. Estimates shown are for information only and do not constitute legal advice. Content last reviewed 01-09-2026.',
+    referralTitle: 'Grow Together With Our B2B Referral Program',
+    referralDesc: 'Partner with us through our structured B2B and Corporate Referral Program.',
+    referralBtn: 'Become a Referral Partner'
   },
 
   // Navigation Links

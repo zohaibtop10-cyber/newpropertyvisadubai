@@ -4,66 +4,99 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        canvas: 'var(--bg-canvas)',
+        background: 'var(--color-background)',
         surface: {
-          DEFAULT: 'var(--bg-surface)',
-          elevated: 'var(--bg-surface-elevated)',
+          DEFAULT: 'var(--color-surface)',
+          primary: 'var(--surface-primary)',
+          elevated: 'var(--color-surface-elevated)',
           hover: 'var(--bg-surface-hover)',
         },
-        content: {
-          primary: 'var(--text-primary)',
-          secondary: 'var(--text-secondary)',
-          muted: 'var(--text-muted)',
+        primary: 'var(--color-text-primary)',
+        secondary: 'var(--color-text-secondary)',
+        muted: 'var(--color-text-muted)',
+        text: {
+          main: 'var(--text-main)',
         },
         border: {
-          subtle: 'var(--border-subtle)',
+          DEFAULT: 'var(--color-border)',
+          subtle: 'var(--color-border)',
+          gold: 'var(--color-border-gold)',
           strong: 'var(--border-strong)',
         },
-        brand: {
-          // Core Luxury Golds
-          gold: '#D4AF37',         // Primary metallic gold (Buttons, Icons, Active Nav)
-          goldLight: '#FDF2CB',    // Pale gold (Text highlights, subtle hover tints)
-          goldDark: '#996515',     // Deep gold (Borders, shadows, gradient depth)
-          goldMuted: '#C5A059',    // Softer gold (Secondary icons, disabled states)
-          
-          // Premium Dark Surfaces
-          darkBg: '#050505',       // Pitch black (Main DOM body background)
-          surface: '#121212',      // Elevated level 1 (Cards, mega-menus, calculator wrapper)
-          surfaceLight: '#1E1E1E', // Elevated level 2 (Hover states on cards, inputs)
-          
-          // Typography
-          textMain: '#E2E8F0',     // Slate-200 (Highly readable primary body text)
-          textMuted: '#94A3B8',    // Slate-400 (Secondary text, subtitles, time-ago)
-
-          // Legacy mappings
-          primary: '#D4AF37',
-          hover: '#996515',
+        gold: {
+          DEFAULT: 'var(--color-gold-base)',
+          base: 'var(--color-gold-base)',
+          light: 'var(--color-gold-light)',
+          dark: 'var(--color-gold-dark)',
+          glow: 'var(--color-gold-glow)',
         },
-      },
-      backgroundImage: {
-        // Rich metallic gradient for primary Call-to-Action buttons
-        'gold-gradient': 'linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%)',
-        // Subtle hover sweep effect
-        'gold-shimmer': 'linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent)',
-        // Glassmorphism card overlay
-        'surface-gradient': 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%)',
+        brand: {
+          gold: 'var(--color-gold-base)',
+          goldText: 'var(--brand-gold-text)',
+          goldBg: 'var(--brand-gold-bg)',
+          goldLight: 'var(--color-gold-light)',
+          goldDark: 'var(--color-gold-dark)',
+          goldMuted: '#C5A059',
+          darkBg: 'var(--color-background)',
+          surface: 'var(--color-surface)',
+          surfaceLight: 'var(--color-surface-elevated)',
+          textMain: 'var(--color-text-primary)',
+          textMuted: 'var(--color-text-muted)',
+          primary: 'var(--color-gold-base)',
+          hover: 'var(--color-gold-dark)',
+        },
+        canvas: 'var(--color-background)',
+        brandGold: {
+          50: '#FFFDF0',
+          100: '#FEF08A',
+          200: '#FDE047',
+          300: '#FACC15',
+          400: '#EAB308',
+          500: '#D97706',
+          600: '#B45309',
+          700: '#92400E',
+        },
+        content: {
+          primary: 'var(--color-text-primary)',
+          secondary: 'var(--color-text-secondary)',
+          muted: 'var(--color-text-muted)',
+        }
       },
       fontFamily: {
-        display: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
+      },
+      backgroundImage: {
+        'shining-gold-horizontal': 'linear-gradient(to right, #EAB308 0%, #FEF08A 30%, #FACC15 50%, #FEF08A 70%, #D97706 100%)',
+        'shining-gold-vertical': 'linear-gradient(to bottom, #FEF08A 0%, #FACC15 40%, #EAB308 70%, #B45309 100%)',
+        'shining-gold-diagonal': 'linear-gradient(135deg, #D97706 0%, #FACC15 30%, #FEF08A 50%, #EAB308 70%, #B45309 100%)',
+        'dark-gold-glow': 'radial-gradient(ellipse at center, rgba(250,204,21,0.2) 0%, rgba(5,5,5,0) 70%)',
+        'light-gold-glow': 'radial-gradient(ellipse at center, rgba(234,179,8,0.15) 0%, rgba(248,250,252,0) 70%)',
+        'gold-metallic-shine': 'linear-gradient(110deg, #df9f28 0%, #ffd778 22%, #fffde6 38%, #f3b73e 50%, #c9820c 75%, #ffd87a 90%, #df9f28 100%)',
+        'gold-text-shine': 'linear-gradient(135deg, #965b00 0%, #d48806 20%, #faad14 38%, #ffe58f 52%, #d48806 70%, #874d00 100%)',
+        'gold-header-shine': 'linear-gradient(90deg, #b37408 0%, #e09b19 25%, #fff4b8 50%, #e09b19 75%, #9e6402 100%)',
       },
       boxShadow: {
         'card': 'var(--shadow-card)',
         'modal': 'var(--shadow-modal)',
-        'ambient-gold': 'var(--shadow-ambient-glow)',
+        'gold-glow': '0 0 25px var(--color-gold-glow)',
       },
       backdropBlur: {
         'xl': '24px',
+      },
+      borderRadius: {
+        DEFAULT: '10px',
+        radius: '10px',
+        lg: '10px',
+        md: '8px',
+        sm: '6px',
       }
     },
   },

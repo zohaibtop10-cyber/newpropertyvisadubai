@@ -62,7 +62,7 @@ export default function KnowledgeBase() {
             {/* Left Header Column */}
             <div className="lg:col-span-5 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-bold uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-brand-primary" />
+                <span className="w-2 h-2 rounded-full bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)]" />
                 EXECUTIVE KNOWLEDGE BASE
               </div>
               <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-content-primary dark:text-white tracking-tight">
@@ -83,7 +83,7 @@ export default function KnowledgeBase() {
                 </p>
                 <a 
                   href="#contact"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-content-primary dark:text-white hover:text-brand-primary transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-content-primary dark:text-white hover:text-[#B8860B] transition-colors"
                 >
                   <span>Book Partner Consultation</span>
                   <ArrowRight className="w-3.5 h-3.5 text-brand-primary" />
@@ -100,7 +100,7 @@ export default function KnowledgeBase() {
                 >
                   <button
                     onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                    className="w-full text-left p-6 flex items-center justify-between gap-4 font-display font-bold text-content-primary dark:text-white hover:text-brand-primary transition-colors cursor-pointer"
+                    className="w-full text-left p-6 flex items-center justify-between gap-4 font-display font-bold text-content-primary dark:text-white hover:text-[#B8860B] transition-colors cursor-pointer"
                   >
                     <span className="text-base sm:text-lg">{faq.question}</span>
                     <div className={`w-8 h-8 rounded-full bg-surface-elevated dark:bg-white/10 flex items-center justify-center shrink-0 transition-transform duration-300 ${openFaq === index ? 'rotate-180 bg-brand-primary/10 text-brand-primary' : 'text-content-muted dark:text-slate-400'}`}>
@@ -124,7 +124,7 @@ export default function KnowledgeBase() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-bold uppercase tracking-wider mb-2">
-                <span className="w-2 h-2 rounded-full bg-brand-primary" />
+                <span className="w-2 h-2 rounded-full bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)]" />
                 TOPICAL REPORTS & POLICY
               </div>
               <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-content-primary dark:text-white tracking-tight">
@@ -160,7 +160,7 @@ export default function KnowledgeBase() {
                   </div>
 
                   <div className="p-6">
-                    <h3 className="font-display font-bold text-lg text-content-primary dark:text-white group-hover:text-brand-primary transition-colors line-clamp-2 mb-2">
+                    <h3 className="font-display font-bold text-lg text-content-primary dark:text-white group-hover:text-[#B8860B] transition-colors line-clamp-2 mb-2">
                       {item.title}
                     </h3>
                     <p className="text-xs text-content-muted dark:text-slate-400 line-clamp-2 leading-relaxed mb-4">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Phone, MapPin, Mail, Clock, MessageSquare, ArrowRight } from 'lucide-react';
+import { Phone, MapPin, Mail, Clock, MessageSquare, ArrowRight, Sparkles, Building2 } from 'lucide-react';
 import { marked } from 'marked';
 import { siteConfig } from '../data/cmsData';
 
@@ -13,63 +13,96 @@ export default function ContactPage({ onOpenCalculator, cmsConfig }) {
   const hours = cmsConfig?.pages?.contact?.hours || "Mon - Sat: 8:00 AM - 7:00 PM (GST)";
 
   return (
-    <div className="pt-8 pb-20 px-4 sm:px-6 max-w-7xl mx-auto space-y-12 animate-fade-in relative z-10">
+    <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto space-y-12 relative z-10 font-sans transition-colors duration-200">
       
+      {/* Ambient Radial Glow Lighting */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.12)_0%,transparent_70%)] opacity-70 pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:32px_32px] opacity-10 pointer-events-none -z-10" />
+
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="text-brand-primary font-mono text-xs font-bold uppercase tracking-widest">
-          CONTACT US
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[10px] bg-[#8C5E00]/10 dark:bg-[#8C5E00]/20 border border-[#8C5E00]/30 dark:border-[#D4AF37]/30 text-[#8C5E00] dark:text-[#FFE58F] text-xs font-mono font-bold uppercase tracking-widest shadow-md">
+          <Sparkles className="w-4 h-4 text-[#8C5E00] dark:text-[#D4AF37]" /> EXECUTIVE CONCIERGE DESK
         </div>
-        <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-content-primary dark:text-white leading-tight">
-          {headline}
+        <h1 className="font-display font-black text-4xl sm:text-6xl text-slate-900 dark:text-white leading-tight tracking-tight">
+          {headline.includes("Specialists") ? (
+            <>
+              {headline.replace("Specialists", "")}
+              <span className="text-dark-gold-shine">Specialists</span>
+            </>
+          ) : headline}
         </h1>
-        <p className="text-content-muted dark:text-slate-400 text-base sm:text-lg">
+        <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg font-medium leading-relaxed">
           {subtext}
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 mt-12">
-        {/* Contact Details */}
+        {/* Contact Details Card */}
         <motion.div
-          whileHover={{ y: -5 }}
-          className="p-8 rounded-xl border border-border-subtle dark:border-white/10 bg-surface dark:bg-brand-surface shadow-sm flex flex-col space-y-6"
+          whileHover={{ y: -6 }}
+          className="p-8 rounded-[16px] border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-[#111111]/80 backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-2xl flex flex-col space-y-6 relative overflow-hidden group"
         >
-          <div className="w-14 h-14 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mb-2">
-            <MapPin className="w-7 h-7" />
-          </div>
-          <h3 className="text-2xl font-bold text-content-primary dark:text-white font-display">Our Office</h3>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
           
-          <div className="space-y-4 text-sm font-semibold text-content-secondary dark:text-slate-300">
-            <div className="flex items-start gap-3">
-              <MapPin className="w-5 h-5 text-brand-primary shrink-0" />
-              <span>{address}</span>
+          <div className="w-14 h-14 rounded-[12px] bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#B8860B] dark:text-[#D4AF37] flex items-center justify-center mb-2 shadow-sm">
+            <Building2 className="w-7 h-7" />
+          </div>
+          <h3 className="text-2xl font-black text-slate-900 dark:text-white font-sans tracking-tight">Our Dubai Headquarters</h3>
+          
+          <div className="space-y-5 text-sm font-semibold text-slate-700 dark:text-slate-300">
+            <div className="flex items-start gap-3.5">
+              <div className="p-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 shrink-0 mt-0.5">
+                <MapPin className="w-4 h-4 text-[#B8860B] dark:text-[#D4AF37]" />
+              </div>
+              <span className="leading-relaxed">{address}</span>
             </div>
-            <div className="flex items-center gap-3">
-              <Phone className="w-5 h-5 text-brand-primary shrink-0" />
+            <div className="flex items-center gap-3.5">
+              <div className="p-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 shrink-0">
+                <Phone className="w-4 h-4 text-[#B8860B] dark:text-[#D4AF37]" />
+              </div>
               <span>{phone}</span>
             </div>
-            <div className="flex items-center gap-3">
-              <Mail className="w-5 h-5 text-brand-primary shrink-0" />
+            <div className="flex items-center gap-3.5">
+              <div className="p-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 shrink-0">
+                <Mail className="w-4 h-4 text-[#B8860B] dark:text-[#D4AF37]" />
+              </div>
               <span>{email}</span>
             </div>
-            <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-brand-primary shrink-0" />
+            <div className="flex items-center gap-3.5">
+              <div className="p-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 shrink-0">
+                <Clock className="w-4 h-4 text-[#B8860B] dark:text-[#D4AF37]" />
+              </div>
               <span>{hours}</span>
             </div>
           </div>
         </motion.div>
 
-        {/* Action Options */}
+        {/* Action Options Card */}
         <motion.div
-          whileHover={{ y: -5 }}
-          className="p-8 rounded-xl border border-border-subtle dark:border-white/10 bg-surface dark:bg-brand-surface shadow-sm flex flex-col justify-center space-y-6"
+          whileHover={{ y: -6 }}
+          className="p-8 rounded-[16px] border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-[#111111]/80 backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-2xl flex flex-col justify-center space-y-6 relative overflow-hidden group"
         >
-          <h3 className="text-2xl font-bold text-content-primary dark:text-white font-display text-center mb-4">How can we help?</h3>
-          <a href={`https://wa.me/${cmsConfig?.global?.whatsappRaw || siteConfig.whatsappRaw}`} target="_blank" rel="noopener noreferrer" className="w-full py-4 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors flex items-center justify-center gap-2">
-            Chat on WhatsApp <MessageSquare className="w-4 h-4" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+          <h3 className="text-2xl font-black text-slate-900 dark:text-white font-sans text-center mb-2 tracking-tight">Direct Client Concierge</h3>
+          
+          <a
+            href={`https://wa.me/${cmsConfig?.global?.whatsappRaw || siteConfig.whatsappRaw}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full py-4 rounded-[10px] font-black text-sm uppercase tracking-wider bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-lg hover:shadow-emerald-600/30 flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <MessageSquare className="w-5 h-5" />
+            <span>Chat Live on WhatsApp</span>
           </a>
-          <button onClick={() => onOpenCalculator('spouse')} className="w-full py-4 rounded-xl font-bold bg-gold-gradient btn-shine-effect text-black hover:brightness-110 transition-colors flex items-center justify-center gap-2">
-            Calculate Visa Cost <ArrowRight className="w-4 h-4" />
+
+          <button
+            onClick={() => onOpenCalculator('spouse')}
+            className="w-full py-4 rounded-[10px] bg-dark-gold-gloss text-slate-950 font-black text-sm uppercase tracking-wider shadow-[0_8px_16px_rgba(212,175,55,0.25)] hover:shadow-[0_12px_24px_rgba(212,175,55,0.4)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span>Calculate Visa Cost</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </motion.div>
       </div>
@@ -80,7 +113,7 @@ export default function ContactPage({ onOpenCalculator, cmsConfig }) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 p-8 rounded-xl bg-surface dark:bg-brand-surface border border-border-subtle dark:border-white/10 shadow-xl prose prose-invert max-w-none"
+          className="mt-12 p-8 sm:p-10 rounded-[16px] bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 shadow-xl prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300"
           dangerouslySetInnerHTML={{ __html: marked.parse(cmsConfig.pages.contact.contentMarkdown) }}
         />
       )}
