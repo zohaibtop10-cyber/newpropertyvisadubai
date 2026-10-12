@@ -213,7 +213,7 @@ export default function ProcessTimeline({
                     <RawIcon className="w-6 h-6 text-[#D4AF37] group-hover:text-black stroke-[2.2] transition-colors" />
                   </div>
                   {/* Subtle Node Ring */}
-                  <div className="absolute -inset-1 rounded-[14px] bg-[#D4AF37]/20 blur-sm pointer-events-none -z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute -inset-1 rounded-[12px] bg-[#D4AF37]/20 blur-sm pointer-events-none -z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
 
                 {/* Card Container */}
@@ -291,7 +291,7 @@ export default function ProcessTimeline({
                   <div className="w-12 h-12 rounded-[10px] bg-[#D4AF37]/10 border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
                     <RawIcon className="w-5 h-5 stroke-[2.2]" />
                   </div>
-                  <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-dark-gold-gloss text-black font-mono font-black text-[10px] flex items-center justify-center shadow-md">
+                  <span className="absolute -top-2 -right-2 w-5 h-5 rounded-[8px] bg-dark-gold-gloss text-black font-mono font-black text-[10px] flex items-center justify-center shadow-md">
                     {stepNum}
                   </span>
                 </div>

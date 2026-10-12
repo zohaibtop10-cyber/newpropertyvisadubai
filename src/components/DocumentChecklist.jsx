@@ -54,7 +54,7 @@ export default function DocumentChecklist({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-400 text-sm sm:text-base font-medium leading-relaxed"
+            className="text-text-muted text-sm sm:text-base font-medium leading-relaxed"
           >
             {subtitle}
           </motion.p>
@@ -69,7 +69,7 @@ export default function DocumentChecklist({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05 }}
-              className="bg-[#0A0A0A] border border-white/5 rounded-[10px] p-4 sm:p-5 flex items-center justify-between group hover:bg-white/[0.02] hover:border-white/10 transition-colors"
+              className="bg-[#0A0A0A] border border-white/5 rounded-[10px] p-4 sm:p-5 flex items-center justify-between group hover:bg-surface/[0.02] hover:border-white/10 transition-colors"
             >
               <div className="flex items-center gap-3 pr-3">
                 <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 group-hover:scale-110 transition-transform" />
@@ -95,7 +95,7 @@ export default function DocumentChecklist({
             <h4 className="text-lg font-bold text-white font-sans">
               Need Help Verifying or Legalizing Your Attestation?
             </h4>
-            <p className="text-xs text-slate-400 font-sans max-w-xl">
+            <p className="text-xs text-text-muted font-sans max-w-xl">
               Send your Ejari, salary certificate, or marriage certificate scans via WhatsApp. Our PRO desk verifies eligibility & attestation compliance in under 15 minutes.
             </p>
           </div>

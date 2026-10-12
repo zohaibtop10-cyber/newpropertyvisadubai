@@ -63,10 +63,10 @@ export default function ArticlesIndexPage() {
   });
 
   return (
-    <div className="w-full bg-[#050505] min-h-screen text-slate-300 pt-24 pb-24 selection:bg-brand-gold selection:text-black">
+    <div className="w-full bg-[#050505] min-h-screen text-slate-300 pt-24 pb-24 selection:bg-gold selection:text-black">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-5 sm:px-6 mb-12 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-brand-gold text-xs font-mono font-bold uppercase tracking-widest mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-mono font-bold uppercase tracking-widest mb-4">
           Knowledge Base
         </div>
 
@@ -74,7 +74,7 @@ export default function ArticlesIndexPage() {
           GDRFA & ICP Knowledge Base
         </h1>
 
-        <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto font-medium leading-relaxed mb-8">
+        <p className="text-text-muted text-base sm:text-lg max-w-2xl mx-auto font-medium leading-relaxed mb-8">
           Clear, up-to-date guidance on UAE residency rules and visa updates.
         </p>
 
@@ -85,7 +85,7 @@ export default function ArticlesIndexPage() {
             placeholder="Search guides, regulations, or visa types..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-5 pr-10 py-3.5 bg-white/5 border border-white/10 rounded-2xl text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-gold transition-colors"
+            className="w-full pl-5 pr-10 py-3.5 bg-surface/5 border border-white/10 rounded-2xl text-sm text-white placeholder:text-text-muted focus:outline-none focus:border-gold transition-colors"
           />
         </div>
 
@@ -99,8 +99,8 @@ export default function ArticlesIndexPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer backdrop-blur-md ${
                   isActive
-                    ? 'bg-brand-gold text-black shadow-[0_0_15px_rgba(212,175,55,0.4)] font-extrabold'
-                    : 'bg-white/5 border border-white/10 text-slate-300 hover:border-brand-gold/40 hover:text-white'
+                    ? 'bg-gold text-black shadow-[0_0_15px_rgba(212,175,55,0.4)] font-extrabold'
+                    : 'bg-surface/5 border border-white/10 text-slate-300 hover:border-gold/40 hover:text-white'
                 }`}
               >
                 {cat}
@@ -116,11 +116,11 @@ export default function ArticlesIndexPage() {
           {filteredArticles.map((article) => (
             <div
               key={article.id}
-              className="group bg-brand-surfaceLight backdrop-blur-xl border border-white/10 hover:border-brand-gold/40 transition-all duration-300 rounded-2xl overflow-hidden flex flex-col justify-between hover:-translate-y-1 shadow-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.15)]"
+              className="group bg-brand-surfaceLight backdrop-blur-xl border border-white/10 hover:border-gold/40 transition-all duration-300 rounded-2xl overflow-hidden flex flex-col justify-between hover:-translate-y-1 shadow-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.15)]"
             >
               <div>
                 {/* Cover Image Placeholder */}
-                <div className="w-full aspect-[16/10] relative overflow-hidden bg-slate-900">
+                <div className="w-full aspect-[16/10] relative overflow-hidden bg-surface">
                   <img
                     src={article.featuredImage}
                     alt={article.title}
@@ -132,17 +132,17 @@ export default function ArticlesIndexPage() {
                 {/* Card Body */}
                 <div className="p-6 space-y-3">
                   {/* Gold Tinted Date Badge */}
-                  <div className="inline-block bg-brand-gold/10 text-brand-gold border border-brand-gold/30 px-3 py-0.5 rounded-full text-xs font-mono font-bold">
+                  <div className="inline-block bg-gold/10 text-gold border border-gold/30 px-3 py-0.5 rounded-full text-xs font-mono font-bold">
                     {article.date}
                   </div>
 
                   {/* Bold White H3 Title */}
-                  <h3 className="font-bold text-xl text-white group-hover:text-brand-gold transition-colors leading-snug line-clamp-2">
+                  <h3 className="font-bold text-xl text-white group-hover:text-gold transition-colors leading-snug line-clamp-2">
                     {article.title}
                   </h3>
 
                   {/* 2-line Excerpt */}
-                  <p className="text-slate-400 text-sm leading-relaxed line-clamp-2">
+                  <p className="text-text-muted text-sm leading-relaxed line-clamp-2">
                     {article.excerpt}
                   </p>
                 </div>
@@ -152,7 +152,7 @@ export default function ArticlesIndexPage() {
               <div className="p-6 pt-0">
                 <Link
                   href={`/articles/${article.slug}`}
-                  className="text-brand-gold font-bold text-sm inline-flex items-center gap-1 group-hover:underline"
+                  className="text-gold font-bold text-sm inline-flex items-center gap-1 group-hover:underline"
                 >
                   Read Full Guide &rarr;
                 </Link>
@@ -162,8 +162,8 @@ export default function ArticlesIndexPage() {
         </div>
 
         {filteredArticles.length === 0 && (
-          <div className="text-center py-16 bg-white/5 rounded-2xl border border-white/10">
-            <p className="text-slate-400">No articles found matching your filters.</p>
+          <div className="text-center py-16 bg-surface/5 rounded-2xl border border-white/10">
+            <p className="text-text-muted">No articles found matching your filters.</p>
           </div>
         )}
       </section>

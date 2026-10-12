@@ -32,7 +32,7 @@ export default function TopBar({
   const [currentLang, setCurrentLang] = useState('EN');
 
   return (
-    <div className="w-full bg-[#0a0a0a] text-slate-300 border-b border-white/10 text-xs py-2 px-4 md:px-8 relative z-50 selection:bg-brand-gold selection:text-black">
+    <div className="w-full bg-[#0a0a0a] text-slate-300 border-b border-white/10 text-xs py-2 px-4 md:px-8 relative z-50 selection:bg-gold selection:text-black">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
         {/* Left Section: Email & Phone Contact Info */}
@@ -40,21 +40,21 @@ export default function TopBar({
           {/* Email Address (Hidden on Mobile) */}
           <a
             href={`mailto:${email}`}
-            className="hidden md:flex items-center gap-2 text-slate-300 hover:text-brand-gold transition-colors font-mono text-[11px] sm:text-xs group"
+            className="hidden md:flex items-center gap-2 text-slate-300 hover:text-gold transition-colors font-mono text-[11px] sm:text-xs group"
           >
-            <Mail className="w-3.5 h-3.5 text-brand-gold group-hover:scale-110 transition-transform" />
+            <Mail className="w-3.5 h-3.5 text-gold group-hover:scale-110 transition-transform" />
             <span>{email}</span>
           </a>
 
           {/* Vertical Divider (Hidden on Mobile) */}
-          <span className="hidden md:block h-3.5 w-[1px] bg-white/15" />
+          <span className="hidden md:block h-3.5 w-[1px] bg-surface/15" />
 
           {/* Phone Number */}
           <a
             href={`tel:${phone.replace(/\s+/g, '')}`}
-            className="flex items-center gap-2 text-slate-200 hover:text-brand-gold transition-colors font-mono font-semibold text-xs group"
+            className="flex items-center gap-2 text-slate-200 hover:text-gold transition-colors font-mono font-semibold text-xs group"
           >
-            <Phone className="w-3.5 h-3.5 text-brand-gold group-hover:scale-110 transition-transform" />
+            <Phone className="w-3.5 h-3.5 text-gold group-hover:scale-110 transition-transform" />
             <span>{phone}</span>
           </a>
         </div>
@@ -68,7 +68,7 @@ export default function TopBar({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="text-slate-400 hover:text-brand-gold transition-colors p-1 hover:scale-110"
+              className="text-text-muted hover:text-gold transition-colors p-1 hover:scale-110"
             >
               <MessageCircle className="w-3.5 h-3.5" />
             </a>
@@ -78,7 +78,7 @@ export default function TopBar({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-slate-400 hover:text-brand-gold transition-colors p-1 hover:scale-110"
+              className="text-text-muted hover:text-gold transition-colors p-1 hover:scale-110"
             >
               <LinkedInIcon className="w-3.5 h-3.5" />
             </a>
@@ -88,7 +88,7 @@ export default function TopBar({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="text-slate-400 hover:text-brand-gold transition-colors p-1 hover:scale-110"
+              className="text-text-muted hover:text-gold transition-colors p-1 hover:scale-110"
             >
               <InstagramIcon className="w-3.5 h-3.5" />
             </a>
@@ -98,25 +98,25 @@ export default function TopBar({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="text-slate-400 hover:text-brand-gold transition-colors p-1 hover:scale-110"
+              className="text-text-muted hover:text-gold transition-colors p-1 hover:scale-110"
             >
               <FacebookIcon className="w-3.5 h-3.5" />
             </a>
           </div>
 
           {/* Vertical Divider */}
-          <span className="h-3.5 w-[1px] bg-white/15" />
+          <span className="h-3.5 w-[1px] bg-surface/15" />
 
           {/* Language Selector Dropdown */}
           <div className="flex items-center gap-1.5 font-mono text-[11px]">
-            <Globe className="w-3.5 h-3.5 text-brand-gold" />
+            <Globe className="w-3.5 h-3.5 text-gold" />
             <button
               onClick={() => setCurrentLang(currentLang === 'EN' ? 'AR' : 'EN')}
-              className="text-slate-300 hover:text-brand-gold transition-colors font-bold uppercase cursor-pointer"
+              className="text-slate-300 hover:text-gold transition-colors font-bold uppercase cursor-pointer"
             >
-              <span className={currentLang === 'EN' ? 'text-brand-gold font-extrabold' : 'text-slate-400'}>EN</span>
-              <span className="text-slate-600 mx-1">|</span>
-              <span className={currentLang === 'AR' ? 'text-brand-gold font-extrabold' : 'text-slate-400'}>AR</span>
+              <span className={currentLang === 'EN' ? 'text-gold font-extrabold' : 'text-text-muted'}>EN</span>
+              <span className="text-text-muted mx-1">|</span>
+              <span className={currentLang === 'AR' ? 'text-gold font-extrabold' : 'text-text-muted'}>AR</span>
             </button>
           </div>
         </div>

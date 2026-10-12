@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Topbar from './components/Topbar';
-import TopTicker from './components/TopTicker';
 import ServicesMegaMenu from './components/ServicesMegaMenu';
 import MobileFooter from './components/MobileFooter';
 import CalculatorModal from './components/CalculatorModal';
 import Home from './components/Home';
 import ServiceTemplate from './components/ServiceTemplate';
-import PropertyVisaPage from './pages/PropertyVisaPage';
-import GoldenVisaPage from './pages/GoldenVisaPage';
-import FamilyVisaPage from './pages/FamilyVisaPage';
+import PropertyVisa from './pages/PropertyVisa';
+import GoldenVisa from './pages/GoldenVisa';
+import FamilyVisa from './pages/FamilyVisa';
 import NewbornVisaPage from './pages/NewbornVisaPage';
 import MaidVisaPage from './pages/MaidVisaPage';
 import EmiratesIDPage from './pages/EmiratesIDPage';
@@ -36,12 +35,15 @@ import DesktopWhatsAppFAB from './components/DesktopWhatsAppFAB';
 import MobileToolsFAB from './components/MobileToolsFAB';
 import BackToTopFAB from './components/BackToTopFAB';
 import ErrorBoundary from './components/ErrorBoundary';
+import StyleCheck from './pages/StyleCheck';
+import CalculatorPage from './pages/CalculatorPage';
 
 import BlockPageBuilder from './components/admin/BlockPageBuilder';
 
-// Admin Suite Imports
-import AdminLayout from './components/admin/AdminLayout';
-import AdminLogin from './components/admin/AdminLogin';
+import { AuthProvider } from './context/AuthContext';
+import RequireRole from './components/RequireRole';
+import AdminLogin from './pages/Admin/Login';
+import AdminDashboard from './pages/Admin/Dashboard';
 import CMSModule from './components/admin/CMSModule';
 import UniversalFormBuilder from './components/admin/UniversalFormBuilder';
 import { getDatabase, ref, onValue, set } from 'firebase/database';
@@ -55,9 +57,13 @@ import {
 } from './data/adminState';
 
 export default function App() {
-  // Global Theme Mode (strictly 100% dark mode)
-  const theme = 'dark';
-  const setTheme = () => {};
+  // Global Theme Mode (defaulting to light mode with toggle capability)
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'light';
+    }
+    return 'light';
+  });
 
   // Global Language State ('EN' | 'AR' | 'RU' | 'DE' | 'ES' | 'FR' | 'TR' | 'ZH')
   const [language, setLanguage] = useState(() => {
@@ -78,19 +84,25 @@ export default function App() {
     if (typeof window !== 'undefined') {
       const p = window.location.pathname.toLowerCase();
       if (p === '/admin') return { view: 'admin', postId: null };
+      if (p === '/admin/login') return { view: 'admin-login', postId: null };
+      if (p === '/style-check') return { view: 'style-check', postId: null };
+      if (p === '/calculator') return { view: 'calculator', postId: null };
       if (p === '/articles' || p === '/blog' || p === '/articles/') return { view: 'blog-index', postId: null };
       if (p.startsWith('/articles/')) {
         const parts = p.split('/').filter(Boolean);
         if (parts[1]) return { view: 'blog-post', postId: parts[1] };
         return { view: 'blog-index', postId: null };
       }
+      if (p === '/property-visa') return { view: 'service', postId: null, serviceId: 'property-visa' };
+      if (p === '/golden-visa') return { view: 'service', postId: null, serviceId: 'golden-visa' };
+      if (p === '/family-visa') return { view: 'service', postId: null, serviceId: 'family-visa' };
     }
-    return { view: 'home', postId: null };
+    return { view: 'home', postId: null, serviceId: null };
   };
 
   const initialRoute = getInitialRoute();
   const [activeView, setActiveView] = useState(initialRoute.view);
-  const [selectedServiceId, setSelectedServiceId] = useState('spouse-visa');
+  const [selectedServiceId, setSelectedServiceId] = useState(initialRoute.serviceId || 'spouse-visa');
   const [selectedPostId, setSelectedPostId] = useState(initialRoute.postId);
 
   // Admin Module State ('homepage' | 'services' | 'testimonials' | 'settings')
@@ -101,17 +113,26 @@ export default function App() {
 
   // Listen to Firebase Auth state changes for persistent login
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true);
-        setFirebaseUser(user);
-      } else {
+    try {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setIsAuthenticated(true);
+          setFirebaseUser(user);
+        } else {
+          setIsAuthenticated(false);
+          setFirebaseUser(null);
+        }
+        setAuthLoading(false);
+      }, (error) => {
+        console.warn("Firebase Auth note:", error.message);
         setIsAuthenticated(false);
-        setFirebaseUser(null);
-      }
+        setAuthLoading(false);
+      });
+      return () => unsubscribe();
+    } catch (e) {
+      console.warn("Firebase Auth setup note:", e);
       setAuthLoading(false);
-    });
-    return () => unsubscribe();
+    }
   }, []);
 
   // Admin Data Stores with localStorage persistence
@@ -232,6 +253,12 @@ export default function App() {
       const p = window.location.pathname.toLowerCase();
       if (p === '/admin') {
         setActiveView('admin');
+      } else if (p === '/admin/login') {
+        setActiveView('admin-login');
+      } else if (p === '/style-check') {
+        setActiveView('style-check');
+      } else if (p === '/calculator') {
+        setActiveView('calculator');
       } else if (p === '/articles' || p === '/blog' || p === '/articles/') {
         setActiveView('blog-index');
         setSelectedPostId(null);
@@ -243,6 +270,15 @@ export default function App() {
         } else {
           setActiveView('blog-index');
         }
+      } else if (p === '/property-visa') {
+        setSelectedServiceId('property-visa');
+        setActiveView('service');
+      } else if (p === '/golden-visa') {
+        setSelectedServiceId('golden-visa');
+        setActiveView('service');
+      } else if (p === '/family-visa') {
+        setSelectedServiceId('family-visa');
+        setActiveView('service');
       } else {
         setActiveView(prev => (prev === 'admin' ? 'home' : prev));
       }
@@ -300,54 +336,20 @@ export default function App() {
 
   // Render Admin View if activeView === 'admin'
   if (activeView === 'admin') {
-    // Show loading while checking auth state
-    if (authLoading) {
-      return (
-        <div className="min-h-screen bg-[#0A0B0D] flex items-center justify-center">
-          <div className="flex flex-col items-center gap-4">
-            <svg className="animate-spin w-8 h-8 text-[#D4AF37]" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-25" /><path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg>
-            <span className="text-slate-400 text-sm font-mono">Verifying authentication...</span>
-          </div>
-        </div>
-      );
-    }
-
-    if (!isAuthenticated) {
-      return (
-        <div className="dark bg-[#0a0a0a] text-slate-100 min-h-screen">
-          <AdminLogin 
-            onLoginSuccess={() => setIsAuthenticated(true)} 
-            onExitAdmin={() => handleNavigate('home')} 
-          />
-        </div>
-      );
-    }
-
     return (
-      <div className="dark bg-[#0a0a0a] text-slate-100 notranslate w-full min-h-screen" dir="ltr" translate="no">
-        <AdminLayout
-          activeModule={adminModule}
-          setActiveModule={setAdminModule}
-          onExitAdmin={handleAdminExit}
-          currentUser={firebaseUser}
-          setCurrentUser={setCurrentUser}
-          staffUsers={staffUsers}
-        >
-          
-                {adminModule === 'blockBuilder' ? (
-                  <BlockPageBuilder slug="home" />
-                ) : adminModule === 'pagesEditor' ? (
-                  <UniversalFormBuilder collectionPath="pages/home" data={homePageData} />
-                ) : (
-                  <CMSModule
-                    activeModule={adminModule}
-                    cmsConfig={cmsConfig}
-                    setCmsConfig={setCmsConfig}
-                    onNavigateModule={setAdminModule}
-                  />
-                )}
-        </AdminLayout>
-      </div>
+      <AuthProvider>
+        <RequireRole roles={['admin', 'editor', 'sales']} onNavigate={(r) => handleNavigate(r)}>
+          <AdminDashboard onNavigateHome={() => handleNavigate('home')} />
+        </RequireRole>
+      </AuthProvider>
+    );
+  }
+
+  if (activeView === 'admin-login') {
+    return (
+      <AuthProvider>
+        <AdminLogin onLoginSuccess={() => handleNavigate('admin')} onNavigateHome={() => handleNavigate('home')} />
+      </AuthProvider>
     );
   }
 
@@ -355,14 +357,14 @@ export default function App() {
   return (
     <TranslationProvider language={language} setLanguage={setLanguage}>
       <div className={`min-h-screen transition-colors duration-200 ${
-        theme === 'dark' ? 'bg-brand-darkBg text-slate-100 dark' : 'bg-canvas text-content-primary'
+        theme === 'dark' ? 'bg-surface text-slate-100 dark' : 'bg-bg text-text'
       } font-sans antialiased relative overflow-x-clip selection:bg-[var(--primary-color)] selection:text-white`}>
 
       <style>
         {`
           :root {
             --primary-color: ${cmsConfig?.global?.theme?.primaryColor || '#D4AF37'};
-            --font-family: ${cmsConfig?.global?.theme?.fontFamily || '"Inter", system-ui, -apple-system, sans-serif'};
+            --font-family: ${cmsConfig?.global?.theme?.fontFamily || '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif'};
             --button-radius: ${cmsConfig?.global?.theme?.buttonRadius && cmsConfig.global.theme.buttonRadius !== '9999px' ? cmsConfig.global.theme.buttonRadius : '10px'};
             --radius: 10px;
           }
@@ -381,10 +383,9 @@ export default function App() {
       {/* Dynamic Theme Glow Backgrounds */}
       <div className={`fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] rounded-full blur-[140px] pointer-events-none z-0 ${theme === 'dark' ? 'bg-brand-primary/10' : 'bg-brand-primary/[0.03]'}`} />
       <div className={`fixed bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[160px] pointer-events-none z-0 ${theme === 'dark' ? 'bg-brand-primary/5' : 'bg-brand-primary/[0.02]'}`} />
-      <div className={`fixed top-1/2 left-0 w-[500px] h-[500px] rounded-full blur-[150px] pointer-events-none z-0 ${theme === 'dark' ? 'bg-brand-gold/5' : 'bg-brand-gold/[0.02]'}`} />
+      <div className={`fixed top-1/2 left-0 w-[500px] h-[500px] rounded-full blur-[150px] pointer-events-none z-0 ${theme === 'dark' ? 'bg-gold/5' : 'bg-gold/[0.02]'}`} />
 
       {/* Global Header Navigation */}
-      <TopTicker />
       <Navbar
         theme={theme}
         setTheme={setTheme}
@@ -411,11 +412,11 @@ export default function App() {
 
           {activeView === 'service' && (
             selectedServiceId === 'property-visa' || selectedServiceId === 'property' ? (
-              <PropertyVisaPage cmsConfig={cmsConfig} />
+              <PropertyVisa onNavigate={handleNavigate} />
             ) : selectedServiceId === 'golden-visa' || selectedServiceId === 'golden' ? (
-              <GoldenVisaPage cmsConfig={cmsConfig} />
+              <GoldenVisa onNavigate={handleNavigate} />
             ) : selectedServiceId === 'family-visa' || selectedServiceId === 'spouse-visa' || selectedServiceId === 'child-visa' || selectedServiceId === 'parent-visa' ? (
-              <FamilyVisaPage cmsConfig={cmsConfig} />
+              <FamilyVisa onNavigate={handleNavigate} />
             ) : selectedServiceId === 'newborn-visa' || selectedServiceId === 'new-born' || selectedServiceId === 'new-born-visa' ? (
               <NewbornVisaPage cmsConfig={cmsConfig} />
             ) : selectedServiceId === 'maid-visa' || selectedServiceId === 'domestic-worker' || selectedServiceId === 'domestic-helper' ? (
@@ -493,6 +494,9 @@ export default function App() {
               onOpenCalculator={handleOpenCalculator}
             />
           )}
+
+          {activeView === 'style-check' && <StyleCheck />}
+          {activeView === 'calculator' && <CalculatorPage onNavigate={handleNavigate} />}
         </ErrorBoundary>
       </main>
 

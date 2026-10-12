@@ -26,7 +26,7 @@ export default function FAQAccordion({
           <span>{title}</span>
         </h2>
         {subtitle && (
-          <p className="text-slate-400 text-sm max-w-xl mx-auto">
+          <p className="text-text-muted text-sm max-w-xl mx-auto">
             <span>{subtitle}</span>
           </p>
         )}
@@ -56,14 +56,14 @@ export default function FAQAccordion({
                 className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white cursor-pointer hover:text-[#D4AF37] transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <HelpCircle className={`w-5 h-5 shrink-0 ${isOpen ? 'text-[#D4AF37]' : 'text-slate-500'}`} />
+                  <HelpCircle className={`w-5 h-5 shrink-0 ${isOpen ? 'text-[#D4AF37]' : 'text-text-muted'}`} />
                   <span>{questionText}</span>
                 </div>
                 <motion.div
                   animate={{ rotate: isOpen ? 180 : 0 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
-                  <ChevronDown className={`w-5 h-5 shrink-0 ${isOpen ? 'text-[#D4AF37]' : 'text-slate-500'}`} />
+                  <ChevronDown className={`w-5 h-5 shrink-0 ${isOpen ? 'text-[#D4AF37]' : 'text-text-muted'}`} />
                 </motion.div>
               </button>
 

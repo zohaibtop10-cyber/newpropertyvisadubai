@@ -151,7 +151,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Inner Pages CMS Manager
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Edit About, Contact, Checklist, Office Locations, Terms & Privacy, and Property Investor pages.
             </p>
           </div>
@@ -173,7 +173,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
       )}
 
       {/* Sub-Tab Navigation */}
-      <div className="flex flex-wrap gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap gap-2 bg-surface/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
         {pagesList.map((p) => {
           const Icon = p.icon;
           const isActive = activeTab === p.id;
@@ -185,7 +185,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
                 isActive 
                   ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-lg shadow-amber-500/20' 
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-text-muted hover:text-white hover:bg-surface/60'
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -199,21 +199,21 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
         
         {/* TAB 1: ABOUT US PAGE */}
         {activeTab === 'about' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <AboutPageEditor cmsConfig={cmsConfig} setCmsConfig={setCmsConfig} isEmbedded={true} />
           </div>
         )}
 
         {/* TAB 2: CONTACT US PAGE */}
         {activeTab === 'contact' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
               <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400">
                 <Phone className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">Contact Page Details</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit head office address, phone numbers, and working hours</p>
+                <p className="text-text-muted text-xs mt-0.5">Edit head office address, phone numbers, and working hours</p>
               </div>
             </div>
 
@@ -224,7 +224,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactHeadline}
                   onChange={(e) => setContactHeadline(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -234,7 +234,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactSubtext}
                   onChange={(e) => setContactSubtext(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -244,7 +244,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactAddress}
                   onChange={(e) => setContactAddress(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -254,7 +254,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactPhone}
                   onChange={(e) => setContactPhone(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -264,7 +264,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="email"
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -274,7 +274,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={contactHours}
                   onChange={(e) => setContactHours(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -285,7 +285,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   placeholder="Optional: Add detailed Markdown content..."
                   value={contactMarkdown}
                   onChange={(e) => setContactMarkdown(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs font-mono leading-relaxed focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs font-mono leading-relaxed focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>
@@ -294,14 +294,14 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
 
         {/* TAB 3: CHECKLIST PAGE */}
         {activeTab === 'checklist' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
               <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
                 <FileCheck className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">Document Checklist Page</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit title and document requirement guidelines</p>
+                <p className="text-text-muted text-xs mt-0.5">Edit title and document requirement guidelines</p>
               </div>
             </div>
 
@@ -312,7 +312,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={checklistHeadline}
                   onChange={(e) => setChecklistHeadline(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -322,7 +322,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   rows={3}
                   value={checklistSubtext}
                   onChange={(e) => setChecklistSubtext(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -333,7 +333,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   placeholder="Optional: Add detailed Markdown content..."
                   value={checklistMarkdown}
                   onChange={(e) => setChecklistMarkdown(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs font-mono leading-relaxed focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs font-mono leading-relaxed focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>
@@ -342,14 +342,14 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
 
         {/* TAB 4: LOCATIONS PAGE */}
         {activeTab === 'locations' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
               <div className="p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400">
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">Locations Page</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit physical office locations across Dubai & Abu Dhabi</p>
+                <p className="text-text-muted text-xs mt-0.5">Edit physical office locations across Dubai & Abu Dhabi</p>
               </div>
             </div>
 
@@ -360,7 +360,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={dubaiOffice}
                   onChange={(e) => setDubaiOffice(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -370,7 +370,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={abudhabiOffice}
                   onChange={(e) => setAbuDhabiOffice(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -381,7 +381,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   placeholder="Optional: Add detailed Markdown content..."
                   value={locationsMarkdown}
                   onChange={(e) => setLocationsMarkdown(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs font-mono leading-relaxed focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs font-mono leading-relaxed focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>
@@ -390,14 +390,14 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
 
         {/* TAB 5: TERMS & PRIVACY */}
         {activeTab === 'terms' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
               <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
                 <Shield className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">Terms & Regulatory Page</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit legal disclaimers and privacy policy copy</p>
+                <p className="text-text-muted text-xs mt-0.5">Edit legal disclaimers and privacy policy copy</p>
               </div>
             </div>
 
@@ -408,7 +408,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={termsHeadline}
                   onChange={(e) => setTermsHeadline(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -418,7 +418,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   rows={8}
                   value={termsBody}
                   onChange={(e) => setTermsBody(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>
@@ -427,14 +427,14 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
 
         {/* TAB 6: PROPERTY PAGE */}
         {activeTab === 'property' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
               <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
                 <Building2 className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">Property Investor Services Page</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit headlines for real estate Golden Visa services</p>
+                <p className="text-text-muted text-xs mt-0.5">Edit headlines for real estate Golden Visa services</p>
               </div>
             </div>
 
@@ -445,7 +445,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   type="text"
                   value={propertyHeadline}
                   onChange={(e) => setPropertyHeadline(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -455,7 +455,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   rows={3}
                   value={propertySubtext}
                   onChange={(e) => setPropertySubtext(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -466,7 +466,7 @@ export default function InnerPagesEditor({ cmsConfig, setCmsConfig }) {
                   placeholder="Optional: Add detailed Markdown content..."
                   value={propertyMarkdown}
                   onChange={(e) => setPropertyMarkdown(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs font-mono leading-relaxed focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs font-mono leading-relaxed focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>

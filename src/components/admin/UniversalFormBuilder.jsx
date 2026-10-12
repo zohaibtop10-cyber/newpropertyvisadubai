@@ -100,7 +100,7 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
   const renderField = (key, val, fullPath) => {
     if (typeof val === 'boolean') {
       return (
-        <div key={fullPath} className="flex items-center justify-between p-4 bg-slate-950/80 border border-slate-800/80 rounded-xl">
+        <div key={fullPath} className="flex items-center justify-between p-4 bg-surface/80 border border-slate-800/80 rounded-xl">
           <label className="text-xs font-semibold text-slate-300 capitalize">{key}</label>
           <input
             type="checkbox"
@@ -120,7 +120,7 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
             type="number"
             value={val}
             onChange={(e) => handleFieldChange(fullPath, Number(e.target.value))}
-            className="w-full bg-slate-950/80 border border-slate-800 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-amber-500/50 font-mono text-xs"
+            className="w-full bg-surface/80 border border-slate-800 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-amber-500/50 font-mono text-xs"
           />
         </div>
       );
@@ -136,14 +136,14 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
               rows={3}
               value={val}
               onChange={(e) => handleFieldChange(fullPath, e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 text-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:border-amber-500/50 text-xs leading-relaxed"
+              className="w-full bg-surface/80 border border-slate-800 text-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:border-amber-500/50 text-xs leading-relaxed"
             />
           ) : (
             <input
               type="text"
               value={val}
               onChange={(e) => handleFieldChange(fullPath, e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-amber-500/50 text-xs font-medium"
+              className="w-full bg-surface/80 border border-slate-800 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-amber-500/50 text-xs font-medium"
             />
           )}
         </div>
@@ -169,17 +169,17 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Firebase Realtime Database Inspector
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Inspect &amp; edit live database schema nodes directly in <code className="text-amber-400 font-mono">{collectionPath}</code>.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800/80">
+          <div className="flex items-center gap-2 bg-surface p-1.5 rounded-xl border border-slate-800/80">
             <button
               type="button"
               onClick={() => setViewMode('visual')}
               className={`px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all ${
-                viewMode === 'visual' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-slate-400 hover:text-white'
+                viewMode === 'visual' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-text-muted hover:text-white'
               }`}
             >
               <Layers className="w-4 h-4" /> Visual Form
@@ -188,7 +188,7 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
               type="button"
               onClick={() => setViewMode('json')}
               className={`px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all ${
-                viewMode === 'json' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-slate-400 hover:text-white'
+                viewMode === 'json' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-text-muted hover:text-white'
               }`}
             >
               <Code className="w-4 h-4" /> Raw JSON
@@ -206,13 +206,13 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
 
       {/* Editor Content */}
       {viewMode === 'json' ? (
-        <form onSubmit={handleSave} className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-4">
+        <form onSubmit={handleSave} className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-4">
           <label className="text-xs font-semibold text-slate-300 block">Raw Firebase JSON Schema</label>
           <textarea
             rows={18}
             value={jsonText}
             onChange={(e) => setJsonText(e.target.value)}
-            className="w-full bg-slate-950/80 border border-slate-800 text-emerald-400 font-mono text-xs leading-relaxed focus:outline-none focus:border-amber-500/50 p-4 rounded-xl"
+            className="w-full bg-surface/80 border border-slate-800 text-emerald-400 font-mono text-xs leading-relaxed focus:outline-none focus:border-amber-500/50 p-4 rounded-xl"
           />
           <button
             type="submit"
@@ -225,7 +225,7 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
       ) : (
         <form onSubmit={handleSave} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          <div className="lg:col-span-4 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-4 shadow-xl space-y-1 sticky top-24">
+          <div className="lg:col-span-4 bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-4 shadow-xl space-y-1 sticky top-24">
             <div className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider px-3 py-2 border-b border-slate-800/80 mb-2 flex justify-between items-center">
               <span>DATABASE SCHEMA NODES ({sectionKeys.length})</span>
             </div>
@@ -241,18 +241,18 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
                     className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                       isActive
                         ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                        : 'text-text-muted hover:text-white hover:bg-surface/60'
                     }`}
                   >
                     <span className="capitalize">{secKey}</span>
-                    {isActive ? <ChevronDown className="w-4 h-4 text-amber-400" /> : <ChevronRight className="w-4 h-4 text-slate-500" />}
+                    {isActive ? <ChevronDown className="w-4 h-4 text-amber-400" /> : <ChevronRight className="w-4 h-4 text-text-muted" />}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          <div className="lg:col-span-8 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="lg:col-span-8 bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
               <h3 className="font-display font-bold text-base text-white capitalize">{activeSection} Node Fields</h3>
               <span className="text-xs font-mono text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded border border-amber-500/20">Key: {activeSection}</span>
@@ -263,7 +263,7 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
                 {Object.entries(formData[activeSection]).map(([k, v]) => {
                   if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
                     return (
-                      <div key={k} className="p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl space-y-4">
+                      <div key={k} className="p-5 bg-surface/80 border border-slate-800/80 rounded-xl space-y-4">
                         <div className="text-xs font-bold text-amber-400 font-mono uppercase border-b border-slate-800/80 pb-2">{k}</div>
                         <div className="space-y-4">
                           {Object.entries(v).map(([subK, subV]) => renderField(subK, subV, `${activeSection}.${k}.${subK}`))}
@@ -275,7 +275,7 @@ export default function UniversalFormBuilder({ collectionPath = 'cmsConfig', dat
                 })}
               </div>
             ) : (
-              <div className="text-slate-400 text-xs py-4">No editable primitive fields found for this node.</div>
+              <div className="text-text-muted text-xs py-4">No editable primitive fields found for this node.</div>
             )}
 
             <button

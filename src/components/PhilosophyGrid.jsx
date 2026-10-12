@@ -76,7 +76,7 @@ export default function PhilosophyGrid({ items = DEFAULT_PHILOSOPHY_ITEMS, title
                 </h3>
 
                 {/* Card Paragraph */}
-                <p className="text-slate-400 leading-relaxed text-sm font-sans font-medium">
+                <p className="text-text-muted leading-relaxed text-sm font-sans font-medium">
                   {item.body || item.desc}
                 </p>
               </div>

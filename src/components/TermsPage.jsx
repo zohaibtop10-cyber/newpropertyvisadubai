@@ -18,11 +18,11 @@ export default function TermsPage({ cmsConfig }) {
             <span>LEGAL & REGULATORY DISCLOSURE</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#B8860B] tracking-tight font-display">
+          <h1 className="text-3xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#C59B27] tracking-tight font-display">
             <span>{headline}</span>
           </h1>
 
-          <div className="text-xs font-mono text-slate-400">
+          <div className="text-xs font-mono text-text-muted">
             <span>Last Updated: October 2026 • Operator: {siteConfig.operatorName}</span>
           </div>
         </header>

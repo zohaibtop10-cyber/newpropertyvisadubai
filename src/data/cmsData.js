@@ -1,9 +1,9 @@
 const defaultSiteConfig = {
-  brandName: "FamilyVisa.ae",
-  domain: "FamilyVisa.ae",
-  operatorName: "800 DOCS LLC SOC",
-  tagline: "Bring your family to the UAE without the paperwork headache.",
-  subtagline: "Calculate your exact government fees in seconds, or text us on WhatsApp — a friendly visa specialist replies in minutes.",
+  brandName: "PropertyVisa.ae",
+  domain: "PropertyVisa.ae",
+  operatorName: "800 DOCS LLC SOC & Brightlink Management Consultancy",
+  tagline: "UAE Residency, Golden Visa & Property Investor Consulting Portal.",
+  subtagline: "Calculate your exact government fees in seconds, or text us on WhatsApp — a licensed senior visa specialist replies in minutes.",
   phone: "+971 56 655 6645",
   phoneRaw: "+971566556645",
   whatsapp: "+971 56 655 6645",
@@ -84,7 +84,7 @@ const defaultServicesData = [
         { label: "VIP Medical Fitness Test & X-Ray", cost: 750 },
         { label: "Emirates ID (2 Years)", cost: 380 },
         { label: "File Opening & Status Change", cost: 1570 },
-        { label: "FamilyVisa.ae Service & Concierge Fee", cost: 1450 }
+        { label: "Licensed PRO Concierge Fee", cost: 1450 }
       ]
     },
     processingTime: {
@@ -138,7 +138,7 @@ const defaultServicesData = [
         { label: "ICP / GDRFA Dependant Entry Permit", cost: 1100 },
         { label: "Emirates ID Card (2 Years)", cost: 380 },
         { label: "File Opening & Visa Stamping", cost: 1970 },
-        { label: "FamilyVisa.ae Service Fee", cost: 1250 }
+        { label: "Licensed PRO Concierge Fee", cost: 1250 }
       ]
     },
     processingTime: {
@@ -187,7 +187,7 @@ const defaultServicesData = [
         { label: "GDRFA File Opening & Approval", cost: 3200 },
         { label: "Refundable Security Deposit", cost: 2500 },
         { label: "VIP Medical Test & Emirates ID", cost: 2100 },
-        { label: "FamilyVisa.ae Service Fee", cost: 2500 }
+        { label: "Licensed PRO Concierge Fee", cost: 2500 }
       ]
     },
     processingTime: {
@@ -237,7 +237,7 @@ const defaultServicesData = [
       breakdown: [
         { label: "ICP / GDRFA 10-Yr Dependant Permit", cost: 2400 },
         { label: "VIP Express Medical & Emirates ID", cost: 1800 },
-        { label: "FamilyVisa.ae Service Fee", cost: 1800 }
+        { label: "Licensed PRO Concierge Fee", cost: 1800 }
       ]
     },
     processingTime: {
@@ -287,7 +287,7 @@ const defaultServicesData = [
         { label: "DLD Property Valuation & Approval", cost: 3100 },
         { label: "GDRFA Residency Stamp & Entry Permit", cost: 2150 },
         { label: "VIP Medical Test & Emirates ID", cost: 1600 },
-        { label: "FamilyVisa.ae Service Fee", cost: 1850 }
+        { label: "Licensed PRO Concierge Fee", cost: 1850 }
       ]
     },
     processingTime: {
@@ -337,7 +337,7 @@ const defaultServicesData = [
         { label: "MOHRE Entry Permit & Labor Contract", cost: 2100 },
         { label: "VIP Medical Screening & Emirates ID", cost: 1200 },
         { label: "Security Deposit & Labor Approval", cost: 1900 },
-        { label: "FamilyVisa.ae Service Fee", cost: 1650 }
+        { label: "Licensed PRO Concierge Fee", cost: 1650 }
       ]
     },
     processingTime: {
@@ -388,7 +388,7 @@ const defaultServicesData = [
         { label: "GDRFA File Opening & Entry Permit", cost: 1400 },
         { label: "Emirates ID Card (2 Years)", cost: 380 },
         { label: "Residency Stamping Fee", cost: 1070 },
-        { label: "FamilyVisa.ae Service Fee", cost: 1150 }
+        { label: "Licensed PRO Concierge Fee", cost: 1150 }
       ]
     },
     processingTime: {
@@ -431,7 +431,7 @@ const defaultServicesData = [
       totalEstimate: 630,
       breakdown: [
         { label: "ICP Official Emirates ID Fee", cost: 380 },
-        { label: "FamilyVisa.ae Online Typing Fee", cost: 250 }
+        { label: "Licensed Online Typing Fee", cost: 250 }
       ]
     },
     processingTime: {
@@ -514,7 +514,7 @@ const defaultServicesData = [
       totalEstimate: 550,
       breakdown: [
         { label: "Ministry of Justice Sworn Legal Stamp", cost: 350 },
-        { label: "FamilyVisa.ae Translation Fee", cost: 200 }
+        { label: "Sworn Translation Fee", cost: 200 }
       ]
     },
     processingTime: {

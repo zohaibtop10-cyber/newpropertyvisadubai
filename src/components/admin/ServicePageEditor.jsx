@@ -128,7 +128,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
   return (
     <div className="max-w-6xl space-y-6 animate-fadeIn pb-16">
       {/* Top Selector & Action Header */}
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-5">
+      <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div className="flex items-center gap-4">
           <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
             <Globe className="w-6 h-6" />
@@ -137,7 +137,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
             <h2 className="text-xl font-display font-bold text-white flex items-center gap-2">
               Bespoke Service Pages Editor
             </h2>
-            <p className="text-slate-400 text-xs mt-0.5">
+            <p className="text-text-muted text-xs mt-0.5">
               Select and edit any of the 17 UAE service pages with instant real-time synchronization.
             </p>
           </div>
@@ -148,10 +148,10 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
             <select
               value={selectedService}
               onChange={(e) => setSelectedService(e.target.value)}
-              className="px-4 py-2.5 bg-slate-950 border border-slate-700/80 rounded-xl text-xs font-semibold text-white focus:outline-none focus:border-amber-500/50 min-w-[260px] cursor-pointer"
+              className="px-4 py-2.5 bg-surface border border-slate-700/80 rounded-xl text-xs font-semibold text-white focus:outline-none focus:border-amber-500/50 min-w-[260px] cursor-pointer"
             >
               {ALL_17_SERVICE_PAGES.map(page => (
-                <option key={page.id} value={page.id} className="bg-slate-900 text-white">
+                <option key={page.id} value={page.id} className="bg-surface text-white">
                   {page.name}
                 </option>
               ))}
@@ -177,14 +177,14 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Left Column: Hero & Overview */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-7 shadow-xl space-y-5">
+        <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-7 shadow-xl space-y-5">
           <div className="flex items-center gap-3 border-b border-slate-800/80 pb-4">
             <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400">
               <FileText className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-display font-bold text-base text-white">Hero Section & Pricing</h3>
-              <p className="text-slate-400 text-xs">Core titles, SLA timelines, and starting fee</p>
+              <p className="text-text-muted text-xs">Core titles, SLA timelines, and starting fee</p>
             </div>
           </div>
           
@@ -194,7 +194,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
               type="text"
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-amber-500/50"
             />
           </div>
 
@@ -204,7 +204,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white font-medium focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white font-medium focus:outline-none focus:border-amber-500/50"
             />
           </div>
 
@@ -214,7 +214,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
               type="text"
               value={subtitle}
               onChange={(e) => setSubtitle(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500/50"
             />
           </div>
 
@@ -224,7 +224,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
               value={heroDescription}
               onChange={(e) => setHeroDescription(e.target.value)}
               rows="4"
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-xs text-slate-300 focus:outline-none focus:border-amber-500/50 resize-none leading-relaxed"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-xs text-slate-300 focus:outline-none focus:border-amber-500/50 resize-none leading-relaxed"
             />
           </div>
 
@@ -235,7 +235,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
                 type="text"
                 value={startingPrice}
                 onChange={(e) => setStartingPrice(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-amber-400 font-bold focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-amber-400 font-bold focus:outline-none focus:border-amber-500/50"
                 placeholder="AED 4,000"
               />
             </div>
@@ -246,7 +246,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
                 type="text"
                 value={processingTime}
                 onChange={(e) => setProcessingTime(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500/50"
                 placeholder="3-5 Business Days"
               />
             </div>
@@ -257,7 +257,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
         <div className="space-y-6">
           
           {/* Bento Capabilities Array */}
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
               <div className="flex items-center gap-2.5">
                 <Sparkles className="w-4 h-4 text-amber-400" />
@@ -269,19 +269,19 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
             </div>
             <div className="space-y-3 max-h-[260px] overflow-y-auto pr-1">
               {benefits.map((item, idx) => (
-                <div key={idx} className="flex gap-3 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 items-start">
+                <div key={idx} className="flex gap-3 bg-surface/80 p-3.5 rounded-xl border border-slate-800/80 items-start">
                   <div className="flex-1 space-y-2">
-                    <input type="text" value={item.title || ''} onChange={(e) => handleUpdateBenefit(idx, 'title', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs font-bold text-amber-300 focus:outline-none" placeholder="Card Title" />
-                    <input type="text" value={item.desc || ''} onChange={(e) => handleUpdateBenefit(idx, 'desc', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none" placeholder="Description" />
+                    <input type="text" value={item.title || ''} onChange={(e) => handleUpdateBenefit(idx, 'title', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs font-bold text-amber-300 focus:outline-none" placeholder="Card Title" />
+                    <input type="text" value={item.desc || ''} onChange={(e) => handleUpdateBenefit(idx, 'desc', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none" placeholder="Description" />
                   </div>
-                  <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteBenefit(idx); }} className="text-slate-500 hover:text-red-400 p-1.5 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-4 h-4" /></button>
+                  <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteBenefit(idx); }} className="text-text-muted hover:text-red-400 p-1.5 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-4 h-4" /></button>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Documents Array */}
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
               <div className="flex items-center gap-2.5">
                 <ListCheck className="w-4 h-4 text-sky-400" />
@@ -295,12 +295,12 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
               {requirements.map((req, idx) => {
                 const docObj = typeof req === 'string' ? { name: req, req: 'Mandatory', hint: '' } : req;
                 return (
-                  <div key={idx} className="flex gap-3 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 items-start">
+                  <div key={idx} className="flex gap-3 bg-surface/80 p-3.5 rounded-xl border border-slate-800/80 items-start">
                     <div className="flex-1 space-y-2">
-                      <input type="text" value={docObj.name || ''} onChange={(e) => handleUpdateRequirement(idx, 'name', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs font-semibold text-white focus:outline-none" placeholder="Document Name" />
-                      <input type="text" value={docObj.hint || ''} onChange={(e) => handleUpdateRequirement(idx, 'hint', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs text-slate-400 focus:outline-none" placeholder="Instructions / Hint" />
+                      <input type="text" value={docObj.name || ''} onChange={(e) => handleUpdateRequirement(idx, 'name', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs font-semibold text-white focus:outline-none" placeholder="Document Name" />
+                      <input type="text" value={docObj.hint || ''} onChange={(e) => handleUpdateRequirement(idx, 'hint', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs text-text-muted focus:outline-none" placeholder="Instructions / Hint" />
                     </div>
-                    <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteRequirement(idx); }} className="text-slate-500 hover:text-red-400 p-1.5 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-4 h-4" /></button>
+                    <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteRequirement(idx); }} className="text-text-muted hover:text-red-400 p-1.5 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-4 h-4" /></button>
                   </div>
                 );
               })}
@@ -308,7 +308,7 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
           </div>
 
           {/* Process Timeline Steps */}
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
               <div className="flex items-center gap-2.5">
                 <Navigation className="w-4 h-4 text-emerald-400" />
@@ -320,19 +320,19 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
             </div>
             <div className="space-y-3 max-h-[260px] overflow-y-auto pr-1">
               {processSteps.map((step, idx) => (
-                <div key={idx} className="flex gap-3 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 items-start">
+                <div key={idx} className="flex gap-3 bg-surface/80 p-3.5 rounded-xl border border-slate-800/80 items-start">
                   <div className="flex-1 space-y-2">
-                    <input type="text" value={step.title || ''} onChange={(e) => handleUpdateProcessStep(idx, 'title', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs font-semibold text-white focus:outline-none" placeholder="Step Title" />
-                    <textarea value={step.desc || step.description || ''} onChange={(e) => handleUpdateProcessStep(idx, 'desc', e.target.value)} rows="2" className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none resize-none" placeholder="Step Description" />
+                    <input type="text" value={step.title || ''} onChange={(e) => handleUpdateProcessStep(idx, 'title', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs font-semibold text-white focus:outline-none" placeholder="Step Title" />
+                    <textarea value={step.desc || step.description || ''} onChange={(e) => handleUpdateProcessStep(idx, 'desc', e.target.value)} rows="2" className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none resize-none" placeholder="Step Description" />
                   </div>
-                  <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteProcessStep(idx); }} className="text-slate-500 hover:text-red-400 p-1.5 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-4 h-4" /></button>
+                  <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteProcessStep(idx); }} className="text-text-muted hover:text-red-400 p-1.5 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-4 h-4" /></button>
                 </div>
               ))}
             </div>
           </div>
 
           {/* FAQs Array */}
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
               <div className="flex items-center gap-2.5">
                 <HelpCircle className="w-4 h-4 text-purple-400" />
@@ -344,12 +344,12 @@ export default function ServicePageEditor({ cmsConfig, setCmsConfig }) {
             </div>
             <div className="space-y-3 max-h-[260px] overflow-y-auto pr-1">
               {faqs.map((faq, idx) => (
-                <div key={idx} className="flex gap-3 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 items-start">
+                <div key={idx} className="flex gap-3 bg-surface/80 p-3.5 rounded-xl border border-slate-800/80 items-start">
                   <div className="flex-1 space-y-2">
-                    <input type="text" value={faq.q || faq.question || ''} onChange={(e) => handleUpdateFaq(idx, 'q', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs font-bold text-amber-300 focus:outline-none" placeholder="Question" />
-                    <textarea value={faq.a || faq.answer || ''} onChange={(e) => handleUpdateFaq(idx, 'a', e.target.value)} rows="2" className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none resize-none" placeholder="Answer" />
+                    <input type="text" value={faq.q || faq.question || ''} onChange={(e) => handleUpdateFaq(idx, 'q', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs font-bold text-amber-300 focus:outline-none" placeholder="Question" />
+                    <textarea value={faq.a || faq.answer || ''} onChange={(e) => handleUpdateFaq(idx, 'a', e.target.value)} rows="2" className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none resize-none" placeholder="Answer" />
                   </div>
-                  <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteFaq(idx); }} className="text-slate-500 hover:text-red-400 p-1.5 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-4 h-4" /></button>
+                  <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteFaq(idx); }} className="text-text-muted hover:text-red-400 p-1.5 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-4 h-4" /></button>
                 </div>
               ))}
             </div>

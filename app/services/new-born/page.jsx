@@ -96,7 +96,7 @@ export default function NewbornVisaPage() {
                   {st.num}
                 </div>
                 <h4 className="text-sm font-bold text-white">{st.title}</h4>
-                <p className="text-[11px] text-slate-400 leading-relaxed">{st.desc}</p>
+                <p className="text-[11px] text-text-muted leading-relaxed">{st.desc}</p>
               </div>
             ))}
           </div>
@@ -141,7 +141,7 @@ export default function NewbornVisaPage() {
           </div>
 
           <div className="bg-[#111111] border border-white/10 rounded-[10px] p-6 space-y-4 shadow-2xl">
-            <div className="flex justify-between text-xs font-mono font-bold text-slate-400 border-b border-white/10 pb-2">
+            <div className="flex justify-between text-xs font-mono font-bold text-text-muted border-b border-white/10 pb-2">
               <span>Government Component</span>
               <span>Official Tariff</span>
             </div>

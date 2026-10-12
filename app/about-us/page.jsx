@@ -304,7 +304,7 @@ export default function AboutUsPage({ onOpenCalculator, onNavigate, cmsConfig })
 
             <button 
               onClick={handleScrollToRoster}
-              className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#D4AF37]/50 text-white font-bold text-xs uppercase tracking-wider font-mono transition-all inline-flex items-center justify-center gap-2.5 cursor-pointer backdrop-blur-md"
+              className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-surface/5 hover:bg-surface/10 border border-white/15 hover:border-[#D4AF37]/50 text-white font-bold text-xs uppercase tracking-wider font-mono transition-all inline-flex items-center justify-center gap-2.5 cursor-pointer backdrop-blur-md"
             >
               <Users className="w-4 h-4 text-[#D4AF37] shrink-0" />
               <span>{secondaryCtaLabel}</span>

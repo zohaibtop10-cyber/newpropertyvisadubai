@@ -78,7 +78,7 @@ export default function ServiceHero({
                 <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
                 <span>{badge1}</span>
               </span>
-              <span className="bg-white/5 border border-white/10 text-slate-300 font-mono text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-[10px]">
+              <span className="bg-surface/5 border border-white/10 text-slate-300 font-mono text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-[10px]">
                 {badge2}
               </span>
             </div>
@@ -140,7 +140,7 @@ export default function ServiceHero({
             <div className="bg-[#111319] border border-white/10 shadow-[0_30px_60px_-20px_rgba(212,175,55,0.15)] rounded-[10px] p-6 lg:p-7 relative overflow-hidden font-sans">
               
               {/* Top Shimmer Border */}
-              <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+              <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
 
               {/* Widget Header */}
               <div className="flex items-center justify-between mb-1.5">
@@ -153,7 +153,7 @@ export default function ServiceHero({
                   <span>LIVE</span>
                 </div>
               </div>
-              <p className="text-slate-400 text-xs font-sans mb-6">
+              <p className="text-text-muted text-xs font-sans mb-6">
                 {calculatorSubtitle}
               </p>
 
@@ -162,11 +162,11 @@ export default function ServiceHero({
                 
                 {/* Property Value Input */}
                 <div>
-                  <label className="text-[11px] font-mono font-bold tracking-wider text-slate-400 uppercase mb-1.5 block">
+                  <label className="text-[11px] font-mono font-bold tracking-wider text-text-muted uppercase mb-1.5 block">
                     ESTIMATED VALUE / TARIFF (AED)
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-mono font-bold">AED</span>
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-xs font-mono font-bold">AED</span>
                     <input
                       type="text"
                       value={propertyValue}
@@ -178,7 +178,7 @@ export default function ServiceHero({
 
                 {/* Age / Category Input */}
                 <div>
-                  <label className="text-[11px] font-mono font-bold tracking-wider text-slate-400 uppercase mb-1.5 block">
+                  <label className="text-[11px] font-mono font-bold tracking-wider text-text-muted uppercase mb-1.5 block">
                     APPLICANT AGE / APPLICANTS
                   </label>
                   <input
@@ -191,7 +191,7 @@ export default function ServiceHero({
 
                 {/* Track Selectors */}
                 <div>
-                  <label className="text-[11px] font-mono font-bold tracking-wider text-slate-400 uppercase mb-1.5 block">
+                  <label className="text-[11px] font-mono font-bold tracking-wider text-text-muted uppercase mb-1.5 block">
                     SELECT VISA VALIDITY
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -203,7 +203,7 @@ export default function ServiceHero({
                         className={`py-2.5 px-2 rounded-[10px] text-xs text-center cursor-pointer transition-all font-mono ${
                           activeTrack === track
                             ? 'bg-dark-gold-gloss text-black font-extrabold shadow-md'
-                            : 'bg-white/5 border border-white/10 text-slate-400 hover:bg-white/10'
+                            : 'bg-surface/5 border border-white/10 text-text-muted hover:bg-surface/10'
                         }`}
                       >
                         {track}

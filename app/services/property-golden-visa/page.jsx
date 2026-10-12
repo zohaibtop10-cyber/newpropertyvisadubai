@@ -116,7 +116,7 @@ export default function PropertyGoldenVisaPage() {
                   DLD TITLE DEED AUDIT
                 </span>
                 <h3 className="text-xl font-extrabold text-white">Check Title Deed Eligibility</h3>
-                <p className="text-xs text-slate-400 mt-1">Select your property category for instant evaluation.</p>
+                <p className="text-xs text-text-muted mt-1">Select your property category for instant evaluation.</p>
               </div>
 
               {submitted ? (
@@ -136,7 +136,7 @@ export default function PropertyGoldenVisaPage() {
                         className={`p-3 text-xs font-bold rounded-[10px] border transition-all ${
                           propertyType === 'ready' 
                             ? 'bg-brand-goldBg text-black border-brand-goldBg font-black' 
-                            : 'bg-[#050505] border-white/10 text-slate-400'
+                            : 'bg-[#050505] border-white/10 text-text-muted'
                         }`}
                       >
                         Ready Property
@@ -148,7 +148,7 @@ export default function PropertyGoldenVisaPage() {
                         className={`p-3 text-xs font-bold rounded-[10px] border transition-all ${
                           propertyType === 'mortgaged' 
                             ? 'bg-brand-goldBg text-black border-brand-goldBg font-black' 
-                            : 'bg-[#050505] border-white/10 text-slate-400'
+                            : 'bg-[#050505] border-white/10 text-text-muted'
                         }`}
                       >
                         Mortgaged / Off-Plan
@@ -213,7 +213,7 @@ export default function PropertyGoldenVisaPage() {
             <div className="bg-[#111111] border border-white/10 rounded-[10px] p-6 lg:p-8 hover:border-brand-goldBg/40 transition-all space-y-6 shadow-xl relative overflow-hidden group">
               <div className="flex items-start justify-between border-b border-white/10 pb-4">
                 <div>
-                  <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                  <span className="text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1">
                     Minimum Purchase Value
                   </span>
                   <div className="text-3xl font-black text-brand-goldText font-mono tracking-tight mb-2">
@@ -247,7 +247,7 @@ export default function PropertyGoldenVisaPage() {
             <div className="bg-[#111111] border border-white/10 rounded-[10px] p-6 lg:p-8 hover:border-brand-goldBg/40 transition-all space-y-6 shadow-xl relative overflow-hidden group">
               <div className="flex items-start justify-between border-b border-white/10 pb-4">
                 <div>
-                  <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                  <span className="text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1">
                     Entry Level Property
                   </span>
                   <div className="text-3xl font-black text-brand-goldText font-mono tracking-tight mb-2">
@@ -281,7 +281,7 @@ export default function PropertyGoldenVisaPage() {
             <div className="bg-[#111111] border border-white/10 rounded-[10px] p-6 lg:p-8 hover:border-brand-goldBg/40 transition-all space-y-6 shadow-xl relative overflow-hidden group">
               <div className="flex items-start justify-between border-b border-white/10 pb-4">
                 <div>
-                  <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                  <span className="text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1">
                     Off-Plan Developer Track
                   </span>
                   <div className="text-3xl font-black text-brand-goldText font-mono tracking-tight mb-2">
@@ -338,7 +338,7 @@ export default function PropertyGoldenVisaPage() {
                 className={`flex-1 py-3 px-4 rounded-[10px] text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   docTab === tab.id
                     ? 'bg-brand-goldBg text-black font-black'
-                    : 'text-slate-400 hover:text-white'
+                    : 'text-text-muted hover:text-white'
                 }`}
               >
                 {tab.label}
@@ -363,9 +363,9 @@ export default function PropertyGoldenVisaPage() {
                     {isChecked ? (
                       <CheckSquare className="w-5 h-5 text-brand-goldText shrink-0" />
                     ) : (
-                      <Square className="w-5 h-5 text-slate-500 shrink-0" />
+                      <Square className="w-5 h-5 text-text-muted shrink-0" />
                     )}
-                    <span className={`text-xs font-semibold ${isChecked ? 'line-through text-slate-400' : ''}`}>
+                    <span className={`text-xs font-semibold ${isChecked ? 'line-through text-text-muted' : ''}`}>
                       {doc}
                     </span>
                   </div>
@@ -391,15 +391,15 @@ export default function PropertyGoldenVisaPage() {
           <div className="bg-[#111111] border border-white/10 rounded-[10px] p-6 lg:p-8 space-y-8 shadow-2xl">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-[#050505] border border-white/10 p-6 rounded-[10px] space-y-3">
-                <span className="text-xs font-mono font-bold text-slate-400 uppercase block">1. DLD Cube Nomination</span>
+                <span className="text-xs font-mono font-bold text-text-muted uppercase block">1. DLD Cube Nomination</span>
                 <div className="text-3xl font-black text-white font-mono">AED 4,020</div>
-                <p className="text-xs text-slate-500">Official Dubai Land Department nomination filing tariff.</p>
+                <p className="text-xs text-text-muted">Official Dubai Land Department nomination filing tariff.</p>
               </div>
 
               <div className="bg-[#050505] border border-white/10 p-6 rounded-[10px] space-y-3">
-                <span className="text-xs font-mono font-bold text-slate-400 uppercase block">2. VIP Medical & EID</span>
+                <span className="text-xs font-mono font-bold text-text-muted uppercase block">2. VIP Medical & EID</span>
                 <div className="text-3xl font-black text-white font-mono">AED 1,880</div>
-                <p className="text-xs text-slate-500">Smart Salem VIP 30-min medical & 10-year EID typing.</p>
+                <p className="text-xs text-text-muted">Smart Salem VIP 30-min medical & 10-year EID typing.</p>
               </div>
 
               <div className="bg-brand-goldBg/5 border border-brand-goldBg/40 p-6 rounded-[10px] space-y-3 shadow-[0_0_30px_rgba(212,175,55,0.1)]">
@@ -439,7 +439,7 @@ export default function PropertyGoldenVisaPage() {
                     className="w-full p-5 text-left flex justify-between items-center gap-4 font-bold text-sm text-white hover:text-brand-goldText transition-colors cursor-pointer"
                   >
                     <span className={isOpen ? 'text-brand-goldText' : ''}>{faq.q}</span>
-                    <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180 text-brand-goldText' : 'text-slate-500'}`} />
+                    <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180 text-brand-goldText' : 'text-text-muted'}`} />
                   </button>
                   {isOpen && (
                     <div className="px-5 pb-5 pt-1 text-xs text-slate-300 leading-relaxed border-l-2 border-l-brand-goldBg pl-4 ml-5 mb-4">

@@ -149,7 +149,7 @@ export default function VisaCalculator({ className = '', onOpenModal, cmsConfig 
         
         {/* Step 1: Main Service Category Selection */}
         <div>
-          <label className="block text-xs font-mono font-bold uppercase text-slate-400 mb-2">
+          <label className="block text-xs font-mono font-bold uppercase text-text-muted mb-2">
             1. Select Primary Service Goal
           </label>
           <div className="relative">
@@ -209,7 +209,7 @@ export default function VisaCalculator({ className = '', onOpenModal, cmsConfig 
 
         {/* Mandatory Segmented Location Control */}
         <div>
-          <label className="block text-xs font-mono font-bold uppercase text-slate-400 mb-2">
+          <label className="block text-xs font-mono font-bold uppercase text-text-muted mb-2">
             3. Applicant Current Location (Mandatory)
           </label>
           <div className="grid grid-cols-2 gap-3 p-1.5 bg-surface-primary/50 rounded-2xl border border-brand-goldBg/20">
@@ -219,7 +219,7 @@ export default function VisaCalculator({ className = '', onOpenModal, cmsConfig 
               className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
                 locationStatus === 'outsideUAE'
                   ? 'bg-gold-gradient text-black shadow-md shadow-brand-goldBg/30 ring-2 ring-brand-goldBg'
-                  : 'text-slate-400 hover:text-text-main hover:bg-surface-primary'
+                  : 'text-text-muted hover:text-text-main hover:bg-surface-primary'
               }`}
             >
               <Plane className="w-4 h-4 shrink-0" />
@@ -232,7 +232,7 @@ export default function VisaCalculator({ className = '', onOpenModal, cmsConfig 
               className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
                 locationStatus === 'insideUAE'
                   ? 'bg-gold-gradient text-black shadow-md shadow-brand-goldBg/30 ring-2 ring-brand-goldBg'
-                  : 'text-slate-400 hover:text-text-main hover:bg-surface-primary'
+                  : 'text-text-muted hover:text-text-main hover:bg-surface-primary'
               }`}
             >
               <MapPin className="w-4 h-4 shrink-0" />
@@ -243,7 +243,7 @@ export default function VisaCalculator({ className = '', onOpenModal, cmsConfig 
 
         {/* Optional Add-on Toggles */}
         <div className="pt-2 border-t border-brand-goldBg/10 space-y-3">
-          <label className="block text-xs font-mono font-bold uppercase text-slate-400 mb-1">
+          <label className="block text-xs font-mono font-bold uppercase text-text-muted mb-1">
             4. Optional Express Upgrades & Add-ons
           </label>
 
@@ -256,7 +256,7 @@ export default function VisaCalculator({ className = '', onOpenModal, cmsConfig 
                 className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between text-xs font-bold ${
                   isChecked
                     ? 'border-brand-goldBg bg-brand-goldBg/10 text-text-main shadow-sm'
-                    : 'border-brand-goldBg/15 bg-surface-primary/30 text-slate-400 hover:border-brand-goldBg/40 hover:text-text-main'
+                    : 'border-brand-goldBg/15 bg-surface-primary/30 text-text-muted hover:border-brand-goldBg/40 hover:text-text-main'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -280,7 +280,7 @@ export default function VisaCalculator({ className = '', onOpenModal, cmsConfig 
       {/* Total Display Box */}
       <div className="bg-brand-goldBg/10 border-t border-brand-goldBg/20 p-5 mt-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono text-slate-400 uppercase font-bold block">
+          <span className="text-[11px] font-mono text-text-muted uppercase font-bold block">
             Itemized Total ({getDisplayTitle()})
           </span>
           <span className="text-xs text-brand-goldText font-medium flex items-center gap-1 mt-0.5">

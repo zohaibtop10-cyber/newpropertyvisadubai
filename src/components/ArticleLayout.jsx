@@ -115,7 +115,7 @@ export function PricingCards({
             </div>
 
             {card.subtitle && (
-              <p className="text-xs text-slate-400 font-medium m-0 mb-4 font-sans leading-relaxed">
+              <p className="text-xs text-text-muted font-medium m-0 mb-4 font-sans leading-relaxed">
                 {card.subtitle}
               </p>
             )}
@@ -141,7 +141,7 @@ export function PricingCards({
               className={`w-full py-3 rounded-[10px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer font-mono ${
                 card.primary
                   ? 'bg-gradient-to-r from-[#C9981E] to-[#FCE181] text-black shadow-md hover:brightness-110'
-                  : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'
+                  : 'bg-surface/5 hover:bg-surface/10 text-white border border-white/10'
               }`}
             >
               Select Route →
@@ -187,7 +187,7 @@ export function LuxuryTable({ headers = [], rows = [], caption }) {
             {rows.map((row, rIdx) => (
               <tr
                 key={rIdx}
-                className={`transition-colors hover:bg-white/5 ${
+                className={`transition-colors hover:bg-surface/5 ${
                   rIdx % 2 === 1 ? 'bg-[#0A0A0A]' : 'bg-[#050505]'
                 }`}
               >
@@ -230,7 +230,7 @@ export function InlineCTA({
     <div className="bg-gradient-to-r from-[#111111] to-[#0A0A0A] border border-[#8C5E00]/30 p-8 sm:p-10 rounded-[10px] text-center my-12 text-white shadow-xl space-y-4 font-sans relative overflow-hidden">
       <div className="absolute top-0 right-0 w-48 h-48 bg-[#D4AF37]/10 rounded-full blur-2xl pointer-events-none" />
       
-      <span className="bg-white/10 border border-white/20 text-[#FFE58F] text-xs font-bold tracking-wider uppercase px-3 py-1 rounded-full inline-block font-mono">
+      <span className="bg-surface/10 border border-white/20 text-[#FFE58F] text-xs font-bold tracking-wider uppercase px-3 py-1 rounded-full inline-block font-mono">
         FAST-TRACK PRO PROCESSING
       </span>
 
@@ -476,7 +476,7 @@ Failing to update family status within 60 days of entry can incur daily administ
     <div className="w-full bg-[#050505] min-h-screen text-slate-300 selection:bg-[#D4AF37] selection:text-[#050505] font-sans">
       
       {/* Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-white/10 z-50">
+      <div className="fixed top-0 left-0 right-0 h-1 bg-surface/10 z-50">
         <div 
           className="h-full bg-gradient-to-r from-[#8C5E00] via-[#D4AF37] to-[#FFF5C0] transition-all duration-150 ease-out" 
           style={{ width: `${scrollProgress}%` }} 
@@ -491,7 +491,7 @@ Failing to update family status within 60 days of entry can incur daily administ
           
           {/* Category Badge */}
           <div>
-            <span className="bg-white/10 border border-white/20 text-[#FFE58F] text-xs font-bold tracking-wider uppercase px-3 py-1 rounded-full inline-block mb-6 font-mono">
+            <span className="bg-surface/10 border border-white/20 text-[#FFE58F] text-xs font-bold tracking-wider uppercase px-3 py-1 rounded-full inline-block mb-6 font-mono">
               {post.category}
             </span>
           </div>
@@ -510,12 +510,12 @@ Failing to update family status within 60 days of entry can incur daily administ
             />
             <div>
               <div className="text-white font-bold text-base font-sans">{post.author}</div>
-              <div className="text-slate-400 text-xs font-sans">{post.date} • {post.readTime}</div>
+              <div className="text-text-muted text-xs font-sans">{post.date} • {post.readTime}</div>
             </div>
           </div>
 
           {/* Featured Image */}
-          <div className="w-full aspect-video object-cover rounded-[10px] overflow-hidden border border-white/10 shadow-2xl mb-12 bg-slate-950">
+          <div className="w-full aspect-video object-cover rounded-[10px] overflow-hidden border border-white/10 shadow-2xl mb-12 bg-surface">
             <img
               src={post.featuredImage}
               alt={post.title}
@@ -607,7 +607,7 @@ Failing to update family status within 60 days of entry can incur daily administ
                       } ${
                         isActive
                           ? 'text-[#FFE58F] border-l-2 border-[#D4AF37] bg-[#D4AF37]/10 font-bold rounded-r-[10px]'
-                          : 'text-slate-400 hover:bg-white/5 hover:text-white rounded-[10px]'
+                          : 'text-text-muted hover:bg-surface/5 hover:text-white rounded-[10px]'
                       }`}
                     >
                       {heading.text}
@@ -628,7 +628,7 @@ Failing to update family status within 60 days of entry can incur daily administ
               Calculate Visa Fees Instantly
             </h4>
 
-            <p className="text-slate-400 text-xs leading-relaxed font-sans m-0">
+            <p className="text-text-muted text-xs leading-relaxed font-sans m-0">
               Get direct GDRFA statutory tariffs and instant SLA turnaround timing for your family visa.
             </p>
 
@@ -663,7 +663,7 @@ Failing to update family status within 60 days of entry can incur daily administ
                 Explore Related Insights
               </h2>
             </div>
-            <span className="text-xs font-mono text-slate-400 font-medium">Curated by Senior Immigration Lawyers</span>
+            <span className="text-xs font-mono text-text-muted font-medium">Curated by Senior Immigration Lawyers</span>
           </div>
 
           {/* 3-Column Dark Glass Card Grid */}
@@ -702,7 +702,7 @@ Failing to update family status within 60 days of entry can incur daily administ
                 onClick={() => onNavigateArticle && onNavigateArticle(item.slug || item.id)}
                 className="bg-[#0A0A0A] border border-white/10 rounded-[10px] overflow-hidden shadow-xl hover:border-[#D4AF37]/50 hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] transition-all cursor-pointer group flex flex-col justify-between"
               >
-                <div className="relative aspect-video overflow-hidden bg-slate-950">
+                <div className="relative aspect-video overflow-hidden bg-surface">
                   <img
                     src={item.image || item.featuredImage}
                     alt={item.title}
@@ -717,13 +717,13 @@ Failing to update family status within 60 days of entry can incur daily administ
 
                 <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
                   <div className="space-y-2">
-                    <div className="text-xs text-slate-400 font-mono">
+                    <div className="text-xs text-text-muted font-mono">
                       {item.date || '2026'}
                     </div>
                     <h3 className="text-lg font-bold text-white group-hover:text-[#FFE58F] transition-colors leading-snug font-sans m-0">
                       {item.title}
                     </h3>
-                    <p className="text-slate-400 text-xs leading-relaxed font-sans font-medium line-clamp-2 m-0">
+                    <p className="text-text-muted text-xs leading-relaxed font-sans font-medium line-clamp-2 m-0">
                       {item.excerpt}
                     </p>
                   </div>
@@ -732,7 +732,7 @@ Failing to update family status within 60 days of entry can incur daily administ
                     <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                       Read Guide →
                     </span>
-                    <span className="text-slate-500 font-normal">5 min read</span>
+                    <span className="text-text-muted font-normal">5 min read</span>
                   </div>
                 </div>
               </div>

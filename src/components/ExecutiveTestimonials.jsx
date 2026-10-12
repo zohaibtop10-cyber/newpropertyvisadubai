@@ -47,7 +47,7 @@ export default function ExecutiveTestimonials() {
                 <Star key={i} className="w-4 h-4 fill-[#D4AF37] text-[#D4AF37]" />
               ))}
             </div>
-            <span className="text-xs font-bold tracking-widest text-slate-400 uppercase font-mono">
+            <span className="text-xs font-bold tracking-widest text-text-muted uppercase font-mono">
               5.0 STAR EXECUTIVE RATING (VERIFIED BY CLUTCH & TRUSTPILOT)
             </span>
           </div>
@@ -58,7 +58,7 @@ export default function ExecutiveTestimonials() {
           </h2>
 
           {/* Body Text */}
-          <p className="text-slate-400 text-lg leading-relaxed font-sans font-medium">
+          <p className="text-text-muted text-lg leading-relaxed font-sans font-medium">
             From Ejari verification to MOFA document attestations and VIP Smart Salem medical clearances, their senior PRO council managed every milestone with complete transparency and zero operational delay.
           </p>
 
@@ -73,7 +73,7 @@ export default function ExecutiveTestimonials() {
               <h4 className="text-white font-bold text-base font-sans">
                 Sir Arthur James Montgomery
               </h4>
-              <p className="text-slate-500 text-sm font-sans font-medium">
+              <p className="text-text-muted text-sm font-sans font-medium">
                 Managing Director, Montgomery Capital Partners
               </p>
             </div>
@@ -151,7 +151,7 @@ export default function ExecutiveTestimonials() {
                 </div>
                 <button
                   onClick={() => setActiveVideo(null)}
-                  className="p-2 rounded-[10px] bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+                  className="p-2 rounded-[10px] bg-surface/10 hover:bg-surface/20 text-white transition-colors cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>

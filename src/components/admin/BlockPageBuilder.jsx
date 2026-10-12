@@ -197,17 +197,17 @@ export default function BlockPageBuilder({ slug = 'home' }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Block Page Builder ({slug.toUpperCase()})
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Construct modular page layouts using reorderable component blocks and live previews.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="bg-slate-950 p-1.5 rounded-xl border border-slate-800/80 flex">
+            <div className="bg-surface p-1.5 rounded-xl border border-slate-800/80 flex">
               <button
                 onClick={() => setActiveTab('editor')}
                 className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-2 ${
-                  activeTab === 'editor' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-slate-400 hover:text-white'
+                  activeTab === 'editor' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-text-muted hover:text-white'
                 }`}
               >
                 <Layout className="w-4 h-4" /> Builder
@@ -215,7 +215,7 @@ export default function BlockPageBuilder({ slug = 'home' }) {
               <button
                 onClick={() => setActiveTab('preview')}
                 className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-2 ${
-                  activeTab === 'preview' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-slate-400 hover:text-white'
+                  activeTab === 'preview' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-text-muted hover:text-white'
                 }`}
               >
                 <Eye className="w-4 h-4" /> Preview
@@ -244,7 +244,7 @@ export default function BlockPageBuilder({ slug = 'home' }) {
       {/* TABS CONTENT */}
       {activeTab === 'preview' ? (
         <div className="border border-slate-800/80 rounded-2xl overflow-hidden shadow-2xl">
-          <div className="bg-slate-950 px-6 py-3.5 border-b border-slate-800/80 text-xs font-mono text-amber-400 font-bold flex justify-between items-center">
+          <div className="bg-surface px-6 py-3.5 border-b border-slate-800/80 text-xs font-mono text-amber-400 font-bold flex justify-between items-center">
             <span>LIVE PREVIEW MODE</span>
             <span>{blocks.length} Active Component Blocks</span>
           </div>
@@ -260,14 +260,14 @@ export default function BlockPageBuilder({ slug = 'home' }) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 transition-all shadow-md"
+                className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 transition-all shadow-md"
               >
                 <div className="flex items-center gap-4">
                   <div className="flex flex-col gap-1">
                     <button
                       onClick={() => handleMoveUp(index)}
                       disabled={index === 0}
-                      className="p-1 rounded bg-slate-950 hover:bg-slate-800 text-slate-400 hover:text-white disabled:opacity-30 cursor-pointer"
+                      className="p-1 rounded bg-surface hover:bg-surface text-text-muted hover:text-white disabled:opacity-30 cursor-pointer"
                       title="Move Block Up"
                     >
                       <MoveUp className="w-3.5 h-3.5" />
@@ -275,7 +275,7 @@ export default function BlockPageBuilder({ slug = 'home' }) {
                     <button
                       onClick={() => handleMoveDown(index)}
                       disabled={index === blocks.length - 1}
-                      className="p-1 rounded bg-slate-950 hover:bg-slate-800 text-slate-400 hover:text-white disabled:opacity-30 cursor-pointer"
+                      className="p-1 rounded bg-surface hover:bg-surface text-text-muted hover:text-white disabled:opacity-30 cursor-pointer"
                       title="Move Block Down"
                     >
                       <MoveDown className="w-3.5 h-3.5" />
@@ -291,11 +291,11 @@ export default function BlockPageBuilder({ slug = 'home' }) {
                       <h4 className="font-display font-bold text-white text-sm sm:text-base">
                         {block.type}
                       </h4>
-                      <span className="text-[10px] font-mono bg-slate-950 text-slate-400 px-2 py-0.5 rounded border border-slate-800">
+                      <span className="text-[10px] font-mono bg-surface text-text-muted px-2 py-0.5 rounded border border-slate-800">
                         ID: {block.id}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-400 mt-0.5">
+                    <p className="text-xs text-text-muted mt-0.5">
                       {AVAILABLE_BLOCK_TYPES.find(t => t.type === block.type)?.description || 'Dynamic Page Component'}
                     </p>
                   </div>
@@ -304,7 +304,7 @@ export default function BlockPageBuilder({ slug = 'home' }) {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleOpenEditModal(block)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700/60 text-xs font-bold text-slate-200 transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface hover:bg-surface border border-slate-700/60 text-xs font-bold text-slate-200 transition-colors cursor-pointer"
                   >
                     <Edit3 className="w-3.5 h-3.5" /> Edit JSON
                   </button>
@@ -322,7 +322,7 @@ export default function BlockPageBuilder({ slug = 'home' }) {
             ))}
           </div>
 
-          <div className="p-6 bg-slate-900/80 backdrop-blur-xl border border-amber-500/20 rounded-2xl space-y-4">
+          <div className="p-6 bg-surface/80 backdrop-blur-xl border border-amber-500/20 rounded-2xl space-y-4">
             <h3 className="font-display font-bold text-sm text-amber-400 uppercase tracking-wider">
               + Add Component Block
             </h3>
@@ -331,10 +331,10 @@ export default function BlockPageBuilder({ slug = 'home' }) {
               <select
                 value={selectedNewType}
                 onChange={(e) => setSelectedNewType(e.target.value)}
-                className="flex-1 w-full bg-slate-950 border border-slate-700/60 text-white rounded-xl p-3 text-xs font-semibold focus:outline-none focus:border-amber-500/50 cursor-pointer"
+                className="flex-1 w-full bg-surface border border-slate-700/60 text-white rounded-xl p-3 text-xs font-semibold focus:outline-none focus:border-amber-500/50 cursor-pointer"
               >
                 {AVAILABLE_BLOCK_TYPES.map((b) => (
-                  <option key={b.type} value={b.type} className="bg-slate-900 text-white">
+                  <option key={b.type} value={b.type} className="bg-surface text-white">
                     {b.type} — {b.name}
                   </option>
                 ))}
@@ -360,16 +360,16 @@ export default function BlockPageBuilder({ slug = 'home' }) {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4 text-white"
+              className="w-full max-w-2xl bg-surface border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4 text-white"
             >
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div>
                   <h3 className="font-display font-bold text-lg text-white">Edit Block Content ({editingBlock.type})</h3>
-                  <p className="text-xs text-slate-400 font-mono">Block ID: {editingBlock.id}</p>
+                  <p className="text-xs text-text-muted font-mono">Block ID: {editingBlock.id}</p>
                 </div>
                 <button
                   onClick={() => setEditingBlock(null)}
-                  className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white"
+                  className="p-1 rounded-lg hover:bg-surface text-text-muted hover:text-white"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -381,14 +381,14 @@ export default function BlockPageBuilder({ slug = 'home' }) {
                   value={editingDataJson}
                   onChange={(e) => setEditingDataJson(e.target.value)}
                   rows={12}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/50 rounded-xl p-4 font-mono text-xs text-amber-300 outline-none leading-relaxed"
+                  className="w-full bg-surface border border-slate-800 focus:border-amber-500/50 rounded-xl p-4 font-mono text-xs text-amber-300 outline-none leading-relaxed"
                 />
               </div>
 
               <div className="flex justify-end gap-3 pt-2">
                 <button
                   onClick={() => setEditingBlock(null)}
-                  className="px-5 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800 text-xs font-semibold text-slate-300 cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl border border-slate-700 hover:bg-surface text-xs font-semibold text-slate-300 cursor-pointer"
                 >
                   Cancel
                 </button>

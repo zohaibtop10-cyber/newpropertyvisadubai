@@ -156,7 +156,7 @@ export default function CalculatorEditor({ cmsConfig, setCmsConfig }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Calculator Popup Pricing CMS
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Configure government line items, advisory service charges, and in-country status change fees for the popup calculator.
             </p>
           </div>
@@ -178,14 +178,14 @@ export default function CalculatorEditor({ cmsConfig, setCmsConfig }) {
       )}
 
       {/* Global In-Country Surcharge Config Card */}
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+      <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
         <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
           <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400">
             <MapPin className="w-5 h-5" />
           </div>
           <div>
             <h3 className="font-display font-bold text-base text-white">Global In-Country Status Change Surcharge</h3>
-            <p className="text-slate-400 text-xs">Fee added when applicant selects "Inside the UAE" in the calculator</p>
+            <p className="text-text-muted text-xs">Fee added when applicant selects "Inside the UAE" in the calculator</p>
           </div>
         </div>
 
@@ -197,14 +197,14 @@ export default function CalculatorEditor({ cmsConfig, setCmsConfig }) {
               step="0.01"
               value={calcConfig.inCountryStatusChangeFee ?? 675.65}
               onChange={(e) => setCalcConfig(prev => ({ ...prev, inCountryStatusChangeFee: Number(e.target.value) }))}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-emerald-400 font-mono font-bold text-sm focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-emerald-400 font-mono font-bold text-sm focus:outline-none focus:border-amber-500/50"
             />
           </div>
         </div>
       </div>
 
       {/* Category Tabs */}
-      <div className="flex flex-wrap gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap gap-2 bg-surface/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
         {categoryKeys.map((cat) => (
           <button
             key={cat.id}
@@ -213,7 +213,7 @@ export default function CalculatorEditor({ cmsConfig, setCmsConfig }) {
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
               activeCategory === cat.id
                 ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                : 'text-text-muted hover:text-white hover:bg-surface/60'
             }`}
           >
             <Calculator className="w-3.5 h-3.5" />
@@ -223,11 +223,11 @@ export default function CalculatorEditor({ cmsConfig, setCmsConfig }) {
       </div>
 
       {/* Category Breakdown Items Editor */}
-      <form onSubmit={handleSave} className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+      <form onSubmit={handleSave} className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
           <div>
             <h2 className="font-display font-bold text-lg text-white capitalize">{activeData.label || activeCategory} Breakdown</h2>
-            <p className="text-slate-400 text-xs mt-0.5">Configure government tariffs and service charge retainer for this category</p>
+            <p className="text-text-muted text-xs mt-0.5">Configure government tariffs and service charge retainer for this category</p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -237,7 +237,7 @@ export default function CalculatorEditor({ cmsConfig, setCmsConfig }) {
                 type="number"
                 value={activeData.serviceCharge ?? 1450}
                 onChange={(e) => handleUpdateCategoryField('serviceCharge', Number(e.target.value))}
-                className="w-36 bg-slate-950 border border-slate-700/60 rounded-xl px-3 py-2 text-white font-mono font-bold text-xs focus:outline-none focus:border-amber-500/50"
+                className="w-36 bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-white font-mono font-bold text-xs focus:outline-none focus:border-amber-500/50"
               />
             </div>
 
@@ -254,7 +254,7 @@ export default function CalculatorEditor({ cmsConfig, setCmsConfig }) {
         {/* Itemized Line Items */}
         <div className="space-y-4">
           {(activeData.items || []).map((item, idx) => (
-            <div key={idx} className="p-4 bg-slate-950/80 border border-slate-800/80 rounded-xl space-y-3">
+            <div key={idx} className="p-4 bg-surface/80 border border-slate-800/80 rounded-xl space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-bold text-amber-400">LINE ITEM #{idx + 1}</span>
                 <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteItem(idx); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 cursor-pointer" title="Delete Item"><Trash2 className="w-3.5 h-3.5" /></button>
@@ -262,33 +262,33 @@ export default function CalculatorEditor({ cmsConfig, setCmsConfig }) {
 
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 text-xs">
                 <div className="sm:col-span-5">
-                  <label className="block text-slate-400 font-medium mb-1">Item Name / Label</label>
+                  <label className="block text-text-muted font-medium mb-1">Item Name / Label</label>
                   <input
                     type="text"
                     value={item.label || ''}
                     onChange={(e) => handleUpdateItem(idx, 'label', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-white font-bold"
+                    className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-white font-bold"
                   />
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label className="block text-slate-400 font-medium mb-1">Government Price (AED)</label>
+                  <label className="block text-text-muted font-medium mb-1">Government Price (AED)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={item.price ?? 0}
                     onChange={(e) => handleUpdateItem(idx, 'price', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold"
+                    className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold"
                   />
                 </div>
 
                 <div className="sm:col-span-4">
-                  <label className="block text-slate-400 font-medium mb-1">Description / Subtext</label>
+                  <label className="block text-text-muted font-medium mb-1">Description / Subtext</label>
                   <input
                     type="text"
                     value={item.desc || ''}
                     onChange={(e) => handleUpdateItem(idx, 'desc', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-slate-300"
+                    className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-slate-300"
                   />
                 </div>
               </div>

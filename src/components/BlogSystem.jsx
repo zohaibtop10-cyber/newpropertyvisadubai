@@ -152,30 +152,30 @@ export default function BlogSystem({
             <BookOpen className="w-4 h-4 text-[#8C5E00] dark:text-[#D4AF37]" /> GDRFA & ICP Official Knowledge Base
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05] font-sans">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-text  tracking-tight leading-[1.05] font-sans">
             Dubai & UAE{' '}
             <span className="text-dark-gold-shine">Residency Guides</span>
           </h1>
 
-          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-3xl mx-auto font-sans font-medium leading-relaxed">
+          <p className="text-text-muted dark:text-slate-300 text-base sm:text-lg max-w-3xl mx-auto font-sans font-medium leading-relaxed">
             Verified, up-to-date guidance on UAE residency rules, Golden Visa eligibility, salary thresholds, Ejari tenancy registration, and document attestation — prepared by senior immigration advisors.
           </p>
 
           {/* Search Input Bar */}
           <div className="max-w-2xl mx-auto relative pt-4">
             <div className="relative">
-              <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+              <Search className="w-5 h-5 text-text-muted absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Search immigration guides (e.g. Golden Visa, Ejari, Medical)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-10 py-4 bg-white dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-[10px] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-[#D4AF37] transition-all shadow-xl font-sans"
+                className="w-full pl-12 pr-10 py-4 bg-surface /5 backdrop-blur-xl border border-border-hairline dark:border-white/10 rounded-[10px] text-sm text-text  placeholder:text-text-muted dark:placeholder:text-text-muted focus:outline-none focus:border-[#D4AF37] transition-all shadow-xl font-sans"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 dark:hover:text-white text-base cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text dark:hover:text-white text-base cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -194,7 +194,7 @@ export default function BlogSystem({
                   className={`px-4 py-2 rounded-[10px] text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
                     isActive
                       ? 'bg-dark-gold-gloss text-slate-950 shadow-[0_0_20px_rgba(212,175,55,0.4)] font-black'
-                      : 'bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-[#D4AF37]/40 hover:text-slate-900 dark:hover:text-white'
+                      : 'bg-surface /5 border border-border-hairline dark:border-white/10 text-text dark:text-slate-300 hover:border-[#D4AF37]/40 hover:text-text dark:hover:text-white'
                   }`}
                 >
                   {cat}
@@ -216,9 +216,9 @@ export default function BlogSystem({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             onClick={() => onNavigatePost(featuredHeroPost.slug || featuredHeroPost.id)}
-            className="group bg-white dark:bg-gradient-to-br dark:from-[#12141a] dark:via-[#0c0c0c] dark:to-[#050505] border border-slate-200 dark:border-white/15 hover:border-[#D4AF37]/60 rounded-[10px] overflow-hidden shadow-xl hover:shadow-[0_25px_60px_-15px_rgba(212,175,55,0.25)] transition-all cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8"
+            className="group bg-surface dark:bg-gradient-to-br dark:from-[#12141a] dark:via-[#0c0c0c] dark:to-[#050505] border border-border-hairline dark:border-white/15 hover:border-[#D4AF37]/60 rounded-[10px] overflow-hidden shadow-xl hover:shadow-[0_25px_60px_-15px_rgba(212,175,55,0.25)] transition-all cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8"
           >
-            <div className="lg:col-span-7 relative aspect-[16/9] rounded-[10px] overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10">
+            <div className="lg:col-span-7 relative aspect-[16/9] rounded-[10px] overflow-hidden bg-surface  border border-border-hairline dark:border-white/10">
               <img
                 src={featuredHeroPost.featuredImage || 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop'}
                 alt={featuredHeroPost.title}
@@ -237,16 +237,16 @@ export default function BlogSystem({
                 {featuredHeroPost.category}
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white group-hover:text-dark-gold-shine transition-colors leading-tight font-sans tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-text  group-hover:text-dark-gold-shine transition-colors leading-tight font-sans tracking-tight">
                 {featuredHeroPost.title}
               </h2>
 
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-sans line-clamp-3">
+              <p className="text-text-muted dark:text-text-muted text-sm leading-relaxed font-sans line-clamp-3">
                 {featuredHeroPost.excerpt}
               </p>
 
-              <div className="pt-4 border-t border-slate-200 dark:border-white/10 flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
-                <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold">
+              <div className="pt-4 border-t border-border-hairline dark:border-white/10 flex items-center justify-between text-xs font-mono text-text-muted dark:text-text-muted">
+                <div className="flex items-center gap-2 text-text  font-bold">
                   <User className="w-3.5 h-3.5 text-[#8C5E00] dark:text-[#D4AF37]" />
                   <span>{featuredHeroPost.author}</span>
                 </div>
@@ -275,9 +275,9 @@ export default function BlogSystem({
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ delay: idx * 0.05 }}
                 onClick={() => onNavigatePost(post.slug || post.id)}
-                className="group bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-[#D4AF37]/40 transition-all duration-300 rounded-[10px] overflow-hidden shadow-lg hover:shadow-[0_20px_40px_-10px_rgba(212,175,55,0.18)] hover:-translate-y-1.5 flex flex-col justify-between cursor-pointer"
+                className="group bg-surface dark:bg-[#111111] border border-border-hairline dark:border-white/10 hover:border-[#D4AF37]/40 transition-all duration-300 rounded-[10px] overflow-hidden shadow-lg hover:shadow-[0_20px_40px_-10px_rgba(212,175,55,0.18)] hover:-translate-y-1.5 flex flex-col justify-between cursor-pointer"
               >
-                <div className="w-full aspect-[16/10] relative overflow-hidden bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-white/5">
+                <div className="w-full aspect-[16/10] relative overflow-hidden bg-surface  border-b border-border-hairline dark:border-white/5">
                   <img
                     src={post.featuredImage || 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=600&auto=format&fit=crop'}
                     alt={post.title}
@@ -299,20 +299,20 @@ export default function BlogSystem({
                       <span>{post.date}</span>
                     </div>
 
-                    <h3 className="font-sans font-bold text-lg text-slate-900 dark:text-white group-hover:text-[#8C5E00] dark:group-hover:text-[#D4AF37] transition-colors leading-snug line-clamp-2">
+                    <h3 className="font-sans font-bold text-lg text-text  group-hover:text-[#8C5E00] dark:group-hover:text-[#D4AF37] transition-colors leading-snug line-clamp-2">
                       {post.title}
                     </h3>
 
-                    <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed line-clamp-3 font-sans font-medium">
+                    <p className="text-text-muted dark:text-text-muted text-xs leading-relaxed line-clamp-3 font-sans font-medium">
                       {post.excerpt}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-200 dark:border-white/10 flex items-center justify-between text-[#8C5E00] dark:text-[#D4AF37] font-bold text-xs font-mono uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                  <div className="pt-4 border-t border-border-hairline dark:border-white/10 flex items-center justify-between text-[#8C5E00] dark:text-[#D4AF37] font-bold text-xs font-mono uppercase tracking-wider group-hover:translate-x-1 transition-transform">
                     <span className="flex items-center gap-1">
                       Read Guide <ArrowUpRight className="w-3.5 h-3.5" />
                     </span>
-                    <span className="text-xs text-slate-500 font-mono font-normal">
+                    <span className="text-xs text-text-muted font-mono font-normal">
                       {post.readTime || '5 min'}
                     </span>
                   </div>
@@ -324,10 +324,10 @@ export default function BlogSystem({
 
         {/* Empty Search Fallback */}
         {filteredPosts.length === 0 && (
-          <div className="text-center py-20 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[10px]">
-            <Search className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-            <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-1 font-sans">No immigration guides found</h3>
-            <p className="text-slate-500 dark:text-slate-400 text-sm font-sans">Try adjusting your search query or selected category filter.</p>
+          <div className="text-center py-20 bg-surface /5 border border-border-hairline dark:border-white/10 rounded-[10px]">
+            <Search className="w-10 h-10 text-text-muted mx-auto mb-3" />
+            <h3 className="font-bold text-text  text-lg mb-1 font-sans">No immigration guides found</h3>
+            <p className="text-text-muted dark:text-text-muted text-sm font-sans">Try adjusting your search query or selected category filter.</p>
             <button
               onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
               className="mt-4 text-xs font-mono font-bold text-[#8C5E00] dark:text-[#D4AF37] uppercase tracking-wider underline cursor-pointer"

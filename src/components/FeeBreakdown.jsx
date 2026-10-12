@@ -42,7 +42,7 @@ export default function FeeBreakdown({
               {title}
             </h2>
 
-            <p className="text-slate-400 text-base leading-relaxed font-sans font-medium">
+            <p className="text-text-muted text-base leading-relaxed font-sans font-medium">
               {description}
             </p>
 
@@ -84,7 +84,7 @@ export default function FeeBreakdown({
               <div className="divide-y divide-white/5">
                 {items.map((item, idx) => (
                   <div key={idx} className="flex justify-between items-center py-3.5 text-sm font-sans">
-                    <span className="text-slate-400 font-medium pr-4">
+                    <span className="text-text-muted font-medium pr-4">
                       {item.label}
                     </span>
                     <span className="text-white font-bold font-mono whitespace-nowrap">

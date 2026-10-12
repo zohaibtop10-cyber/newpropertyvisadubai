@@ -37,10 +37,10 @@ export default function NextTopTicker({ items = DEFAULT_TICKER_ITEMS }) {
   if (activeItems.length === 0) return null;
 
   return (
-    <div className="w-full bg-[#030303] text-slate-300 border-b border-white/10 text-xs py-2 overflow-hidden relative z-40 selection:bg-brand-gold selection:text-black">
+    <div className="w-full bg-[#030303] text-slate-300 border-b border-white/10 text-xs py-2 overflow-hidden relative z-40 selection:bg-gold selection:text-black">
       <div className="max-w-7xl mx-auto px-4 flex items-center">
         {/* Badge Label */}
-        <div className="shrink-0 bg-brand-gold/15 text-brand-gold border border-brand-gold/30 px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider mr-4 z-10 hidden sm:inline-block">
+        <div className="shrink-0 bg-gold/15 text-gold border border-gold/30 px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider mr-4 z-10 hidden sm:inline-block">
           ANNOUNCEMENT
         </div>
 
@@ -55,14 +55,14 @@ export default function NextTopTicker({ items = DEFAULT_TICKER_ITEMS }) {
               return (
                 <div key={`${item.id}-${idx}`} className="inline-flex items-center space-x-3 shrink-0">
                   {/* Glowing Gold Bullet */}
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-gold shadow-[0_0_6px_#D4AF37] inline-block shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_6px_#D4AF37] inline-block shrink-0" />
                   
                   {/* Message */}
                   <span className="text-slate-300 font-medium text-xs sm:text-sm">{item.message}</span>
 
                   {/* Dynamic Time Badge */}
                   {timeRemaining && (
-                    <span className="text-brand-gold font-bold bg-brand-gold/10 border border-brand-gold/30 px-2 py-0.5 rounded text-[10px] font-mono tracking-tight">
+                    <span className="text-gold font-bold bg-gold/10 border border-gold/30 px-2 py-0.5 rounded text-[10px] font-mono tracking-tight">
                       ⏱ {timeRemaining}
                     </span>
                   )}

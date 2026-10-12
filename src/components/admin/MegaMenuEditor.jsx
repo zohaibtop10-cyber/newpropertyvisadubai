@@ -138,7 +138,7 @@ export default function MegaMenuEditor({ cmsConfig, setCmsConfig }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Services Mega-Menu CMS
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Configure featured flagship services cards and full directory items in the header dropdown modal.
             </p>
           </div>
@@ -160,14 +160,14 @@ export default function MegaMenuEditor({ cmsConfig, setCmsConfig }) {
       )}
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap gap-2 bg-surface/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
         <button
           type="button"
           onClick={() => setActiveTab('featured')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
             activeTab === 'featured'
               ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              : 'text-text-muted hover:text-white hover:bg-surface/60'
           }`}
         >
           <Award className="w-4 h-4" />
@@ -180,7 +180,7 @@ export default function MegaMenuEditor({ cmsConfig, setCmsConfig }) {
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
             activeTab === 'all'
               ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              : 'text-text-muted hover:text-white hover:bg-surface/60'
           }`}
         >
           <LayoutGrid className="w-4 h-4" />
@@ -192,11 +192,11 @@ export default function MegaMenuEditor({ cmsConfig, setCmsConfig }) {
 
         {/* TAB 1: FLAGSHIP FEATURED GRID */}
         {activeTab === 'featured' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
               <div>
                 <h3 className="font-display font-bold text-base text-white">Top 6 Flagship Featured Cards</h3>
-                <p className="text-slate-400 text-xs">These 6 luxury cards are rendered in the top grid of the mega menu</p>
+                <p className="text-text-muted text-xs">These 6 luxury cards are rendered in the top grid of the mega menu</p>
               </div>
               <button
                 type="button"
@@ -209,40 +209,40 @@ export default function MegaMenuEditor({ cmsConfig, setCmsConfig }) {
 
             <div className="space-y-4">
               {topFeatured.map((item, idx) => (
-                <div key={idx} className="p-4 bg-slate-950/80 border border-slate-800/80 rounded-xl space-y-3">
+                <div key={idx} className="p-4 bg-surface/80 border border-slate-800/80 rounded-xl space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono font-bold text-amber-400">CARD #{idx + 1} — {item.title}</span>
                     <div className="flex items-center gap-1.5">
-                      <button type="button" disabled={idx === 0} onClick={() => handleMoveFeatured(idx, 'up')} className="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-white"><ArrowUp className="w-3.5 h-3.5" /></button>
-                      <button type="button" disabled={idx === topFeatured.length - 1} onClick={() => handleMoveFeatured(idx, 'down')} className="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-white"><ArrowDown className="w-3.5 h-3.5" /></button>
+                      <button type="button" disabled={idx === 0} onClick={() => handleMoveFeatured(idx, 'up')} className="p-1.5 rounded-lg border border-slate-800 text-text-muted hover:text-white"><ArrowUp className="w-3.5 h-3.5" /></button>
+                      <button type="button" disabled={idx === topFeatured.length - 1} onClick={() => handleMoveFeatured(idx, 'down')} className="p-1.5 rounded-lg border border-slate-800 text-text-muted hover:text-white"><ArrowDown className="w-3.5 h-3.5" /></button>
                       <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteFeatured(idx); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 cursor-pointer" title="Delete Card"><Trash2 className="w-3.5 h-3.5" /></button>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Title</label>
-                      <input type="text" value={item.title || ''} onChange={(e) => handleUpdateFeatured(idx, 'title', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-white font-bold" />
+                      <label className="block text-text-muted font-medium mb-1">Title</label>
+                      <input type="text" value={item.title || ''} onChange={(e) => handleUpdateFeatured(idx, 'title', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-white font-bold" />
                     </div>
 
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Subtitle</label>
-                      <input type="text" value={item.subtitle || ''} onChange={(e) => handleUpdateFeatured(idx, 'subtitle', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-slate-300" />
+                      <label className="block text-text-muted font-medium mb-1">Subtitle</label>
+                      <input type="text" value={item.subtitle || ''} onChange={(e) => handleUpdateFeatured(idx, 'subtitle', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-slate-300" />
                     </div>
 
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Price Tag</label>
-                      <input type="text" value={item.price || ''} onChange={(e) => handleUpdateFeatured(idx, 'price', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold" placeholder="AED 2,150" />
+                      <label className="block text-text-muted font-medium mb-1">Price Tag</label>
+                      <input type="text" value={item.price || ''} onChange={(e) => handleUpdateFeatured(idx, 'price', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold" placeholder="AED 2,150" />
                     </div>
 
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Route Service ID</label>
-                      <input type="text" value={item.serviceId || ''} onChange={(e) => handleUpdateFeatured(idx, 'serviceId', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-amber-300 font-mono" placeholder="property-visa" />
+                      <label className="block text-text-muted font-medium mb-1">Route Service ID</label>
+                      <input type="text" value={item.serviceId || ''} onChange={(e) => handleUpdateFeatured(idx, 'serviceId', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-amber-300 font-mono" placeholder="property-visa" />
                     </div>
 
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Filter Category</label>
-                      <select value={item.category || 'residency'} onChange={(e) => handleUpdateFeatured(idx, 'category', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-white cursor-pointer">
+                      <label className="block text-text-muted font-medium mb-1">Filter Category</label>
+                      <select value={item.category || 'residency'} onChange={(e) => handleUpdateFeatured(idx, 'category', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-white cursor-pointer">
                         <option value="residency">Family & Residency</option>
                         <option value="golden">Golden & Property</option>
                         <option value="corporate">Business & PRO</option>
@@ -251,8 +251,8 @@ export default function MegaMenuEditor({ cmsConfig, setCmsConfig }) {
                     </div>
 
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Badge Tag</label>
-                      <input type="text" value={item.tag || ''} onChange={(e) => handleUpdateFeatured(idx, 'tag', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-amber-400 font-mono" placeholder="MOST POPULAR" />
+                      <label className="block text-text-muted font-medium mb-1">Badge Tag</label>
+                      <input type="text" value={item.tag || ''} onChange={(e) => handleUpdateFeatured(idx, 'tag', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-amber-400 font-mono" placeholder="MOST POPULAR" />
                     </div>
                   </div>
                 </div>
@@ -263,11 +263,11 @@ export default function MegaMenuEditor({ cmsConfig, setCmsConfig }) {
 
         {/* TAB 2: ADDITIONAL DIRECTORY SERVICES */}
         {activeTab === 'all' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
               <div>
                 <h3 className="font-display font-bold text-base text-white">Additional Directory Services</h3>
-                <p className="text-slate-400 text-xs">Secondary grid items in the mega menu dropdown</p>
+                <p className="text-text-muted text-xs">Secondary grid items in the mega menu dropdown</p>
               </div>
               <button
                 type="button"
@@ -280,7 +280,7 @@ export default function MegaMenuEditor({ cmsConfig, setCmsConfig }) {
 
             <div className="space-y-4">
               {allServices.map((srv, idx) => (
-                <div key={idx} className="p-4 bg-slate-950/80 border border-slate-800/80 rounded-xl space-y-3">
+                <div key={idx} className="p-4 bg-surface/80 border border-slate-800/80 rounded-xl space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono font-bold text-amber-400">ITEM #{idx + 1} — {srv.title}</span>
                     <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteService(idx); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 cursor-pointer" title="Delete Item"><Trash2 className="w-3.5 h-3.5" /></button>
@@ -288,23 +288,23 @@ export default function MegaMenuEditor({ cmsConfig, setCmsConfig }) {
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Service Title</label>
-                      <input type="text" value={srv.title || ''} onChange={(e) => handleUpdateService(idx, 'title', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-white font-bold" />
+                      <label className="block text-text-muted font-medium mb-1">Service Title</label>
+                      <input type="text" value={srv.title || ''} onChange={(e) => handleUpdateService(idx, 'title', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-white font-bold" />
                     </div>
 
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Subtitle</label>
-                      <input type="text" value={srv.subtitle || ''} onChange={(e) => handleUpdateService(idx, 'subtitle', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-slate-300" />
+                      <label className="block text-text-muted font-medium mb-1">Subtitle</label>
+                      <input type="text" value={srv.subtitle || ''} onChange={(e) => handleUpdateService(idx, 'subtitle', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-slate-300" />
                     </div>
 
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Route Service ID</label>
-                      <input type="text" value={srv.serviceId || ''} onChange={(e) => handleUpdateService(idx, 'serviceId', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-amber-300 font-mono" placeholder="pro-services" />
+                      <label className="block text-text-muted font-medium mb-1">Route Service ID</label>
+                      <input type="text" value={srv.serviceId || ''} onChange={(e) => handleUpdateService(idx, 'serviceId', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-amber-300 font-mono" placeholder="pro-services" />
                     </div>
 
                     <div>
-                      <label className="block text-slate-400 font-medium mb-1">Filter Category</label>
-                      <select value={srv.category || 'residency'} onChange={(e) => handleUpdateService(idx, 'category', e.target.value)} className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-2 text-white cursor-pointer">
+                      <label className="block text-text-muted font-medium mb-1">Filter Category</label>
+                      <select value={srv.category || 'residency'} onChange={(e) => handleUpdateService(idx, 'category', e.target.value)} className="w-full bg-surface border border-slate-700/60 rounded-xl px-3 py-2 text-white cursor-pointer">
                         <option value="residency">Family & Residency</option>
                         <option value="golden">Golden & Property</option>
                         <option value="corporate">Business & PRO</option>

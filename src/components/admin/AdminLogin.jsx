@@ -67,7 +67,7 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
 
   const handleSubmit = mode === 'login' ? handleLogin : handleResetPassword;
 
-  const inputCls = "w-full bg-white/5 border border-white/10 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-white text-sm rounded-[10px] outline-none transition-all placeholder:text-slate-600 font-mono py-3 pr-4";
+  const inputCls = "w-full bg-surface/5 border border-white/10 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-white text-sm rounded-[10px] outline-none transition-all placeholder:text-text-muted font-mono py-3 pr-4";
 
   return (
     <div className="min-h-screen bg-[#07080a] text-slate-100 flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans">
@@ -89,7 +89,7 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
         <motion.button
           whileHover={{ x: -2 }}
           onClick={onExitAdmin}
-          className="flex items-center gap-2 text-xs text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-[10px] transition-all cursor-pointer"
+          className="flex items-center gap-2 text-xs text-text-muted hover:text-white bg-surface/5 hover:bg-surface/10 border border-white/10 px-4 py-2.5 rounded-[10px] transition-all cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5 text-[#D4AF37]" />
           <span>Back to Website</span>
@@ -99,7 +99,7 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
       {/* ── Brand watermark ──────────────────────────── */}
       <div className="absolute top-6 right-6 z-20 flex items-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]/50" />
-        <span className="text-[11px] font-mono text-slate-600 uppercase tracking-widest">CMS v2.0</span>
+        <span className="text-[11px] font-mono text-text-muted uppercase tracking-widest">CMS v2.0</span>
       </div>
 
       {/* ── Login Card ───────────────────────────────── */}
@@ -113,9 +113,9 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
           className="w-full max-w-[420px] relative z-10"
         >
           {/* Gold border glow effect */}
-          <div className="absolute -inset-[1px] rounded-[18px] bg-gradient-to-br from-[#D4AF37]/30 via-transparent to-[#996515]/20 pointer-events-none" />
+          <div className="absolute -inset-[1px] rounded-[12px] bg-gradient-to-br from-[#D4AF37]/30 via-transparent to-[#996515]/20 pointer-events-none" />
 
-          <div className="relative bg-[#0d0f13]/95 backdrop-blur-2xl rounded-[18px] shadow-2xl shadow-black/60 overflow-hidden">
+          <div className="relative bg-[#0d0f13]/95 backdrop-blur-2xl rounded-[12px] shadow-2xl shadow-black/60 overflow-hidden">
 
             {/* Top accent line */}
             <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
@@ -123,8 +123,8 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
             <div className="p-8">
               {/* ── Header ───────────────────────────────── */}
               <div className="text-center space-y-3 mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-[14px] bg-gradient-to-br from-[#4A3000] via-[#8C5E00] to-[#D4AF37] p-[1.5px] shadow-[0_0_30px_rgba(212,175,55,0.25)]">
-                  <div className="w-full h-full bg-[#0d0f13] rounded-[13px] flex items-center justify-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-[12px] bg-gradient-to-br from-[#4A3000] via-[#8C5E00] to-[#D4AF37] p-[1.5px] shadow-[0_0_30px_rgba(212,175,55,0.25)]">
+                  <div className="w-full h-full bg-[#0d0f13] rounded-[10px] flex items-center justify-center">
                     <ShieldCheck className="w-8 h-8 text-[#D4AF37]" />
                   </div>
                 </div>
@@ -133,7 +133,7 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
                     {mode === 'login' && 'Admin Sign In'}
                     {mode === 'reset' && 'Reset Password'}
                   </h1>
-                  <p className="text-slate-500 text-xs mt-1 leading-relaxed">
+                  <p className="text-text-muted text-xs mt-1 leading-relaxed">
                     {mode === 'login' && 'Authorized Firebase CMS credentials only'}
                     {mode === 'reset' && 'Enter registered email to receive a password reset link'}
                   </p>
@@ -171,9 +171,9 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
 
                 {/* Email */}
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
+                  <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-2">Email Address</label>
                   <div className="relative">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 pointer-events-none" />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
                     <input
                       type="email" required
                       value={email}
@@ -187,9 +187,9 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
                 {/* Password */}
                 {mode !== 'reset' && (
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Password</label>
+                    <label className="block text-[11px] font-bold text-text-muted uppercase tracking-wider mb-2">Password</label>
                     <div className="relative">
-                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 pointer-events-none" />
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
                       <input
                         type={showPassword ? 'text' : 'password'} required
                         value={password}
@@ -201,7 +201,7 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-300 cursor-pointer transition-colors"
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-slate-300 cursor-pointer transition-colors"
                       >
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
@@ -226,7 +226,7 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
                   whileTap={{ scale: 0.985 }}
                   disabled={isLoading}
                   type="submit"
-                  className="w-full mt-1 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#C9A227] text-black py-3.5 px-6 rounded-[10px] font-extrabold text-sm transition-all shadow-[0_4px_20px_rgba(212,175,55,0.3)] hover:shadow-[0_6px_28px_rgba(212,175,55,0.45)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full mt-1 bg-gradient-to-r from-[#C59B27] via-[#D4AF37] to-[#C9A227] text-black py-3.5 px-6 rounded-[10px] font-extrabold text-sm transition-all shadow-[0_4px_20px_rgba(212,175,55,0.3)] hover:shadow-[0_6px_28px_rgba(212,175,55,0.45)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <span className="flex items-center gap-2">
@@ -249,7 +249,7 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
               {/* ── Footer ─────────────────────────── */}
               <div className="mt-6 pt-5 border-t border-white/6 text-center space-y-2.5">
                 {mode === 'reset' && (
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-text-muted">
                     Remembered your credentials?{' '}
                     <button onClick={() => { setMode('login'); setError(''); setSuccessMsg(''); }}
                       className="text-[#D4AF37] hover:text-[#FFE58F] font-bold cursor-pointer transition-colors">
@@ -258,11 +258,11 @@ export default function AdminLogin({ onLoginSuccess, onExitAdmin }) {
                   </p>
                 )}
                 {mode === 'login' && (
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-text-muted">
                     Authorized access only. Account creation from public login is disabled.
                   </p>
                 )}
-                <p className="text-[10px] text-slate-700 font-mono">
+                <p className="text-[10px] text-text font-mono">
                   🔒 Firebase Auth • 256-bit SSL • Encrypted
                 </p>
               </div>

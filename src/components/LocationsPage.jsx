@@ -202,11 +202,11 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
           <span>UAE GOVERNMENT SERVICE CENTRES DIRECTORY</span>
         </div>
 
-        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-content-primary dark:text-white tracking-tight">
+        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-text  tracking-tight">
           {headline}
         </h1>
 
-        <p className="text-content-muted dark:text-slate-400 text-base sm:text-lg leading-relaxed">
+        <p className="text-content-muted dark:text-text-muted text-base sm:text-lg leading-relaxed">
           {subtext}
         </p>
       </motion.section>
@@ -222,13 +222,13 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
           
           {/* Search Input */}
           <div className="relative flex-1 w-full">
-            <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by centre name, area (e.g., Business Bay, Al Jafiliya)..."
-              className="w-full pl-12 pr-4 py-3 bg-canvas dark:bg-black/40 border border-border-subtle dark:border-white/10 rounded-xl text-sm font-sans text-content-primary dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-brand-primary transition-colors"
+              className="w-full pl-12 pr-4 py-3 bg-bg dark:bg-black/40 border border-border-subtle dark:border-white/10 rounded-xl text-sm font-sans text-text  placeholder:text-text-muted focus:outline-none focus:border-brand-primary transition-colors"
             />
           </div>
 
@@ -241,7 +241,7 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   selectedCity === city
                     ? 'bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] text-white shadow-md'
-                    : 'text-content-muted dark:text-slate-400 hover:text-content-primary dark:hover:text-white'
+                    : 'text-content-muted dark:text-text-muted hover:text-text dark:hover:text-white'
                 }`}
               >
                 {city}
@@ -253,7 +253,7 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
 
         {/* Category Pills */}
         <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border-subtle dark:border-white/5">
-          <span className="text-xs font-mono font-semibold text-slate-400 uppercase mr-2">Filter Type:</span>
+          <span className="text-xs font-mono font-semibold text-text-muted uppercase mr-2">Filter Type:</span>
           {[
             { label: 'All Types', value: 'All' },
             { label: 'Customer Happiness', value: 'Happiness Centre' },
@@ -265,8 +265,8 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
               onClick={() => setSelectedCategory(cat.value)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
                 selectedCategory === cat.value
-                  ? 'bg-brand-surfaceLight text-white dark:bg-white dark:text-slate-900 border-transparent shadow-sm'
-                  : 'bg-transparent text-content-muted dark:text-slate-400 border-border-subtle dark:border-white/10 hover:border-slate-400'
+                  ? 'bg-brand-surfaceLight text-white  dark:text-text border-transparent shadow-sm'
+                  : 'bg-transparent text-content-muted dark:text-text-muted border-border-subtle dark:border-white/10 hover:border-slate-400'
               }`}
             >
               {cat.label}
@@ -296,7 +296,7 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-surface-elevated dark:bg-white/10 text-content-secondary dark:text-slate-300">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-surface-elevated /10 text-text-muted dark:text-slate-300">
                         {loc.city}
                       </span>
                       <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-brand-primary/10 text-brand-primary">
@@ -308,15 +308,15 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
                         </span>
                       )}
                     </div>
-                    <h3 className="font-display font-bold text-lg text-content-primary dark:text-white pt-1">
+                    <h3 className="font-display font-bold text-lg text-text  pt-1">
                       {loc.name}
                     </h3>
-                    <p className="text-xs font-mono text-slate-400">
+                    <p className="text-xs font-mono text-text-muted">
                       Authority: <span className="text-content-muted dark:text-slate-300 font-semibold">{loc.authority}</span>
                     </p>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-canvas dark:bg-white/5 shrink-0 text-brand-primary">
+                  <div className="p-3 rounded-xl bg-bg /5 shrink-0 text-brand-primary">
                     {loc.category === 'Medical Centre' ? <Stethoscope className="w-5 h-5" /> : <Building2 className="w-5 h-5" />}
                   </div>
                 </div>
@@ -327,12 +327,12 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
                     <MapPin className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
                     <div>
                       <div>{loc.address}</div>
-                      <div className="text-[11px] text-slate-400 italic">Landmark: {loc.landmark}</div>
+                      <div className="text-[11px] text-text-muted italic">Landmark: {loc.landmark}</div>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2.5">
-                    <Clock className="w-4 h-4 text-brand-gold shrink-0" />
+                    <Clock className="w-4 h-4 text-gold shrink-0" />
                     <span className="font-mono">{loc.hours}</span>
                   </div>
 
@@ -344,11 +344,11 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
 
                 {/* Services List */}
                 <div className="space-y-1.5 pt-2">
-                  <div className="text-[11px] font-mono uppercase font-bold text-slate-400">Services Handled On-Site:</div>
+                  <div className="text-[11px] font-mono uppercase font-bold text-text-muted">Services Handled On-Site:</div>
                   <div className="flex flex-wrap gap-1.5">
                     {loc.services.map((serv, idx) => (
-                      <span key={idx} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-canvas dark:bg-white/5 text-[11px] text-content-secondary dark:text-slate-300 border border-border-subtle/60 dark:border-white/5">
-                        <CheckCircle className="w-3 h-3 text-brand-gold" />
+                      <span key={idx} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-bg /5 text-[11px] text-text-muted dark:text-slate-300 border border-border-subtle/60 dark:border-white/5">
+                        <CheckCircle className="w-3 h-3 text-gold" />
                         {serv}
                       </span>
                     ))}
@@ -362,14 +362,14 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
                   href={loc.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-2.5 px-4 bg-brand-surfaceLight dark:bg-white hover:bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] dark:hover:bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] text-white dark:text-slate-900 dark:hover:text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  className="flex-1 py-2.5 px-4 bg-brand-surfaceLight  hover:bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] dark:hover:bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] text-white dark:text-text dark:hover:text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
                   <Navigation className="w-4 h-4" /> Get Directions
                 </a>
 
                 <button
                   onClick={() => onOpenCalculator('spouse')}
-                  className="py-2.5 px-4 bg-surface-elevated dark:bg-white/10 hover:bg-surface-hover dark:hover:bg-surface/20 text-content-primary dark:text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="py-2.5 px-4 bg-surface-elevated /10 hover:bg-surface-hover dark:hover:bg-surface/20 text-text  rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   Book PRO Escort
                 </button>
@@ -382,8 +382,8 @@ export default function LocationsPage({ onOpenCalculator, cmsConfig }) {
 
       {filteredLocations.length === 0 && (
         <div className="text-center py-16 bg-surface dark:bg-brand-surface rounded-xl border border-border-subtle dark:border-white/10 space-y-3">
-          <Building2 className="w-10 h-10 text-slate-400 mx-auto" />
-          <h3 className="font-display font-bold text-lg text-content-primary dark:text-white">No Centres Match Your Search</h3>
+          <Building2 className="w-10 h-10 text-text-muted mx-auto" />
+          <h3 className="font-display font-bold text-lg text-text ">No Centres Match Your Search</h3>
           <p className="text-xs text-content-muted max-w-sm mx-auto">Try clearing your search query or selecting "All" cities to view available service centres.</p>
         </div>
       )}

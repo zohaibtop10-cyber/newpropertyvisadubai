@@ -154,7 +154,7 @@ export function LuxuryCard({ children, className = '', hover = true, delay = 0 }
   return (
     <motion.div
       className={`
-        relative bg-white/5 backdrop-blur-xl
+        relative bg-surface/5 backdrop-blur-xl
         border border-white/10
         rounded-[10px] overflow-hidden font-sans
         shadow-xl
@@ -168,7 +168,7 @@ export function LuxuryCard({ children, className = '', hover = true, delay = 0 }
       variants={scaleIn}
     >
       {/* Top Gold Shimmer Border on Hover */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37] opacity-0 hover:opacity-100 transition-opacity" />
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37] opacity-0 hover:opacity-100 transition-opacity" />
       {children}
     </motion.div>
   );
@@ -244,7 +244,7 @@ export function LuxuryFeeInvoice({ invoice }) {
             variants={scaleIn}
           >
             {/* Header stripe */}
-            <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+            <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
 
             <div className="p-6 space-y-4">
               {/* Breakdown rows */}
@@ -261,12 +261,12 @@ export function LuxuryFeeInvoice({ invoice }) {
 
               {/* Govt subtotal */}
               <div className="flex justify-between items-center py-3 border-t border-dashed border-white/10">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono"><span>Government Fees</span></span>
+                <span className="text-xs font-bold uppercase tracking-wider text-text-muted font-mono"><span>Government Fees</span></span>
                 <span className="font-bold text-white font-mono"><span>AED {invoice.govtFees?.toLocaleString()}</span></span>
               </div>
 
               <div className="flex justify-between items-center py-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono"><span>Concierge Service</span></span>
+                <span className="text-xs font-bold uppercase tracking-wider text-text-muted font-mono"><span>Concierge Service</span></span>
                 <span className="font-bold text-white font-mono"><span>AED {invoice.conciergeFee?.toLocaleString()}</span></span>
               </div>
 
@@ -283,7 +283,7 @@ export function LuxuryFeeInvoice({ invoice }) {
                 </span>
               </div>
 
-              <p className="text-[10px] text-slate-400 font-mono text-center">
+              <p className="text-[10px] text-text-muted font-mono text-center">
                 <span>All figures include standard government tariffs. Final totals may vary based on nationality and visa category.</span>
               </p>
             </div>
@@ -310,7 +310,7 @@ export function LuxuryDocumentTabs({ documents, tabs = [{ key: 'investor', label
         />
 
         {/* Tab bar */}
-        <div className="flex gap-2 mb-8 p-1.5 bg-white/5 rounded-[10px] w-fit font-sans border border-white/10">
+        <div className="flex gap-2 mb-8 p-1.5 bg-surface/5 rounded-[10px] w-fit font-sans border border-white/10">
           {tabs.map(tab => (
             <button
               key={tab.key}
@@ -319,7 +319,7 @@ export function LuxuryDocumentTabs({ documents, tabs = [{ key: 'investor', label
                 px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider rounded-[10px] transition-all duration-200 cursor-pointer
                 ${active === tab.key
                   ? 'bg-dark-gold-gloss text-black shadow-[0_4px_12px_rgba(212,175,55,0.3)] font-black'
-                  : 'text-slate-400 hover:text-white'
+                  : 'text-text-muted hover:text-white'
                 }
               `}
             >
@@ -356,7 +356,7 @@ export function LuxuryDocumentTabs({ documents, tabs = [{ key: 'investor', label
                 </span>
               </div>
             )) : (
-              <p className="text-sm text-slate-400 col-span-2 font-mono"><span>No documents specified for this category.</span></p>
+              <p className="text-sm text-text-muted col-span-2 font-mono"><span>No documents specified for this category.</span></p>
             )}
           </motion.div>
         </AnimatePresence>

@@ -45,11 +45,11 @@ export default function AdminTickerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-slate-300 p-8 selection:bg-brand-gold selection:text-black">
+    <div className="min-h-screen bg-[#050505] text-slate-300 p-8 selection:bg-gold selection:text-black">
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="border-b border-white/10 pb-4">
           <h1 className="text-3xl font-black text-white font-display">Top Bar Ticker CMS</h1>
-          <p className="text-slate-400 text-sm mt-1">Manage announcement items and dynamic deadline offers shown on the website ticker.</p>
+          <p className="text-text-muted text-sm mt-1">Manage announcement items and dynamic deadline offers shown on the website ticker.</p>
         </div>
 
         {/* Form */}
@@ -63,7 +63,7 @@ export default function AdminTickerPage() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="e.g. 20% Off Family Visa Processing..."
-              className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-brand-gold"
+              className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-gold"
               required
             />
           </div>
@@ -111,14 +111,14 @@ export default function AdminTickerPage() {
                 <div>
                   <div className="font-bold text-white text-sm">{item.message}</div>
                   {timeRemaining && (
-                    <div className="text-xs text-brand-gold font-mono mt-1">⏱ {timeRemaining}</div>
+                    <div className="text-xs text-gold font-mono mt-1">⏱ {timeRemaining}</div>
                   )}
                 </div>
 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleToggle(item.id)}
-                    className={`px-3 py-1 rounded-lg text-xs font-bold ${item.isActive ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/5 text-slate-400'}`}
+                    className={`px-3 py-1 rounded-lg text-xs font-bold ${item.isActive ? 'bg-emerald-500/20 text-emerald-400' : 'bg-surface/5 text-text-muted'}`}
                   >
                     {item.isActive ? 'Active' : 'Paused'}
                   </button>

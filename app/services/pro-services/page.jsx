@@ -82,7 +82,7 @@ export default function CorporateProServicesPage() {
                   VIP ENTERPRISE CONSULTATION
                 </span>
                 <h3 className="text-xl font-extrabold text-white">Schedule Corporate PRO Audit</h3>
-                <p className="text-xs text-slate-400 mt-1">Audit your trade license & MOHRE labor quota status.</p>
+                <p className="text-xs text-text-muted mt-1">Audit your trade license & MOHRE labor quota status.</p>
               </div>
 
               {submitted ? (
@@ -102,7 +102,7 @@ export default function CorporateProServicesPage() {
                         className={`p-3 text-xs font-bold rounded-[10px] border transition-all ${
                           jurisdiction === 'mainland' 
                             ? 'bg-brand-goldBg text-black border-brand-goldBg font-black' 
-                            : 'bg-[#050505] border-white/10 text-slate-400'
+                            : 'bg-[#050505] border-white/10 text-text-muted'
                         }`}
                       >
                         Mainland LLC
@@ -114,7 +114,7 @@ export default function CorporateProServicesPage() {
                         className={`p-3 text-xs font-bold rounded-[10px] border transition-all ${
                           jurisdiction === 'freezone' 
                             ? 'bg-brand-goldBg text-black border-brand-goldBg font-black' 
-                            : 'bg-[#050505] border-white/10 text-slate-400'
+                            : 'bg-[#050505] border-white/10 text-text-muted'
                         }`}
                       >
                         Freezone Entity
@@ -182,7 +182,7 @@ export default function CorporateProServicesPage() {
                 <Building2 className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white">Establishment Card & Quotas</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 Immigration establishment card renewals, MOHRE electronic file opening, and labor quota allocation upgrades.
               </p>
             </div>
@@ -192,7 +192,7 @@ export default function CorporateProServicesPage() {
                 <Users className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white">Employment Visa Processing</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 End-to-end work permit filing, entry permits, status adjustments, DHA medical fitness, and Emirates ID delivery.
               </p>
             </div>
@@ -202,7 +202,7 @@ export default function CorporateProServicesPage() {
                 <FileText className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white">Trade License Renewals</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 DET / DED annual trade license renewals, activity additions, partner shareholding amendments, and MOA updates.
               </p>
             </div>
@@ -212,7 +212,7 @@ export default function CorporateProServicesPage() {
                 <Briefcase className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white">Investor & Partner Visas</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 Corporate investor 2-year & 10-year Golden Visa nomination processing for board members and shareholders.
               </p>
             </div>
@@ -233,7 +233,7 @@ export default function CorporateProServicesPage() {
             <button
               onClick={() => setJurisdiction('mainland')}
               className={`flex-1 py-3 px-4 rounded-[10px] text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                jurisdiction === 'mainland' ? 'bg-brand-goldBg text-black font-black' : 'text-slate-400 hover:text-white'
+                jurisdiction === 'mainland' ? 'bg-brand-goldBg text-black font-black' : 'text-text-muted hover:text-white'
               }`}
             >
               Mainland LLCs (MOHRE & DET)
@@ -241,7 +241,7 @@ export default function CorporateProServicesPage() {
             <button
               onClick={() => setJurisdiction('freezone')}
               className={`flex-1 py-3 px-4 rounded-[10px] text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                jurisdiction === 'freezone' ? 'bg-brand-goldBg text-black font-black' : 'text-slate-400 hover:text-white'
+                jurisdiction === 'freezone' ? 'bg-brand-goldBg text-black font-black' : 'text-text-muted hover:text-white'
               }`}
             >
               Freezone Authorities (DMCC / DDA / JAFZA)
@@ -279,7 +279,7 @@ export default function CorporateProServicesPage() {
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-[#111111] border border-white/10 p-6 rounded-[10px] space-y-4">
-              <span className="text-xs font-mono font-bold text-slate-400 uppercase">FLEXIBLE TRACK</span>
+              <span className="text-xs font-mono font-bold text-text-muted uppercase">FLEXIBLE TRACK</span>
               <h3 className="text-2xl font-black text-white">Pay-Per-Transaction</h3>
               <div className="text-3xl font-black text-brand-goldText font-mono">Billed Per Transaction</div>
               <ul className="space-y-2.5 text-xs text-slate-300">

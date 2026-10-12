@@ -299,7 +299,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
                 Articles & Editorial CMS
               </h1>
-              <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+              <p className="text-text-muted text-xs sm:text-sm max-w-xl">
                 Edit every visual section on the article page: pricing cards, fee tables, FAQs, author profiles, callouts, and SEO metadata.
               </p>
             </div>
@@ -322,18 +322,18 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
       )}
 
       {/* Article Selector & Actions Controls */}
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex-1">
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-text-muted mb-1.5">
             Select Article to Edit
           </label>
           <select
             value={activeBlogId || ''}
             onChange={(e) => setActiveBlogId(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-700/80 text-white font-semibold text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500/50 cursor-pointer"
+            className="w-full bg-surface border border-slate-700/80 text-white font-semibold text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500/50 cursor-pointer"
           >
             {blogs.map(b => (
-              <option key={b.id || b.slug} value={b.id || b.slug} className="bg-slate-900 text-white">
+              <option key={b.id || b.slug} value={b.id || b.slug} className="bg-surface text-white">
                 {b.status === 'PUBLISHED' ? '🟢 ' : '🟠 '} {b.title}
               </option>
             ))}
@@ -344,7 +344,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
           <button
             type="button"
             onClick={handleAddBlog}
-            className="px-4 py-3 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl flex items-center gap-2 transition-colors cursor-pointer border border-slate-700"
+            className="px-4 py-3 bg-surface hover:bg-surface text-white text-xs font-bold rounded-xl flex items-center gap-2 transition-colors cursor-pointer border border-slate-700"
           >
             <Plus className="w-4 h-4" /> New Article
           </button>
@@ -359,7 +359,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
       </div>
 
       {/* Article Section Navigation Tabs */}
-      <div className="flex flex-wrap gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap gap-2 bg-surface/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
         {subTabs.map(t => {
           const Icon = t.icon;
           const isActive = activeSubTab === t.id;
@@ -371,7 +371,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 isActive
                   ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-text-muted hover:text-white hover:bg-surface/60'
               }`}
             >
               <Icon className="w-3.5 h-3.5" />
@@ -382,7 +382,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
       </div>
 
       {/* ACTIVE TAB EDITOR CONTENT CONTAINER */}
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-7 shadow-xl space-y-6">
+      <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-7 shadow-xl space-y-6">
         
         {/* TAB 1: CONTENT & BODY */}
         {activeSubTab === 'content' && (
@@ -393,7 +393,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Article Content & Taxonomy</h3>
-                <p className="text-slate-400 text-xs">Edit main title, cover image, category, status, summary, and markdown body</p>
+                <p className="text-text-muted text-xs">Edit main title, cover image, category, status, summary, and markdown body</p>
               </div>
             </div>
 
@@ -404,7 +404,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   type="text"
                   value={activeBlog.title || ''}
                   onChange={(e) => updateActiveBlog('title', e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -415,7 +415,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                     type="date"
                     value={activeBlog.publishedDate || ''}
                     onChange={(e) => updateActiveBlog('publishedDate', e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white text-xs focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white text-xs focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
                 <div>
@@ -423,7 +423,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   <select
                     value={activeBlog.category || 'Golden Visa'}
                     onChange={(e) => updateActiveBlog('category', e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs font-medium focus:outline-none cursor-pointer"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs font-medium focus:outline-none cursor-pointer"
                   >
                     <option value="Golden Visa">Golden Visa</option>
                     <option value="Mainland LLC">Mainland LLC</option>
@@ -438,7 +438,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   <select
                     value={activeBlog.status || 'DRAFT'}
                     onChange={(e) => updateActiveBlog('status', e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs font-medium focus:outline-none cursor-pointer"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs font-medium focus:outline-none cursor-pointer"
                   >
                     <option value="DRAFT">Draft</option>
                     <option value="SCHEDULED">Scheduled</option>
@@ -456,7 +456,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                     updateActiveBlog('imageUrl', e.target.value);
                     updateActiveBlog('featuredImage', e.target.value);
                   }}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
                   placeholder="https://images.unsplash.com/..."
                 />
               </div>
@@ -470,7 +470,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                     updateActiveBlog('summary', e.target.value);
                     updateActiveBlog('excerpt', e.target.value);
                   }}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -480,7 +480,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   rows={14}
                   value={activeBlog.contentMarkdown || ''}
                   onChange={(e) => updateActiveBlog('contentMarkdown', e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 font-mono text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 font-mono text-slate-200 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>
@@ -496,7 +496,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Author Profile & Bio Card</h3>
-                <p className="text-slate-400 text-xs">Configure the author details rendered at the top and bottom of the article</p>
+                <p className="text-text-muted text-xs">Configure the author details rendered at the top and bottom of the article</p>
               </div>
             </div>
 
@@ -508,7 +508,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                     type="text"
                     value={activeBlog.author || ''}
                     onChange={(e) => updateActiveBlog('author', e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
                 <div>
@@ -517,7 +517,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                     type="text"
                     value={activeBlog.authorRole || ''}
                     onChange={(e) => updateActiveBlog('authorRole', e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
                 <div>
@@ -527,7 +527,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                     value={activeBlog.readTime || ''}
                     onChange={(e) => updateActiveBlog('readTime', e.target.value)}
                     placeholder="e.g. 6 min"
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
               </div>
@@ -538,7 +538,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   type="text"
                   value={activeBlog.authorAvatar || ''}
                   onChange={(e) => updateActiveBlog('authorAvatar', e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
                   placeholder="https://images.unsplash.com/..."
                 />
               </div>
@@ -550,7 +550,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   value={activeBlog.authorBio || ''}
                   onChange={(e) => updateActiveBlog('authorBio', e.target.value)}
                   placeholder="Specializing in GDRFA and ICP residency compliance..."
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>
@@ -566,7 +566,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Notice Box / Key Takeaways Callout</h3>
-                <p className="text-slate-400 text-xs">Configure the top highlighted warning/takeaway box rendered above the article text</p>
+                <p className="text-text-muted text-xs">Configure the top highlighted warning/takeaway box rendered above the article text</p>
               </div>
             </div>
 
@@ -594,7 +594,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                       updateActiveBlog('noticeBoxTitle', e.target.value);
                       updateActiveBlog('noticeTitle', e.target.value);
                     }}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
                 <div>
@@ -605,7 +605,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                       updateActiveBlog('noticeBoxType', e.target.value);
                       updateActiveBlog('noticeType', e.target.value);
                     }}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs font-medium focus:outline-none cursor-pointer"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs font-medium focus:outline-none cursor-pointer"
                   >
                     <option value="highlight">Gold Highlight (Luxury)</option>
                     <option value="info">Info Slate (Standard)</option>
@@ -623,7 +623,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                     updateActiveBlog('noticeBoxContent', e.target.value);
                     updateActiveBlog('noticeContent', e.target.value);
                   }}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>
@@ -639,7 +639,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Embedded Route & Pricing Cards</h3>
-                <p className="text-slate-400 text-xs">Manage side-by-side route option cards rendered inside the article</p>
+                <p className="text-text-muted text-xs">Manage side-by-side route option cards rendered inside the article</p>
               </div>
             </div>
 
@@ -680,7 +680,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
 
               {(activeBlog.comparisonCards || []).map((card, cIdx) => (
-                <div key={cIdx} className="bg-slate-950/80 border border-slate-800 rounded-xl p-4 space-y-3 relative">
+                <div key={cIdx} className="bg-surface/80 border border-slate-800 rounded-xl p-4 space-y-3 relative">
                   <div className="flex justify-between items-center border-b border-slate-800 pb-2">
                     <span className="font-mono font-bold text-amber-400 text-xs">Card #{cIdx + 1}: {card.title}</span>
                     <button
@@ -697,7 +697,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
 
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                     <div>
-                      <label className="block text-slate-400 mb-1">Card Title</label>
+                      <label className="block text-text-muted mb-1">Card Title</label>
                       <input
                         type="text"
                         value={card.title || ''}
@@ -706,11 +706,11 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                           updated[cIdx].title = e.target.value;
                           updateActiveBlog('comparisonCards', updated);
                         }}
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs"
+                        className="w-full bg-surface border border-slate-800 rounded-lg px-3 py-2 text-white text-xs"
                       />
                     </div>
                     <div>
-                      <label className="block text-slate-400 mb-1">Subtitle</label>
+                      <label className="block text-text-muted mb-1">Subtitle</label>
                       <input
                         type="text"
                         value={card.subtitle || ''}
@@ -719,11 +719,11 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                           updated[cIdx].subtitle = e.target.value;
                           updateActiveBlog('comparisonCards', updated);
                         }}
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs"
+                        className="w-full bg-surface border border-slate-800 rounded-lg px-3 py-2 text-white text-xs"
                       />
                     </div>
                     <div>
-                      <label className="block text-slate-400 mb-1">Price & Currency</label>
+                      <label className="block text-text-muted mb-1">Price & Currency</label>
                       <div className="flex gap-1">
                         <input
                           type="text"
@@ -733,7 +733,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                             updated[cIdx].currency = e.target.value;
                             updateActiveBlog('comparisonCards', updated);
                           }}
-                          className="w-16 bg-slate-900 border border-slate-800 rounded-lg px-2 py-2 text-white text-xs text-center font-mono"
+                          className="w-16 bg-surface border border-slate-800 rounded-lg px-2 py-2 text-white text-xs text-center font-mono"
                         />
                         <input
                           type="text"
@@ -743,12 +743,12 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                             updated[cIdx].price = e.target.value;
                             updateActiveBlog('comparisonCards', updated);
                           }}
-                          className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs font-bold"
+                          className="flex-1 bg-surface border border-slate-800 rounded-lg px-3 py-2 text-white text-xs font-bold"
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-slate-400 mb-1">Tag / Badge</label>
+                      <label className="block text-text-muted mb-1">Tag / Badge</label>
                       <input
                         type="text"
                         value={card.tag || ''}
@@ -757,13 +757,13 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                           updated[cIdx].tag = e.target.value;
                           updateActiveBlog('comparisonCards', updated);
                         }}
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-white text-xs"
+                        className="w-full bg-surface border border-slate-800 rounded-lg px-3 py-2 text-white text-xs"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-slate-400 mb-1">Bullet Features (one per line)</label>
+                    <label className="block text-text-muted mb-1">Bullet Features (one per line)</label>
                     <textarea
                       rows={3}
                       value={Array.isArray(card.features) ? card.features.join('\n') : card.features || ''}
@@ -772,7 +772,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                         updated[cIdx].features = e.target.value.split('\n');
                         updateActiveBlog('comparisonCards', updated);
                       }}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-slate-200 text-xs font-mono"
+                      className="w-full bg-surface border border-slate-800 rounded-lg p-2.5 text-slate-200 text-xs font-mono"
                     />
                   </div>
                 </div>
@@ -790,7 +790,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Government Fee Breakdown Table</h3>
-                <p className="text-slate-400 text-xs">Configure the itemized government filing tariffs table embedded in the article</p>
+                <p className="text-text-muted text-xs">Configure the itemized government filing tariffs table embedded in the article</p>
               </div>
             </div>
 
@@ -816,7 +816,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   type="text"
                   value={activeBlog.tableCaption || ''}
                   onChange={(e) => updateActiveBlog('tableCaption', e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -826,7 +826,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   type="text"
                   value={Array.isArray(activeBlog.tableHeaders) ? activeBlog.tableHeaders.join(', ') : activeBlog.tableHeaders || ''}
                   onChange={(e) => updateActiveBlog('tableHeaders', e.target.value.split(',').map(s => s.trim()))}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
                   placeholder="Residency Category, Government Fee, VIP Medical & EID, Total Estimate"
                 />
               </div>
@@ -847,7 +847,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                 </div>
 
                 {(activeBlog.tableRows || []).map((row, rIdx) => (
-                  <div key={rIdx} className="flex items-center gap-2 bg-slate-950/80 p-2.5 border border-slate-800 rounded-xl">
+                  <div key={rIdx} className="flex items-center gap-2 bg-surface/80 p-2.5 border border-slate-800 rounded-xl">
                     <span className="font-mono text-amber-400 text-xs w-6 text-center">#{rIdx + 1}</span>
                     {Array.isArray(row) && row.map((cell, cIdx) => (
                       <input
@@ -859,7 +859,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                           updatedRows[rIdx][cIdx] = e.target.value;
                           updateActiveBlog('tableRows', updatedRows);
                         }}
-                        className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-white text-xs"
+                        className="flex-1 bg-surface border border-slate-800 rounded-lg px-3 py-1.5 text-white text-xs"
                       />
                     ))}
                     <button
@@ -888,7 +888,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Mid-Article Callout / Offer Banner</h3>
-                <p className="text-slate-400 text-xs">Configure the dark-gold promotion banner embedded inside the article</p>
+                <p className="text-text-muted text-xs">Configure the dark-gold promotion banner embedded inside the article</p>
               </div>
             </div>
 
@@ -914,7 +914,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                     value={activeBlog.ctaBadge || ''}
                     onChange={(e) => updateActiveBlog('ctaBadge', e.target.value)}
                     placeholder="e.g. Fast-Track Processing"
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
                 <div>
@@ -924,7 +924,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                     value={activeBlog.ctaBtnText || ''}
                     onChange={(e) => updateActiveBlog('ctaBtnText', e.target.value)}
                     placeholder="e.g. Launch Visa Calculator"
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
               </div>
@@ -935,7 +935,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   type="text"
                   value={activeBlog.ctaTitle || ''}
                   onChange={(e) => updateActiveBlog('ctaTitle', e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -945,7 +945,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   rows={2}
                   value={activeBlog.ctaSubtitle || ''}
                   onChange={(e) => updateActiveBlog('ctaSubtitle', e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>
@@ -961,7 +961,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Article FAQs Accordion</h3>
-                <p className="text-slate-400 text-xs">Manage question and answer pairs displayed at the bottom of this article</p>
+                <p className="text-text-muted text-xs">Manage question and answer pairs displayed at the bottom of this article</p>
               </div>
             </div>
 
@@ -993,7 +993,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
 
               {(activeBlog.faqs || []).map((faq, fIdx) => (
-                <div key={fIdx} className="bg-slate-950/80 border border-slate-800 rounded-xl p-4 space-y-2 relative">
+                <div key={fIdx} className="bg-surface/80 border border-slate-800 rounded-xl p-4 space-y-2 relative">
                   <div className="flex justify-between items-center border-b border-slate-800 pb-2">
                     <span className="font-mono font-bold text-amber-400 text-xs">FAQ #{fIdx + 1}</span>
                     <button
@@ -1009,7 +1009,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   </div>
 
                   <div>
-                    <label className="block text-slate-400 mb-1">Question</label>
+                    <label className="block text-text-muted mb-1">Question</label>
                     <input
                       type="text"
                       value={faq.q || ''}
@@ -1018,12 +1018,12 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                         updated[fIdx].q = e.target.value;
                         updateActiveBlog('faqs', updated);
                       }}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-white font-bold text-xs"
+                      className="w-full bg-surface border border-slate-800 rounded-lg px-3 py-2 text-white font-bold text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-400 mb-1">Answer</label>
+                    <label className="block text-text-muted mb-1">Answer</label>
                     <textarea
                       rows={2}
                       value={faq.a || ''}
@@ -1032,7 +1032,7 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                         updated[fIdx].a = e.target.value;
                         updateActiveBlog('faqs', updated);
                       }}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-slate-200 text-xs"
+                      className="w-full bg-surface border border-slate-800 rounded-lg p-2.5 text-slate-200 text-xs"
                     />
                   </div>
                 </div>
@@ -1044,14 +1044,14 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
         {/* TAB 8: SEO & OPENGRAPH INSPECTOR */}
         {activeSubTab === 'seo' && (
           <div className="space-y-6">
-            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+            <div className="bg-surface/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
               <h3 className="text-sm font-display font-bold text-white flex items-center gap-2">
                 <Search className="w-4 h-4 text-amber-400" /> Enterprise SEO Inspector
               </h3>
 
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between font-mono text-[11px]">
-                  <span className="text-slate-400">Google Title Width:</span>
+                  <span className="text-text-muted">Google Title Width:</span>
                   <span className={`font-bold ${isTitleWidthOptimal ? 'text-emerald-400' : 'text-amber-400'}`}>
                     ~{Math.round(metaTitlePixelWidth)}px / 600px
                   </span>
@@ -1060,9 +1060,9 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   type="text"
                   value={activeBlog.metaTitle || ''}
                   onChange={(e) => updateActiveBlog('metaTitle', e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-200 text-xs font-medium focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-200 text-xs font-medium focus:outline-none focus:border-amber-500/50"
                 />
-                <div className="h-1.5 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                <div className="h-1.5 bg-surface rounded-full overflow-hidden border border-slate-800">
                   <div 
                     style={{ width: `${Math.min(100, (metaTitlePixelWidth / 600) * 100)}%` }}
                     className={`h-full ${isTitleWidthOptimal ? 'bg-emerald-500' : 'bg-amber-500'}`}
@@ -1071,19 +1071,19 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
               </div>
 
               <div className="space-y-1.5 text-xs">
-                <label className="block text-slate-400 font-semibold">Focus Keywords</label>
+                <label className="block text-text-muted font-semibold">Focus Keywords</label>
                 <input
                   type="text"
                   value={activeBlog.keywords || ''}
                   onChange={(e) => updateActiveBlog('keywords', e.target.value)}
                   placeholder="e.g. uae golden visa, property visa"
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-200 text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-200 text-xs focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
               <div className="space-y-1.5 text-xs">
                 <div className="flex justify-between font-mono text-[11px]">
-                  <span className="text-slate-400">Meta Description:</span>
+                  <span className="text-text-muted">Meta Description:</span>
                   <span className={`font-bold ${isDescLengthOptimal ? 'text-emerald-400' : 'text-amber-400'}`}>
                     {(activeBlog.metaDesc || '').length} / 160 chars
                   </span>
@@ -1092,34 +1092,34 @@ export default function BlogModule({ cmsConfig, setCmsConfig, isEmbedded = false
                   rows={3}
                   value={activeBlog.metaDesc || ''}
                   onChange={(e) => updateActiveBlog('metaDesc', e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
-                <h3 className="text-xs font-mono font-bold uppercase text-slate-400 flex items-center gap-2">
+              <div className="bg-surface/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
+                <h3 className="text-xs font-mono font-bold uppercase text-text-muted flex items-center gap-2">
                   <Share2 className="w-4 h-4 text-amber-400" /> OpenGraph Social Preview
                 </h3>
 
-                <div className="bg-slate-900 border border-slate-800/80 rounded-xl overflow-hidden shadow-md">
+                <div className="bg-surface border border-slate-800/80 rounded-xl overflow-hidden shadow-md">
                   <div className="h-28 bg-gradient-to-tr from-amber-500/20 to-slate-950 flex items-center justify-center font-bold text-white text-xs p-4 text-center">
                     {activeBlog.title}
                   </div>
                   <div className="p-3.5 space-y-1">
-                    <div className="text-[10px] font-mono text-slate-500 uppercase">familyvisa.ae • 2 min read</div>
+                    <div className="text-[10px] font-mono text-text-muted uppercase">familyvisa.ae • 2 min read</div>
                     <div className="font-bold text-white text-xs line-clamp-1">{activeBlog.metaTitle}</div>
-                    <div className="text-[11px] text-slate-400 line-clamp-2">{activeBlog.metaDesc}</div>
+                    <div className="text-[11px] text-text-muted line-clamp-2">{activeBlog.metaDesc}</div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
-                <h3 className="text-xs font-mono font-bold uppercase text-slate-400 flex items-center gap-2">
+              <div className="bg-surface/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
+                <h3 className="text-xs font-mono font-bold uppercase text-text-muted flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-amber-400" /> JSON-LD Structured Data
                 </h3>
-                <pre className="bg-slate-900 p-3.5 rounded-xl text-[10px] font-mono text-slate-300 overflow-x-auto max-h-40 border border-slate-800">
+                <pre className="bg-surface p-3.5 rounded-xl text-[10px] font-mono text-slate-300 overflow-x-auto max-h-40 border border-slate-800">
                   {generatedJsonLd}
                 </pre>
               </div>

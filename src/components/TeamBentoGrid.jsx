@@ -92,7 +92,7 @@ export default function TeamBentoGrid() {
             className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight font-sans"
           >
             Executive Leadership &{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFF5C0] via-[#D4AF37] to-[#B8860B]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFF5C0] via-[#D4AF37] to-[#C59B27]">
               Immigration Advisory
             </span>
           </motion.h2>
@@ -117,13 +117,13 @@ export default function TeamBentoGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className={`bg-white/5 backdrop-blur-md border border-white/10 rounded-[10px] overflow-hidden relative group cursor-pointer shadow-xl hover:border-[#D4AF37]/60 hover:shadow-[0_20px_40px_rgba(212,175,55,0.18)] transition-all duration-500 flex flex-col justify-end ${member.spanClass}`}
+              className={`bg-surface/5 backdrop-blur-md border border-white/10 rounded-[10px] overflow-hidden relative group cursor-pointer shadow-xl hover:border-[#D4AF37]/60 hover:shadow-[0_20px_40px_rgba(212,175,55,0.18)] transition-all duration-500 flex flex-col justify-end ${member.spanClass}`}
             >
               {/* Top Accent Shimmer Line on Hover */}
-              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-[#B8860B] via-[#FFF5C0] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-[#C59B27] via-[#FFF5C0] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
 
               {/* Background Image Element */}
-              <div className="absolute inset-0 w-full h-full overflow-hidden bg-slate-950">
+              <div className="absolute inset-0 w-full h-full overflow-hidden bg-surface">
                 <img
                   src={member.image}
                   alt={member.name}

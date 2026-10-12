@@ -58,7 +58,7 @@ export default function TopbarEditor({ cmsConfig, setCmsConfig }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Top Bar Header Manager
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Configure top bar visibility toggles, announcement badges, and countdown timers.
             </p>
           </div>
@@ -79,19 +79,19 @@ export default function TopbarEditor({ cmsConfig, setCmsConfig }) {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+      <form onSubmit={handleSave} className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
         <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
           <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
             <Layout className="w-6 h-6" />
           </div>
           <div>
             <h2 className="font-display font-bold text-lg text-white">Header Topbar Visibility</h2>
-            <p className="text-slate-400 text-xs mt-0.5">Toggle visibility of topbar elements across desktop and mobile headers</p>
+            <p className="text-text-muted text-xs mt-0.5">Toggle visibility of topbar elements across desktop and mobile headers</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
-          <div className="sm:col-span-2 flex items-center justify-between bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+          <div className="sm:col-span-2 flex items-center justify-between bg-surface/80 p-4 rounded-xl border border-slate-800/80">
             <label className="font-bold text-white text-xs">Enable Topbar Header Strip</label>
             <input 
               type="checkbox" 
@@ -101,7 +101,7 @@ export default function TopbarEditor({ cmsConfig, setCmsConfig }) {
             />
           </div>
           
-          <div className="flex items-center justify-between bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+          <div className="flex items-center justify-between bg-surface/80 p-4 rounded-xl border border-slate-800/80">
             <label className="font-semibold text-slate-300 text-xs">Show Location (Dubai HQ)</label>
             <input 
               type="checkbox" 
@@ -111,7 +111,7 @@ export default function TopbarEditor({ cmsConfig, setCmsConfig }) {
             />
           </div>
           
-          <div className="flex items-center justify-between bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+          <div className="flex items-center justify-between bg-surface/80 p-4 rounded-xl border border-slate-800/80">
             <label className="font-semibold text-slate-300 text-xs">Show Office Working Hours</label>
             <input 
               type="checkbox" 
@@ -121,7 +121,7 @@ export default function TopbarEditor({ cmsConfig, setCmsConfig }) {
             />
           </div>
           
-          <div className="flex items-center justify-between bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+          <div className="flex items-center justify-between bg-surface/80 p-4 rounded-xl border border-slate-800/80">
             <label className="font-semibold text-slate-300 text-xs">Show Contact Phone</label>
             <input 
               type="checkbox" 
@@ -143,7 +143,7 @@ export default function TopbarEditor({ cmsConfig, setCmsConfig }) {
               type="text"
               value={badgeText}
               onChange={(e) => setBadgeText(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-xs focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-xs focus:outline-none focus:border-amber-500/50"
             />
           </div>
           
@@ -153,7 +153,7 @@ export default function TopbarEditor({ cmsConfig, setCmsConfig }) {
               type="date"
               value={targetDate}
               onChange={(e) => setTargetDate(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-xs focus:outline-none focus:border-amber-500/50"
             />
           </div>
           
@@ -163,7 +163,7 @@ export default function TopbarEditor({ cmsConfig, setCmsConfig }) {
               type="text"
               value={announcementText}
               onChange={(e) => setAnnouncementText(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
             />
           </div>
         </div>

@@ -171,7 +171,7 @@ function FamilyFeeCalculator() {
             LIVE
           </span>
         </div>
-        <p className="text-xs text-slate-400">All-in-one itemized government fee calculator for your entire family unit</p>
+        <p className="text-xs text-text-muted">All-in-one itemized government fee calculator for your entire family unit</p>
       </div>
 
       <div className="p-6 space-y-4">
@@ -185,7 +185,7 @@ function FamilyFeeCalculator() {
                 py-2 px-2 text-[10px] font-mono font-bold rounded-[8px] border text-center transition-all duration-150 cursor-pointer
                 ${selectedCat === i
                   ? 'bg-dark-gold-gloss text-black border-transparent shadow-sm font-black'
-                  : 'bg-white/5 border-white/10 text-slate-300 hover:border-[#D4AF37]/40 hover:text-white'
+                  : 'bg-surface/5 border-white/10 text-slate-300 hover:border-[#D4AF37]/40 hover:text-white'
                 }
               `}
             >
@@ -229,7 +229,7 @@ function FamilyFeeCalculator() {
         >
           Apply via WhatsApp Concierge →
         </motion.a>
-        <p className="text-center text-[10px] text-slate-400 font-mono">+Concierge fee from AED 800 · All taxes included</p>
+        <p className="text-center text-[10px] text-text-muted font-mono">+Concierge fee from AED 800 · All taxes included</p>
       </div>
     </motion.div>
   );
@@ -255,7 +255,7 @@ function FamilyVisaHero() {
               className="flex items-center gap-2 flex-wrap"
             >
               <GoldBadge>GDRFA Approved Concierge</GoldBadge>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest rounded-[10px]">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-surface/5 border border-white/10 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest rounded-[10px]">
                 15,000+ Families Reunited
               </span>
             </motion.div>
@@ -289,7 +289,7 @@ function FamilyVisaHero() {
               className="flex flex-wrap gap-2"
             >
               {['100% Online Filing', '72-Hr SLA Guarantee', 'Doorstep EID Delivery', 'VIP Medical', 'Overstay Cases Accepted'].map(chip => (
-                <span key={chip} className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 text-slate-300 text-xs font-medium rounded-[10px]">
+                <span key={chip} className="inline-flex items-center gap-1.5 px-3 py-1 bg-surface/5 border border-white/10 text-slate-300 text-xs font-medium rounded-[10px]">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#D4AF37]" />
                   {chip}
                 </span>
@@ -357,7 +357,7 @@ function VisaCategorySection() {
                 flex items-center gap-2 px-4 py-2.5 text-xs font-mono font-bold rounded-[10px] border transition-all duration-200 cursor-pointer
                 ${active === cat.id
                   ? 'bg-dark-gold-gloss text-black border-transparent shadow-[0_4px_16px_rgba(212,175,55,0.25)] font-black'
-                  : 'bg-white/5 border-white/10 text-slate-300 hover:border-[#D4AF37]/40 hover:text-white'
+                  : 'bg-surface/5 border-white/10 text-slate-300 hover:border-[#D4AF37]/40 hover:text-white'
                 }
               `}
             >
@@ -385,15 +385,15 @@ function VisaCategorySection() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 mb-5">
-                    <div className="bg-white/5 border border-white/10 rounded-[10px] p-3.5">
-                      <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-1">Min. Salary</div>
+                    <div className="bg-surface/5 border border-white/10 rounded-[10px] p-3.5">
+                      <div className="text-[10px] font-mono font-bold text-text-muted uppercase tracking-wider mb-1">Min. Salary</div>
                       <div className="font-extrabold text-base text-[#D4AF37]">{current.minSalary}</div>
-                      <div className="text-[10px] text-slate-400 mt-0.5">{current.minSalaryNote}</div>
+                      <div className="text-[10px] text-text-muted mt-0.5">{current.minSalaryNote}</div>
                     </div>
-                    <div className="bg-white/5 border border-white/10 rounded-[10px] p-3.5">
-                      <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-1">Visa Duration</div>
+                    <div className="bg-surface/5 border border-white/10 rounded-[10px] p-3.5">
+                      <div className="text-[10px] font-mono font-bold text-text-muted uppercase tracking-wider mb-1">Visa Duration</div>
                       <div className="font-extrabold text-base text-white">{current.duration}</div>
-                      <div className="text-[10px] text-slate-400 mt-0.5">Renewable online</div>
+                      <div className="text-[10px] text-text-muted mt-0.5">Renewable online</div>
                     </div>
                   </div>
 
@@ -413,14 +413,14 @@ function VisaCategorySection() {
                 <LuxuryCard hover={false} className="h-full bg-[#111319] border-white/10 text-white">
                   <div className="h-[3px] bg-gradient-to-r from-[#8C5E00] via-[#D4AF37] to-[#F3E5AB]" />
                   <div className="p-6 space-y-4">
-                    <p className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">Government Fees</p>
+                    <p className="text-xs font-mono font-bold uppercase tracking-widest text-text-muted">Government Fees</p>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center text-xs">
-                        <span className="text-slate-400">Gov Fees (est.)</span>
+                        <span className="text-text-muted">Gov Fees (est.)</span>
                         <span className="font-mono font-bold text-white">{current.govFee}</span>
                       </div>
                       <div className="flex justify-between items-center text-xs border-t border-white/10 pt-3">
-                        <span className="text-slate-400">Total incl. concierge</span>
+                        <span className="text-text-muted">Total incl. concierge</span>
                         <span className="font-mono font-extrabold text-[#D4AF37] text-base">{current.totalEst}</span>
                       </div>
                     </div>
@@ -501,9 +501,9 @@ function WhyUsSection() {
             { value: '99.1%', label: 'First-Submit Approval' },
             { value: 'AED 0', label: 'Hidden Fees' }
           ].map((stat, i) => (
-            <div key={i} className="text-center p-4 bg-white/5 border border-white/10 rounded-[10px]">
+            <div key={i} className="text-center p-4 bg-surface/5 border border-white/10 rounded-[10px]">
               <div className="text-xl font-mono font-extrabold text-[#D4AF37] mb-0.5">{stat.value}</div>
-              <div className="text-[10px] text-slate-400 font-mono uppercase tracking-wider">{stat.label}</div>
+              <div className="text-[10px] text-text-muted font-mono uppercase tracking-wider">{stat.label}</div>
             </div>
           ))}
         </motion.div>

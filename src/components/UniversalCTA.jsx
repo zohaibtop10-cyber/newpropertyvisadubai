@@ -34,7 +34,7 @@ export default function UniversalCTA({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-slate-400 mt-4 text-sm sm:text-base max-w-xl mx-auto leading-relaxed"
+          className="text-text-muted mt-4 text-sm sm:text-base max-w-xl mx-auto leading-relaxed"
         >
           <span>{finalSubtext}</span>
         </motion.p>

@@ -73,8 +73,8 @@ const ROUTES = [
     threshold: 'AED 30,000/mo',
     thresholdNote: 'Minimum salary from UAE employer',
     accentColor: 'from-slate-700 to-slate-900',
-    accentLight: 'bg-slate-100',
-    accentText: 'text-slate-800',
+    accentLight: 'bg-surface',
+    accentText: 'text-text',
     summary: 'Senior corporate leaders — CFOs, CTOs, VPs, GMs — earning AED 30,000+ monthly from a licensed UAE employer qualify for the 10-Year residency under the "Talented Professionals" stream.',
     criteria: [
       'Monthly salary minimum AED 30,000 (all-in package, per payslip)',
@@ -253,7 +253,7 @@ function GoldenVisaHero() {
               className="flex items-center gap-2 flex-wrap"
             >
               <GoldBadge>10-Year Golden Visa</GoldBadge>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest rounded-[10px]">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-surface/5 border border-white/10 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest rounded-[10px]">
                 5 Qualification Routes
               </span>
             </motion.div>
@@ -265,7 +265,7 @@ function GoldenVisaHero() {
               className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-white leading-[1.08] tracking-tight"
             >
               The UAE Golden Visa.{' '}
-              <span className="bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#B8860B] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#C59B27] bg-clip-text text-transparent">
                 Five Routes.
               </span>
               <br />
@@ -345,7 +345,7 @@ function GoldenVisaStatCard() {
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
       className="bg-[#111319] border border-white/10 rounded-[10px] shadow-[0_30px_60px_-20px_rgba(212,175,55,0.15)] overflow-hidden font-sans"
     >
-      <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+      <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
 
       {/* Crown header */}
       <div className="bg-[#0A0B0E] px-6 py-7 border-b border-white/10">
@@ -374,7 +374,7 @@ function GoldenVisaStatCard() {
           <div key={i} className="p-4 text-center">
             <div className="font-extrabold text-xl text-[#D4AF37] font-mono">{stat.value}</div>
             <div className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-wide mt-0.5">{stat.label}</div>
-            <div className="text-[10px] text-slate-400 mt-0.5 font-mono">{stat.sub}</div>
+            <div className="text-[10px] text-text-muted mt-0.5 font-mono">{stat.sub}</div>
           </div>
         ))}
       </div>
@@ -391,7 +391,7 @@ function GoldenVisaStatCard() {
         >
           Start Golden Visa Application →
         </motion.a>
-        <p className="text-center text-[10px] text-slate-400 mt-2 font-mono">Free eligibility check · No commitment · 15-min WhatsApp audit</p>
+        <p className="text-center text-[10px] text-text-muted mt-2 font-mono">Free eligibility check · No commitment · 15-min WhatsApp audit</p>
       </div>
     </motion.div>
   );
@@ -473,16 +473,16 @@ function RouteSelectorSection() {
               {/* Fee card */}
               <div>
                 <LuxuryCard hover={false} className="h-full bg-[#111319] border-white/10">
-                  <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+                  <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
                   <div className="p-6">
                     <p className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4AF37] mb-5">Fee Estimate</p>
                     <div className="space-y-3 mb-5">
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400 font-medium">Government Fees</span>
+                        <span className="text-text-muted font-medium">Government Fees</span>
                         <span className="font-bold text-white font-mono">{current.govFee}</span>
                       </div>
                       <div className="flex justify-between items-center text-sm border-t border-white/10 pt-3">
-                        <span className="text-slate-400 font-medium">Total (incl. concierge)</span>
+                        <span className="text-text-muted font-medium">Total (incl. concierge)</span>
                         <span className="font-extrabold text-[#D4AF37] text-lg font-mono">{current.totalEst}</span>
                       </div>
                     </div>
@@ -496,7 +496,7 @@ function RouteSelectorSection() {
                     >
                       Apply via WhatsApp →
                     </motion.a>
-                    <p className="text-[10px] text-slate-400 text-center mt-3 font-mono">Free eligibility check included</p>
+                    <p className="text-[10px] text-text-muted text-center mt-3 font-mono">Free eligibility check included</p>
                   </div>
                 </LuxuryCard>
               </div>
@@ -542,8 +542,8 @@ function PrivilegesBento() {
           custom={0.3}
         >
           <div className="grid grid-cols-3 text-xs font-mono font-bold uppercase tracking-wider bg-[#111319] border-b border-white/10">
-            <div className="p-4 text-slate-400">Feature</div>
-            <div className="p-4 text-center border-l border-white/10 text-slate-400">Employment Visa</div>
+            <div className="p-4 text-text-muted">Feature</div>
+            <div className="p-4 text-center border-l border-white/10 text-text-muted">Employment Visa</div>
             <div className="p-4 text-center border-l border-white/10 bg-[#D4AF37]/10 text-[#D4AF37]">Golden Visa</div>
           </div>
           {[
@@ -555,7 +555,7 @@ function PrivilegesBento() {
           ].map(([feature, emp, gv], i) => (
             <div key={i} className="grid grid-cols-3 text-sm bg-[#0A0B0E] border-b border-white/5 last:border-0">
               <div className="p-4 font-semibold text-white">{feature}</div>
-              <div className="p-4 text-center border-l border-white/5 text-slate-400 text-xs font-medium">{emp}</div>
+              <div className="p-4 text-center border-l border-white/5 text-text-muted text-xs font-medium">{emp}</div>
               <div className="p-4 text-center border-l border-white/5 bg-[#D4AF37]/5 text-[#D4AF37] font-bold text-xs">{gv}</div>
             </div>
           ))}

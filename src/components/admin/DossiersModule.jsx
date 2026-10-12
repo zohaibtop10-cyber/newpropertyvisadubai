@@ -56,29 +56,29 @@ export default function DossiersModule({ dossiers, setDossiers }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Clients & Leads Management
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Track visa applications, update client status stages, and manage passport documents.
             </p>
           </div>
 
           <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-text-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search by name, phone, or visa..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-slate-950/80 border border-slate-700/80 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-500/50"
+              className="w-full pl-10 pr-4 py-3 bg-surface/80 border border-slate-700/80 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-500/50"
             />
           </div>
         </div>
       </div>
 
       {/* Lead Data Table */}
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-300">
-            <thead className="bg-slate-950 text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800/80">
+            <thead className="bg-surface text-text-muted font-mono uppercase text-[10px] border-b border-slate-800/80">
               <tr>
                 <th className="py-4 px-6">Client Name</th>
                 <th className="py-4 px-6">Contact Number</th>
@@ -91,10 +91,10 @@ export default function DossiersModule({ dossiers, setDossiers }) {
               {filteredClients.map((client) => {
                 const currentStatus = getClientStatus(client);
                 return (
-                  <tr key={client.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={client.id} className="hover:bg-surface/30 transition-colors">
                     <td className="py-4 px-6 font-bold text-white">
                       {client.clientName}
-                      <div className="text-xs text-slate-400 font-normal">{client.email}</div>
+                      <div className="text-xs text-text-muted font-normal">{client.email}</div>
                     </td>
                     <td className="py-4 px-6 font-mono text-slate-300">{client.phone}</td>
                     <td className="py-4 px-6 font-semibold text-amber-300">{client.serviceTitle}</td>
@@ -103,10 +103,10 @@ export default function DossiersModule({ dossiers, setDossiers }) {
                       <select
                         value={currentStatus}
                         onChange={(e) => handleStatusChange(client.id, e.target.value)}
-                        className="bg-slate-950 border border-slate-700/60 text-amber-400 font-semibold text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500/50 cursor-pointer"
+                        className="bg-surface border border-slate-700/60 text-amber-400 font-semibold text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500/50 cursor-pointer"
                       >
                         {statusOptions.map(opt => (
-                          <option key={opt} value={opt} className="bg-slate-900 text-white">
+                          <option key={opt} value={opt} className="bg-surface text-white">
                             {opt}
                           </option>
                         ))}
@@ -116,7 +116,7 @@ export default function DossiersModule({ dossiers, setDossiers }) {
                     <td className="py-4 px-6 text-center">
                       <button
                         onClick={() => setSelectedClient(client)}
-                        className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl transition-all cursor-pointer border border-slate-700/60"
+                        className="px-4 py-2 bg-surface hover:bg-surface text-white font-bold text-xs rounded-xl transition-all cursor-pointer border border-slate-700/60"
                       >
                         View Dossier
                       </button>
@@ -133,7 +133,7 @@ export default function DossiersModule({ dossiers, setDossiers }) {
       {selectedClient && (
         <div className="fixed inset-0 z-50 flex justify-end bg-black/70 backdrop-blur-sm animate-fadeIn">
           <div 
-            className="w-full max-w-lg bg-slate-900 border-l border-slate-800 h-full flex flex-col shadow-2xl p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-100"
+            className="w-full max-w-lg bg-surface border-l border-slate-800 h-full flex flex-col shadow-2xl p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-100"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 border-b border-slate-800/80">
@@ -144,13 +144,13 @@ export default function DossiersModule({ dossiers, setDossiers }) {
 
               <button
                 onClick={() => setSelectedClient(null)}
-                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                className="p-2 rounded-xl bg-surface hover:bg-surface text-text-muted hover:text-white transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="bg-slate-950 border border-slate-800/80 p-4 rounded-xl space-y-3 text-xs">
+            <div className="bg-surface border border-slate-800/80 p-4 rounded-xl space-y-3 text-xs">
               <div className="font-mono uppercase font-bold text-amber-400 text-[10px]">CONTACT INFORMATION</div>
               
               <div className="flex items-center gap-3 text-slate-200">
@@ -169,7 +169,7 @@ export default function DossiersModule({ dossiers, setDossiers }) {
               </div>
             </div>
 
-            <div className="bg-slate-950 border border-slate-800/80 p-4 rounded-xl space-y-4 text-xs">
+            <div className="bg-surface border border-slate-800/80 p-4 rounded-xl space-y-4 text-xs">
               <div className="flex items-center justify-between">
                 <div className="font-mono uppercase font-bold text-amber-400 text-[10px]">DOCUMENT VAULT</div>
                 <button
@@ -187,34 +187,34 @@ export default function DossiersModule({ dossiers, setDossiers }) {
               )}
 
               <div className="space-y-2.5">
-                <div className="p-3.5 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between">
+                <div className="p-3.5 bg-surface border border-slate-800 rounded-xl flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <FileText className="w-4 h-4 text-amber-400" />
                     <div>
                       <div className="font-bold text-white">Passport_Copy.pdf</div>
-                      <div className="text-[10px] text-slate-400 font-mono">Verified PDF • 2.4 MB</div>
+                      <div className="text-[10px] text-text-muted font-mono">Verified PDF • 2.4 MB</div>
                     </div>
                   </div>
                   <button 
                     onClick={() => alert('Downloading Passport_Copy.pdf')}
-                    className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg cursor-pointer"
+                    className="p-2 bg-surface hover:bg-surface text-slate-200 rounded-lg cursor-pointer"
                     title="Download PDF"
                   >
                     <Download className="w-4 h-4" />
                   </button>
                 </div>
 
-                <div className="p-3.5 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between">
+                <div className="p-3.5 bg-surface border border-slate-800 rounded-xl flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <FileText className="w-4 h-4 text-emerald-400" />
                     <div>
                       <div className="font-bold text-white">Visa_Entry_Permit.pdf</div>
-                      <div className="text-[10px] text-slate-400 font-mono">Issued Document • 1.1 MB</div>
+                      <div className="text-[10px] text-text-muted font-mono">Issued Document • 1.1 MB</div>
                     </div>
                   </div>
                   <button 
                     onClick={() => alert('Downloading Visa_Entry_Permit.pdf')}
-                    className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg cursor-pointer"
+                    className="p-2 bg-surface hover:bg-surface text-slate-200 rounded-lg cursor-pointer"
                     title="Download PDF"
                   >
                     <Download className="w-4 h-4" />
@@ -223,7 +223,7 @@ export default function DossiersModule({ dossiers, setDossiers }) {
               </div>
             </div>
 
-            <div className="p-3.5 bg-slate-950 border border-slate-800/80 rounded-xl text-[11px] font-mono text-slate-400 flex items-center justify-between">
+            <div className="p-3.5 bg-surface border border-slate-800/80 rounded-xl text-[11px] font-mono text-text-muted flex items-center justify-between">
               <span>Firebase Realtime Sync</span>
               <span className="text-emerald-400 font-bold">Connected</span>
             </div>

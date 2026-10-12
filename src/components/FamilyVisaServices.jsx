@@ -104,7 +104,7 @@ export default function FamilyVisaServices() {
           </div>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2 bg-white/5 p-1.5 rounded-[10px] border border-white/10 shrink-0">
+          <div className="flex flex-wrap gap-2 bg-surface/5 p-1.5 rounded-[10px] border border-white/10 shrink-0">
             <button
               onClick={() => setActiveTab('all')}
               className={`px-3.5 py-1.5 rounded-[8px] text-xs font-mono font-bold transition-all cursor-pointer ${

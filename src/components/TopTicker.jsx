@@ -24,7 +24,7 @@ export default function TopTicker() {
   if (activeItems.length === 0) return null;
 
   return (
-    <div className="w-full bg-[#050505] text-slate-200 border-b border-white/10 text-xs py-2 overflow-hidden sticky top-0 z-50 selection:bg-brand-gold selection:text-black">
+    <div className="w-full bg-[#050505] text-slate-200 border-b border-white/10 text-xs py-2 overflow-hidden sticky top-0 z-50 selection:bg-gold selection:text-black">
       <div className="w-full overflow-hidden whitespace-nowrap relative">
         <div className="inline-flex items-center space-x-10 animate-marquee font-sans tracking-wide">
           {/* Render 3 copies for seamless infinite loop */}
@@ -45,7 +45,7 @@ export default function TopTicker() {
                   )}
                   <span>{item.action || item.message}</span>
                   {timeFormatted && (
-                    <span className="text-slate-400 font-normal ml-1.5 border-l border-white/10 pl-2">
+                    <span className="text-text-muted font-normal ml-1.5 border-l border-white/10 pl-2">
                       – {timeFormatted}
                     </span>
                   )}

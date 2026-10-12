@@ -27,7 +27,7 @@ export default function ServiceStats({ stats = DEFAULT_SERVICE_STATS, className 
             </div>
 
             {/* Label */}
-            <div className="text-slate-500 text-[11px] font-bold tracking-widest uppercase font-mono">
+            <div className="text-text-muted text-[11px] font-bold tracking-widest uppercase font-mono">
               {stat.label}
             </div>
           </motion.div>

@@ -65,7 +65,7 @@ export default function ImpactStatsBar({ stats = DEFAULT_STATS }) {
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-[20px] p-8 lg:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative z-10"
+        className="max-w-6xl mx-auto bg-surface/5 backdrop-blur-xl border border-white/10 rounded-[12px] p-8 lg:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative z-10"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0">
           {stats.map((stat, idx) => (
@@ -76,7 +76,7 @@ export default function ImpactStatsBar({ stats = DEFAULT_STATS }) {
               }`}
             >
               {/* Metallic Gold Animated Number */}
-              <div className="bg-gradient-to-r from-[#D4AF37] via-[#FFE58F] to-[#8C5E00] bg-clip-text text-transparent text-4xl sm:text-5xl font-black mb-2 tracking-tight font-sans">
+              <div className="bg-gradient-to-r from-[#F7DE9C] via-[#EFC45C] to-[#C99824] bg-clip-text text-transparent text-4xl sm:text-5xl font-black mb-2 tracking-tight font-sans drop-shadow-sm">
                 <AnimatedCounter
                   value={stat.value}
                   numericValue={stat.numericValue}
@@ -92,7 +92,7 @@ export default function ImpactStatsBar({ stats = DEFAULT_STATS }) {
               </h4>
 
               {/* Detail Subtext */}
-              <p className="text-slate-500 text-xs font-medium max-w-[200px] leading-snug font-sans">
+              <p className="text-slate-400 text-xs font-medium max-w-[200px] leading-snug font-sans">
                 {stat.detail}
               </p>
             </div>

@@ -40,7 +40,7 @@ export default function MobileToolsFAB({ onOpenCalculator, onNavigate }) {
               transition={{ type: 'spring', stiffness: 140, damping: 16 }}
               className="absolute bottom-16 right-0 w-52 bg-surface/95 dark:bg-brand-surface/95 backdrop-blur-xl border border-border-subtle dark:border-white/15 rounded-xl shadow-2xl p-2 space-y-1.5 z-50 mb-2"
             >
-              <div className="px-3 py-1 text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
+              <div className="px-3 py-1 text-[10px] font-mono font-bold text-text-muted uppercase tracking-wider">
                 QUICK ACCESS TOOLS
               </div>
 
@@ -53,10 +53,10 @@ export default function MobileToolsFAB({ onOpenCalculator, onNavigate }) {
                   <Calculator className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-content-primary dark:text-white group-hover:text-[#B8860B]">
+                  <div className="text-xs font-bold text-text  group-hover:text-[#D4AF37]">
                     Calculator
                   </div>
-                  <div className="text-[10px] text-content-muted dark:text-slate-400">
+                  <div className="text-[10px] text-content-muted dark:text-text-muted">
                     Instant fee estimate
                   </div>
                 </div>
@@ -67,14 +67,14 @@ export default function MobileToolsFAB({ onOpenCalculator, onNavigate }) {
                 onClick={handleOtherToolsClick}
                 className="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-surface-elevated dark:hover:bg-surface/10 text-left transition-colors cursor-pointer group"
               >
-                <div className="p-2 rounded-lg bg-brand-gold/10 text-brand-gold">
+                <div className="p-2 rounded-lg bg-gold/10 text-gold">
                   <Box className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-content-primary dark:text-white group-hover:text-[#B8860B]">
+                  <div className="text-xs font-bold text-text  group-hover:text-[#D4AF37]">
                     Other Tools
                   </div>
-                  <div className="text-[10px] text-content-muted dark:text-slate-400">
+                  <div className="text-[10px] text-content-muted dark:text-text-muted">
                     Document checklist
                   </div>
                 </div>
@@ -91,10 +91,10 @@ export default function MobileToolsFAB({ onOpenCalculator, onNavigate }) {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-content-primary dark:text-white group-hover:text-[#25D366]">
+                  <div className="text-xs font-bold text-text  group-hover:text-[#25D366]">
                     WhatsApp
                   </div>
-                  <div className="text-[10px] text-content-muted dark:text-slate-400">
+                  <div className="text-[10px] text-content-muted dark:text-text-muted">
                     Direct advisory chat
                   </div>
                 </div>

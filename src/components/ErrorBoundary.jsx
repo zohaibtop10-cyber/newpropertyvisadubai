@@ -34,7 +34,7 @@ export default class ErrorBoundary extends React.Component {
 
             <div className="space-y-2">
               <h2 className="text-2xl font-black text-white font-sans">Unable to Load View</h2>
-              <p className="text-slate-400 text-sm font-sans leading-relaxed">
+              <p className="text-text-muted text-sm font-sans leading-relaxed">
                 An unexpected display error occurred. Please refresh or return home.
               </p>
             </div>
@@ -48,7 +48,7 @@ export default class ErrorBoundary extends React.Component {
             <div className="flex items-center justify-center gap-3 pt-2">
               <button
                 onClick={() => window.location.reload()}
-                className="px-5 py-2.5 rounded-[10px] bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider font-mono flex items-center gap-2 cursor-pointer transition-all"
+                className="px-5 py-2.5 rounded-[10px] bg-surface/10 hover:bg-surface/20 text-white font-bold text-xs uppercase tracking-wider font-mono flex items-center gap-2 cursor-pointer transition-all"
               >
                 <RefreshCw className="w-4 h-4" /> Refresh Page
               </button>

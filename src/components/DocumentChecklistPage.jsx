@@ -79,7 +79,7 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
           <span>DOCUMENT PREPARATION GUIDE</span>
         </div>
 
-        <h1 className="font-display font-black text-4xl sm:text-6xl text-slate-900 dark:text-white tracking-tight leading-tight">
+        <h1 className="font-display font-black text-4xl sm:text-6xl text-text  tracking-tight leading-tight">
           {headline.includes("Checklist") ? (
             <>
               {headline.replace("Checklist", "")}
@@ -88,7 +88,7 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
           ) : headline}
         </h1>
 
-        <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed font-medium">
+        <p className="text-text-muted dark:text-slate-300 text-base sm:text-lg leading-relaxed font-medium">
           {subtext}
         </p>
       </motion.section>
@@ -108,7 +108,7 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
             className={`px-5 py-2.5 rounded-[10px] text-xs font-bold uppercase tracking-wider font-mono transition-all cursor-pointer whitespace-nowrap ${
               selectedCategory === tab.id
                 ? 'bg-dark-gold-gloss text-slate-950 font-black shadow-[0_0_20px_rgba(212,175,55,0.4)]'
-                : 'bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-[#D4AF37]/40 hover:text-slate-900 dark:hover:text-white'
+                : 'bg-surface /5 border border-border-hairline dark:border-white/10 text-text dark:text-slate-300 hover:border-[#D4AF37]/40 hover:text-text dark:hover:text-white'
             }`}
           >
             {tab.label}
@@ -122,26 +122,26 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3 }}
-        className="max-w-3xl mx-auto p-8 sm:p-10 rounded-[16px] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-2xl border border-slate-200 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-2xl space-y-6 relative overflow-hidden"
+        className="max-w-3xl mx-auto p-8 sm:p-10 rounded-[12px] bg-surface/80 dark:bg-[#111111]/80 backdrop-blur-2xl border border-border-hairline dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-2xl space-y-6 relative overflow-hidden"
       >
-        <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-5">
-          <h2 className="font-display font-black text-2xl text-slate-900 dark:text-white tracking-tight">
+        <div className="flex items-center justify-between border-b border-border-hairline dark:border-white/10 pb-5">
+          <h2 className="font-display font-black text-2xl text-text  tracking-tight">
             {currentChecklist.title}
           </h2>
-          <span className="text-[10px] font-mono text-[#B8860B] dark:text-[#D4AF37] font-bold bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-3 py-1.5 rounded-[10px] uppercase tracking-wider">
+          <span className="text-[10px] font-mono text-[#D4AF37] dark:text-[#D4AF37] font-bold bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-3 py-1.5 rounded-[10px] uppercase tracking-wider">
             READY FOR AUDIT
           </span>
         </div>
 
         <div className="space-y-3">
           {currentChecklist.items.map((item, idx) => (
-            <div key={idx} className="p-4 rounded-[12px] bg-slate-50 dark:bg-[#1a1a1a] border border-slate-200/60 dark:border-white/5 flex items-start gap-3.5 hover:border-[#D4AF37]/30 transition-all">
-              <div className="p-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 shrink-0 mt-0.5">
-                <CheckCircle2 className="w-4 h-4 text-[#B8860B] dark:text-[#D4AF37]" />
+            <div key={idx} className="p-4 rounded-[12px] bg-surface dark:bg-[#1a1a1a] border border-border-hairline/60 dark:border-white/5 flex items-start gap-3.5 hover:border-[#D4AF37]/30 transition-all">
+              <div className="p-1 rounded-[8px] bg-[#D4AF37]/10 border border-[#D4AF37]/20 shrink-0 mt-0.5">
+                <CheckCircle2 className="w-4 h-4 text-[#D4AF37] dark:text-[#D4AF37]" />
               </div>
               <div>
-                <div className="font-bold text-sm text-slate-900 dark:text-white font-sans">{item.title}</div>
-                <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-sans">{item.note}</div>
+                <div className="font-bold text-sm text-text  font-sans">{item.title}</div>
+                <div className="text-xs text-text-muted dark:text-text-muted mt-0.5 font-sans">{item.note}</div>
               </div>
             </div>
           ))}
@@ -177,7 +177,7 @@ export default function DocumentChecklistPage({ onOpenCalculator, cmsConfig }) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto mt-12 p-8 sm:p-10 rounded-[16px] bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 shadow-xl prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300"
+          className="max-w-3xl mx-auto mt-12 p-8 sm:p-10 rounded-[12px] bg-surface dark:bg-[#111111] border border-border-hairline dark:border-white/10 shadow-xl prose dark:prose-invert max-w-none text-text dark:text-slate-300"
           dangerouslySetInnerHTML={{ __html: marked.parse(cmsConfig.pages.checklist.contentMarkdown) }}
         />
       )}

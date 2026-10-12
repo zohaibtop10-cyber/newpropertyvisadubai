@@ -32,8 +32,8 @@ const VISA_TRACKS = [
     tagline: 'Entry-Level Property Residency',
     threshold: 'AED 750,000+',
     color: 'from-slate-700 to-slate-900',
-    accentBg: 'bg-slate-50',
-    accentText: 'text-slate-700',
+    accentBg: 'bg-surface',
+    accentText: 'text-text',
     icon: Home,
     eligibility: [
       'Minimum property value of AED 750,000 (ready or off-plan)',
@@ -209,7 +209,7 @@ function PropertyVisaHero() {
               className="flex items-center gap-2"
             >
               <GoldBadge>DLD Approved Partner</GoldBadge>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest rounded-[10px]">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-surface/5 border border-white/10 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest rounded-[10px]">
                 ★★★★★ 5.0 · 284 Reviews
               </span>
             </motion.div>
@@ -222,7 +222,7 @@ function PropertyVisaHero() {
               className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-white leading-[1.08] tracking-tight"
             >
               UAE Property Visa{' '}
-              <span className="bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#B8860B] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#C59B27] bg-clip-text text-transparent">
                 Calculator
               </span>
               <br />& Residency Filing
@@ -342,7 +342,7 @@ function PropertyVisaCalculator() {
       "
     >
       {/* Card header */}
-      <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+      <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
       <div className="px-6 py-5 border-b border-white/10">
         <div className="flex items-center gap-2 mb-1">
           <Building2 className="w-5 h-5 text-[#D4AF37]" />
@@ -352,7 +352,7 @@ function PropertyVisaCalculator() {
             LIVE
           </span>
         </div>
-        <p className="text-xs text-slate-400">Get exact government fees in under 30 seconds</p>
+        <p className="text-xs text-text-muted">Get exact government fees in under 30 seconds</p>
       </div>
 
       <div className="p-6 space-y-5">
@@ -442,12 +442,12 @@ function PropertyVisaCalculator() {
                 <p className="font-extrabold text-lg leading-tight mb-1 text-white">{result.label}</p>
                 <p className="text-xs text-slate-300 mb-4">{result.tagline}</p>
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="bg-white/5 border border-white/10 rounded-[8px] p-3">
-                    <div className="text-[10px] text-slate-400 uppercase tracking-wide font-mono font-bold">Gov Fees</div>
+                  <div className="bg-surface/5 border border-white/10 rounded-[8px] p-3">
+                    <div className="text-[10px] text-text-muted uppercase tracking-wide font-mono font-bold">Gov Fees</div>
                     <div className="font-extrabold text-sm text-white mt-0.5 font-mono">{result.govFee}</div>
                   </div>
-                  <div className="bg-white/5 border border-white/10 rounded-[8px] p-3">
-                    <div className="text-[10px] text-slate-400 uppercase tracking-wide font-mono font-bold">Total Est.</div>
+                  <div className="bg-surface/5 border border-white/10 rounded-[8px] p-3">
+                    <div className="text-[10px] text-text-muted uppercase tracking-wide font-mono font-bold">Total Est.</div>
                     <div className="font-extrabold text-sm text-[#D4AF37] mt-0.5 font-mono">{result.totalEst}</div>
                   </div>
                 </div>
@@ -561,17 +561,17 @@ function VisaTracksBento() {
               {/* Fee summary card */}
               <div>
                 <LuxuryCard hover={false} className="h-full bg-[#111319] border-white/10">
-                  <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+                  <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
                   <div className="p-6">
                     <p className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4AF37] mb-5">Fee Summary</p>
 
                     <div className="space-y-3 mb-5">
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400 font-medium">DLD / ICP Fees</span>
+                        <span className="text-text-muted font-medium">DLD / ICP Fees</span>
                         <span className="font-bold text-white font-mono">{current.govFee}</span>
                       </div>
                       <div className="flex justify-between items-center text-sm border-t border-white/10 pt-3">
-                        <span className="text-slate-400 font-medium">Total (incl. concierge)</span>
+                        <span className="text-text-muted font-medium">Total (incl. concierge)</span>
                         <span className="font-extrabold text-[#D4AF37] text-lg font-mono">{current.totalEst}</span>
                       </div>
                     </div>
@@ -590,7 +590,7 @@ function VisaTracksBento() {
                       Start This Track →
                     </motion.a>
 
-                    <p className="text-[10px] text-slate-400 text-center mt-3 font-mono">
+                    <p className="text-[10px] text-text-muted text-center mt-3 font-mono">
                       No commitment · Free eligibility check
                     </p>
                   </div>

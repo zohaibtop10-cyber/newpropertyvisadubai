@@ -77,7 +77,7 @@ export default function FamilyVisaPage() {
                     type="button"
                     onClick={() => setSpouse(!spouse)}
                     className={`px-3 py-1 rounded-[10px] font-bold text-[10px] uppercase transition-all cursor-pointer ${
-                      spouse ? 'bg-brand-goldBg text-black' : 'bg-[#1a1a1a] text-slate-400'
+                      spouse ? 'bg-brand-goldBg text-black' : 'bg-[#1a1a1a] text-text-muted'
                     }`}
                   >
                     {spouse ? 'Included' : 'Exclude'}
@@ -106,7 +106,7 @@ export default function FamilyVisaPage() {
 
                 {/* Total Cost Display */}
                 <div className="p-4 bg-[#050505] border border-brand-goldBg/40 rounded-[10px] space-y-1">
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between text-text-muted">
                     <span>Govt Charges:</span>
                     <span className="font-mono text-white">AED {totalGovFee.toLocaleString()}</span>
                   </div>

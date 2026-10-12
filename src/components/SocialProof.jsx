@@ -12,34 +12,34 @@ export default function SocialProof() {
         <div className="bg-[#121417] shadow-[0_10px_30px_rgba(0,0,0,0.2)] rounded-[10px] py-8 px-6 sm:px-12 border border-white/10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center lg:text-left">
             <div className="space-y-1 lg:border-r lg:border-slate-700/60 lg:pr-8">
-              <div className="text-4xl sm:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#B8860B] tracking-tight">
+              <div className="text-4xl sm:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F7DE9C] via-[#EFC45C] to-[#C99824] tracking-tight drop-shadow-sm">
                 <span>500+</span>
               </div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-300"><span>LICENSED ENTITIES</span></div>
+              <div className="text-xs font-bold uppercase tracking-wider text-white"><span>LICENSED ENTITIES</span></div>
               <div className="text-[11px] text-slate-400"><span>Advisory DIFC, ADGM & Free Zones</span></div>
             </div>
 
             <div className="space-y-1 lg:border-r lg:border-slate-700/60 lg:pr-8">
-              <div className="text-4xl sm:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#B8860B] tracking-tight">
+              <div className="text-4xl sm:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F7DE9C] via-[#EFC45C] to-[#C99824] tracking-tight drop-shadow-sm">
                 <span>15,000+</span>
               </div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-300"><span>VISAS PROCESSED</span></div>
+              <div className="text-xs font-bold uppercase tracking-wider text-white"><span>VISAS PROCESSED</span></div>
               <div className="text-[11px] text-slate-400"><span>Golden Visas & Executive Residencies</span></div>
             </div>
 
             <div className="space-y-1 lg:border-r lg:border-slate-700/60 lg:pr-8">
-              <div className="text-4xl sm:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#B8860B] tracking-tight">
+              <div className="text-4xl sm:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F7DE9C] via-[#EFC45C] to-[#C99824] tracking-tight drop-shadow-sm">
                 <span>15+</span>
               </div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-300"><span>YEARS IN UAE</span></div>
+              <div className="text-xs font-bold uppercase tracking-wider text-white"><span>YEARS IN UAE</span></div>
               <div className="text-[11px] text-slate-400"><span>Trusted governance & regulatory expertise</span></div>
             </div>
 
             <div className="space-y-1">
-              <div className="text-4xl sm:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#B8860B] tracking-tight">
+              <div className="text-4xl sm:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F7DE9C] via-[#EFC45C] to-[#C99824] tracking-tight drop-shadow-sm">
                 <span>99.8%</span>
               </div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-300"><span>SUCCESS APPROVAL</span></div>
+              <div className="text-xs font-bold uppercase tracking-wider text-white"><span>SUCCESS APPROVAL</span></div>
               <div className="text-[11px] text-slate-400"><span>Flawless compliance record</span></div>
             </div>
           </div>
@@ -80,7 +80,7 @@ export default function SocialProof() {
               />
               <div>
                 <div className="font-display font-bold text-sm text-white"><span>Sir Arthur James Montgomery</span></div>
-                <div className="text-xs text-slate-400"><span>Managing Director • Sovereign Global Capital Ltd</span></div>
+                <div className="text-xs text-text-muted"><span>Managing Director • Sovereign Global Capital Ltd</span></div>
               </div>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function SocialProof() {
           <div className="bg-[#121417] border border-white/20 rounded-[10px] p-6 max-w-xl w-full text-white space-y-4 relative">
             <button 
               onClick={() => setActiveVideo(null)}
-              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white cursor-pointer"
+              className="absolute top-4 right-4 p-2 text-text-muted hover:text-white cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>

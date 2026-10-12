@@ -88,7 +88,7 @@ export default function LocationsEditor({ cmsConfig, setCmsConfig }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Locations & Centres Directory
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Configure official GDRFA, ICP, DHA, and Amer center directory listings across the UAE.
             </p>
           </div>
@@ -110,7 +110,7 @@ export default function LocationsEditor({ cmsConfig, setCmsConfig }) {
       )}
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap gap-2 bg-surface/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
         {tabsList.map((t) => {
           const Icon = t.icon;
           const isActive = activeTab === t.id;
@@ -122,7 +122,7 @@ export default function LocationsEditor({ cmsConfig, setCmsConfig }) {
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
                 isActive 
                   ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-lg shadow-amber-500/20' 
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-text-muted hover:text-white hover:bg-surface/60'
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -136,22 +136,22 @@ export default function LocationsEditor({ cmsConfig, setCmsConfig }) {
 
         {/* PAGE HEADER TAB */}
         {activeTab === 'header' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
               <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400"><MapPin className="w-6 h-6" /></div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">Locations Page Header</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit headline and description for government centres directory</p>
+                <p className="text-text-muted text-xs mt-0.5">Edit headline and description for government centres directory</p>
               </div>
             </div>
             <div className="space-y-5">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-2">Page Headline</label>
-                <input type="text" value={headline} onChange={(e) => setHeadline(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={headline} onChange={(e) => setHeadline(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-2">Page Description</label>
-                <textarea rows={3} value={subtext} onChange={(e) => setSubtext(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50" />
+                <textarea rows={3} value={subtext} onChange={(e) => setSubtext(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50" />
               </div>
             </div>
           </div>
@@ -159,49 +159,49 @@ export default function LocationsEditor({ cmsConfig, setCmsConfig }) {
 
         {/* LOCATIONS LIST TAB */}
         {activeTab === 'locations' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
               <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400"><Building2 className="w-6 h-6" /></div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">Government Service Centres ({locations.length})</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Add, edit, or remove GDRFA, ICP, DHA, and Amer centers</p>
+                <p className="text-text-muted text-xs mt-0.5">Add, edit, or remove GDRFA, ICP, DHA, and Amer centers</p>
               </div>
             </div>
             <div className="space-y-4">
               {locations.map((loc, idx) => (
-                <div key={loc.id} className="p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl space-y-4">
+                <div key={loc.id} className="p-5 bg-surface/80 border border-slate-800/80 rounded-xl space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono font-bold text-amber-400">LOCATION #{idx + 1} — {loc.city}</span>
                     <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); removeLocation(idx); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer" title="Remove Location"><Trash2 className="w-3.5 h-3.5" /></button>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input type="text" value={loc.name} onChange={(e) => updateLocation(idx, 'name', e.target.value)} placeholder="Centre Name" className="bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-2.5 text-white text-xs font-bold sm:col-span-2" />
-                    <select value={loc.city} onChange={(e) => updateLocation(idx, 'city', e.target.value)} className="bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-2.5 text-white text-xs cursor-pointer">
+                    <input type="text" value={loc.name} onChange={(e) => updateLocation(idx, 'name', e.target.value)} placeholder="Centre Name" className="bg-surface border border-slate-700/60 rounded-xl px-4 py-2.5 text-white text-xs font-bold sm:col-span-2" />
+                    <select value={loc.city} onChange={(e) => updateLocation(idx, 'city', e.target.value)} className="bg-surface border border-slate-700/60 rounded-xl px-4 py-2.5 text-white text-xs cursor-pointer">
                       <option value="Dubai">Dubai</option>
                       <option value="Abu Dhabi">Abu Dhabi</option>
                       <option value="Sharjah">Sharjah</option>
                       <option value="Ajman">Ajman</option>
                     </select>
-                    <select value={loc.category} onChange={(e) => updateLocation(idx, 'category', e.target.value)} className="bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-2.5 text-white text-xs cursor-pointer">
+                    <select value={loc.category} onChange={(e) => updateLocation(idx, 'category', e.target.value)} className="bg-surface border border-slate-700/60 rounded-xl px-4 py-2.5 text-white text-xs cursor-pointer">
                       <option value="Happiness Centre">Happiness Centre</option>
                       <option value="Medical Centre">Medical Centre</option>
                       <option value="Amer Centre">Amer Centre</option>
                     </select>
-                    <input type="text" value={loc.authority} onChange={(e) => updateLocation(idx, 'authority', e.target.value)} placeholder="Authority" className="bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-2.5 text-slate-300 text-xs" />
-                    <input type="text" value={loc.address} onChange={(e) => updateLocation(idx, 'address', e.target.value)} placeholder="Full Address" className="bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-2.5 text-slate-300 text-xs sm:col-span-2" />
-                    <input type="text" value={loc.landmark} onChange={(e) => updateLocation(idx, 'landmark', e.target.value)} placeholder="Landmark" className="bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-2.5 text-slate-400 text-xs" />
-                    <input type="text" value={loc.hours} onChange={(e) => updateLocation(idx, 'hours', e.target.value)} placeholder="Working Hours" className="bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-2.5 text-slate-300 text-xs" />
-                    <input type="text" value={loc.phone} onChange={(e) => updateLocation(idx, 'phone', e.target.value)} placeholder="Phone" className="bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-2.5 text-white font-mono text-xs" />
-                    <div className="flex items-center gap-3 p-3 bg-slate-900 border border-slate-700/60 rounded-xl">
+                    <input type="text" value={loc.authority} onChange={(e) => updateLocation(idx, 'authority', e.target.value)} placeholder="Authority" className="bg-surface border border-slate-700/60 rounded-xl px-4 py-2.5 text-slate-300 text-xs" />
+                    <input type="text" value={loc.address} onChange={(e) => updateLocation(idx, 'address', e.target.value)} placeholder="Full Address" className="bg-surface border border-slate-700/60 rounded-xl px-4 py-2.5 text-slate-300 text-xs sm:col-span-2" />
+                    <input type="text" value={loc.landmark} onChange={(e) => updateLocation(idx, 'landmark', e.target.value)} placeholder="Landmark" className="bg-surface border border-slate-700/60 rounded-xl px-4 py-2.5 text-text-muted text-xs" />
+                    <input type="text" value={loc.hours} onChange={(e) => updateLocation(idx, 'hours', e.target.value)} placeholder="Working Hours" className="bg-surface border border-slate-700/60 rounded-xl px-4 py-2.5 text-slate-300 text-xs" />
+                    <input type="text" value={loc.phone} onChange={(e) => updateLocation(idx, 'phone', e.target.value)} placeholder="Phone" className="bg-surface border border-slate-700/60 rounded-xl px-4 py-2.5 text-white font-mono text-xs" />
+                    <div className="flex items-center gap-3 p-3 bg-surface border border-slate-700/60 rounded-xl">
                       <label className="text-xs text-slate-300 font-semibold">VIP Fast-Track Escort Badge:</label>
-                      <button type="button" onClick={() => updateLocation(idx, 'isVip', !loc.isVip)} className={`w-10 h-5 rounded-full p-0.5 transition-colors ${loc.isVip ? 'bg-amber-500' : 'bg-slate-700'}`}>
+                      <button type="button" onClick={() => updateLocation(idx, 'isVip', !loc.isVip)} className={`w-10 h-5 rounded-full p-0.5 transition-colors ${loc.isVip ? 'bg-amber-500' : 'bg-surface'}`}>
                         <div className={`w-4 h-4 bg-black rounded-full shadow transition-transform ${loc.isVip ? 'translate-x-5' : 'translate-x-0'}`} />
                       </button>
                     </div>
                   </div>
                 </div>
               ))}
-              <button type="button" onClick={addLocation} className="w-full py-3 rounded-xl border border-dashed border-slate-700 text-slate-400 font-semibold text-xs hover:border-amber-500/50 hover:text-amber-400 transition-colors flex items-center justify-center gap-2 cursor-pointer">
+              <button type="button" onClick={addLocation} className="w-full py-3 rounded-xl border border-dashed border-slate-700 text-text-muted font-semibold text-xs hover:border-amber-500/50 hover:text-amber-400 transition-colors flex items-center justify-center gap-2 cursor-pointer">
                 <Plus className="w-4 h-4" /> Add New Location
               </button>
             </div>
@@ -210,26 +210,26 @@ export default function LocationsEditor({ cmsConfig, setCmsConfig }) {
 
         {/* VIP ESCORT CTA TAB */}
         {activeTab === 'cta' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
               <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400"><ShieldCheck className="w-6 h-6" /></div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">VIP PRO Concierge Escort Banner</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit escort service call-to-action details</p>
+                <p className="text-text-muted text-xs mt-0.5">Edit escort service call-to-action details</p>
               </div>
             </div>
             <div className="space-y-5">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-2">CTA Title</label>
-                <input type="text" value={ctaTitle} onChange={(e) => setCtaTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={ctaTitle} onChange={(e) => setCtaTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-2">CTA Description</label>
-                <textarea rows={3} value={ctaDesc} onChange={(e) => setCtaDesc(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50" />
+                <textarea rows={3} value={ctaDesc} onChange={(e) => setCtaDesc(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-2">Button Text</label>
-                <input type="text" value={ctaBtn} onChange={(e) => setCtaBtn(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-semibold text-xs focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={ctaBtn} onChange={(e) => setCtaBtn(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-semibold text-xs focus:outline-none focus:border-amber-500/50" />
               </div>
             </div>
           </div>

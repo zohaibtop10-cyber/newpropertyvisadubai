@@ -44,7 +44,7 @@ export default function BottomCTA({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-slate-400 text-base sm:text-lg font-medium leading-relaxed max-w-2xl mx-auto font-sans"
+          className="text-text-muted text-base sm:text-lg font-medium leading-relaxed max-w-2xl mx-auto font-sans"
         >
           {subtext}
         </motion.p>

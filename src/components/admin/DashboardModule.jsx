@@ -37,7 +37,7 @@ export default function DashboardModule({ onNavigateModule }) {
       <motion.div
         {...fadeUp}
         transition={{ duration: 0.4 }}
-        className="relative rounded-[14px] overflow-hidden border border-[#D4AF37]/15 bg-gradient-to-br from-[#D4AF37]/8 via-[#8C5E00]/4 to-transparent p-7"
+        className="relative rounded-[12px] overflow-hidden border border-[#D4AF37]/15 bg-gradient-to-br from-[#D4AF37]/8 via-[#8C5E00]/4 to-transparent p-7"
       >
         {/* Decorative glow */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/8 rounded-full blur-[80px] pointer-events-none" />
@@ -46,7 +46,7 @@ export default function DashboardModule({ onNavigateModule }) {
             <div>
               <p className="text-[#D4AF37]/70 text-xs font-mono uppercase tracking-widest mb-1">{greeting} 👋</p>
               <h2 className="font-bold text-2xl text-white leading-tight">Welcome to the CMS</h2>
-              <p className="text-slate-400 text-sm mt-1.5 max-w-lg">
+              <p className="text-text-muted text-sm mt-1.5 max-w-lg">
                 Every element of your website is editable here. Changes sync to Firebase in real-time — no redeployment needed.
               </p>
             </div>
@@ -74,7 +74,7 @@ export default function DashboardModule({ onNavigateModule }) {
               </div>
               <div>
                 <div className={`text-lg font-extrabold ${stat.color} leading-none`}>{stat.value}</div>
-                <div className="text-xs text-slate-500 mt-0.5">{stat.label}</div>
+                <div className="text-xs text-text-muted mt-0.5">{stat.label}</div>
               </div>
             </motion.div>
           );
@@ -85,7 +85,7 @@ export default function DashboardModule({ onNavigateModule }) {
       <div>
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bold text-base text-white">Quick Access</h3>
-          <span className="text-xs text-slate-600 font-mono">Most used editors</span>
+          <span className="text-xs text-text-muted font-mono">Most used editors</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {QUICK_LINKS.map((link, i) => {
@@ -98,17 +98,17 @@ export default function DashboardModule({ onNavigateModule }) {
                 onClick={() => onNavigateModule(link.id)}
                 whileHover={{ y: -2, transition: { duration: 0.15 } }}
                 whileTap={{ scale: 0.98 }}
-                className={`text-left p-5 rounded-[12px] border ${link.border} bg-gradient-to-br ${link.color} hover:bg-white/3 transition-all cursor-pointer group relative overflow-hidden`}
+                className={`text-left p-5 rounded-[12px] border ${link.border} bg-gradient-to-br ${link.color} hover:bg-surface/3 transition-all cursor-pointer group relative overflow-hidden`}
               >
                 <div className="flex items-start justify-between gap-3">
-                  <div className={`p-2.5 rounded-[10px] bg-white/5 ${link.text}`}>
+                  <div className={`p-2.5 rounded-[10px] bg-surface/5 ${link.text}`}>
                     <Icon className="w-5 h-5" />
                   </div>
                   <ArrowRight className={`w-4 h-4 ${link.text} opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all`} />
                 </div>
                 <div className="mt-4">
                   <div className={`text-sm font-bold ${link.text} leading-tight`}>{link.label}</div>
-                  <div className="text-xs text-slate-500 mt-1">{link.desc}</div>
+                  <div className="text-xs text-text-muted mt-1">{link.desc}</div>
                 </div>
               </motion.button>
             );
@@ -120,9 +120,9 @@ export default function DashboardModule({ onNavigateModule }) {
       <motion.div {...fadeUp} transition={{ duration: 0.4, delay: 0.5 }}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bold text-base text-white">All CMS Modules</h3>
-          <span className="text-xs text-slate-600 font-mono">18 modules total</span>
+          <span className="text-xs text-text-muted font-mono">18 modules total</span>
         </div>
-        <div className="bg-[#0d0f13] border border-white/6 rounded-[14px] overflow-hidden">
+        <div className="bg-[#0d0f13] border border-white/6 rounded-[12px] overflow-hidden">
           {[
             { id: 'homepage', label: 'Homepage Hero', group: 'Homepage' },
             { id: 'achievements', label: 'Achievements & Awards', group: 'Homepage' },
@@ -146,15 +146,15 @@ export default function DashboardModule({ onNavigateModule }) {
             <button
               key={mod.id}
               onClick={() => onNavigateModule(mod.id)}
-              className={`w-full flex items-center justify-between px-5 py-3.5 hover:bg-white/3 transition-colors cursor-pointer group text-left ${i < 17 ? 'border-b border-white/4' : ''}`}
+              className={`w-full flex items-center justify-between px-5 py-3.5 hover:bg-surface/3 transition-colors cursor-pointer group text-left ${i < 17 ? 'border-b border-white/4' : ''}`}
             >
               <div className="flex items-center gap-3">
-                <Edit3 className="w-3.5 h-3.5 text-slate-700 group-hover:text-[#D4AF37] transition-colors" />
-                <span className="text-sm text-slate-400 group-hover:text-white transition-colors font-medium">{mod.label}</span>
+                <Edit3 className="w-3.5 h-3.5 text-text group-hover:text-[#D4AF37] transition-colors" />
+                <span className="text-sm text-text-muted group-hover:text-white transition-colors font-medium">{mod.label}</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-[10px] font-mono text-slate-700 uppercase">{mod.group}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-700 group-hover:text-[#D4AF37] group-hover:translate-x-0.5 transition-all" />
+                <span className="text-[10px] font-mono text-text uppercase">{mod.group}</span>
+                <ArrowRight className="w-3.5 h-3.5 text-text group-hover:text-[#D4AF37] group-hover:translate-x-0.5 transition-all" />
               </div>
             </button>
           ))}

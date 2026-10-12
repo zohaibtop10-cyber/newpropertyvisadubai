@@ -103,7 +103,7 @@ export default function IloeInsurancePage() {
                   INSTANT REGISTRATION PORTAL
                 </span>
                 <h3 className="text-xl font-extrabold text-white">Generate ILOE Certificate</h3>
-                <p className="text-xs text-slate-400 mt-1">Instant registration without complex paperwork.</p>
+                <p className="text-xs text-text-muted mt-1">Instant registration without complex paperwork.</p>
               </div>
 
               {submitted ? (
@@ -153,7 +153,7 @@ export default function IloeInsurancePage() {
                         className={`p-3 text-xs font-bold rounded-[10px] border transition-all text-left ${
                           salaryBracket === 'below16k' 
                             ? 'bg-brand-goldBg text-black border-brand-goldBg font-black' 
-                            : 'bg-[#050505] border-white/10 text-slate-400'
+                            : 'bg-[#050505] border-white/10 text-text-muted'
                         }`}
                       >
                         <div>Category A</div>
@@ -166,7 +166,7 @@ export default function IloeInsurancePage() {
                         className={`p-3 text-xs font-bold rounded-[10px] border transition-all text-left ${
                           salaryBracket === 'above16k' 
                             ? 'bg-brand-goldBg text-black border-brand-goldBg font-black' 
-                            : 'bg-[#050505] border-white/10 text-slate-400'
+                            : 'bg-[#050505] border-white/10 text-text-muted'
                         }`}
                       >
                         <div>Category B</div>
@@ -184,7 +184,7 @@ export default function IloeInsurancePage() {
                         type="button"
                         onClick={() => setPolicyPeriod('1year')}
                         className={`p-2.5 text-xs font-bold rounded-[10px] border text-center transition-all ${
-                          policyPeriod === '1year' ? 'bg-brand-goldBg text-black border-brand-goldBg' : 'bg-[#050505] border-white/10 text-slate-400'
+                          policyPeriod === '1year' ? 'bg-brand-goldBg text-black border-brand-goldBg' : 'bg-[#050505] border-white/10 text-text-muted'
                         }`}
                       >
                         1 Year Policy
@@ -193,7 +193,7 @@ export default function IloeInsurancePage() {
                         type="button"
                         onClick={() => setPolicyPeriod('2year')}
                         className={`p-2.5 text-xs font-bold rounded-[10px] border text-center transition-all ${
-                          policyPeriod === '2year' ? 'bg-brand-goldBg text-black border-brand-goldBg' : 'bg-[#050505] border-white/10 text-slate-400'
+                          policyPeriod === '2year' ? 'bg-brand-goldBg text-black border-brand-goldBg' : 'bg-[#050505] border-white/10 text-text-muted'
                         }`}
                       >
                         2 Year Policy (Recommended)
@@ -227,7 +227,7 @@ export default function IloeInsurancePage() {
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
               Official ILOE Salary Tiers & Compensation Limits
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+            <p className="text-xs sm:text-sm text-text-muted max-w-xl mx-auto">
               Federal law categorizes all workers based on basic salary declared on the MOHRE / Freezone employment contract.
             </p>
           </div>
@@ -242,15 +242,15 @@ export default function IloeInsurancePage() {
                   <h3 className="text-2xl font-black text-white mt-1">Basic Salary ≤ AED 16,000</h3>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-black text-brand-goldText font-mono">AED 5<span className="text-xs font-normal text-slate-400">/month</span></div>
-                  <div className="text-[10px] text-slate-400 font-mono">AED 60 Annually + VAT</div>
+                  <div className="text-2xl font-black text-brand-goldText font-mono">AED 5<span className="text-xs font-normal text-text-muted">/month</span></div>
+                  <div className="text-[10px] text-text-muted font-mono">AED 60 Annually + VAT</div>
                 </div>
               </div>
 
               <div className="p-4 bg-[#050505] border border-white/10 rounded-[10px] space-y-2">
                 <div className="text-xs font-bold text-white">Maximum Monthly Compensation:</div>
                 <div className="text-xl font-black text-emerald-400 font-mono">Up to AED 10,000 / Month</div>
-                <p className="text-[11px] text-slate-400">Payout: 60% of average basic salary for max 3 consecutive months per claim.</p>
+                <p className="text-[11px] text-text-muted">Payout: 60% of average basic salary for max 3 consecutive months per claim.</p>
               </div>
 
               <ul className="space-y-3 text-xs text-slate-300">
@@ -268,15 +268,15 @@ export default function IloeInsurancePage() {
                   <h3 className="text-2xl font-black text-white mt-1">Basic Salary &gt; AED 16,000</h3>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-black text-brand-goldText font-mono">AED 10<span className="text-xs font-normal text-slate-400">/month</span></div>
-                  <div className="text-[10px] text-slate-400 font-mono">AED 120 Annually + VAT</div>
+                  <div className="text-2xl font-black text-brand-goldText font-mono">AED 10<span className="text-xs font-normal text-text-muted">/month</span></div>
+                  <div className="text-[10px] text-text-muted font-mono">AED 120 Annually + VAT</div>
                 </div>
               </div>
 
               <div className="p-4 bg-[#050505] border border-brand-goldBg/30 rounded-[10px] space-y-2">
                 <div className="text-xs font-bold text-white">Maximum Monthly Compensation:</div>
                 <div className="text-xl font-black text-emerald-400 font-mono">Up to AED 20,000 / Month</div>
-                <p className="text-[11px] text-slate-400">Payout: 60% of average basic salary for max 3 consecutive months per claim.</p>
+                <p className="text-[11px] text-text-muted">Payout: 60% of average basic salary for max 3 consecutive months per claim.</p>
               </div>
 
               <ul className="space-y-3 text-xs text-slate-300">
@@ -301,7 +301,7 @@ export default function IloeInsurancePage() {
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
               ILOE Compensation Claim Eligibility Requirements
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+            <p className="text-xs sm:text-sm text-text-muted max-w-xl mx-auto">
               Understand the 3 core legal conditions required to receive monthly cash compensation in case of job loss.
             </p>
           </div>
@@ -313,7 +313,7 @@ export default function IloeInsurancePage() {
                 01
               </div>
               <h3 className="text-lg font-bold text-white">12-Month Consecutive Subscription</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 The employee must have been actively subscribed to the ILOE policy for at least 12 uninterrupted consecutive months without payment breaks prior to job termination.
               </p>
             </div>
@@ -323,7 +323,7 @@ export default function IloeInsurancePage() {
                 02
               </div>
               <h3 className="text-lg font-bold text-white">Involuntary Non-Disciplinary Termination</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 Coverage applies strictly to involuntary loss of employment (redundancy or company restructuring). Resignation or termination under Article 44 (disciplinary grounds) is excluded.
               </p>
             </div>
@@ -333,7 +333,7 @@ export default function IloeInsurancePage() {
                 03
               </div>
               <h3 className="text-lg font-bold text-white">30-Day Filing & Legal UAE Residence</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 Claims must be formally submitted within 30 days from employment termination date. The applicant must maintain legal residency in the UAE during the claim payout period.
               </p>
             </div>

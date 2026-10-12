@@ -119,14 +119,14 @@ function PricingGrid({ pricingTiers, title }) {
   return (
     <section className="py-20 px-5 sm:px-8 lg:px-12 max-w-7xl mx-auto space-y-12">
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-white/5 border border-white/10 text-[#D4AF37]">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-surface/5 border border-white/10 text-[#D4AF37]">
           <Award className="w-4 h-4" />
           <span>TRANSPARENT GDRFA PRICING</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
           <span>Official {title} Packages</span>
         </h2>
-        <p className="text-slate-400 text-sm max-w-xl mx-auto font-medium">
+        <p className="text-text-muted text-sm max-w-xl mx-auto font-medium">
           <span>No hidden fees. Government typing, medical screening, and Emirates ID fees included.</span>
         </p>
       </div>
@@ -158,12 +158,12 @@ function PricingGrid({ pricingTiers, title }) {
                   <span>{tier.price}</span>
                 </span>
                 {tier.originalPrice && (
-                  <span className="text-sm font-mono line-through text-slate-500">
+                  <span className="text-sm font-mono line-through text-text-muted">
                     <span>{tier.originalPrice}</span>
                   </span>
                 )}
                 {tier.billingPeriod && (
-                  <span className="text-xs text-slate-400 font-medium">
+                  <span className="text-xs text-text-muted font-medium">
                     <span>/ {tier.billingPeriod}</span>
                   </span>
                 )}
@@ -207,7 +207,7 @@ function ProcessTimeline({ processSteps }) {
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
             <span>How Your Visa Is Processed</span>
           </h2>
-          <p className="text-slate-400 text-sm max-w-xl mx-auto font-medium">
+          <p className="text-text-muted text-sm max-w-xl mx-auto font-medium">
             <span>Seamless 4-step execution managed entirely by our accredited Public Relations Officers.</span>
           </p>
         </div>
@@ -216,7 +216,7 @@ function ProcessTimeline({ processSteps }) {
           {processSteps.map((step) => (
             <div
               key={step.stepNumber}
-              className="p-6 rounded-[10px] bg-white/[0.03] border border-white/10 hover:border-[#D4AF37]/40 transition-all space-y-4 relative group"
+              className="p-6 rounded-[10px] bg-surface/[0.03] border border-white/10 hover:border-[#D4AF37]/40 transition-all space-y-4 relative group"
             >
               <div className="flex items-center justify-between">
                 <span className="w-10 h-10 rounded-[10px] bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] font-mono font-extrabold text-sm flex items-center justify-center">
@@ -233,7 +233,7 @@ function ProcessTimeline({ processSteps }) {
                 <span>{step.title}</span>
               </h3>
 
-              <p className="text-xs text-slate-400 leading-relaxed font-medium">
+              <p className="text-xs text-text-muted leading-relaxed font-medium">
                 <span>{step.description}</span>
               </p>
             </div>
@@ -254,7 +254,7 @@ function FAQSection({ faqs }) {
         <h2 className="text-3xl font-black text-white tracking-tight">
           <span>Frequently Asked Questions</span>
         </h2>
-        <p className="text-slate-400 text-xs font-mono uppercase tracking-wider">
+        <p className="text-text-muted text-xs font-mono uppercase tracking-wider">
           <span>Official GDRFA Rules & Regulations</span>
         </p>
       </div>
@@ -318,7 +318,7 @@ function DynamicCTAButton({ cta, fullWidth = false }) {
   return (
     <a
       href={cta.url}
-      className={`${baseClasses} bg-white/10 border border-white/15 text-white hover:bg-white/20`}
+      className={`${baseClasses} bg-surface/10 border border-white/15 text-white hover:bg-surface/20`}
     >
       <span>{cta.label}</span>
       <ChevronRight className="w-4 h-4 text-[#D4AF37]" />

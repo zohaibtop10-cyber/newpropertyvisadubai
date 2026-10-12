@@ -121,7 +121,7 @@ export default function AmerCenterServicesPage() {
                   LIVE GDRFA PORTAL STATUS
                 </span>
                 <h3 className="text-xl font-extrabold text-white">Track Your GDRFA Application</h3>
-                <p className="text-xs text-slate-400 mt-1">Enter your application reference or transaction number.</p>
+                <p className="text-xs text-text-muted mt-1">Enter your application reference or transaction number.</p>
               </div>
 
               <form onSubmit={handleTrackSubmit} className="space-y-4">
@@ -135,7 +135,7 @@ export default function AmerCenterServicesPage() {
                       value={trackingNumber}
                       onChange={(e) => setTrackingNumber(e.target.value)}
                       placeholder="e.g. GDRFA-2026-98412X or 201/2026/..."
-                      className="w-full bg-[#050505] border border-white/10 rounded-[10px] pl-4 pr-10 py-3.5 text-white text-xs font-mono focus:border-brand-goldBg focus:outline-none placeholder:text-slate-600"
+                      className="w-full bg-[#050505] border border-white/10 rounded-[10px] pl-4 pr-10 py-3.5 text-white text-xs font-mono focus:border-brand-goldBg focus:outline-none placeholder:text-text-muted"
                     />
                     <Search className="w-4 h-4 text-brand-goldText absolute right-3.5 top-1/2 -translate-y-1/2" />
                   </div>
@@ -158,20 +158,20 @@ export default function AmerCenterServicesPage() {
               {trackingResult && (
                 <div className="p-4 bg-[#050505] border border-brand-goldBg/40 rounded-[10px] space-y-2 font-mono animate-fadeIn">
                   <div className="flex items-center justify-between text-xs border-b border-white/10 pb-2">
-                    <span className="text-slate-400">Ref: {trackingResult.ref}</span>
+                    <span className="text-text-muted">Ref: {trackingResult.ref}</span>
                     <span className="text-emerald-400 font-bold flex items-center gap-1">
                       <BadgeCheck className="w-3.5 h-3.5" />
                       {trackingResult.status}
                     </span>
                   </div>
                   <div className="text-[11px] text-slate-300 pt-1">
-                    <div><span className="text-slate-500">Service:</span> {trackingResult.type}</div>
-                    <div><span className="text-slate-500">Last Updated:</span> {trackingResult.date}</div>
+                    <div><span className="text-text-muted">Service:</span> {trackingResult.type}</div>
+                    <div><span className="text-text-muted">Last Updated:</span> {trackingResult.date}</div>
                   </div>
                 </div>
               )}
 
-              <div className="pt-2 flex items-center justify-between text-[11px] text-slate-400 border-t border-white/5 font-mono">
+              <div className="pt-2 flex items-center justify-between text-[11px] text-text-muted border-t border-white/5 font-mono">
                 <span className="flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-brand-goldText" /> Encrypted Direct Typing
                 </span>
@@ -202,7 +202,7 @@ export default function AmerCenterServicesPage() {
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
               Official Amer & Immigration Services Grid
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+            <p className="text-xs sm:text-sm text-text-muted max-w-xl mx-auto">
               Every GDRFA transaction typed with guaranteed accuracy and submitted directly to Dubai Immigration.
             </p>
           </div>
@@ -217,7 +217,7 @@ export default function AmerCenterServicesPage() {
               <h3 className="text-lg font-bold text-white group-hover:text-brand-goldText transition-colors">
                 Entry Permits (Work/Visit)
               </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 Urgent digital typing for employment entry permits, family visit visas, and investor initial entry approvals.
               </p>
               <div className="pt-2 text-[11px] font-mono text-brand-goldText font-bold">
@@ -233,7 +233,7 @@ export default function AmerCenterServicesPage() {
               <h3 className="text-lg font-bold text-white group-hover:text-brand-goldText transition-colors">
                 Change of Status (Inside Country)
               </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 Seamless in-country visa status modification without border runs or airport exit requirements.
               </p>
               <div className="pt-2 text-[11px] font-mono text-brand-goldText font-bold">
@@ -249,7 +249,7 @@ export default function AmerCenterServicesPage() {
               <h3 className="text-lg font-bold text-white group-hover:text-brand-goldText transition-colors">
                 Visa Stamping / Renewal
               </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 Residency visa electronic approval, medical fitness link integration, and Emirates ID renewal typing.
               </p>
               <div className="pt-2 text-[11px] font-mono text-brand-goldText font-bold">
@@ -265,7 +265,7 @@ export default function AmerCenterServicesPage() {
               <h3 className="text-lg font-bold text-white group-hover:text-brand-goldText transition-colors">
                 Visa Cancellation & Clearance
               </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-text-muted leading-relaxed">
                 Fast employee or dependent visa cancellation typing with official GDRFA clearance & departure advice.
               </p>
               <div className="pt-2 text-[11px] font-mono text-brand-goldText font-bold">
@@ -288,7 +288,7 @@ export default function AmerCenterServicesPage() {
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
               The "VIP Amer Experience" vs. Physical Typing Centers
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+            <p className="text-xs sm:text-sm text-text-muted max-w-xl mx-auto">
               Why leading UAE corporations and residents choose our digital platform over manual counter visits.
             </p>
           </div>
@@ -305,7 +305,7 @@ export default function AmerCenterServicesPage() {
                 <XCircle className="w-6 h-6 text-red-400 shrink-0" />
               </div>
 
-              <ul className="space-y-4 text-xs text-slate-400">
+              <ul className="space-y-4 text-xs text-text-muted">
                 <li className="flex items-start gap-3">
                   <XCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
                   <span>Physical queueing & long wait times (1 to 3 hours spent at counter).</span>
@@ -374,7 +374,7 @@ export default function AmerCenterServicesPage() {
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
               Official GDRFA Fee Invoice Breakdown
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400">
+            <p className="text-xs sm:text-sm text-text-muted">
               No hidden surcharges. Itemized digital receipt of official Dubai GDRFA government fees.
             </p>
           </div>
@@ -420,7 +420,7 @@ export default function AmerCenterServicesPage() {
               <span className="text-xl text-brand-goldText font-black">AED 1,865.00</span>
             </div>
 
-            <p className="text-[11px] text-slate-500 mt-4 leading-relaxed">
+            <p className="text-[11px] text-text-muted mt-4 leading-relaxed">
               *Note: GDRFA transaction fees are established by Dubai General Directorate of Residency and Foreigners Affairs and are subject to official government portal updates.
             </p>
           </div>
@@ -439,7 +439,7 @@ export default function AmerCenterServicesPage() {
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
               Document Pre-Audit Concierge
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400">
+            <p className="text-xs sm:text-sm text-text-muted">
               Upload your documents below or send via WhatsApp for immediate typing verification.
             </p>
           </div>
@@ -463,7 +463,7 @@ export default function AmerCenterServicesPage() {
                   <UploadCloud className="w-8 h-8 text-brand-goldText mx-auto mb-2" />
                 )}
                 <div className="text-xs font-bold text-white mb-1">Passport & UID Page</div>
-                <p className="text-[10px] text-slate-400">PDF or JPG (Min 6 months validity)</p>
+                <p className="text-[10px] text-text-muted">PDF or JPG (Min 6 months validity)</p>
                 <div className="mt-3 text-[10px] font-mono text-brand-goldText font-bold">
                   {uploadedFiles.passport ? '✓ Document Loaded' : '+ Click to Select'}
                 </div>
@@ -484,7 +484,7 @@ export default function AmerCenterServicesPage() {
                   <UploadCloud className="w-8 h-8 text-brand-goldText mx-auto mb-2" />
                 )}
                 <div className="text-xs font-bold text-white mb-1">Sponsor Emirates ID</div>
-                <p className="text-[10px] text-slate-400">Front & Back scan copy</p>
+                <p className="text-[10px] text-text-muted">Front & Back scan copy</p>
                 <div className="mt-3 text-[10px] font-mono text-brand-goldText font-bold">
                   {uploadedFiles.uid ? '✓ Document Loaded' : '+ Click to Select'}
                 </div>
@@ -505,7 +505,7 @@ export default function AmerCenterServicesPage() {
                   <UploadCloud className="w-8 h-8 text-brand-goldText mx-auto mb-2" />
                 )}
                 <div className="text-xs font-bold text-white mb-1">Passport Photo</div>
-                <p className="text-[10px] text-slate-400">High-res white background photo</p>
+                <p className="text-[10px] text-text-muted">High-res white background photo</p>
                 <div className="mt-3 text-[10px] font-mono text-brand-goldText font-bold">
                   {uploadedFiles.sponsorEid ? '✓ Document Loaded' : '+ Click to Select'}
                 </div>
@@ -514,7 +514,7 @@ export default function AmerCenterServicesPage() {
             </div>
 
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10">
-              <div className="flex items-center gap-2 text-xs text-slate-400">
+              <div className="flex items-center gap-2 text-xs text-text-muted">
                 <Lock className="w-4 h-4 text-brand-goldText shrink-0" />
                 <span>Encrypted transmission directly to our GDRFA Typing Specialist.</span>
               </div>

@@ -3,7 +3,7 @@ import { Building2, Award, Landmark, ShieldAlert, Sparkles, ArrowRight, Check } 
 
 export default function Services() {
   return (
-    <section id="services" className="bg-[var(--bg-surface)] text-content-primary py-20 px-4 sm:px-6 lg:px-8 font-sans border-b border-border-subtle">
+    <section id="services" className="bg-[var(--bg-surface)] text-text py-20 px-4 sm:px-6 lg:px-8 font-sans border-b border-border-subtle">
       <div className="max-w-7xl mx-auto">
         {/* Section Eyebrow & Title */}
         <div className="mb-14">
@@ -11,7 +11,7 @@ export default function Services() {
             <span className="w-2 h-2 rounded-full bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)]" />
             END-TO-END CORPORATE SERVICES
           </div>
-          <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-content-primary tracking-tight max-w-3xl">
+          <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-text tracking-tight max-w-3xl">
             Full Lifecycle Advisory Under UAE Jurisdiction
           </h2>
           <p className="text-content-muted text-sm sm:text-base max-w-3xl mt-3 leading-relaxed">
@@ -28,17 +28,17 @@ export default function Services() {
                 <div className="w-12 h-12 rounded-xl bg-brand-primary/10 border border-brand-primary flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                   <Building2 className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-mono font-bold text-slate-400">01 / INCORPORATION</span>
+                <span className="text-xs font-mono font-bold text-text-muted">01 / INCORPORATION</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
+              <h3 className="text-xl font-display font-bold text-text mb-3 group-hover:text-[#D4AF37] transition-colors">
                 Company Formation Architecture
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">
                 Seamless structure setup for 100% foreign-owned entities across DIFC, ADGM, Free Zones, and UAE Mainland.
               </p>
 
-              <ul className="space-y-2.5 mb-6 text-xs text-content-secondary font-medium">
+              <ul className="space-y-2.5 mb-6 text-xs text-text-muted font-medium">
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-brand-primary shrink-0" />
                   <span>All Types of Legal Structures</span>
@@ -67,17 +67,17 @@ export default function Services() {
                 <div className="w-12 h-12 rounded-xl bg-brand-primary/10 border border-brand-primary flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                   <Award className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-mono font-bold text-slate-400">02 / IMMIGRATION</span>
+                <span className="text-xs font-mono font-bold text-text-muted">02 / IMMIGRATION</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
+              <h3 className="text-xl font-display font-bold text-text mb-3 group-hover:text-[#D4AF37] transition-colors">
                 10-Year Golden Visa Services
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">
                 Expedited residency processing for investors, executives, tech founders, and real estate holders.
               </p>
 
-              <ul className="space-y-2.5 mb-6 text-xs text-content-secondary font-medium">
+              <ul className="space-y-2.5 mb-6 text-xs text-text-muted font-medium">
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-brand-primary shrink-0" />
                   <span>Golden Visa Processing & Medical VIP</span>
@@ -106,17 +106,17 @@ export default function Services() {
                 <div className="w-12 h-12 rounded-xl bg-brand-primary/10 border border-brand-primary flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                   <Landmark className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-mono font-bold text-slate-400">03 / BANKING</span>
+                <span className="text-xs font-mono font-bold text-text-muted">03 / BANKING</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
+              <h3 className="text-xl font-display font-bold text-text mb-3 group-hover:text-[#D4AF37] transition-colors">
                 Private & VIP Commercial Banking
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">
                 Direct relationships with Tier-1 UAE & international banks for corporate accounts and wealth management.
               </p>
 
-              <ul className="space-y-2.5 mb-6 text-xs text-content-secondary font-medium">
+              <ul className="space-y-2.5 mb-6 text-xs text-text-muted font-medium">
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-brand-primary shrink-0" />
                   <span>Direct Introductions with Senior Officers</span>
@@ -148,10 +148,10 @@ export default function Services() {
                 <div className="w-12 h-12 rounded-xl bg-brand-primary/10 border border-brand-primary flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                   <ShieldAlert className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-mono font-bold text-slate-400">04 / TAXATION & COMPLIANCE</span>
+                <span className="text-xs font-mono font-bold text-text-muted">04 / TAXATION & COMPLIANCE</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
+              <h3 className="text-xl font-display font-bold text-text mb-3 group-hover:text-[#D4AF37] transition-colors">
                 Corporate Tax & OECD Pillar 2
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">
@@ -159,13 +159,13 @@ export default function Services() {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-6">
-                <div className="bg-canvas p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-content-secondary">
+                <div className="bg-bg p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-text-muted">
                   ✓ 0% Corporate Tax Exemption Advisory
                 </div>
-                <div className="bg-canvas p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-content-secondary">
+                <div className="bg-bg p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-text-muted">
                   ✓ International Tax & OECD Compliance
                 </div>
-                <div className="bg-canvas p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-content-secondary">
+                <div className="bg-bg p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-text-muted">
                   ✓ Tax Registration & Transfer Filing
                 </div>
               </div>
@@ -184,10 +184,10 @@ export default function Services() {
                 <div className="w-12 h-12 rounded-xl bg-brand-primary/10 border border-brand-primary flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                   <Sparkles className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-mono font-bold text-slate-400">05 / INTELLECTUAL PROPERTY</span>
+                <span className="text-xs font-mono font-bold text-text-muted">05 / INTELLECTUAL PROPERTY</span>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-content-primary mb-3 group-hover:text-[#B8860B] transition-colors">
+              <h3 className="text-xl font-display font-bold text-text mb-3 group-hover:text-[#D4AF37] transition-colors">
                 Trademarks & Sovereign IP Protection
               </h3>
               <p className="text-xs text-content-muted leading-relaxed mb-6">
@@ -195,13 +195,13 @@ export default function Services() {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-6">
-                <div className="bg-canvas p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-content-secondary">
+                <div className="bg-bg p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-text-muted">
                   ✓ Trademark Registration GCC
                 </div>
-                <div className="bg-canvas p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-content-secondary">
+                <div className="bg-bg p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-text-muted">
                   ✓ Patent Filings & Monitoring
                 </div>
-                <div className="bg-canvas p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-content-secondary">
+                <div className="bg-bg p-2.5 rounded-lg border border-border-subtle text-[11px] font-semibold text-text-muted">
                   ✓ IP Portfolio Management
                 </div>
               </div>

@@ -52,7 +52,7 @@ export default function ServiceOptionsBlock({
             {title}
           </h2>
           {subtitle && (
-            <p className="text-slate-400 text-sm mt-2">
+            <p className="text-text-muted text-sm mt-2">
               {subtitle}
             </p>
           )}
@@ -68,7 +68,7 @@ export default function ServiceOptionsBlock({
               {/* Option Header */}
               <div className="flex items-start justify-between border-b border-white/10 pb-4">
                 <div>
-                  <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                  <span className="text-xs font-mono font-bold text-text-muted uppercase tracking-wider block mb-1">
                     {card.subtitle || card.threshold}
                   </span>
                   <div className="text-3xl sm:text-4xl font-black text-brand-goldText font-mono tracking-tight mb-2">

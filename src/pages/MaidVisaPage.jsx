@@ -195,7 +195,7 @@ function MaidVisaHero() {
           <div className="lg:col-span-7 flex flex-col items-start space-y-6">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="flex items-center gap-2">
               <GoldBadge>MOHRE Licensed PRO</GoldBadge>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest rounded-[10px]">Maid · Nanny · Cook · Driver</span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-surface/5 border border-white/10 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest rounded-[10px]">Maid · Nanny · Cook · Driver</span>
             </motion.div>
 
             <motion.h1
@@ -205,7 +205,7 @@ function MaidVisaHero() {
               className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-white leading-[1.08] tracking-tight font-sans"
             >
               UAE Domestic Worker Visa.{' '}
-              <span className="bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#B8860B] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#C59B27] bg-clip-text text-transparent">
                 100% Online.
               </span>
               <br />MOHRE + GDRFA Managed.
@@ -252,7 +252,7 @@ function MaidVisaStatsCard() {
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
       className="bg-[#111319] border border-white/10 rounded-[10px] shadow-[0_30px_60px_-20px_rgba(212,175,55,0.15)] overflow-hidden font-sans"
     >
-      <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+      <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
       <div className="bg-[#0A0B0E] px-6 py-6 border-b border-white/10">
         <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#D4AF37] mb-2">UAE Domestic Worker Visa</div>
         <p className="font-extrabold text-white text-lg mb-1">Managed End-to-End</p>
@@ -267,13 +267,13 @@ function MaidVisaStatsCard() {
         ].map((s, i) => (
           <div key={i} className="p-4 text-center">
             <div className="font-extrabold text-xl text-[#D4AF37] font-mono">{s.value}</div>
-            <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wide mt-0.5">{s.label}</div>
+            <div className="text-[10px] font-mono font-bold text-text-muted uppercase tracking-wide mt-0.5">{s.label}</div>
           </div>
         ))}
       </div>
       {/* Nationality flags */}
       <div className="p-5 border-t border-white/10">
-        <p className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wide mb-3">Approved Source Countries</p>
+        <p className="text-[10px] font-mono font-bold text-text-muted uppercase tracking-wide mb-3">Approved Source Countries</p>
         <div className="flex flex-wrap gap-2">
           {ELIGIBLE_NATIONALITIES.map(n => (
             <span key={n.country} className="flex items-center gap-1 px-2.5 py-1 bg-[#0A0B0E] border border-white/10 rounded-[8px] text-xs font-semibold text-slate-200">
@@ -342,14 +342,14 @@ function ServiceTypeSection() {
                   </div>
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div className="bg-[#0A0B0E] border border-white/10 rounded-[10px] p-4">
-                      <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wide mb-1">Min. Sponsor Income</div>
+                      <div className="text-[10px] font-mono font-bold text-text-muted uppercase tracking-wide mb-1">Min. Sponsor Income</div>
                       <div className="font-extrabold text-lg text-white font-mono">{current.minSalary}</div>
-                      <div className="text-[10px] text-slate-400 font-mono">{current.minSalaryNote}</div>
+                      <div className="text-[10px] text-text-muted font-mono">{current.minSalaryNote}</div>
                     </div>
                     <div className="bg-[#0A0B0E] border border-white/10 rounded-[10px] p-4">
-                      <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wide mb-1">Visa Duration</div>
+                      <div className="text-[10px] font-mono font-bold text-text-muted uppercase tracking-wide mb-1">Visa Duration</div>
                       <div className="font-extrabold text-lg text-white font-mono">{current.duration}</div>
-                      <div className="text-[10px] text-slate-400 font-mono">Renewable online</div>
+                      <div className="text-[10px] text-text-muted font-mono">Renewable online</div>
                     </div>
                   </div>
                   <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4AF37] mb-3">Requirements</h4>
@@ -365,18 +365,18 @@ function ServiceTypeSection() {
               </div>
               <div>
                 <LuxuryCard hover={false} className="h-full bg-[#111319] border-white/10">
-                  <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+                  <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
                   <div className="p-6">
                     <p className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4AF37] mb-5">Fee Estimate</p>
                     <div className="space-y-3 mb-6">
-                      <div className="flex justify-between text-sm"><span className="text-slate-400">Government Fees</span><span className="font-bold text-white font-mono">{current.govFee}</span></div>
-                      <div className="flex justify-between text-sm border-t border-white/10 pt-3"><span className="text-slate-400">Total incl. concierge</span><span className="font-extrabold text-[#D4AF37] text-lg font-mono">{current.totalEst}</span></div>
+                      <div className="flex justify-between text-sm"><span className="text-text-muted">Government Fees</span><span className="font-bold text-white font-mono">{current.govFee}</span></div>
+                      <div className="flex justify-between text-sm border-t border-white/10 pt-3"><span className="text-text-muted">Total incl. concierge</span><span className="font-extrabold text-[#D4AF37] text-lg font-mono">{current.totalEst}</span></div>
                     </div>
                     <motion.a href="https://wa.me/971586600396" target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                       className="block w-full text-center py-3.5 rounded-[10px] font-extrabold text-xs uppercase tracking-wider text-black bg-dark-gold-gloss shadow-[0_6px_20px_rgba(212,175,55,0.3)] transition-all cursor-pointer">
                       Apply via WhatsApp →
                     </motion.a>
-                    <p className="text-[10px] text-slate-400 text-center mt-3 font-mono">Free eligibility check · No commitment</p>
+                    <p className="text-[10px] text-text-muted text-center mt-3 font-mono">Free eligibility check · No commitment</p>
                   </div>
                 </LuxuryCard>
               </div>

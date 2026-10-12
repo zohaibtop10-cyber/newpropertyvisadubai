@@ -126,7 +126,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Hero Headings CMS
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Configure main page H1 headlines and sub-paragraphs across all website views.
             </p>
           </div>
@@ -148,7 +148,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
       )}
 
       {/* Sub-Tab Navigation */}
-      <div className="flex flex-wrap gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap gap-2 bg-surface/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
         {pagesList.map((p) => {
           const Icon = p.icon;
           const isActive = activeTab === p.id;
@@ -160,7 +160,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
               className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 isActive
                   ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-text-muted hover:text-white hover:bg-surface/60'
               }`}
             >
               <Icon className="w-3.5 h-3.5" />
@@ -171,7 +171,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
       </div>
 
       {/* ACTIVE HERO EDITOR CARD */}
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+      <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
         
         {activeTab === 'home' && (
           <div className="space-y-4">
@@ -181,7 +181,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Homepage Hero Headline & Subtext</h3>
-                <p className="text-slate-400 text-xs">Primary hero section displayed at the top of the main landing page</p>
+                <p className="text-text-muted text-xs">Primary hero section displayed at the top of the main landing page</p>
               </div>
             </div>
             <div>
@@ -190,7 +190,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 rows={2}
                 value={homeTitle}
                 onChange={(e) => setHomeTitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
               />
             </div>
             <div>
@@ -199,7 +199,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 rows={3}
                 value={homeSubtitle}
                 onChange={(e) => setHomeSubtitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
               />
             </div>
           </div>
@@ -213,7 +213,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Knowledge Base & Blog Hero</h3>
-                <p className="text-slate-400 text-xs">Main header displayed at the top of the editorial articles index</p>
+                <p className="text-text-muted text-xs">Main header displayed at the top of the editorial articles index</p>
               </div>
             </div>
             <div>
@@ -222,7 +222,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 type="text"
                 value={blogTitle}
                 onChange={(e) => setBlogTitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
               />
             </div>
             <div>
@@ -231,7 +231,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 rows={3}
                 value={blogSubtitle}
                 onChange={(e) => setBlogSubtitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
               />
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">About Us Page Hero</h3>
-                <p className="text-slate-400 text-xs">Header displayed at the top of the company about page</p>
+                <p className="text-text-muted text-xs">Header displayed at the top of the company about page</p>
               </div>
             </div>
             <div>
@@ -254,7 +254,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 type="text"
                 value={aboutTitle}
                 onChange={(e) => setAboutTitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
               />
             </div>
             <div>
@@ -263,7 +263,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 rows={3}
                 value={aboutSubtitle}
                 onChange={(e) => setAboutSubtitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
               />
             </div>
           </div>
@@ -277,7 +277,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Contact Page Hero</h3>
-                <p className="text-slate-400 text-xs">Headline displayed on the contact us page</p>
+                <p className="text-text-muted text-xs">Headline displayed on the contact us page</p>
               </div>
             </div>
             <div>
@@ -286,7 +286,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 type="text"
                 value={contactTitle}
                 onChange={(e) => setContactTitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
               />
             </div>
             <div>
@@ -295,7 +295,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 rows={2}
                 value={contactSubtitle}
                 onChange={(e) => setContactSubtitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
               />
             </div>
           </div>
@@ -309,7 +309,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Document Checklist Hero</h3>
-                <p className="text-slate-400 text-xs">Header for the GDRFA & ICP requirements checklist page</p>
+                <p className="text-text-muted text-xs">Header for the GDRFA & ICP requirements checklist page</p>
               </div>
             </div>
             <div>
@@ -318,7 +318,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 type="text"
                 value={checklistTitle}
                 onChange={(e) => setChecklistTitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
               />
             </div>
             <div>
@@ -327,7 +327,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 rows={2}
                 value={checklistSubtitle}
                 onChange={(e) => setChecklistSubtitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
               />
             </div>
           </div>
@@ -341,7 +341,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Office Locations Hero</h3>
-                <p className="text-slate-400 text-xs">Header for Dubai Deira and Abu Dhabi office locations page</p>
+                <p className="text-text-muted text-xs">Header for Dubai Deira and Abu Dhabi office locations page</p>
               </div>
             </div>
             <div>
@@ -350,7 +350,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 type="text"
                 value={locationsTitle}
                 onChange={(e) => setLocationsTitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
               />
             </div>
             <div>
@@ -359,7 +359,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 rows={2}
                 value={locationsSubtitle}
                 onChange={(e) => setLocationsSubtitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
               />
             </div>
           </div>
@@ -373,7 +373,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Terms & Regulatory Disclosures Hero</h3>
-                <p className="text-slate-400 text-xs">Header for terms of service and regulatory compliance page</p>
+                <p className="text-text-muted text-xs">Header for terms of service and regulatory compliance page</p>
               </div>
             </div>
             <div>
@@ -382,7 +382,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 type="text"
                 value={termsTitle}
                 onChange={(e) => setTermsTitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
               />
             </div>
             <div>
@@ -391,7 +391,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 rows={2}
                 value={termsSubtitle}
                 onChange={(e) => setTermsSubtitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
               />
             </div>
           </div>
@@ -405,7 +405,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
               </div>
               <div>
                 <h3 className="font-display font-bold text-base text-white">Property Investor Services Hero</h3>
-                <p className="text-slate-400 text-xs">Header for DLD property investor and Golden Visa page</p>
+                <p className="text-text-muted text-xs">Header for DLD property investor and Golden Visa page</p>
               </div>
             </div>
             <div>
@@ -414,7 +414,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 type="text"
                 value={propertyTitle}
                 onChange={(e) => setPropertyTitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
               />
             </div>
             <div>
@@ -423,7 +423,7 @@ export default function HeroHeadingsEditor({ cmsConfig, setCmsConfig }) {
                 rows={2}
                 value={propertySubtitle}
                 onChange={(e) => setPropertySubtitle(e.target.value)}
-                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
               />
             </div>
           </div>

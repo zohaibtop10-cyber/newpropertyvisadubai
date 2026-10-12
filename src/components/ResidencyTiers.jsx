@@ -92,8 +92,8 @@ export default function ResidencyTiers({
               onClick={() => setActiveTab(tier.id)}
               className={`px-6 py-3 rounded-[10px] text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === tier.id
-                  ? 'bg-white/10 text-white border border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.2)]'
-                  : 'text-slate-500 hover:text-slate-300 border border-transparent'
+                  ? 'bg-surface/10 text-white border border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.2)]'
+                  : 'text-text-muted hover:text-slate-300 border border-transparent'
               }`}
             >
               {tier.label}
@@ -118,7 +118,7 @@ export default function ResidencyTiers({
                 <h3 className="text-2xl font-bold text-white mb-2 font-sans">
                   {currentTier.title}
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-6 font-sans font-medium">
+                <p className="text-text-muted text-sm leading-relaxed mb-6 font-sans font-medium">
                   {currentTier.subtitle}
                 </p>
 
@@ -150,7 +150,7 @@ export default function ResidencyTiers({
                   {currentTier.investment}
                 </div>
 
-                <p className="text-slate-400 text-xs leading-relaxed font-sans font-medium">
+                <p className="text-text-muted text-xs leading-relaxed font-sans font-medium">
                   Includes full government filing, DLD taskeen registration, VIP Smart Salem medical fitness, and physical Emirates ID delivery.
                 </p>
               </div>
@@ -163,7 +163,7 @@ export default function ResidencyTiers({
                   CALCULATE MY FEES →
                 </button>
 
-                <p className="text-[10px] text-slate-500 font-mono text-center">
+                <p className="text-[10px] text-text-muted font-mono text-center">
                   100% Upfront Government Statutory Accounting
                 </p>
               </div>

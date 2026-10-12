@@ -142,13 +142,13 @@ export default function TopBarTickerEditor() {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Top Bar Activity Ticker Manager
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Manage client activity notifications and live status feeds shown above the main navbar.
             </p>
           </div>
           <button
             onClick={handleSeedDefaults}
-            className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-amber-400 font-mono text-xs font-bold rounded-xl border border-slate-700/80 flex items-center gap-2 transition-colors cursor-pointer shrink-0"
+            className="px-4 py-2.5 bg-surface hover:bg-surface text-amber-400 font-mono text-xs font-bold rounded-xl border border-slate-700/80 flex items-center gap-2 transition-colors cursor-pointer shrink-0"
           >
             <RefreshCw className="w-4 h-4" /> Reset Defaults
           </button>
@@ -163,7 +163,7 @@ export default function TopBarTickerEditor() {
       )}
 
       {/* Add New Activity Form */}
-      <form onSubmit={handleAddItem} className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+      <form onSubmit={handleAddItem} className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
         <h3 className="text-sm font-display font-bold text-white uppercase tracking-wider flex items-center gap-2">
           <Plus className="w-4 h-4 text-amber-400" /> Add New Activity Bullet
         </h3>
@@ -176,7 +176,7 @@ export default function TopBarTickerEditor() {
               placeholder="e.g. Arjun Verma"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
               required
             />
           </div>
@@ -188,13 +188,13 @@ export default function TopBarTickerEditor() {
               placeholder="e.g. secured Golden Visa"
               value={newAction}
               onChange={(e) => setNewAction(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500/50"
               required
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-surface/80 p-4 rounded-xl border border-slate-800/80">
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-2">Time Number</label>
             <input
@@ -203,7 +203,7 @@ export default function TopBarTickerEditor() {
               max="999"
               value={newTimeValue}
               onChange={(e) => setNewTimeValue(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700/60 rounded-xl p-3 text-white text-sm font-mono font-bold"
+              className="w-full bg-surface border border-slate-700/60 rounded-xl p-3 text-white text-sm font-mono font-bold"
             />
           </div>
 
@@ -212,7 +212,7 @@ export default function TopBarTickerEditor() {
             <select
               value={newTimeUnit}
               onChange={(e) => setNewTimeUnit(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700/60 rounded-xl p-3 text-white text-xs font-bold cursor-pointer"
+              className="w-full bg-surface border border-slate-700/60 rounded-xl p-3 text-white text-xs font-bold cursor-pointer"
             >
               <option value="days">Days</option>
               <option value="hours">Hours</option>
@@ -223,7 +223,7 @@ export default function TopBarTickerEditor() {
           <div>
             <label className="block text-xs font-semibold text-amber-400 mb-2">Time Display Mode</label>
             <div className="flex items-center gap-2 pt-1">
-              <label className="flex items-center gap-1.5 text-xs text-white font-semibold cursor-pointer bg-slate-900 px-3 py-2 rounded-lg border border-slate-700/60">
+              <label className="flex items-center gap-1.5 text-xs text-white font-semibold cursor-pointer bg-surface px-3 py-2 rounded-lg border border-slate-700/60">
                 <input
                   type="radio"
                   name="timeMode"
@@ -235,7 +235,7 @@ export default function TopBarTickerEditor() {
                 <span>"ago"</span>
               </label>
 
-              <label className="flex items-center gap-1.5 text-xs text-white font-semibold cursor-pointer bg-slate-900 px-3 py-2 rounded-lg border border-slate-700/60">
+              <label className="flex items-center gap-1.5 text-xs text-white font-semibold cursor-pointer bg-surface px-3 py-2 rounded-lg border border-slate-700/60">
                 <input
                   type="radio"
                   name="timeMode"
@@ -259,7 +259,7 @@ export default function TopBarTickerEditor() {
       </form>
 
       {/* Bullets Queue */}
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
+      <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
         <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
           <h3 className="text-sm font-display font-bold text-white uppercase tracking-wider">
             Live Activity Bullets ({tickerItems.length})
@@ -268,9 +268,9 @@ export default function TopBarTickerEditor() {
         </div>
 
         {loading ? (
-          <div className="text-slate-400 text-xs py-4">Loading ticker activity bullets...</div>
+          <div className="text-text-muted text-xs py-4">Loading ticker activity bullets...</div>
         ) : tickerItems.length === 0 ? (
-          <div className="text-slate-400 text-xs py-8 text-center border border-dashed border-slate-800 rounded-xl">
+          <div className="text-text-muted text-xs py-8 text-center border border-dashed border-slate-800 rounded-xl">
             No activity bullets found. Click "Reset Defaults" above to load default data.
           </div>
         ) : (
@@ -284,52 +284,52 @@ export default function TopBarTickerEditor() {
                   key={item.id}
                   className={`p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all ${
                     item.isActive !== false
-                      ? 'bg-slate-950/80 border-slate-800/80 text-white'
-                      : 'bg-slate-950/40 border-slate-900 text-slate-500 opacity-60'
+                      ? 'bg-surface/80 border-slate-800/80 text-white'
+                      : 'bg-surface/40 border-slate-900 text-text-muted opacity-60'
                   }`}
                 >
                   {isEditing ? (
                     <div className="flex-1 space-y-3">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="text-[11px] text-slate-400 font-medium">Customer Name</label>
+                          <label className="text-[11px] text-text-muted font-medium">Customer Name</label>
                           <input
                             type="text"
                             value={editName}
                             onChange={(e) => setEditName(e.target.value)}
-                            className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-2 text-xs text-white font-bold"
+                            className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-2 text-xs text-white font-bold"
                           />
                         </div>
 
                         <div>
-                          <label className="text-[11px] text-slate-400 font-medium">Action / Visa</label>
+                          <label className="text-[11px] text-text-muted font-medium">Action / Visa</label>
                           <input
                             type="text"
                             value={editAction}
                             onChange={(e) => setEditAction(e.target.value)}
-                            className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-2 text-xs text-white"
+                            className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-2 text-xs text-white"
                           />
                         </div>
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-3 bg-slate-900 p-3 rounded-lg border border-slate-800">
+                      <div className="flex flex-wrap items-center gap-3 bg-surface p-3 rounded-lg border border-slate-800">
                         <div>
-                          <label className="text-[10px] text-slate-400 font-mono block">Time Value</label>
+                          <label className="text-[10px] text-text-muted font-mono block">Time Value</label>
                           <input
                             type="number"
                             min="1"
                             value={editTimeValue}
                             onChange={(e) => setEditTimeValue(e.target.value)}
-                            className="w-20 bg-slate-950 border border-slate-700/60 rounded p-1.5 text-xs text-white font-mono"
+                            className="w-20 bg-surface border border-slate-700/60 rounded p-1.5 text-xs text-white font-mono"
                           />
                         </div>
 
                         <div>
-                          <label className="text-[10px] text-slate-400 font-mono block">Unit</label>
+                          <label className="text-[10px] text-text-muted font-mono block">Unit</label>
                           <select
                             value={editTimeUnit}
                             onChange={(e) => setEditTimeUnit(e.target.value)}
-                            className="bg-slate-950 border border-slate-700/60 rounded p-1.5 text-xs text-white font-bold"
+                            className="bg-surface border border-slate-700/60 rounded p-1.5 text-xs text-white font-bold"
                           >
                             <option value="days">Days</option>
                             <option value="hours">Hours</option>
@@ -374,7 +374,7 @@ export default function TopBarTickerEditor() {
                         <strong className="font-bold text-amber-400 mr-2">{item.name || 'Client'}</strong>
                         <span className="text-slate-200">{item.action || item.message}</span>
                         {formattedTime && (
-                          <span className="text-slate-400 font-mono text-xs ml-2 border-l border-slate-800 pl-2">
+                          <span className="text-text-muted font-mono text-xs ml-2 border-l border-slate-800 pl-2">
                             – {formattedTime}
                           </span>
                         )}
@@ -394,7 +394,7 @@ export default function TopBarTickerEditor() {
                         </button>
                         <button
                           onClick={() => setEditingId(null)}
-                          className="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                          className="p-2 rounded-lg bg-surface text-text-muted hover:text-white transition-colors cursor-pointer"
                           title="Cancel"
                         >
                           <X className="w-4 h-4" />
@@ -404,7 +404,7 @@ export default function TopBarTickerEditor() {
                       <>
                         <button
                           onClick={() => handleStartEdit(item)}
-                          className="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors cursor-pointer"
+                          className="p-2 rounded-lg bg-surface text-slate-300 hover:text-amber-400 transition-colors cursor-pointer"
                           title="Edit Bullet"
                         >
                           <Edit3 className="w-4 h-4" />
@@ -415,7 +415,7 @@ export default function TopBarTickerEditor() {
                           className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold cursor-pointer transition-colors ${
                             item.isActive !== false
                               ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                              : 'bg-slate-800 text-slate-400 border border-slate-700/60'
+                              : 'bg-surface text-text-muted border border-slate-700/60'
                           }`}
                         >
                           {item.isActive !== false ? 'Active' : 'Paused'}

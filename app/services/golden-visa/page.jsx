@@ -70,7 +70,7 @@ export default function GoldenVisaDirectoryPage() {
                   className={`flex items-center gap-2 px-5 py-3.5 rounded-[10px] text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                     track === t.id
                       ? 'bg-brand-goldBg text-black font-black shadow-lg shadow-brand-goldBg/20'
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
+                      : 'text-text-muted hover:text-white hover:bg-surface/5'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -156,7 +156,7 @@ export default function GoldenVisaDirectoryPage() {
 
           <div className="bg-[#111111] border border-white/10 rounded-[10px] overflow-hidden shadow-2xl">
             <table className="w-full text-left text-xs sm:text-sm text-slate-300">
-              <thead className="bg-[#050505] text-slate-400 font-mono uppercase border-b border-white/10">
+              <thead className="bg-[#050505] text-text-muted font-mono uppercase border-b border-white/10">
                 <tr>
                   <th className="py-4 px-6">Privilege Category</th>
                   <th className="py-4 px-6">Standard 2-Year Visa</th>
@@ -166,17 +166,17 @@ export default function GoldenVisaDirectoryPage() {
               <tbody className="divide-y divide-white/5">
                 <tr>
                   <td className="py-4 px-6 font-bold text-white">Local Sponsor Requirement</td>
-                  <td className="py-4 px-6 text-slate-400">Employer Dependent</td>
+                  <td className="py-4 px-6 text-text-muted">Employer Dependent</td>
                   <td className="py-4 px-6 text-brand-goldText font-bold">100% Self-Sponsored</td>
                 </tr>
                 <tr>
                   <td className="py-4 px-6 font-bold text-white">UAE Stay Outside Limits</td>
-                  <td className="py-4 px-6 text-slate-400">Max 6 Months</td>
+                  <td className="py-4 px-6 text-text-muted">Max 6 Months</td>
                   <td className="py-4 px-6 text-brand-goldText font-bold">Unlimited (Zero Stay Limits)</td>
                 </tr>
                 <tr>
                   <td className="py-4 px-6 font-bold text-white">Son Sponsorship Age Limit</td>
-                  <td className="py-4 px-6 text-slate-400">Capped at 25 Years</td>
+                  <td className="py-4 px-6 text-text-muted">Capped at 25 Years</td>
                   <td className="py-4 px-6 text-brand-goldText font-bold">No Age Limit for Sons</td>
                 </tr>
               </tbody>

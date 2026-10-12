@@ -1,0 +1,31 @@
+/* CSS Custom Properties for Light and Dark Themes (Warm Obsidian Brown, Radiant 24K Gold, Alabaster White) */
+
+:root {
+  --color-bg: #FAF9F6;
+  --color-surface: #FFFFFF;
+  --color-surface-tint: #F6EED9;
+  --color-text: #0B0A08;
+  --color-text-muted: #5C5242;
+  --color-gold: #EFC45C;
+  --color-gold-light: #F7DE9C;
+  --color-gold-dark: #C99824;
+  --color-gold-ink: #8A6412;
+  --color-gold-soft: rgba(239, 196, 92, 0.15);
+  --color-border: #E8DFC8;
+  --color-border-hairline: rgba(239, 196, 92, 0.45);
+}
+
+.dark {
+  --color-bg: #0B0A08;
+  --color-surface: #141210;
+  --color-surface-tint: #1F190C;
+  --color-text: #FAF9F6;
+  --color-text-muted: #A89F91;
+  --color-gold: #EFC45C;
+  --color-gold-light: #F7DE9C;
+  --color-gold-dark: #C99824;
+  --color-gold-ink: #EFC45C;
+  --color-gold-soft: rgba(239, 196, 92, 0.15);
+  --color-border: #2A241A;
+  --color-border-hairline: rgba(239, 196, 92, 0.35);
+}

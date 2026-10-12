@@ -144,7 +144,7 @@ function FineLateCalculator() {
           <Calculator className="w-5 h-5 text-[#D4AF37]" />
           <h3 className="font-bold text-white text-sm">Late Renewal Fine Calculator</h3>
         </div>
-        <p className="text-xs text-slate-400">Enter your EID expiry date to calculate any accumulated ICP fines</p>
+        <p className="text-xs text-text-muted">Enter your EID expiry date to calculate any accumulated ICP fines</p>
       </div>
 
       <div className="p-6 space-y-5">
@@ -158,7 +158,7 @@ function FineLateCalculator() {
             <div key={i} className="text-center py-2.5 bg-[#0A0B0E] border border-[#D4AF37]/20 rounded-[10px]">
               <div className="text-[9px] font-bold text-[#D4AF37] uppercase tracking-wide">{r.label}</div>
               <div className="font-extrabold text-sm text-white mt-0.5">{r.value}</div>
-              <div className="text-[9px] text-slate-400">{r.note}</div>
+              <div className="text-[9px] text-text-muted">{r.note}</div>
             </div>
           ))}
         </div>
@@ -317,7 +317,7 @@ function TrackSection() {
                   <div className="grid grid-cols-3 gap-3 mb-6">
                     {[{ label: 'ICP Fee', value: current.fee }, { label: 'SLA', value: current.sla }, { label: 'Delivery', value: 'Home' }].map((s, i) => (
                       <div key={i} className="bg-[#0A0B0E] border border-[#D4AF37]/20 rounded-[10px] p-3 text-center">
-                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">{s.label}</div>
+                        <div className="text-[10px] font-bold text-text-muted uppercase tracking-wide mb-1">{s.label}</div>
                         <div className="font-bold text-sm text-white">{s.value}</div>
                       </div>
                     ))}
@@ -345,18 +345,18 @@ function TrackSection() {
                   <div className="p-6">
                     <p className="text-xs font-bold uppercase tracking-widest text-[#D4AF37] mb-5">Fee Summary</p>
                     <div className="space-y-3 mb-3">
-                      <div className="flex justify-between text-sm"><span className="text-slate-400">ICP Card Fee</span><span className="font-bold text-white">{current.fee}</span></div>
-                      <div className="text-[10px] text-slate-400 -mt-1">{current.feeNote}</div>
+                      <div className="flex justify-between text-sm"><span className="text-text-muted">ICP Card Fee</span><span className="font-bold text-white">{current.fee}</span></div>
+                      <div className="text-[10px] text-text-muted -mt-1">{current.feeNote}</div>
                     </div>
                     <div className="bg-[#0A0B0E] border border-[#D4AF37]/20 rounded-[10px] p-3 mb-5">
-                      <div className="text-[10px] font-bold uppercase tracking-wide text-slate-400 mb-1">Our Concierge Fee</div>
+                      <div className="text-[10px] font-bold uppercase tracking-wide text-text-muted mb-1">Our Concierge Fee</div>
                       <div className="font-extrabold text-[#D4AF37]">From AED 250</div>
                     </div>
                     <motion.a href="https://wa.me/9718003627" target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                       className={`block w-full text-center py-3 rounded-[10px] font-bold text-sm text-[#050505] bg-gradient-to-r from-[#D4AF37] via-[#FFF5C0] to-[#D4AF37] shadow-[0_6px_20px_rgba(212,175,55,0.3)] mb-3`}>
                       Apply via WhatsApp →
                     </motion.a>
-                    <p className="text-[10px] text-slate-400 text-center">Government receipts provided · Zero hidden fees</p>
+                    <p className="text-[10px] text-text-muted text-center">Government receipts provided · Zero hidden fees</p>
                   </div>
                 </LuxuryCard>
               </div>

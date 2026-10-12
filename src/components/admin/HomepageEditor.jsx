@@ -275,7 +275,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
       )}
 
       {/* Sub-Tabs for All 12 Homepage Sections */}
-      <div className="flex flex-wrap gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
+      <div className="flex flex-wrap gap-2 bg-surface/80 backdrop-blur-xl border border-slate-800/80 p-2 rounded-2xl shadow-xl">
         {sectionsList.map((sec) => {
           const Icon = sec.icon;
           const isActive = activeSection === sec.id;
@@ -287,7 +287,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
               className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
                 isActive 
                   ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black shadow-lg shadow-amber-500/20' 
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-text-muted hover:text-white hover:bg-surface/60'
               }`}
             >
               <Icon className="w-3.5 h-3.5" />
@@ -302,14 +302,14 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
         {/* SECTION 1: HERO & BADGES */}
         {activeSection === 'hero' && (
           <div className="space-y-6">
-            <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+            <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
               <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
                   <Layout className="w-6 h-6" />
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">1. Hero Section Text & Badges</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Edit main hero copy displayed at the top of the homepage</p>
+                  <p className="text-text-muted text-xs mt-0.5">Edit main hero copy displayed at the top of the homepage</p>
                 </div>
               </div>
 
@@ -320,7 +320,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                     rows={2}
                     value={heroHeadline}
                     onChange={(e) => setHeroHeadline(e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-base focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
 
@@ -330,50 +330,50 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                     rows={3}
                     value={heroSubtext}
                     onChange={(e) => setHeroSubtext(e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
               </div>
             </div>
 
             {/* 3 Callout Badges */}
-            <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-4">
+            <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-4">
               <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
                 <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-base text-white">Trust Badges & SLA Checkmarks</h2>
-                  <p className="text-slate-400 text-xs">3 stat bullet checkmarks under the main headline</p>
+                  <p className="text-text-muted text-xs">3 stat bullet checkmarks under the main headline</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Badge 1</label>
+                  <label className="block text-xs font-semibold text-text-muted uppercase tracking-wider mb-1.5">Badge 1</label>
                   <input
                     type="text"
                     value={badge1}
                     onChange={(e) => setBadge1(e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Badge 2</label>
+                  <label className="block text-xs font-semibold text-text-muted uppercase tracking-wider mb-1.5">Badge 2</label>
                   <input
                     type="text"
                     value={badge2}
                     onChange={(e) => setBadge2(e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Badge 3</label>
+                  <label className="block text-xs font-semibold text-text-muted uppercase tracking-wider mb-1.5">Badge 3</label>
                   <input
                     type="text"
                     value={badge3}
                     onChange={(e) => setBadge3(e.target.value)}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
               </div>
@@ -383,14 +383,14 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 2: METRICS & STATS BAR */}
         {activeSection === 'stats' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
               <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
                 <BarChart2 className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">2. Live Metrics & Stats Counter Bar</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit 4 statistical figures shown in the counter bar</p>
+                <p className="text-text-muted text-xs mt-0.5">Edit 4 statistical figures shown in the counter bar</p>
               </div>
             </div>
 
@@ -401,33 +401,33 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                   type="text"
                   value={statsTitle}
                   onChange={(e) => setStatsTitle(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-2">
+                <div className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-2">
                   <label className="block text-xs font-mono font-bold text-amber-400 uppercase">Metric 1</label>
-                  <input type="text" value={m1Val} onChange={(e) => setM1Val(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
-                  <input type="text" value={m1Lbl} onChange={(e) => setM1Lbl(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                  <input type="text" value={m1Val} onChange={(e) => setM1Val(e.target.value)} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
+                  <input type="text" value={m1Lbl} onChange={(e) => setM1Lbl(e.target.value)} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
                 </div>
 
-                <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-2">
+                <div className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-2">
                   <label className="block text-xs font-mono font-bold text-amber-400 uppercase">Metric 2</label>
-                  <input type="text" value={m2Val} onChange={(e) => setM2Val(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
-                  <input type="text" value={m2Lbl} onChange={(e) => setM2Lbl(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                  <input type="text" value={m2Val} onChange={(e) => setM2Val(e.target.value)} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
+                  <input type="text" value={m2Lbl} onChange={(e) => setM2Lbl(e.target.value)} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
                 </div>
 
-                <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-2">
+                <div className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-2">
                   <label className="block text-xs font-mono font-bold text-amber-400 uppercase">Metric 3</label>
-                  <input type="text" value={m3Val} onChange={(e) => setM3Val(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
-                  <input type="text" value={m3Lbl} onChange={(e) => setM3Lbl(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                  <input type="text" value={m3Val} onChange={(e) => setM3Val(e.target.value)} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
+                  <input type="text" value={m3Lbl} onChange={(e) => setM3Lbl(e.target.value)} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
                 </div>
 
-                <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-2">
+                <div className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-2">
                   <label className="block text-xs font-mono font-bold text-amber-400 uppercase">Metric 4</label>
-                  <input type="text" value={m4Val} onChange={(e) => setM4Val(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
-                  <input type="text" value={m4Lbl} onChange={(e) => setM4Lbl(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
+                  <input type="text" value={m4Val} onChange={(e) => setM4Val(e.target.value)} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-white font-bold text-sm" />
+                  <input type="text" value={m4Lbl} onChange={(e) => setM4Lbl(e.target.value)} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs" />
                 </div>
               </div>
             </div>
@@ -436,7 +436,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 3: ACHIEVEMENTS */}
         {activeSection === 'achievements' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
@@ -444,7 +444,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">3. Achievements & Government Badges</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Edit official awards, government badges, and trust indicators</p>
+                  <p className="text-text-muted text-xs mt-0.5">Edit official awards, government badges, and trust indicators</p>
                 </div>
               </div>
               <button
@@ -459,33 +459,33 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Section Headline</label>
-                <input type="text" value={achTitle} onChange={(e) => setAchTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={achTitle} onChange={(e) => setAchTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
 
               <div className="space-y-4">
                 {achievementsList.map((ach, idx) => (
-                  <div key={ach.id || idx} className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3 relative group">
+                  <div key={ach.id || idx} className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-xs font-mono font-bold text-amber-400">ACHIEVEMENT ITEM #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...achievementsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === achievementsList.length - 1} onClick={() => { const u = [...achievementsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === achievementsList.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...achievementsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === achievementsList.length - 1} onClick={() => { const u = [...achievementsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setAchievementsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === achievementsList.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); const u = achievementsList.filter((_, i) => i !== idx); setAchievementsList(u); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-[10px] text-slate-400 uppercase mb-1">Title</label>
-                        <input type="text" value={ach.title || ''} onChange={(e) => { const u = [...achievementsList]; u[idx].title = e.target.value; setAchievementsList(u); }} placeholder="Achievement Title" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
+                        <label className="block text-[10px] text-text-muted uppercase mb-1">Title</label>
+                        <input type="text" value={ach.title || ''} onChange={(e) => { const u = [...achievementsList]; u[idx].title = e.target.value; setAchievementsList(u); }} placeholder="Achievement Title" className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
                       </div>
                       <div>
-                        <label className="block text-[10px] text-slate-400 uppercase mb-1">Badge Tag</label>
-                        <input type="text" value={ach.badge || ''} onChange={(e) => { const u = [...achievementsList]; u[idx].badge = e.target.value; setAchievementsList(u); }} placeholder="Badge (e.g. RANKED #1)" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs font-bold focus:outline-none focus:border-amber-500/50" />
+                        <label className="block text-[10px] text-text-muted uppercase mb-1">Badge Tag</label>
+                        <input type="text" value={ach.badge || ''} onChange={(e) => { const u = [...achievementsList]; u[idx].badge = e.target.value; setAchievementsList(u); }} placeholder="Badge (e.g. RANKED #1)" className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs font-bold focus:outline-none focus:border-amber-500/50" />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-[10px] text-slate-400 uppercase mb-1">Description</label>
-                      <textarea rows={2} value={ach.desc || ''} onChange={(e) => { const u = [...achievementsList]; u[idx].desc = e.target.value; setAchievementsList(u); }} placeholder="Achievement Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+                      <label className="block text-[10px] text-text-muted uppercase mb-1">Description</label>
+                      <textarea rows={2} value={ach.desc || ''} onChange={(e) => { const u = [...achievementsList]; u[idx].desc = e.target.value; setAchievementsList(u); }} placeholder="Achievement Description" className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
                     </div>
                   </div>
                 ))}
@@ -496,7 +496,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 4: PROBLEMS */}
         {activeSection === 'problems' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
@@ -504,7 +504,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">4. The Problems We Solve</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Edit customer pain points and corresponding PRO solutions</p>
+                  <p className="text-text-muted text-xs mt-0.5">Edit customer pain points and corresponding PRO solutions</p>
                 </div>
               </div>
               <button
@@ -519,28 +519,28 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Section Headline</label>
-                <input type="text" value={probTitle} onChange={(e) => setProbTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={probTitle} onChange={(e) => setProbTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
 
               <div className="space-y-4">
                 {problemsList.map((prb, idx) => (
-                  <div key={prb.id || idx} className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3 relative group">
+                  <div key={prb.id || idx} className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-xs font-mono font-bold text-amber-400">PROBLEM CARD #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...problemsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === problemsList.length - 1} onClick={() => { const u = [...problemsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === problemsList.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...problemsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === problemsList.length - 1} onClick={() => { const u = [...problemsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProblemsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === problemsList.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); const u = problemsList.filter((_, i) => i !== idx); setProblemsList(u); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 gap-3">
                       <div className="space-y-1.5">
                         <label className="text-[10px] uppercase font-bold text-red-400">The Problem (Old Way)</label>
-                        <input type="text" value={prb.problemTitle || prb.problem || ''} onChange={(e) => { const u = [...problemsList]; u[idx].problemTitle = e.target.value; u[idx].problem = e.target.value; setProblemsList(u); }} placeholder="The pain point..." className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 font-bold text-xs text-white focus:outline-none focus:border-amber-500/50" />
+                        <input type="text" value={prb.problemTitle || prb.problem || ''} onChange={(e) => { const u = [...problemsList]; u[idx].problemTitle = e.target.value; u[idx].problem = e.target.value; setProblemsList(u); }} placeholder="The pain point..." className="w-full bg-surface border border-slate-800 rounded-xl p-3 font-bold text-xs text-white focus:outline-none focus:border-amber-500/50" />
                       </div>
                       <div className="space-y-1.5">
                         <label className="text-[10px] uppercase font-bold text-emerald-400">How We Solve It (800 DOCS Solution)</label>
-                        <input type="text" value={prb.solutionTitle || prb.solution || ''} onChange={(e) => { const u = [...problemsList]; u[idx].solutionTitle = e.target.value; u[idx].solution = e.target.value; setProblemsList(u); }} placeholder="How we solve it..." className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-amber-400 font-bold text-xs focus:outline-none focus:border-amber-500/50" />
+                        <input type="text" value={prb.solutionTitle || prb.solution || ''} onChange={(e) => { const u = [...problemsList]; u[idx].solutionTitle = e.target.value; u[idx].solution = e.target.value; setProblemsList(u); }} placeholder="How we solve it..." className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-amber-400 font-bold text-xs focus:outline-none focus:border-amber-500/50" />
                       </div>
                     </div>
                   </div>
@@ -552,7 +552,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 5: SERVICES GRID */}
         {activeSection === 'services' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
@@ -560,7 +560,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">5. Categorized Services Grid</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Edit main services grid header and category items</p>
+                  <p className="text-text-muted text-xs mt-0.5">Edit main services grid header and category items</p>
                 </div>
               </div>
               <button
@@ -575,25 +575,25 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Services Section Headline</label>
-                <input type="text" value={servTitle} onChange={(e) => setServTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={servTitle} onChange={(e) => setServTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
 
               <div className="space-y-4">
                 {servicesList.map((srv, idx) => (
-                  <div key={srv.id || idx} className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3 relative group">
+                  <div key={srv.id || idx} className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-xs font-mono font-bold text-amber-400">SERVICE #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...servicesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === servicesList.length - 1} onClick={() => { const u = [...servicesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === servicesList.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...servicesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === servicesList.length - 1} onClick={() => { const u = [...servicesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setServicesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === servicesList.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); const u = servicesList.filter((_, i) => i !== idx); setServicesList(u); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={srv.title || ''} onChange={(e) => { const u = [...servicesList]; u[idx].title = e.target.value; setServicesList(u); }} placeholder="Service Title" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
-                      <input type="text" value={srv.tag || ''} onChange={(e) => { const u = [...servicesList]; u[idx].tag = e.target.value; setServicesList(u); }} placeholder="Tag (e.g. Visas)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={srv.title || ''} onChange={(e) => { const u = [...servicesList]; u[idx].title = e.target.value; setServicesList(u); }} placeholder="Service Title" className="bg-surface border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={srv.tag || ''} onChange={(e) => { const u = [...servicesList]; u[idx].tag = e.target.value; setServicesList(u); }} placeholder="Tag (e.g. Visas)" className="bg-surface border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs focus:outline-none focus:border-amber-500/50" />
                     </div>
-                    <textarea rows={2} value={srv.desc || ''} onChange={(e) => { const u = [...servicesList]; u[idx].desc = e.target.value; setServicesList(u); }} placeholder="Service Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+                    <textarea rows={2} value={srv.desc || ''} onChange={(e) => { const u = [...servicesList]; u[idx].desc = e.target.value; setServicesList(u); }} placeholder="Service Description" className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
                   </div>
                 ))}
               </div>
@@ -603,7 +603,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 6: PACKAGES */}
         {activeSection === 'packages' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
@@ -611,7 +611,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">6. Property & Support Cards</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Edit property support items and callout cards</p>
+                  <p className="text-text-muted text-xs mt-0.5">Edit property support items and callout cards</p>
                 </div>
               </div>
               <button
@@ -626,25 +626,25 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Property Support Headline</label>
-                <input type="text" value={pkgTitle} onChange={(e) => setPkgTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={pkgTitle} onChange={(e) => setPkgTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
 
               <div className="space-y-4">
                 {packagesList.map((pkg, idx) => (
-                  <div key={pkg.id || idx} className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3 relative group">
+                  <div key={pkg.id || idx} className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-xs font-mono font-bold text-amber-400">CARD #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...packagesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === packagesList.length - 1} onClick={() => { const u = [...packagesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === packagesList.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...packagesList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === packagesList.length - 1} onClick={() => { const u = [...packagesList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setPackagesList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === packagesList.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); const u = packagesList.filter((_, i) => i !== idx); setPackagesList(u); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={pkg.title || ''} onChange={(e) => { const u = [...packagesList]; u[idx].title = e.target.value; setPackagesList(u); }} placeholder="Card Title" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
-                      <input type="text" value={pkg.btnText || ''} onChange={(e) => { const u = [...packagesList]; u[idx].btnText = e.target.value; setPackagesList(u); }} placeholder="Button Label" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-[#D4AF37] font-bold text-xs focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={pkg.title || ''} onChange={(e) => { const u = [...packagesList]; u[idx].title = e.target.value; setPackagesList(u); }} placeholder="Card Title" className="bg-surface border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={pkg.btnText || ''} onChange={(e) => { const u = [...packagesList]; u[idx].btnText = e.target.value; setPackagesList(u); }} placeholder="Button Label" className="bg-surface border border-slate-800 rounded-xl p-3 text-[#D4AF37] font-bold text-xs focus:outline-none focus:border-amber-500/50" />
                     </div>
-                    <textarea rows={2} value={pkg.desc || ''} onChange={(e) => { const u = [...packagesList]; u[idx].desc = e.target.value; setPackagesList(u); }} placeholder="Card Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+                    <textarea rows={2} value={pkg.desc || ''} onChange={(e) => { const u = [...packagesList]; u[idx].desc = e.target.value; setPackagesList(u); }} placeholder="Card Description" className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
                   </div>
                 ))}
               </div>
@@ -654,7 +654,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 7: WHY CHOOSE US */}
         {activeSection === 'whyus' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
@@ -662,7 +662,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">7. Why Families Choose Us</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Edit key advantage title and feature points</p>
+                  <p className="text-text-muted text-xs mt-0.5">Edit key advantage title and feature points</p>
                 </div>
               </div>
               <button
@@ -677,22 +677,22 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Section Headline</label>
-                <input type="text" value={whyTitle} onChange={(e) => setWhyTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={whyTitle} onChange={(e) => setWhyTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
 
               <div className="space-y-4">
                 {whyUsList.map((wu, idx) => (
-                  <div key={wu.id || idx} className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3 relative group">
+                  <div key={wu.id || idx} className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-xs font-mono font-bold text-amber-400">FEATURE #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...whyUsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === whyUsList.length - 1} onClick={() => { const u = [...whyUsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === whyUsList.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...whyUsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === whyUsList.length - 1} onClick={() => { const u = [...whyUsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setWhyUsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === whyUsList.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); const u = whyUsList.filter((_, i) => i !== idx); setWhyUsList(u); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
-                    <input type="text" value={wu.title || ''} onChange={(e) => { const u = [...whyUsList]; u[idx].title = e.target.value; setWhyUsList(u); }} placeholder="Feature Title" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
-                    <textarea rows={2} value={wu.desc || ''} onChange={(e) => { const u = [...whyUsList]; u[idx].desc = e.target.value; setWhyUsList(u); }} placeholder="Feature Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+                    <input type="text" value={wu.title || ''} onChange={(e) => { const u = [...whyUsList]; u[idx].title = e.target.value; setWhyUsList(u); }} placeholder="Feature Title" className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
+                    <textarea rows={2} value={wu.desc || ''} onChange={(e) => { const u = [...whyUsList]; u[idx].desc = e.target.value; setWhyUsList(u); }} placeholder="Feature Description" className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
                   </div>
                 ))}
               </div>
@@ -702,7 +702,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 8: 4-STEP PROCESS */}
         {activeSection === 'process' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
@@ -710,7 +710,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">8. Step-by-Step 4-Step Process</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Edit process workflow timeline steps and SLA durations</p>
+                  <p className="text-text-muted text-xs mt-0.5">Edit process workflow timeline steps and SLA durations</p>
                 </div>
               </div>
               <button
@@ -725,25 +725,25 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Process Section Headline</label>
-                <input type="text" value={procTitle} onChange={(e) => setProcTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={procTitle} onChange={(e) => setProcTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
 
               <div className="space-y-4">
                 {processList.map((stp, idx) => (
-                  <div key={stp.step || idx} className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3 relative group">
+                  <div key={stp.step || idx} className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-xs font-mono font-bold text-amber-400">STEP #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...processList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === processList.length - 1} onClick={() => { const u = [...processList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === processList.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...processList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === processList.length - 1} onClick={() => { const u = [...processList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setProcessList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === processList.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); const u = processList.filter((_, i) => i !== idx); setProcessList(u); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={stp.title || ''} onChange={(e) => { const u = [...processList]; u[idx].title = e.target.value; setProcessList(u); }} placeholder="Step Title" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
-                      <input type="text" value={stp.time || ''} onChange={(e) => { const u = [...processList]; u[idx].time = e.target.value; setProcessList(u); }} placeholder="Duration (e.g. Day 1)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={stp.title || ''} onChange={(e) => { const u = [...processList]; u[idx].title = e.target.value; setProcessList(u); }} placeholder="Step Title" className="bg-surface border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={stp.time || ''} onChange={(e) => { const u = [...processList]; u[idx].time = e.target.value; setProcessList(u); }} placeholder="Duration (e.g. Day 1)" className="bg-surface border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs focus:outline-none focus:border-amber-500/50" />
                     </div>
-                    <textarea rows={2} value={stp.desc || ''} onChange={(e) => { const u = [...processList]; u[idx].desc = e.target.value; setProcessList(u); }} placeholder="Step Description" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+                    <textarea rows={2} value={stp.desc || ''} onChange={(e) => { const u = [...processList]; u[idx].desc = e.target.value; setProcessList(u); }} placeholder="Step Description" className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
                   </div>
                 ))}
               </div>
@@ -753,7 +753,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 9: FAQS ACCORDION */}
         {activeSection === 'faqs' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
@@ -761,7 +761,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">9. Frequently Asked Questions (FAQs)</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Add, edit, or reorder homepage FAQ accordion items</p>
+                  <p className="text-text-muted text-xs mt-0.5">Add, edit, or reorder homepage FAQ accordion items</p>
                 </div>
               </div>
               <button
@@ -776,17 +776,17 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">FAQ Section Headline</label>
-                <input type="text" value={faqsTitle} onChange={(e) => setFaqsTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={faqsTitle} onChange={(e) => setFaqsTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
 
               <div className="space-y-4">
                 {faqItems.map((faq, idx) => (
-                  <div key={faq.id || idx} className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3">
+                  <div key={faq.id || idx} className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-3">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-xs font-mono font-bold text-amber-400">FAQ ITEM #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...faqItems]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setFaqItems(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === faqItems.length - 1} onClick={() => { const u = [...faqItems]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setFaqItems(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === faqItems.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...faqItems]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setFaqItems(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === faqItems.length - 1} onClick={() => { const u = [...faqItems]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setFaqItems(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === faqItems.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button
                           type="button"
                           onClick={(e) => { e.preventDefault(); e.stopPropagation(); setFaqItems(faqItems.filter((_, i) => i !== idx)); }}
@@ -798,12 +798,12 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                       </div>
                     </div>
                     <div>
-                      <label className="block text-[10px] text-slate-400 uppercase mb-1">Question</label>
-                      <input type="text" value={faq.question || faq.q || ''} onChange={(e) => { const u = [...faqItems]; u[idx].question = e.target.value; u[idx].q = e.target.value; setFaqItems(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
+                      <label className="block text-[10px] text-text-muted uppercase mb-1">Question</label>
+                      <input type="text" value={faq.question || faq.q || ''} onChange={(e) => { const u = [...faqItems]; u[idx].question = e.target.value; u[idx].q = e.target.value; setFaqItems(u); }} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
                     </div>
                     <div>
-                      <label className="block text-[10px] text-slate-400 uppercase mb-1">Answer</label>
-                      <textarea rows={2} value={faq.answer || faq.a || ''} onChange={(e) => { const u = [...faqItems]; u[idx].answer = e.target.value; u[idx].a = e.target.value; setFaqItems(u); }} className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+                      <label className="block text-[10px] text-text-muted uppercase mb-1">Answer</label>
+                      <textarea rows={2} value={faq.answer || faq.a || ''} onChange={(e) => { const u = [...faqItems]; u[idx].answer = e.target.value; u[idx].a = e.target.value; setFaqItems(u); }} className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
                     </div>
                   </div>
                 ))}
@@ -814,7 +814,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 10: REVIEWS */}
         {activeSection === 'reviews' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
@@ -822,7 +822,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">10. Customer Reviews Ticker</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Edit customer reviews and rating testimonials</p>
+                  <p className="text-text-muted text-xs mt-0.5">Edit customer reviews and rating testimonials</p>
                 </div>
               </div>
               <button
@@ -837,25 +837,25 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Reviews Section Headline</label>
-                <input type="text" value={revTitle} onChange={(e) => setRevTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={revTitle} onChange={(e) => setRevTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
 
               <div className="space-y-4">
                 {reviewsList.map((rev, idx) => (
-                  <div key={rev.id || idx} className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3 relative group">
+                  <div key={rev.id || idx} className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-xs font-mono font-bold text-amber-400">REVIEW #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...reviewsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setReviewsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === reviewsList.length - 1} onClick={() => { const u = [...reviewsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setReviewsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === reviewsList.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...reviewsList]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setReviewsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === reviewsList.length - 1} onClick={() => { const u = [...reviewsList]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setReviewsList(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === reviewsList.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); const u = reviewsList.filter((_, i) => i !== idx); setReviewsList(u); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer" title="Remove Item"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={rev.author || ''} onChange={(e) => { const u = [...reviewsList]; u[idx].author = e.target.value; setReviewsList(u); }} placeholder="Customer Name" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
-                      <input type="text" value={rev.platform || ''} onChange={(e) => { const u = [...reviewsList]; u[idx].platform = e.target.value; setReviewsList(u); }} placeholder="Platform (e.g. Google)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={rev.author || ''} onChange={(e) => { const u = [...reviewsList]; u[idx].author = e.target.value; setReviewsList(u); }} placeholder="Customer Name" className="bg-surface border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={rev.platform || ''} onChange={(e) => { const u = [...reviewsList]; u[idx].platform = e.target.value; setReviewsList(u); }} placeholder="Platform (e.g. Google)" className="bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 font-mono text-xs focus:outline-none focus:border-amber-500/50" />
                     </div>
-                    <textarea rows={2} value={rev.text || ''} onChange={(e) => { const u = [...reviewsList]; u[idx].text = e.target.value; setReviewsList(u); }} placeholder="Review Content" className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+                    <textarea rows={2} value={rev.text || ''} onChange={(e) => { const u = [...reviewsList]; u[idx].text = e.target.value; setReviewsList(u); }} placeholder="Review Content" className="w-full bg-surface border border-slate-800 rounded-xl p-3 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
                   </div>
                 ))}
               </div>
@@ -865,25 +865,25 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 11: BLOG TEASER */}
         {activeSection === 'blog' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-5">
               <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
                 <BookOpen className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="font-display font-bold text-lg text-white">11. Blog Guides Teaser</h2>
-                <p className="text-slate-400 text-xs mt-0.5">Edit homepage blog teaser headline and subtext</p>
+                <p className="text-text-muted text-xs mt-0.5">Edit homepage blog teaser headline and subtext</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Blog Section Headline</label>
-                <input type="text" value={blogTitle} onChange={(e) => setBlogTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={blogTitle} onChange={(e) => setBlogTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">Blog Section Subtext</label>
-                <textarea rows={2} value={blogSubtext} onChange={(e) => setBlogSubtext(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+                <textarea rows={2} value={blogSubtext} onChange={(e) => setBlogSubtext(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
               </div>
             </div>
             
@@ -899,7 +899,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
 
         {/* SECTION 12: CTA BANNER */}
         {activeSection === 'cta' && (
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800 pb-5">
               <div className="flex items-center gap-3">
                 <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
@@ -907,7 +907,7 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-lg text-white">12. Final CTA Conversion Banner</h2>
-                  <p className="text-slate-400 text-xs mt-0.5">Edit bottom conversion call-to-action banner text and action buttons</p>
+                  <p className="text-text-muted text-xs mt-0.5">Edit bottom conversion call-to-action banner text and action buttons</p>
                 </div>
               </div>
               <button
@@ -922,29 +922,29 @@ export default function HomepageEditor({ cmsConfig, setCmsConfig, initialSection
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">CTA Banner Headline</label>
-                <input type="text" value={ctaHeadline} onChange={(e) => setCtaHeadline(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
+                <input type="text" value={ctaHeadline} onChange={(e) => setCtaHeadline(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-white font-bold text-sm focus:outline-none focus:border-amber-500/50" />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">CTA Banner Subtext</label>
-                <textarea rows={2} value={ctaSubtext} onChange={(e) => setCtaSubtext(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+                <textarea rows={2} value={ctaSubtext} onChange={(e) => setCtaSubtext(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
               </div>
 
               {/* CTA Buttons UI */}
               <div className="space-y-4">
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">CTA Action Buttons</label>
                 {ctaButtons.map((btn, idx) => (
-                  <div key={btn.id || idx} className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl space-y-3 relative group">
+                  <div key={btn.id || idx} className="p-4 bg-surface/80 border border-slate-800 rounded-xl space-y-3 relative group">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-xs font-mono font-bold text-amber-400">BUTTON #{idx + 1}</span>
                       <div className="flex items-center gap-1.5">
-                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...ctaButtons]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setCtaButtons(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
-                        <button type="button" disabled={idx === ctaButtons.length - 1} onClick={() => { const u = [...ctaButtons]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setCtaButtons(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === ctaButtons.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === 0} onClick={() => { const u = [...ctaButtons]; const temp = u[idx-1]; u[idx-1] = u[idx]; u[idx] = temp; setCtaButtons(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowUp className="w-3.5 h-3.5" /></button>
+                        <button type="button" disabled={idx === ctaButtons.length - 1} onClick={() => { const u = [...ctaButtons]; const temp = u[idx+1]; u[idx+1] = u[idx]; u[idx] = temp; setCtaButtons(u); }} className={`p-1.5 rounded-lg border transition-colors ${idx === ctaButtons.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}><ArrowDown className="w-3.5 h-3.5" /></button>
                         <button type="button" onClick={() => { const u = ctaButtons.filter((_, i) => i !== idx); setCtaButtons(u); }} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input type="text" value={btn.label || ''} onChange={(e) => { const u = [...ctaButtons]; u[idx].label = e.target.value; setCtaButtons(u); }} placeholder="Button Label" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
-                      <input type="text" value={btn.link || ''} onChange={(e) => { const u = [...ctaButtons]; u[idx].link = e.target.value; setCtaButtons(u); }} placeholder="Action Link (e.g. calculator, whatsapp)" className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={btn.label || ''} onChange={(e) => { const u = [...ctaButtons]; u[idx].label = e.target.value; setCtaButtons(u); }} placeholder="Button Label" className="bg-surface border border-slate-800 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50" />
+                      <input type="text" value={btn.link || ''} onChange={(e) => { const u = [...ctaButtons]; u[idx].link = e.target.value; setCtaButtons(u); }} placeholder="Action Link (e.g. calculator, whatsapp)" className="bg-surface border border-slate-800 rounded-xl p-3 text-amber-400 font-mono text-xs focus:outline-none focus:border-amber-500/50" />
                     </div>
                   </div>
                 ))}

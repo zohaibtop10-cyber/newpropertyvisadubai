@@ -19,7 +19,7 @@ export default function PropertyPage({ onOpenCalculator, onNavigate, cmsConfig }
         <h1 className="font-sans font-extrabold text-3xl sm:text-5xl text-white leading-tight">
           {headline}
         </h1>
-        <p className="text-slate-400 text-base sm:text-lg">
+        <p className="text-text-muted text-base sm:text-lg">
           {subtext}
         </p>
       </div>
@@ -35,7 +35,7 @@ export default function PropertyPage({ onOpenCalculator, onNavigate, cmsConfig }
               <Building2 className="w-7 h-7 text-[#D4AF37]" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-4 font-sans">Property Investor Visa</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-8 font-medium">
+            <p className="text-text-muted text-sm leading-relaxed mb-8 font-medium">
               End-to-end processing for the 2-Year and 10-Year (Golden) Property Investor visas. We handle everything from the initial DLD taskeen to medical checks and Emirates ID issuance.
             </p>
             <ul className="space-y-4 text-sm font-semibold text-slate-300 mb-8">
@@ -68,11 +68,11 @@ export default function PropertyPage({ onOpenCalculator, onNavigate, cmsConfig }
           className="p-8 rounded-[10px] border border-white/10 bg-[#0A0A0A] shadow-xl flex flex-col justify-between group hover:border-[#D4AF37]/50 transition-all"
         >
           <div>
-            <div className="w-14 h-14 rounded-[10px] bg-white/5 border border-white/10 text-white flex items-center justify-center mb-6">
+            <div className="w-14 h-14 rounded-[10px] bg-surface/5 border border-white/10 text-white flex items-center justify-center mb-6">
               <Scale className="w-7 h-7 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-4 font-sans">DLD Trustee & Revaluation</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-8 font-medium">
+            <p className="text-text-muted text-sm leading-relaxed mb-8 font-medium">
               Complete representation at the Dubai Land Department. We assist with official property revaluation for visa eligibility, title deed transfers, and POA management.
             </p>
             <ul className="space-y-4 text-sm font-semibold text-slate-300 mb-8">
@@ -94,7 +94,7 @@ export default function PropertyPage({ onOpenCalculator, onNavigate, cmsConfig }
               </li>
             </ul>
           </div>
-          <button onClick={() => onNavigate('contact')} className="w-full py-4 rounded-[10px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-colors flex items-center justify-center gap-2 cursor-pointer font-mono text-xs uppercase tracking-wider">
+          <button onClick={() => onNavigate('contact')} className="w-full py-4 rounded-[10px] font-bold bg-surface/10 hover:bg-surface/20 text-white border border-white/10 transition-colors flex items-center justify-center gap-2 cursor-pointer font-mono text-xs uppercase tracking-wider">
             Talk to an Expert <MessageSquare className="w-4 h-4" />
           </button>
         </motion.div>

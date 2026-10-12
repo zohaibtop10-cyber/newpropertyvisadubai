@@ -53,7 +53,7 @@ export default function KnowledgeBase() {
   ];
 
   return (
-    <section id="knowledge" className="bg-canvas dark:bg-brand-darkBg text-content-primary dark:text-white py-20 px-4 sm:px-6 lg:px-8 font-sans border-b border-border-subtle dark:border-white/5 transition-colors duration-200">
+    <section id="knowledge" className="bg-bg  text-text  py-20 px-4 sm:px-6 lg:px-8 font-sans border-b border-border-subtle dark:border-white/5 transition-colors duration-200">
       <div className="max-w-7xl mx-auto space-y-20">
         
         {/* Top FAQ Section */}
@@ -65,10 +65,10 @@ export default function KnowledgeBase() {
                 <span className="w-2 h-2 rounded-full bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)]" />
                 EXECUTIVE KNOWLEDGE BASE
               </div>
-              <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-content-primary dark:text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-text  tracking-tight">
                 Top Regulatory & Visa Queries Answered
               </h2>
-              <p className="text-content-muted dark:text-slate-400 text-sm leading-relaxed">
+              <p className="text-content-muted dark:text-text-muted text-sm leading-relaxed">
                 Clear, authoritative answers regarding capital requirements, corporate tax, family sponsorship, visa quotas, and banking protocols.
               </p>
 
@@ -78,12 +78,12 @@ export default function KnowledgeBase() {
                   <WhatsAppIcon className="w-4 h-4" />
                   <span>Need Direct Guidance?</span>
                 </div>
-                <p className="text-xs text-content-muted dark:text-slate-400 leading-normal">
+                <p className="text-xs text-content-muted dark:text-text-muted leading-normal">
                   Schedule a confidential 15-minute consultation with a Senior Partner to review your corporate structure or family visa file.
                 </p>
                 <a 
                   href="#contact"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-content-primary dark:text-white hover:text-[#B8860B] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-text  hover:text-[#D4AF37] transition-colors"
                 >
                   <span>Book Partner Consultation</span>
                   <ArrowRight className="w-3.5 h-3.5 text-brand-primary" />
@@ -100,16 +100,16 @@ export default function KnowledgeBase() {
                 >
                   <button
                     onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                    className="w-full text-left p-6 flex items-center justify-between gap-4 font-display font-bold text-content-primary dark:text-white hover:text-[#B8860B] transition-colors cursor-pointer"
+                    className="w-full text-left p-6 flex items-center justify-between gap-4 font-display font-bold text-text  hover:text-[#D4AF37] transition-colors cursor-pointer"
                   >
                     <span className="text-base sm:text-lg">{faq.question}</span>
-                    <div className={`w-8 h-8 rounded-full bg-surface-elevated dark:bg-white/10 flex items-center justify-center shrink-0 transition-transform duration-300 ${openFaq === index ? 'rotate-180 bg-brand-primary/10 text-brand-primary' : 'text-content-muted dark:text-slate-400'}`}>
+                    <div className={`w-8 h-8 rounded-full bg-surface-elevated /10 flex items-center justify-center shrink-0 transition-transform duration-300 ${openFaq === index ? 'rotate-180 bg-brand-primary/10 text-brand-primary' : 'text-content-muted dark:text-text-muted'}`}>
                       <ChevronDown className="w-4 h-4" />
                     </div>
                   </button>
 
                   {openFaq === index && (
-                    <div className="px-6 pb-6 text-xs sm:text-sm text-content-muted dark:text-slate-400 leading-relaxed border-t border-border-subtle dark:border-white/5 pt-4 animate-modal-in">
+                    <div className="px-6 pb-6 text-xs sm:text-sm text-content-muted dark:text-text-muted leading-relaxed border-t border-border-subtle dark:border-white/5 pt-4 animate-modal-in">
                       {faq.answer}
                     </div>
                   )}
@@ -127,7 +127,7 @@ export default function KnowledgeBase() {
                 <span className="w-2 h-2 rounded-full bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)]" />
                 TOPICAL REPORTS & POLICY
               </div>
-              <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-content-primary dark:text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-text  tracking-tight">
                 Executive Policy Briefings & Visa Guides
               </h2>
             </div>
@@ -160,17 +160,17 @@ export default function KnowledgeBase() {
                   </div>
 
                   <div className="p-6">
-                    <h3 className="font-display font-bold text-lg text-content-primary dark:text-white group-hover:text-[#B8860B] transition-colors line-clamp-2 mb-2">
+                    <h3 className="font-display font-bold text-lg text-text  group-hover:text-[#D4AF37] transition-colors line-clamp-2 mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-content-muted dark:text-slate-400 line-clamp-2 leading-relaxed mb-4">
+                    <p className="text-xs text-content-muted dark:text-text-muted line-clamp-2 leading-relaxed mb-4">
                       {item.desc}
                     </p>
                   </div>
                 </div>
 
-                <div className="px-6 pb-6 pt-0 text-[11px] font-medium text-slate-400 dark:text-slate-500 flex items-center gap-1 border-t border-border-subtle dark:border-white/5 mt-2">
-                  <Clock className="w-3.5 h-3.5 text-slate-400" />
+                <div className="px-6 pb-6 pt-0 text-[11px] font-medium text-text-muted  flex items-center gap-1 border-t border-border-subtle dark:border-white/5 mt-2">
+                  <Clock className="w-3.5 h-3.5 text-text-muted" />
                   <span>{item.date}</span>
                 </div>
               </div>

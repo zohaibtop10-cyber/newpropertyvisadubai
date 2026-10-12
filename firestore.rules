@@ -1,0 +1,92 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for Custom Claims
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return request.auth.token;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && getUserData().role == 'admin';
+    }
+
+    function isEditor() {
+      return isAuthenticated() && getUserData().role == 'editor';
+    }
+
+    function isAdminOrEditor() {
+      return isAdmin() || isEditor();
+    }
+
+    function isStaff() {
+      return isAuthenticated() && (getUserData().role == 'admin' || getUserData().role == 'editor' || getUserData().role == 'sales');
+    }
+
+    // Default deny all documents
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Public CMS Content collections - Public read, write for Admin or Editor
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAdminOrEditor();
+    }
+
+    match /pages/{pageId} {
+      allow read: if true;
+      allow write: if isAdminOrEditor();
+
+      match /sections/{sectionId} {
+        allow read: if true;
+        allow write: if isAdminOrEditor();
+      }
+    }
+
+    match /blogPosts/{postId} {
+      allow read: if true;
+      allow write: if isAdminOrEditor();
+    }
+
+    match /faqs/{faqId} {
+      allow read: if true;
+      allow write: if isAdminOrEditor();
+    }
+
+    match /testimonials/{testimonialId} {
+      allow read: if true;
+      allow write: if isAdminOrEditor();
+    }
+
+    match /team/{memberId} {
+      allow read: if true;
+      allow write: if isAdminOrEditor();
+    }
+
+    match /calculatorRules/{ruleId} {
+      allow read: if true;
+      allow write: if isAdminOrEditor();
+    }
+
+    match /siteSettings/{settingId} {
+      allow read: if true;
+      allow write: if isAdminOrEditor();
+    }
+
+    // Leads collection - Public create, read/update/delete restricted to staff
+    match /leads/{leadId} {
+      allow create: if true;
+      allow read, update, delete: if isStaff();
+    }
+
+    // Users collection - Admin access only
+    match /users/{userId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

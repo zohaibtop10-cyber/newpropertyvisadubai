@@ -53,7 +53,7 @@ export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Ticker Marquee Manager
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Manage client success ticker items displayed across site headers.
             </p>
           </div>
@@ -74,7 +74,7 @@ export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+      <form onSubmit={handleSave} className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
         <div className="flex items-center justify-between border-b border-slate-800/80 pb-5">
           <div className="flex items-center gap-3">
             <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
@@ -82,14 +82,14 @@ export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
             </div>
             <div>
               <h2 className="font-display font-bold text-lg text-white">Active Ticker Items ({items.length})</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Edit customer names, action text, and timestamps</p>
+              <p className="text-text-muted text-xs mt-0.5">Edit customer names, action text, and timestamps</p>
             </div>
           </div>
           
           <button
             type="button"
             onClick={handleAddItem}
-            className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl border border-slate-700/80 flex items-center gap-2 transition-colors cursor-pointer"
+            className="px-4 py-2.5 bg-surface hover:bg-surface text-white text-xs font-bold rounded-xl border border-slate-700/80 flex items-center gap-2 transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4 text-amber-400" /> Add Item
           </button>
@@ -98,7 +98,7 @@ export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
         {/* List of Items */}
         <div className="space-y-4">
           {items.map((item) => (
-            <div key={item.id} className="p-4 bg-slate-950/80 border border-slate-800/80 rounded-xl flex flex-col md:flex-row gap-4 items-end md:items-center">
+            <div key={item.id} className="p-4 bg-surface/80 border border-slate-800/80 rounded-xl flex flex-col md:flex-row gap-4 items-end md:items-center">
               
               <div className="flex-1 w-full space-y-1.5">
                 <label className="text-[11px] font-semibold text-slate-300">Client Name</label>
@@ -107,7 +107,7 @@ export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
                   value={item.name}
                   onChange={(e) => handleUpdateItem(item.id, 'name', e.target.value)}
                   placeholder="e.g. Isabella Garcia"
-                  className="w-full bg-slate-900 border border-slate-700/60 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface border border-slate-700/60 rounded-xl p-3 text-white text-xs font-bold focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -118,7 +118,7 @@ export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
                   value={item.actionText}
                   onChange={(e) => handleUpdateItem(item.id, 'actionText', e.target.value)}
                   placeholder="e.g. secured Golden Visa"
-                  className="w-full bg-slate-900 border border-slate-700/60 rounded-xl p-3 text-white text-xs font-medium focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-surface border border-slate-700/60 rounded-xl p-3 text-white text-xs font-medium focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
@@ -128,14 +128,14 @@ export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
                   type="datetime-local"
                   value={item.timestamp}
                   onChange={(e) => handleUpdateItem(item.id, 'timestamp', e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700/60 rounded-xl p-3 text-white text-xs font-mono focus:outline-none focus:border-amber-500/50 [color-scheme:dark]"
+                  className="w-full bg-surface border border-slate-700/60 rounded-xl p-3 text-white text-xs font-mono focus:outline-none focus:border-amber-500/50 [color-scheme:dark]"
                 />
               </div>
 
               <button
                 type="button"
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDeleteItem(item.id); }}
-                className="p-3 text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-slate-800 rounded-xl transition-colors shrink-0 mb-0.5 cursor-pointer"
+                className="p-3 text-text-muted hover:text-red-400 hover:bg-red-500/10 border border-slate-800 rounded-xl transition-colors shrink-0 mb-0.5 cursor-pointer"
                 title="Delete Item"
               >
                 <Trash2 className="w-4 h-4" />
@@ -144,7 +144,7 @@ export default function MarqueeManager({ cmsConfig, setCmsConfig }) {
           ))}
           
           {items.length === 0 && (
-            <div className="text-center py-8 text-slate-400 text-xs border border-dashed border-slate-800 rounded-xl">
+            <div className="text-center py-8 text-text-muted text-xs border border-dashed border-slate-800 rounded-xl">
               No ticker items found. Click "Add Item" to create one.
             </div>
           )}

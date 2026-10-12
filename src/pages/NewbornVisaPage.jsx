@@ -34,7 +34,7 @@ const PHASES = [
     label: 'Birth Certificate',
     authority: 'DHA / Hospital',
     window: 'Days 1–5',
-    color: 'from-[#D4AF37] to-[#B8860B]',
+    color: 'from-[#D4AF37] to-[#C59B27]',
     accentBg: 'bg-[#D4AF37]/10',
     accentText: 'text-[#D4AF37]',
     borderAccent: 'border-[#D4AF37]/30',
@@ -100,7 +100,7 @@ const PHASES = [
     label: 'Emirates ID',
     authority: 'ICP',
     window: 'After Passport',
-    color: 'from-[#D4AF37] to-[#B8860B]',
+    color: 'from-[#D4AF37] to-[#C59B27]',
     accentBg: 'bg-[#D4AF37]/10',
     accentText: 'text-[#D4AF37]',
     borderAccent: 'border-[#D4AF37]/30',
@@ -219,13 +219,13 @@ function GracePeriodTimer() {
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
       className="bg-[#111319] border border-white/10 rounded-[10px] shadow-[0_30px_60px_-20px_rgba(212,175,55,0.15)] overflow-hidden font-sans"
     >
-      <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+      <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
       <div className="px-6 py-5 border-b border-white/10">
         <div className="flex items-center gap-2 mb-1">
           <Clock className="w-5 h-5 text-[#D4AF37]" />
           <h3 className="font-bold text-white text-sm tracking-wide">120-Day Grace Period Calculator</h3>
         </div>
-        <p className="text-xs text-slate-400">Enter your baby's birth date to see days remaining in the visa grace period</p>
+        <p className="text-xs text-text-muted">Enter your baby's birth date to see days remaining in the visa grace period</p>
       </div>
 
       <div className="p-6 space-y-5">
@@ -242,14 +242,14 @@ function GracePeriodTimer() {
 
         {/* Visual timeline bar */}
         <div className="bg-[#0A0B0E] rounded-[10px] p-4 border border-white/10">
-          <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 font-mono">
+          <div className="flex justify-between text-[10px] font-bold text-text-muted uppercase tracking-wide mb-2 font-mono">
             <span>Day 0 (Birth)</span>
             <span>Day 120 (Deadline)</span>
           </div>
-          <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
+          <div className="h-2.5 bg-surface/10 rounded-full overflow-hidden">
             <div className="h-full w-full bg-gradient-to-r from-emerald-500 via-amber-400 to-red-500 rounded-full" />
           </div>
-          <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
+          <div className="flex justify-between text-[10px] text-text-muted mt-1 font-mono">
             <span>Safe Zone</span>
             <span>Urgent</span>
             <span>Critical</span>
@@ -278,7 +278,7 @@ function GracePeriodTimer() {
             >
               <div className={`bg-gradient-to-br ${urgencyConfig[urgencyLevel].bg} border rounded-[10px] p-5 shadow-2xl`}>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-[10px] bg-white/10 border border-white/20 flex items-center justify-center font-extrabold text-xl text-white">
+                  <div className="w-12 h-12 rounded-[10px] bg-surface/10 border border-white/20 flex items-center justify-center font-extrabold text-xl text-white">
                     {daysRemaining > 0 ? daysRemaining : '0'}
                   </div>
                   <div>
@@ -309,8 +309,8 @@ function GracePeriodTimer() {
             { day: 'Day 105', label: 'Extension application window — if needed', urgency: 'high' },
             { day: 'Day 120', label: 'Grace period deadline — visa must be stamped', urgency: 'critical' },
           ].map((m, i) => (
-            <div key={i} className={`flex items-center gap-3 p-2.5 rounded-[8px] border ${m.urgency === 'critical' ? 'bg-red-950/40 border-red-500/30' : m.urgency === 'high' ? 'bg-amber-950/40 border-amber-500/30' : 'bg-white/5 border-white/10'}`}>
-              <span className={`text-[10px] font-mono font-extrabold rounded-[6px] px-2 py-1 whitespace-nowrap ${m.urgency === 'critical' ? 'bg-red-500/20 text-red-300' : m.urgency === 'high' ? 'bg-amber-500/20 text-amber-300' : 'bg-white/10 text-slate-300'}`}>{m.day}</span>
+            <div key={i} className={`flex items-center gap-3 p-2.5 rounded-[8px] border ${m.urgency === 'critical' ? 'bg-red-950/40 border-red-500/30' : m.urgency === 'high' ? 'bg-amber-950/40 border-amber-500/30' : 'bg-surface/5 border-white/10'}`}>
+              <span className={`text-[10px] font-mono font-extrabold rounded-[6px] px-2 py-1 whitespace-nowrap ${m.urgency === 'critical' ? 'bg-red-500/20 text-red-300' : m.urgency === 'high' ? 'bg-amber-500/20 text-amber-300' : 'bg-surface/10 text-slate-300'}`}>{m.day}</span>
               <span className="text-xs text-slate-300 font-medium">{m.label}</span>
             </div>
           ))}
@@ -346,7 +346,7 @@ function NewbornHero() {
               className="text-4xl sm:text-5xl lg:text-[3.25rem] font-black text-white leading-[1.08] tracking-tight font-sans"
             >
               Your Baby Is Here.{' '}
-              <span className="bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#B8860B] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#FFF8DC] via-[#D4AF37] to-[#C59B27] bg-clip-text text-transparent">
                 5 Phases.
               </span>
               <br />120 Days. We Handle All of It.
@@ -470,22 +470,22 @@ function FivePhaseJourney() {
 
               <div>
                 <LuxuryCard hover={false} className="h-full bg-[#111319] border-white/10">
-                  <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+                  <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
                   <div className="p-6">
                     <p className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4AF37] mb-4">Phase Summary</p>
 
                     <div className="bg-[#0A0B0E] border border-white/10 rounded-[10px] p-4 mb-4">
-                      <div className="text-[10px] font-mono font-bold uppercase tracking-wide text-slate-400 mb-1">Authority</div>
+                      <div className="text-[10px] font-mono font-bold uppercase tracking-wide text-text-muted mb-1">Authority</div>
                       <div className="font-bold text-base text-white">{current.authority}</div>
                     </div>
 
                     <div className="bg-[#0A0B0E] border border-white/10 rounded-[10px] p-4 mb-4">
-                      <div className="text-[10px] font-mono font-bold uppercase tracking-wide text-slate-400 mb-1">Typical Fee</div>
+                      <div className="text-[10px] font-mono font-bold uppercase tracking-wide text-text-muted mb-1">Typical Fee</div>
                       <div className="font-extrabold text-[#D4AF37] text-lg font-mono">{current.fee}</div>
                     </div>
 
                     <div className="bg-[#0A0B0E] border border-white/10 rounded-[10px] p-4 mb-6">
-                      <div className="text-[10px] font-mono font-bold uppercase tracking-wide text-slate-400 mb-1">Timing Window</div>
+                      <div className="text-[10px] font-mono font-bold uppercase tracking-wide text-text-muted mb-1">Timing Window</div>
                       <div className="font-bold text-white">{current.window}</div>
                     </div>
 
@@ -539,7 +539,7 @@ function TotalFeeSection() {
             viewport={{ once: true, margin: '-40px' }}
             variants={scaleIn}
           >
-            <div className="h-[3px] bg-gradient-to-r from-[#B8860B] via-[#FFF8DC] to-[#D4AF37]" />
+            <div className="h-[3px] bg-gradient-to-r from-[#C59B27] via-[#FFF8DC] to-[#D4AF37]" />
             <div className="p-6">
               <div className="space-y-2 mb-4">
                 {feeItems.map((item, i) => (
@@ -557,7 +557,7 @@ function TotalFeeSection() {
               <div className="mt-4 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-[10px] px-4 py-4 flex justify-between items-center">
                 <div>
                   <div className="text-xs font-mono font-bold uppercase tracking-wide text-white">Total from</div>
-                  <div className="text-[10px] text-slate-400 font-mono">(excl. embassy passport fee)</div>
+                  <div className="text-[10px] text-text-muted font-mono">(excl. embassy passport fee)</div>
                 </div>
                 <span className="font-extrabold text-xl text-[#D4AF37] font-mono">AED {minTotal.toLocaleString()}</span>
               </div>

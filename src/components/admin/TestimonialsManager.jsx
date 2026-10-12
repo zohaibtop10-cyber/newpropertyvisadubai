@@ -141,7 +141,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Testimonials & Reviews Manager
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Add, edit, reorder, and sync real client reviews directly to the live site and Firebase DB.
             </p>
           </div>
@@ -156,14 +156,14 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
       )}
 
       {/* Add New Review Card / Form */}
-      <form onSubmit={handleAddReview} className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+      <form onSubmit={handleAddReview} className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
         <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
           <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
             <Star className="w-6 h-6 fill-amber-400 text-amber-400" />
           </div>
           <div>
             <h2 className="font-display font-bold text-lg text-white">Add New Client Review</h2>
-            <p className="text-slate-400 text-xs mt-0.5">Publish a verified client testimonial to the live homepage & review carousels.</p>
+            <p className="text-text-muted text-xs mt-0.5">Publish a verified client testimonial to the live homepage & review carousels.</p>
           </div>
         </div>
 
@@ -176,7 +176,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               required
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50"
             />
           </div>
 
@@ -185,7 +185,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
             <select
               value={newVisaType}
               onChange={(e) => setNewVisaType(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50 cursor-pointer"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50 cursor-pointer"
             >
               <option value="10-Year Golden Visa">10-Year Golden Visa</option>
               <option value="Spouse Residency Visa">Spouse Residency Visa</option>
@@ -201,7 +201,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
             <select
               value={newRating}
               onChange={(e) => setNewRating(Number(e.target.value))}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-amber-400 font-bold focus:outline-none focus:border-amber-500/50 cursor-pointer"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-amber-400 font-bold focus:outline-none focus:border-amber-500/50 cursor-pointer"
             >
               <option value={5}>5 Stars (★★★★★)</option>
               <option value={4}>4 Stars (★★★★☆)</option>
@@ -217,7 +217,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
               value={newQuote}
               onChange={(e) => setNewQuote(e.target.value)}
               required
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-200 text-sm leading-relaxed focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-200 text-sm leading-relaxed focus:outline-none focus:border-amber-500/50"
             />
           </div>
         </div>
@@ -232,7 +232,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
       </form>
 
       {/* Existing Published Reviews List */}
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
+      <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
         <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
           <div className="font-display font-bold text-lg text-white flex items-center gap-2.5">
             <MessageSquareQuote className="w-5 h-5 text-amber-400" />
@@ -242,15 +242,15 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
         </div>
 
         {loading ? (
-          <div className="text-slate-400 text-xs py-4">Loading published reviews...</div>
+          <div className="text-text-muted text-xs py-4">Loading published reviews...</div>
         ) : testimonials.length === 0 ? (
-          <div className="text-slate-400 text-xs py-8 text-center border border-dashed border-slate-800 rounded-xl">
+          <div className="text-text-muted text-xs py-8 text-center border border-dashed border-slate-800 rounded-xl">
             No reviews published yet. Use the form above to add your first client review.
           </div>
         ) : (
           <div className="space-y-4">
             {testimonials.map((review, idx) => (
-              <div key={review.id} className="p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl space-y-4">
+              <div key={review.id} className="p-5 bg-surface/80 border border-slate-800/80 rounded-xl space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono font-semibold text-amber-400">REVIEW #{idx + 1}</span>
                   <div className="flex items-center gap-1.5">
@@ -258,7 +258,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
                       type="button"
                       disabled={idx === 0}
                       onClick={() => handleMoveUp(idx)}
-                      className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}
+                      className={`p-1.5 rounded-lg border transition-colors ${idx === 0 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}
                       title="Move Up"
                     >
                       <ArrowUp className="w-3.5 h-3.5" />
@@ -268,7 +268,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
                       type="button"
                       disabled={idx === testimonials.length - 1}
                       onClick={() => handleMoveDown(idx)}
-                      className={`p-1.5 rounded-lg border transition-colors ${idx === testimonials.length - 1 ? 'border-slate-800/50 text-slate-700' : 'border-slate-700/60 text-slate-400 hover:text-white hover:bg-slate-800'}`}
+                      className={`p-1.5 rounded-lg border transition-colors ${idx === testimonials.length - 1 ? 'border-slate-800/50 text-text' : 'border-slate-700/60 text-text-muted hover:text-white hover:bg-surface'}`}
                       title="Move Down"
                     >
                       <ArrowDown className="w-3.5 h-3.5" />
@@ -287,7 +287,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[11px] text-slate-400 font-medium block mb-1">Client Name</label>
+                    <label className="text-[11px] text-text-muted font-medium block mb-1">Client Name</label>
                     <input
                       type="text"
                       value={review.name}
@@ -297,13 +297,13 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
                         setTestimonials(u);
                         syncToCms(u);
                       }}
-                      className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3.5 py-2.5 text-white text-xs font-semibold focus:outline-none focus:border-amber-500/50"
+                      className="w-full bg-surface border border-slate-700/60 rounded-xl px-3.5 py-2.5 text-white text-xs font-semibold focus:outline-none focus:border-amber-500/50"
                       placeholder="Client Name"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] text-slate-400 font-medium block mb-1">Visa Category</label>
+                    <label className="text-[11px] text-text-muted font-medium block mb-1">Visa Category</label>
                     <select
                       value={review.visaType}
                       onChange={(e) => {
@@ -312,7 +312,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
                         setTestimonials(u);
                         syncToCms(u);
                       }}
-                      className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3.5 py-2.5 text-slate-200 text-xs font-medium focus:outline-none focus:border-amber-500/50 cursor-pointer"
+                      className="w-full bg-surface border border-slate-700/60 rounded-xl px-3.5 py-2.5 text-slate-200 text-xs font-medium focus:outline-none focus:border-amber-500/50 cursor-pointer"
                     >
                       <option value="10-Year Golden Visa">10-Year Golden Visa</option>
                       <option value="Spouse Residency Visa">Spouse Residency Visa</option>
@@ -325,7 +325,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <label className="text-[11px] font-semibold text-slate-400 shrink-0">Rating:</label>
+                  <label className="text-[11px] font-semibold text-text-muted shrink-0">Rating:</label>
                   <select
                     value={review.rating}
                     onChange={(e) => {
@@ -334,7 +334,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
                       setTestimonials(u);
                       syncToCms(u);
                     }}
-                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-3.5 py-2 text-amber-400 font-bold text-xs focus:outline-none focus:border-amber-500/50 cursor-pointer"
+                    className="w-full bg-surface border border-slate-700/60 rounded-xl px-3.5 py-2 text-amber-400 font-bold text-xs focus:outline-none focus:border-amber-500/50 cursor-pointer"
                   >
                     <option value={5}>5 Stars (★★★★★)</option>
                     <option value={4}>4 Stars (★★★★☆)</option>
@@ -345,7 +345,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
                 </div>
 
                 <div>
-                  <label className="text-[11px] text-slate-400 font-medium block mb-1">Testimonial Quote</label>
+                  <label className="text-[11px] text-text-muted font-medium block mb-1">Testimonial Quote</label>
                   <textarea
                     rows={2}
                     value={review.quote}
@@ -355,7 +355,7 @@ export default function TestimonialsManager({ cmsConfig, setCmsConfig }) {
                       setTestimonials(u);
                       syncToCms(u);
                     }}
-                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl p-3.5 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface border border-slate-700/60 rounded-xl p-3.5 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50"
                     placeholder="Review quote..."
                   />
                 </div>

@@ -70,17 +70,17 @@ export default function IntegrationsModule({ auditLogs }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Integrations & n8n Automation Engine
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Monitor Firebase sockets, configure n8n lead routing webhooks, and audit administrative event logs.
             </p>
           </div>
 
           {/* Tab Selector */}
-          <div className="flex items-center bg-slate-950 p-1.5 rounded-xl border border-slate-800/80">
+          <div className="flex items-center bg-surface p-1.5 rounded-xl border border-slate-800/80">
             <button
               onClick={() => setActiveTab('integrations')}
               className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'integrations' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-slate-400 hover:text-white'
+                activeTab === 'integrations' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-text-muted hover:text-white'
               }`}
             >
               Gateways
@@ -88,7 +88,7 @@ export default function IntegrationsModule({ auditLogs }) {
             <button
               onClick={() => setActiveTab('n8n')}
               className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'n8n' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-slate-400 hover:text-white'
+                activeTab === 'n8n' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-text-muted hover:text-white'
               }`}
             >
               n8n Webhook Control
@@ -96,7 +96,7 @@ export default function IntegrationsModule({ auditLogs }) {
             <button
               onClick={() => setActiveTab('audit')}
               className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'audit' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-slate-400 hover:text-white'
+                activeTab === 'audit' ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black font-bold shadow-md shadow-amber-500/20' : 'text-text-muted hover:text-white'
               }`}
             >
               Audit Trail ({auditLogs.length})
@@ -109,7 +109,7 @@ export default function IntegrationsModule({ auditLogs }) {
       {activeTab === 'integrations' && (
         <div className="space-y-6">
           
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2">
               <div className="flex items-center gap-2.5">
                 <Database className="w-5 h-5 text-amber-400" />
@@ -118,7 +118,7 @@ export default function IntegrationsModule({ auditLogs }) {
                   CONNECTED (0ms latency)
                 </span>
               </div>
-              <p className="text-xs text-slate-400 max-w-xl">
+              <p className="text-xs text-text-muted max-w-xl">
                 Listens to frontend calculator fee estimations and contact form dispatches, instantly populating the admin CRM pipeline.
               </p>
             </div>
@@ -137,9 +137,9 @@ export default function IntegrationsModule({ auditLogs }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {integrations.map((ing, idx) => (
-              <div key={idx} className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+              <div key={idx} className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-semibold uppercase text-slate-400">{ing.category}</span>
+                  <span className="text-[10px] font-mono font-semibold uppercase text-text-muted">{ing.category}</span>
                   <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                     {ing.status}
                   </span>
@@ -149,14 +149,14 @@ export default function IntegrationsModule({ auditLogs }) {
                   <h3 className="text-base font-display font-bold text-white flex items-center gap-2">
                     <Zap className={`w-4 h-4 ${ing.iconColor}`} /> {ing.name}
                   </h3>
-                  <p className="text-xs text-slate-400 mt-1">{ing.detail}</p>
+                  <p className="text-xs text-text-muted mt-1">{ing.detail}</p>
                 </div>
 
                 <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                  <span className="text-slate-400 text-[11px]">https://api.familyvisa.ae/v1/webhook</span>
+                  <span className="text-text-muted text-[11px]">https://api.familyvisa.ae/v1/webhook</span>
                   <button 
                     onClick={() => alert(`Testing connection for ${ing.name}`)}
-                    className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-xs transition-colors cursor-pointer"
+                    className="px-3 py-1.5 bg-surface hover:bg-surface text-white rounded-lg font-semibold text-xs transition-colors cursor-pointer"
                   >
                     Test Ping
                   </button>
@@ -170,13 +170,13 @@ export default function IntegrationsModule({ auditLogs }) {
 
       {/* TAB 2: n8n AUTOMATED WEBHOOK ROUTING LAYER */}
       {activeTab === 'n8n' && (
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+        <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800/80 pb-5 gap-4">
             <div>
               <h3 className="text-lg font-display font-bold text-white flex items-center gap-2">
                 <Zap className="w-5 h-5 text-amber-400" /> Automated n8n Webhook Lead Dispatch Engine
               </h3>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-text-muted mt-1">
                 Construct automated rules to route high-value leads (&gt; AED 10,000) directly to assigned legal consultants via WhatsApp &amp; Email.
               </p>
             </div>
@@ -205,7 +205,7 @@ export default function IntegrationsModule({ auditLogs }) {
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-slate-950/80 border border-slate-800/80 p-5 rounded-xl space-y-4">
+            <div className="bg-surface/80 border border-slate-800/80 p-5 rounded-xl space-y-4">
               <h4 className="text-xs font-mono font-bold text-amber-400 uppercase">Routing Rules Matrix</h4>
               
               <div className="space-y-4 text-xs">
@@ -215,7 +215,7 @@ export default function IntegrationsModule({ auditLogs }) {
                     type="number"
                     value={n8nThresholdAED}
                     onChange={(e) => setN8nThresholdAED(Number(e.target.value))}
-                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-3 text-white font-bold font-mono focus:outline-none focus:border-amber-500/50"
+                    className="w-full bg-surface border border-slate-700/60 rounded-xl px-4 py-3 text-white font-bold font-mono focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
 
@@ -224,7 +224,7 @@ export default function IntegrationsModule({ auditLogs }) {
                   <select
                     value={targetAgent}
                     onChange={(e) => setTargetAgent(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700/60 rounded-xl px-4 py-3 text-white font-medium focus:outline-none cursor-pointer"
+                    className="w-full bg-surface border border-slate-700/60 rounded-xl px-4 py-3 text-white font-medium focus:outline-none cursor-pointer"
                   >
                     <option value="Tariq Al-Mansoori (Super Admin)">Tariq Al-Mansoori (Super Admin)</option>
                     <option value="Elena Rostova (Senior Legal PRO)">Elena Rostova (Senior Legal PRO)</option>
@@ -234,15 +234,15 @@ export default function IntegrationsModule({ auditLogs }) {
               </div>
             </div>
 
-            <div className="bg-slate-950/80 border border-slate-800/80 p-5 rounded-xl space-y-3">
+            <div className="bg-surface/80 border border-slate-800/80 p-5 rounded-xl space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-slate-400 uppercase flex items-center gap-1.5">
+                <span className="text-xs font-mono font-bold text-text-muted uppercase flex items-center gap-1.5">
                   <Code2 className="w-4 h-4 text-amber-400" /> Simulated n8n JSON Webhook Payload
                 </span>
                 <span className="text-[10px] font-mono text-amber-400">POST /webhook/high-value-lead</span>
               </div>
 
-              <pre className="p-3.5 bg-slate-900 rounded-xl text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed border border-slate-800">
+              <pre className="p-3.5 bg-surface rounded-xl text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed border border-slate-800">
 {`{
   "event": "LEAD_INGESTED",
   "source": "Frontend_Modal_Calculator",
@@ -262,17 +262,17 @@ export default function IntegrationsModule({ auditLogs }) {
 
       {/* TAB 3: IMMUTABLE AUDIT TRAIL */}
       {activeTab === 'audit' && (
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl space-y-4 p-6 sm:p-8">
+        <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl space-y-4 p-6 sm:p-8">
           <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
             <h3 className="text-base font-display font-bold text-white flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-amber-400" /> Immutable Administrative Activity Trail
             </h3>
-            <span className="text-xs text-slate-400 font-mono">256-Bit Signed Audit Logs</span>
+            <span className="text-xs text-text-muted font-mono">256-Bit Signed Audit Logs</span>
           </div>
 
           <div className="overflow-x-auto rounded-xl border border-slate-800/80">
             <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950 text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800/80">
+              <thead className="bg-surface text-text-muted font-mono uppercase text-[10px] border-b border-slate-800/80">
                 <tr>
                   <th className="py-3.5 px-4">Timestamp</th>
                   <th className="py-3.5 px-4">Staff User</th>
@@ -285,8 +285,8 @@ export default function IntegrationsModule({ auditLogs }) {
               </thead>
               <tbody className="divide-y divide-slate-800/60">
                 {auditLogs.map(log => (
-                  <tr key={log.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="py-3 px-4 font-mono text-slate-400">{log.timestamp}</td>
+                  <tr key={log.id} className="hover:bg-surface/30 transition-colors">
+                    <td className="py-3 px-4 font-mono text-text-muted">{log.timestamp}</td>
                     <td className="py-3 px-4 font-bold text-white">{log.userName}</td>
                     <td className="py-3 px-4">
                       <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
@@ -295,7 +295,7 @@ export default function IntegrationsModule({ auditLogs }) {
                     </td>
                     <td className="py-3 px-4 font-mono font-semibold text-amber-300">{log.action}</td>
                     <td className="py-3 px-4 font-mono text-slate-300">{log.entityId}</td>
-                    <td className="py-3 px-4 font-mono text-slate-400 text-[11px]">{log.ipAddress}</td>
+                    <td className="py-3 px-4 font-mono text-text-muted text-[11px]">{log.ipAddress}</td>
                     <td className="py-3 px-4 font-mono text-slate-300 text-[11px]">{log.diff}</td>
                   </tr>
                 ))}

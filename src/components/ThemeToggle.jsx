@@ -1,14 +1,14 @@
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
 
-export default function ThemeToggle({ theme: propTheme, setTheme: propSetTheme, className = '' }) {
+export function ThemeToggle({ theme: propTheme, setTheme: propSetTheme, className = '' }) {
   const [localTheme, setLocalTheme] = React.useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
       if (saved) return saved;
-      return document.documentElement.classList.contains('dark') ? 'dark' : 'dark';
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     }
-    return 'dark';
+    return 'light';
   });
 
   const activeTheme = propTheme || localTheme;
@@ -33,7 +33,7 @@ export default function ThemeToggle({ theme: propTheme, setTheme: propSetTheme, 
     <button
       onClick={toggleTheme}
       aria-label={`Switch to ${activeTheme === 'dark' ? 'Light' : 'Dark'} mode`}
-      className={`relative p-2.5 rounded-[10px] bg-white/10 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-[#D4AF37]/50 text-slate-700 dark:text-slate-200 hover:text-[#D4AF37] transition-all duration-300 shadow-sm flex items-center justify-center cursor-pointer group ${className}`}
+      className={`relative p-2.5 rounded-[10px] bg-[#FAF6ED] dark:bg-[#1E1A12] border border-[#E8DFC8] dark:border-[#EFC45C]/35 hover:border-[#EFC45C] text-slate-800 dark:text-[#EFC45C] transition-all duration-300 shadow-sm flex items-center justify-center cursor-pointer group ${className}`}
     >
       <div className="relative w-4 h-4">
         {/* Sun Icon (Visible in Light Mode) */}
@@ -58,3 +58,5 @@ export default function ThemeToggle({ theme: propTheme, setTheme: propSetTheme, 
     </button>
   );
 }
+
+export default ThemeToggle;

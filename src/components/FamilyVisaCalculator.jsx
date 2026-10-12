@@ -61,7 +61,7 @@ export default function FamilyVisaCalculator({ dark = true }) {
               <h3 className="font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-tight">
                 Family Visa Fee Calculator
               </h3>
-              <p className="text-slate-400 text-xs sm:text-sm mt-0.5 font-medium">
+              <p className="text-text-muted text-xs sm:text-sm mt-0.5 font-medium">
                 Exact government fee itemization by visa type
               </p>
             </div>
@@ -93,7 +93,7 @@ export default function FamilyVisaCalculator({ dark = true }) {
                   className={`flex-1 py-3 px-3 rounded-[8px] text-xs sm:text-sm font-extrabold transition-all duration-200 cursor-pointer text-center relative ${
                     isActive
                       ? 'bg-gradient-to-r from-[#8C5E00] to-[#D4AF37] text-white shadow-lg shadow-[#D4AF37]/20 scale-[1.02]'
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
+                      : 'text-text-muted hover:text-white hover:bg-surface/5'
                   }`}
                 >
                   {tab.label}
@@ -117,7 +117,7 @@ export default function FamilyVisaCalculator({ dark = true }) {
               {activeData.items.map((item, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center justify-between py-3.5 px-2 hover:bg-white/[0.02] transition-colors rounded-[6px]"
+                  className="flex items-center justify-between py-3.5 px-2 hover:bg-surface/[0.02] transition-colors rounded-[6px]"
                 >
                   <div className="space-y-0.5">
                     <div className="text-sm font-bold text-slate-200 flex items-center gap-2">
@@ -125,7 +125,7 @@ export default function FamilyVisaCalculator({ dark = true }) {
                       <span>{item.label}</span>
                     </div>
                     {item.desc && (
-                      <p className="text-[11px] text-slate-400 pl-6 font-medium">
+                      <p className="text-[11px] text-text-muted pl-6 font-medium">
                         {item.desc}
                       </p>
                     )}
@@ -153,7 +153,7 @@ export default function FamilyVisaCalculator({ dark = true }) {
               </span>
             </div>
             <div className="text-right">
-              <span className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF5C0] via-[#D4AF37] to-[#B8860B] font-mono tracking-tight">
+              <span className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF5C0] via-[#D4AF37] to-[#C59B27] font-mono tracking-tight">
                 AED {activeData.total.toLocaleString()}
               </span>
             </div>

@@ -67,9 +67,9 @@ export default function MaidVisaPage() {
             </div>
 
             <div className="md:col-span-4 bg-[#050505] border border-white/10 p-5 rounded-[10px] text-center space-y-2">
-              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Minimum Income Threshold</span>
+              <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider block">Minimum Income Threshold</span>
               <div className="text-3xl font-black text-brand-goldText font-mono">AED 25,000</div>
-              <p className="text-[11px] text-slate-400">Monthly Household Salary</p>
+              <p className="text-[11px] text-text-muted">Monthly Household Salary</p>
             </div>
 
           </div>
@@ -89,7 +89,7 @@ export default function MaidVisaPage() {
             <button
               onClick={() => setRecruitType('in-country')}
               className={`flex-1 py-3 px-4 rounded-[10px] text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                recruitType === 'in-country' ? 'bg-brand-goldBg text-black font-black' : 'text-slate-400 hover:text-white'
+                recruitType === 'in-country' ? 'bg-brand-goldBg text-black font-black' : 'text-text-muted hover:text-white'
               }`}
             >
               <Home className="w-4 h-4" /> Hiring In-Country (Already in UAE)
@@ -97,7 +97,7 @@ export default function MaidVisaPage() {
             <button
               onClick={() => setRecruitType('overseas')}
               className={`flex-1 py-3 px-4 rounded-[10px] text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                recruitType === 'overseas' ? 'bg-brand-goldBg text-black font-black' : 'text-slate-400 hover:text-white'
+                recruitType === 'overseas' ? 'bg-brand-goldBg text-black font-black' : 'text-text-muted hover:text-white'
               }`}
             >
               <Plane className="w-4 h-4" /> Direct Overseas Recruitment
@@ -132,7 +132,7 @@ export default function MaidVisaPage() {
           </div>
 
           <div className="bg-[#111111] border border-white/10 rounded-[10px] p-6 space-y-4 shadow-2xl">
-            <div className="flex justify-between text-xs font-mono font-bold text-slate-400 border-b border-white/10 pb-2">
+            <div className="flex justify-between text-xs font-mono font-bold text-text-muted border-b border-white/10 pb-2">
               <span>Service Component</span>
               <span>Official Tariff</span>
             </div>

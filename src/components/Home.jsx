@@ -1,1435 +1,1933 @@
-import React, { useState, useEffect, useRef } from 'react';
-import WhatsAppIcon from './WhatsAppIcon';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Heart,
-  Baby,
-  Users,
-  Crown,
-  Shield,
-  ShieldCheck,
-  ArrowRight,
-  Calculator,
-  Star,
-  ChevronRight,
-  ChevronDown,
-  Building2,
-  ThumbsUp,
-  FileText,
-  CheckCircle2,
-  XCircle,
-  Clock,
-  Sparkles,
-  FileCheck,
-  Stethoscope,
-  IdCard,
-  Languages,
-  Scale,
-  Award,
-  Trophy,
-  Zap,
-  Check,
-  AlertTriangle,
-  BookOpen,
-  Calendar,
-  User,
-  ArrowUpRight,
-  MapPin,
-  Briefcase,
-  Building,
-  BadgeCheck,
-  Quote
+  CheckCircle2, Crown, Building2, Users, Calculator, ShieldCheck,
+  ArrowRight, PhoneCall, Star, Clock, FileText, ChevronDown, ChevronRight,
+  Sparkles, Award, ExternalLink, HelpCircle, Gift, MessageSquare, Zap,
+  X, AlertTriangle, Scale, FileCheck, Check, Heart, UserPlus, Baby, HeartHandshake, BookOpen
 } from 'lucide-react';
+import LogoMarquee from './LogoMarquee';
 
-// Icon map: resolve lucide icon by string name (used when CMS config stores icon as a string)
-const ICON_MAP = {
-  Heart, Baby, Users, Crown, Shield, ShieldCheck, ArrowRight, Calculator,
-  Star, ChevronRight, Building2, CheckCircle2, XCircle,
-  Clock, Sparkles, FileCheck, Stethoscope, IdCard, Languages, Scale,
-  Award, Trophy, Zap, Check, AlertTriangle, BookOpen, Calendar, User,
-  MapPin, Briefcase, Building, BadgeCheck, Quote
-};
-
-// Resolve icon: accepts a React component OR a string name
-function resolveIcon(icon) {
-  if (!icon) return null;
-  if (typeof icon === 'string') return ICON_MAP[icon] || null;
-  return icon;
-}
-import {
-  diyProcessGuides,
-  reviewsData,
-  blogPostsData,
-  siteConfig
-} from '../data/cmsData';
-import ProcessTimeline from './ProcessTimeline';
-
-// Animated counter hook
-function useCounter(end, duration = 2000, startOnView = false, isInView = true) {
-  const [count, setCount] = useState(0);
-  const hasStarted = useRef(false);
-
-  useEffect(() => {
-    if (!isInView || hasStarted.current) return;
-    hasStarted.current = true;
-
-    const num = parseFloat(String(end).replace(/[^0-9.]/g, ''));
-    if (isNaN(num)) return;
-
-    const startTime = Date.now();
-    const timer = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(num * eased));
-      if (progress >= 1) clearInterval(timer);
-    }, 16);
-
-    return () => clearInterval(timer);
-  }, [end, duration, isInView]);
-
-  return count;
-}
-
-// Section wrapper with scroll-reveal
-function RevealSection({ children, className = '', delay = 0, id }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-
-  return (
-    <motion.section
-      ref={ref}
-      id={id}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{
-        duration: 0.7,
-        delay,
-        ease: [0.16, 1, 0.3, 1]
-      }}
-      className={className}
-    >
-      {children}
-    </motion.section>
-  );
-}
-
-export default function Home({ onNavigate, onOpenCalculator, cmsConfig, homePageData }) {
-  // Process Guide Tab State ('newVisa' | 'renewal')
-  const [guideTab, setGuideTab] = useState('newVisa');
-
-  // Active FAQ Accordion State (open question index)
-  const [openFaqIndex, setOpenFaqIndex] = useState(0);
-
-  // Category Filter for "Everything We Handle" ('all' | 'visas' | 'emiratesId' | 'legal')
-  const [serviceCategory, setServiceCategory] = useState('all');
-
-  const defaultActiveGuide = diyProcessGuides[guideTab];
-  const activeGuide = {
-    ...defaultActiveGuide,
-    title: cmsConfig?.process?.title || defaultActiveGuide.title,
-    subtitle: cmsConfig?.process?.subtext || defaultActiveGuide.subtitle,
-    steps: cmsConfig?.process?.steps || defaultActiveGuide.steps
-  };
-
-  // Dynamic Section Order & Visibility from cmsConfig
-  const defaultSectionOrder = [
-    'hero',
-    'stats',
-    'achievements',
-    'problems',
-    'services',
-    'transparency',
-    'packages',
-    'whyUs',
-    'process',
-    'faqs',
-    'reviews',
-    'blog',
-    'cta'
-  ];
-
-  const sectionOrder = cmsConfig?.homepageSectionOrder || defaultSectionOrder;
-  const sectionVisibility = cmsConfig?.sectionVisibility || {};
-
-  // Hero Section Dynamic Text
-  const heroMainHeadline = homePageData?.hero?.title || cmsConfig?.hero?.mainHeadline || "Bring your family to the UAE with 100% Guaranteed SLA Approval.";
-  const heroSubtext = homePageData?.hero?.subtitle || cmsConfig?.hero?.subtext || "We prepare, submit, and track family residence visas, 10-Year Golden Visas, and Emirates ID applications so you deal with one consultant instead of five counters.";
-  const heroStat1 = homePageData?.hero?.badgeText || cmsConfig?.hero?.stat1 || "Free eligibility check before any fee";
-  const heroStat2 = cmsConfig?.hero?.stat2 || "Fixed service fee, government at cost";
-  const heroStat3 = cmsConfig?.hero?.stat3 || "Most files completed in 5-10 days";
-  const primaryBtn = homePageData?.hero?.primaryButtonText || "Start Free Assessment";
-  const secondaryBtn = homePageData?.hero?.secondaryButtonText || "Calculate Fees";
-
-  // Homepage FAQs matching familyvisauae.com
-  const homepageFaqs = cmsConfig?.faqs?.items || [
+  const reviewsList = [
     {
-      question: "Do I need a minimum salary to sponsor my family in the UAE?",
-      answer: "Yes — AED 4,000 per month (or AED 3,000 per month if your employer provides free housing) is required to sponsor your spouse and children. Sponsoring parents requires a minimum monthly salary of AED 10,000 and a registered 2-bedroom rental contract (EJARI)."
+      name: "Alexander V.",
+      role: "Tech Entrepreneur",
+      origin: "London, UK",
+      badge: "10-Year Golden Visa Approved",
+      quote: "Obtained my 10-Year Golden Visa in 4 business days based on my Dubai Marina property title deed. The direct PRO filing bypassed all counters and queues.",
+      initials: "AV",
+      date: "Verified Review"
     },
     {
-      question: "Can my family stay inside the UAE while their visa is processed?",
-      answer: "Yes. If your family members hold a valid visit visa, tourist visa, or previous cancelled visa, we perform an in-country Status Change so they never need to exit the UAE."
+      name: "Elena Rostova",
+      role: "Family Office Principal",
+      origin: "Monaco",
+      badge: "Family Sponsorship Approved",
+      quote: "Relocated our entire family and domestic staff to Palm Jumeirah. 800 DOCS orchestrated the MOFA certificate attestations, VIP medical screenings, and Emirates IDs seamlessly.",
+      initials: "ER",
+      date: "Verified Review"
     },
     {
-      question: "How much do you charge for family visa processing?",
-      answer: "We operate on a transparent fixed service retainer fee per applicant, agreed in writing before work begins. All statutory government charges (GDRFA, ICP, Medical Check, Emirates ID) are passed on at cost with official government receipts."
+      name: "Marc & Sophie Dubois",
+      role: "Executive Director",
+      origin: "Paris, France",
+      badge: "Investor Residency Stamped",
+      quote: "Completely transparent unbundled government tariffs with official receipts. No undisclosed fees. Their 24H fast-track turnaround SLA is the gold standard in the UAE.",
+      initials: "MD",
+      date: "Verified Review"
     },
     {
-      question: "Which emirates do your visa services cover?",
-      answer: "We cover all seven UAE emirates: Dubai (GDRFA), Abu Dhabi (ICP), Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain, with dedicated PRO concierges in each jurisdiction."
+      name: "Dr. Tariq Al-Hashimi",
+      role: "Consultant Surgeon",
+      origin: "Munich, Germany",
+      badge: "Golden Visa Stamped",
+      quote: "From newborn baby visa typing to DLD property revaluation, they handle our family requirements with utmost professionalism. Truly first-class government advisory.",
+      initials: "TA",
+      date: "Verified Review"
     },
     {
-      question: "What documents need to be officially attested?",
-      answer: "Foreign Marriage Certificates (for spouse sponsorship) and Birth Certificates (for children sponsorship) must be legalized in your home country and stamped by the UAE Ministry of Foreign Affairs (MOFA)."
+      name: "James Pemberton",
+      role: "Investment Principal",
+      origin: "London, UK",
+      badge: "Property Investor Visa",
+      quote: "Our DLD title deed valuation was completed without having to visit the land department. The VIP Emirates ID appointment took less than 20 minutes in Al Mina.",
+      initials: "JP",
+      date: "Verified Review"
     },
     {
-      question: "Can female residents sponsor their family in Dubai?",
-      answer: "Yes! Female residents working in professional roles (such as engineers, doctors, teachers, executives, or managers) earning a minimum salary of AED 10,000 (or AED 8,000 + housing) can sponsor their husband and children."
+      name: "Sarah Jenkins",
+      role: "Corporate Manager",
+      origin: "Manchester, UK",
+      badge: "Maid & Helper Visa Stamped",
+      quote: "Superb Tadbeer and domestic helper sponsorship service. Contract, insurance, and medical were coordinated end-to-end with total transparency.",
+      initials: "SJ",
+      date: "Verified Review"
     }
   ];
 
-  // Categorized Services for "Everything We Handle"
-  const categorizedServices = cmsConfig?.services?.items || [
-    {
-      id: 'property-visa',
-      title: 'Real Estate Investor Residency',
-      desc: 'Turn your AED 750k or AED 2M+ property equity into a 2-Year or 10-Year residency. We manage DLD approvals and title deed verification.',
-      tag: 'Visas',
-      icon: Building2,
-      linkId: 'property-visa'
-    },
-    {
-      id: 'family-visa',
-      title: 'Executive Family Sponsorship',
-      desc: 'End-to-end management of family and dependant residency files. We handle GDRFA compliance, entry permits, and Emirates ID issuance seamlessly.',
-      tag: 'Visas',
-      icon: Users,
-      linkId: 'spouse-visa'
-    },
-    {
-      id: 'family-visa-cost',
-      title: 'Transparent Cost Structuring',
-      desc: 'Unbundled, itemized breakdowns of all statutory government charges and medical fees before you commit. Zero hidden markups.',
-      tag: 'Visas',
-      icon: Calculator,
-      linkId: 'spouse-visa'
-    },
-    {
-      id: 'family-visa-renewal',
-      title: 'Residency Renewal & Fine Prevention',
-      desc: 'Proactive dependant visa renewals. We secure your family\'s legal status uninterrupted, eliminating the risk of costly ICP overstay penalties.',
-      tag: 'Visas',
-      icon: Clock,
-      linkId: 'spouse-visa'
-    },
-    {
-      id: 'golden-visa',
-      title: '10-Year Sovereign Golden Visa',
-      desc: 'Elite, long-term residency acquisition for executives, exceptional talents, and high-net-worth individuals, granting unparalleled UAE stability.',
-      tag: 'Visas',
-      icon: Crown,
-      linkId: 'golden-visa'
-    },
-    {
-      id: 'maid-visa',
-      title: 'Domestic Staff & Nanny Sponsorship',
-      desc: 'Fully compliant MOHRE and Tadbeer visa processing for household staff, nannies, and private chauffeurs with comprehensive legal contracts.',
-      tag: 'Visas',
-      icon: Shield,
-      linkId: 'maid-visa'
-    },
-    {
-      id: 'newborn-visa',
-      title: 'Express Newborn Registration',
-      desc: 'Urgent 120-day compliance processing for newborns. We secure birth certificates, passport linkages, and Emirates IDs without delays.',
-      tag: 'Visas',
-      icon: Baby,
-      linkId: 'new-born'
-    },
-    {
-      id: 'emirates-id-new',
-      title: 'Biometrics & Emirates ID Concierge',
-      desc: 'Priority scheduling for ICP biometrics. Skip the standard queues with our fast-tracked typing and application management services.',
-      tag: 'Emirates ID & Medical',
-      icon: IdCard,
-      linkId: 'emirates-id'
-    },
-    {
-      id: 'medical-fitness',
-      title: 'VIP 30-Minute Medical Clearance',
-      desc: 'Chauffeur-driven, priority medical fitness testing. Receive DHA/MOHAP blood and X-ray results securely within 24 hours.',
-      tag: 'Emirates ID & Medical',
-      icon: Stethoscope,
-      linkId: 'emirates-id'
-    },
-    {
-      id: 'attestation-mofa',
-      title: 'Global MOFA Attestation',
-      desc: 'Secure, international document legalization. We authenticate marriage and birth certificates through foreign embassies and UAE MOFA.',
-      tag: 'Legal & Attestation',
-      icon: FileCheck,
-      linkId: 'attestation'
-    },
-    {
-      id: 'legal-translation',
-      title: 'Ministry-Certified Legal Translation',
-      desc: 'Sworn, court-approved Arabic translations for all foreign jurisdictions, fully recognized by the UAE Ministry of Justice and GDRFA.',
-      tag: 'Legal & Attestation',
-      icon: Languages,
-      linkId: 'legal-translation'
-    },
-    {
-      id: 'dld-trustee',
-      title: 'Notary & POA Representation',
-      desc: 'Dedicated legal structuring for powers of attorney, wills, and Dubai Land Department trustee representation to protect your assets.',
-      tag: 'Legal & Attestation',
-      icon: Scale,
-      linkId: 'property-visa'
-    }
-  ];
+export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsConfig }) {
+  const [activeTab, setActiveTab] = useState('all');
+  const [activeArticleTab, setActiveArticleTab] = useState('all');
+  const [activeFaq, setActiveFaq] = useState(null);
+  const [selectedFaqIndex, setSelectedFaqIndex] = useState(0);
+  const [whyChooseTab, setWhyChooseTab] = useState('concierge');
+  const [ctaPhone, setCtaPhone] = useState('');
+  const [countryCode, setCountryCode] = useState('+971');
+  const [calcGoal, setCalcGoal] = useState('golden');
 
-  const filteredServices = serviceCategory === 'all'
-    ? (categorizedServices || [])
-    : (categorizedServices || []).filter(s => {
-      if (!s) return false;
-      if (serviceCategory === 'visas') return s.tag === 'Visas';
-      if (serviceCategory === 'emiratesId') return s.tag === 'Emirates ID & Medical';
-      if (serviceCategory === 'legal') return s.tag === 'Legal & Attestation';
-      return true;
-    });
-
-  // Achievements Data
-  const achievements = cmsConfig?.achievements?.items || [
-    {
-      icon: Trophy,
-      badge: "RANKED #1 IN DUBAI",
-      title: "Top UAE Residency Advisory 2026",
-      desc: "Voted #1 for transparent family visa processing and 100% online convenience across Dubai & Abu Dhabi.",
-      stat: "4.9 ★ Rating"
-    },
-    {
-      icon: Award,
-      badge: "GOVERNMENT LICENSED",
-      title: "Official GDRFA & ICP Partner",
-      desc: "Licensed under 800 DOCS LLC SOC with direct server access to federal immigration portals.",
-      stat: "100% Authorized"
-    },
-    {
-      icon: ShieldCheck,
-      badge: "UNBUNDLED BILLING",
-      title: "Zero Hidden Markups Guarantee",
-      desc: "Saved over AED 4.5 Million in hidden typing fees for client families through itemized government receipts.",
-      stat: "AED 4.5M+ Saved"
-    },
-    {
-      icon: Zap,
-      badge: "RECORD FAST TRACK",
-      title: "24-Hour VIP Approval SLA",
-      desc: "Fastest entry permit and status change clearance recorded in Dubai immigration history.",
-      stat: "24h VIP Turnaround"
-    }
-  ];
-
-  // Problems We Solve Data
-  const problemsSolved = cmsConfig?.problems?.items?.map(p => ({
-    problem: p.problemTitle,
-    solution: p.solutionTitle,
-    desc: p.desc
-  })) || [
-      {
-        problem: "Standing in 5 different queues at Amer centers, medical clinics, and typing offices.",
-        solution: "100% Online WhatsApp Concierge. Send scans from home — we handle all government counters for you."
-      },
-      {
-        problem: "Hidden service center surcharges and mysterious fee markups on government tariffs.",
-        solution: "Itemized Unbundled Billing. We pass on exact GDRFA/ICP fees at cost with official receipts."
-      },
-      {
-        problem: "Visa rejections caused by improper MOFA attestation stamps or Ejari errors.",
-        solution: "Free Pre-Flight Document Audit. We verify your certificates before you spend a single Dirham."
-      },
-      {
-        problem: "Heavy daily overstay fines while waiting for status change or medical checkups.",
-        solution: "Guaranteed Fast-Track SLA. In-country status change cleared in 24-48 hours with zero fine risk."
-      }
-    ];
-
-  // Packages Data
-  const packages = cmsConfig?.packages?.items || [
-    {
-      name: "Essential Typing",
-      tagline: "For DIY applicants who only need official GDRFA/ICP typing & document check.",
-      fee: "AED 750",
-      type: "Standard Retainer",
-      popular: false,
-      features: [
-        "Official ICP / GDRFA Online Typing",
-        "Document & Attestation Audit",
-        "Medical & Emirates ID Typing Forms",
-        "WhatsApp Application Tracking",
-        "Government Receipts Provided"
-      ],
-
-      calcTab: "spouse"
-    },
-    {
-      name: "Full Concierge Family",
-      tagline: "Complete end-to-end handling — from entry permit to Emirates ID home delivery.",
-      fee: "AED 1,450",
-      type: "Most Popular Package",
-      popular: true,
-      features: [
-        "Everything in Essential Typing",
-        "Complete File Submission & Status Change",
-        "VIP Medical Appointment Booking",
-        "Dedicated Personal PRO Specialist",
-        "Emirates ID Courier Home Delivery",
-        "100% Guaranteed Approval SLA"
-      ],
-      buttonText: "Choose Full Concierge",
-      calcTab: "spouse"
-    },
-    {
-      name: "VIP 24h Fast-Track Express",
-      tagline: "Urgent VIP processing for executives, Golden Visa holders & urgent residency files.",
-      fee: "AED 2,450",
-      type: "VIP Express Tier",
-      popular: false,
-      features: [
-        "24 to 48-Hour Approval Guarantee",
-        "Private Chauffeur & Escort for Medical",
-        "Priority GDRFA / ICP Queue Fast-Tracking",
-        "24/7 Direct Line to Senior Partner",
-        "Golden Visa & Dependant Fast-Track",
-        "Same-Day Physical ID Processing"
-      ],
-      buttonText: "Choose VIP Express",
-      calcTab: "golden"
-    }
-  ];
-
-  const activeReviews = (cmsConfig?.reviews?.items && cmsConfig.reviews.items.length > 0) ? cmsConfig.reviews.items : reviewsData;
-  const infiniteReviews = [...activeReviews, ...activeReviews];
-
-  // Motion Variants
   const containerVariants = {
     hidden: { opacity: 0 },
-    show: {
+    visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1
-      }
+      transition: { staggerChildren: 0.1 }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    show: {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 80,
-        damping: 15
-      }
+      transition: { type: "spring", stiffness: 100, damping: 20 }
     }
   };
 
-  const cardGridVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.08, delayChildren: 0.15 }
+  // Why Choose 800 DOCS Interactive Pillars
+  const whyChoosePillars = [
+    {
+      id: 'concierge',
+      tabLabel: "WhatsApp Concierge",
+      tag: "ZERO QUEUES",
+      icon: MessageSquare,
+      headline: "100% Digital Concierge via WhatsApp",
+      description: "Experience effortless residency management without ever setting foot in a government typing center. From instant document uploads to door-to-door courier delivery of your stamped passport and Emirates ID, our senior PRO team handles the entire lifecycle seamlessly.",
+      stat: "100% Remote",
+      statLabel: "Digital Filing",
+      badge: "GDRFA & ICP Direct Channel",
+      perks: [
+        "Instant document upload & pre-screening via secure WhatsApp",
+        "Door-to-door insured VIP courier service across all 7 UAE Emirates",
+        "Dedicated Senior PRO Case Officer assigned directly to your family file"
+      ],
+      quote: "No queues, no counters. Upload your files via phone and our dedicated team orchestrates every government filing seamlessly.",
+      actionText: "Chat on WhatsApp Concierge",
+      actionType: "whatsapp"
+    },
+    {
+      id: 'transparency',
+      tabLabel: "Unbundled Billing",
+      tag: "100% TRANSPARENCY",
+      icon: Calculator,
+      headline: "Absolute Fee Transparency with Official Receipts",
+      description: "We completely eliminate hidden agency markups and undisclosed typist surcharges. Every dirham of official government tariffs (GDRFA, ICP, Medical Fitness, and Emirates ID) is billed strictly at exact government cost, backed by official Ministry tax receipts.",
+      stat: "AED 0",
+      statLabel: "Undisclosed Markups",
+      badge: "Ministry Tax Receipts Provided",
+      perks: [
+        "Itemized government tariffs billed at zero-markup exact cost",
+        "Official Ministry of Finance & Federal ICP tax invoices provided",
+        "Clear unbundled quotation provided before any application filing"
+      ],
+      quote: "Direct government fees, zero hidden markups. You pay exact government fees with genuine federal receipts.",
+      actionText: "Calculate Exact Tariff",
+      actionType: "calc"
+    },
+    {
+      id: 'audit',
+      tabLabel: "Pre-Flight Audit",
+      tag: "99.8% APPROVAL",
+      icon: FileCheck,
+      headline: "Licensed Senior PRO Pre-Flight Legal Audit",
+      description: "Avoid costly rejections, rejected Ejari registrations, or disqualified marriage certificates. Before submitting a single file to GDRFA or ICP, our licensed senior PROs perform a meticulous pre-flight audit to ensure 100% compliance with prevailing immigration regulations.",
+      stat: "99.8%",
+      statLabel: "ICP Approval Rate",
+      badge: "Zero-Rejection Guarantee",
+      perks: [
+        "Comprehensive pre-submission audit of salary certificates, Ejari, and attestations",
+        "MOJ-certified sworn Arabic translation verification",
+        "Guaranteed rejection prevention backed by licensed PRO expertise"
+      ],
+      quote: "Every document is audited against current federal immigration directives before submission.",
+      actionText: "Request Free Pre-Audit",
+      actionType: "whatsapp"
+    },
+    {
+      id: 'sla',
+      tabLabel: "24–48H Turnaround",
+      tag: "GUARANTEED SLA",
+      icon: Zap,
+      headline: "Express Fast-Track In-Country Stamping SLA",
+      description: "Never worry about visa overstay fines or airport visa runs. We execute rapid in-country status adjustments, VIP private medical fitness appointments with same-day blood test results, and expedited biometric fingerprint scheduling within 24 to 48 hours.",
+      stat: "24–48h",
+      statLabel: "Status Change SLA",
+      badge: "Zero Airport Exit Trips",
+      perks: [
+        "Seamless in-country status modification without leaving the UAE",
+        "Priority VIP medical lounge appointments with express blood test results",
+        "Expedited Emirates ID biometrics scheduling and priority doorstep delivery"
+      ],
+      quote: "Guaranteed express status change and residency stamping without leaving the country.",
+      actionText: "Fast-Track Application",
+      actionType: "whatsapp"
     }
-  };
-
-  const cardItemVariants = {
-    hidden: { opacity: 0, y: 35, scale: 0.95 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 18
-      }
-    }
-  };
-
-  // Stats ref for counter animation
-  const statsRef = useRef(null);
-  const statsInView = useInView(statsRef, { once: true, margin: '-100px' });
-
-  // Display CMS metric strings directly (they are pre-formatted like "15,000+", "99.8%", "5-10 Days")
-  const statsMetrics = [
-    { val: cmsConfig?.stats?.metric1Val || '15,000+', label: cmsConfig?.stats?.metric1Label || 'Family Applications' },
-    { val: cmsConfig?.stats?.metric2Val || '99.8%', label: cmsConfig?.stats?.metric2Label || 'ICP Approval Rate' },
-    { val: cmsConfig?.stats?.metric3Val || '5-10 Days', label: cmsConfig?.stats?.metric3Label || 'Average Turnaround' },
-    { val: cmsConfig?.stats?.metric4Val || '15 Mins', label: cmsConfig?.stats?.metric4Label || 'WhatsApp Response' },
   ];
 
-  // Helper render function for each section
-  const renderSection = (id) => {
-    switch (id) {
-      case 'hero':
-        return (
-          <section key="hero" id="top" className="pt-6 sm:pt-8 lg:pt-10 pb-12 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 min-h-[75vh] lg:min-h-[80vh] flex flex-col justify-center" style={{ backgroundImage: "radial-gradient(ellipse 80% 80% at 50% -20%, rgba(212,175,55,0.12), rgba(255,255,255,0))" }}>
-            {/* Luxury Ambient Lighting Layer */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.05),transparent_50%)] pointer-events-none -z-10 mix-blend-screen" />
-            <motion.div
-              animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-0 right-1/4 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.1)_0%,transparent_60%)] pointer-events-none -z-10"
-            />
+  // Pure Services Catalog Data matching approved Layout B Scrollytelling
+  const netlifyServicesList = [
+    {
+      id: 'golden-visa',
+      category: 'golden',
+      categoryTag: '10-YEAR SOVEREIGN',
+      title: "10-Year UAE Golden Visa",
+      desc: "Long-term self-sponsored residency without salary caps, local employers, or minimum UAE stay requirements.",
+      price: "AED 3,864",
+      perks: ["10-Year self-sponsorship", "Full family & domestic file sponsorship", "100% business ownership control", "VIP 24H priority fast-track"],
+      actionId: 'golden',
+      icon: Crown
+    },
+    {
+      id: 'property-visa',
+      category: 'golden',
+      categoryTag: 'DLD VERIFIED',
+      title: "Property Investor Visa (AED 750k+ / AED 2M+)",
+      desc: "2-Year or 10-Year Golden Visa for ready or off-plan property equity certified by Dubai Land Department.",
+      price: "AED 6,311",
+      perks: ["Direct DLD Title Deed audit", "Mortgage equity acceptance", "Includes spouse & child files", "Official DLD Trustee filing"],
+      actionId: 'property',
+      icon: Building2
+    },
+    {
+      id: 'family-visa',
+      category: 'family',
+      categoryTag: 'FAMILY SPONSORSHIP',
+      title: "Family Residence Visa (Spouse & Kids)",
+      desc: "Sponsor your spouse, children, or parents with a fully managed application from entry permit to Emirates ID.",
+      price: "AED 1,103",
+      perks: ["In-country status change", "VIP medical fitness booking", "Express Emirates ID typing", "Zero overstay fine risk"],
+      actionId: 'family',
+      icon: Heart
+    },
+    {
+      id: 'maid-visa',
+      category: 'family',
+      categoryTag: 'DOMESTIC SPONSORSHIP',
+      title: "Maid & Domestic Worker Visa",
+      desc: "Legal sponsorship for housemaids, nannies, cooks, and drivers under family files with Tadbeer contracts.",
+      price: "AED 1,650",
+      perks: ["MOHRE legal agreement", "Medical test & health insurance", "Consulate clearance & stamping", "Door-to-door courier"],
+      actionId: 'family',
+      icon: ShieldCheck
+    },
+    {
+      id: 'newborn-visa',
+      category: 'family',
+      categoryTag: '120-DAY FAST TRACK',
+      title: "Newborn Baby Visa",
+      desc: "Birth certificate typing, passport stamping, and Emirates ID delivery within the 120-day grace period.",
+      price: "AED 1,029",
+      perks: ["MOFA certificate translation", "Zero delay fines guarantee", "Direct GDRFA file linking", "Courier passport delivery"],
+      actionId: 'family',
+      icon: Baby
+    },
+    {
+      id: 'medical-eid',
+      category: 'corporate',
+      categoryTag: 'VIP FAST-TRACK',
+      title: "VIP Emirates ID & Medical Screening",
+      desc: "VIP medical fitness check slot booking and priority biometrics scheduling with zero waiting queues.",
+      price: "AED 2,500",
+      perks: ["Same-day blood & X-ray results", "VIP lounge accession", "ICP fingerprinting slot", "Priority doorstep card delivery"],
+      actionId: 'family',
+      icon: Sparkles
+    },
+    {
+      id: 'document-attestation',
+      category: 'corporate',
+      categoryTag: 'LEGAL & MOFA',
+      title: "MOFA Document Attestation",
+      desc: "Foreign embassy legalization and UAE MOFA stamps for marriage, degree, and birth certificates.",
+      price: "AED 650",
+      perks: ["Home country embassy stamp", "UAE Ministry of Foreign Affairs (MOFA)", "Notary public verification", "Insured international courier"],
+      actionId: 'family',
+      icon: FileCheck,
+      iconBg: 'bg-gradient-to-br from-teal-500 via-emerald-600 to-teal-700 text-white shadow-[0_4px_16px_rgba(20,184,166,0.4)]'
+    },
+    {
+      id: 'arabic-translation',
+      category: 'corporate',
+      categoryTag: 'MOJ CERTIFIED',
+      title: "Sworn Arabic Legal Translation",
+      desc: "MOJ certified legal translations accepted by GDRFA, DED, courts, and federal ministries.",
+      price: "AED 450",
+      perks: ["Ministry of Justice sworn stamp", "Accepted across all 7 emirates", "24-hour express turnaround", "Digital stamped copy provided"],
+      actionId: 'family',
+      icon: FileText,
+      iconBg: 'bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 text-white shadow-[0_4px_16px_rgba(59,130,246,0.4)]'
+    },
+    {
+      id: 'dld-trustee',
+      category: 'golden',
+      categoryTag: 'DLD AUDIT',
+      title: "DLD Trustee & Power of Attorney",
+      desc: "Dubai Land Department trustee representation, title deed updates, and notary public electronic POAs.",
+      price: "AED 2,141",
+      perks: ["Notary Public electronic POA", "Title deed issuance & transfer", "Mortgage release representation", "Official government receipt"],
+      actionId: 'property',
+      icon: Scale,
+      iconBg: 'bg-gradient-to-br from-amber-600 via-yellow-600 to-orange-700 text-white shadow-[0_4px_16px_rgba(217,119,6,0.4)]'
+    }
+  ];
 
+  const filteredNetlifyServices = activeTab === 'all'
+    ? netlifyServicesList
+    : netlifyServicesList.filter(s => s.category === activeTab);
+
+  // Dual-Stream Scrolling Datasets (5 Services Left, 5 Services Right)
+  const servicesRow1 = [
+    netlifyServicesList[0], // 10-Year UAE Golden Visa
+    netlifyServicesList[1], // Property Investor Visa
+    netlifyServicesList[2], // Family Residence Visa
+    netlifyServicesList[5], // VIP Emirates ID & Medical
+    netlifyServicesList[7], // Sworn Arabic Translation
+  ];
+
+  const servicesRow2 = [
+    netlifyServicesList[3], // Maid & Domestic Visa
+    netlifyServicesList[4], // Newborn Baby Visa
+    netlifyServicesList[6], // MOFA Document Attestation
+    netlifyServicesList[8], // DLD Trustee & POA
+    {
+      id: 'fast-track-audit',
+      category: 'golden',
+      categoryTag: 'VIP CONCIERGE',
+      title: "Express 24H In-Country Status Change",
+      desc: "Instant visa status modification within UAE borders without airport runs or travel tickets.",
+      price: "AED 1,180",
+      actionId: 'golden',
+      icon: Zap
+    }
+  ];
+
+  // Articles List
+  const fullArticlesList = [
+    {
+      id: 'freelance-visa-scam-dubai',
+      title: 'Beware of Freelance Visa Scams in Dubai: How to Protect Yourself in 2026',
+      excerpt: 'Learn how to identify fake freelance visa offers and protect your investments in the UAE with our comprehensive guide to vetting PRO agencies.',
+      date: 'Oct 12, 2026',
+      category: 'Warning & Alerts',
+      readTime: '12 min read',
+      author: 'Tariq Al-Mansoori',
+      authorRole: 'Senior Verification Expert',
+      image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      id: 'complete-guide-to-ejari-2026',
+      title: 'The Ultimate Guide to EJARI for Family Sponsorship in Dubai',
+      excerpt: 'Understand exactly what an EJARI is, why the GDRFA strictly requires it, and how to register your tenancy contract to ensure your family visa is approved.',
+      date: 'Sep 28, 2026',
+      category: 'Housing & EJARI',
+      readTime: '15 min read',
+      author: 'Elena Rostova',
+      authorRole: 'GDRFA Compliance Specialist',
+      image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      id: 'golden-visa-rules-2026',
+      title: '2026 Dubai Golden Visa Rules: Property Valuation & Salary Criteria',
+      excerpt: 'Complete breakdown of official DLD and ICP rules for 10-year Golden Visa eligibility through real estate equity or high-income executive positions.',
+      date: 'Aug 15, 2026',
+      category: 'Residency Rules',
+      readTime: '10 min read',
+      author: 'Fatima Al-Mansoori',
+      authorRole: 'Head of Legal & PRO',
+      image: 'https://images.unsplash.com/photo-1546412414-8035e1786b9b?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      id: 'newborn-baby-visa-rules',
+      title: 'Newborn Baby Visa Rules in Dubai: How to Avoid the 120-Day Penalty',
+      excerpt: 'Step-by-step guide for parents on birth certificate attestation, entry permit typing, and Emirates ID delivery within the 120-day grace period.',
+      date: 'Jul 20, 2026',
+      category: 'Family Care',
+      readTime: '8 min read',
+      author: 'Zayed Al-Ameri',
+      authorRole: 'Family Relations Manager',
+      image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1200&auto=format&fit=crop'
+    }
+  ];
+
+  const filteredArticles = activeArticleTab === 'all'
+    ? fullArticlesList
+    : fullArticlesList.filter(a => a.category.toLowerCase().includes(activeArticleTab.toLowerCase()));
+
+  const faqs = [
+    {
+      id: "salary-req",
+      q: "What is the minimum salary required to sponsor a family visa in Dubai?",
+      a: "To sponsor a spouse and children in Dubai, the minimum monthly salary requirement is AED 4,000 (or AED 3,000 + company housing). To sponsor parents, the minimum salary is AED 10,000 plus an active 2-bedroom Ejari tenancy contract. All contracts must be registered via MOHRE or free zone authority.",
+      category: "SALARY & CRITERIA",
+      tag: "GDRFA Regulated",
+      statHighlight: { label: "Minimum Monthly Salary", val: "AED 4,000" },
+      sla: "Same-Day Audit",
+      perks: [
+        "Spouse & children: AED 4,000/mo threshold",
+        "Parents sponsorship: AED 10,000/mo + 2BR Ejari",
+        "Valid across mainland & all UAE Free Zones"
+      ]
+    },
+    {
+      id: "in-country-status",
+      q: "Can my family complete their visa processing while staying inside the UAE?",
+      a: "Yes! Family members currently on visit visas, tourist visas, or cancelled residency visas can undergo an official 'In-Country Status Change' without airport runs or exiting the country. This saves substantial airfare and expedites your Emirates ID stamping.",
+      category: "IN-COUNTRY STATUS",
+      tag: "No Exit Required",
+      statHighlight: { label: "Airport Exit Needed", val: "0 Visits" },
+      sla: "24–48h Turnaround",
+      perks: [
+        "Immediate file switch within the UAE",
+        "Zero flight tickets or border exit trips",
+        "Preserves existing medical fitness records"
+      ]
+    },
+    {
+      id: "unbundled-fees",
+      q: "Are government fees included in your pricing?",
+      a: "We operate on a 100% transparent, unbundled pricing philosophy. All official government tariffs (GDRFA, ICP, DED, DLD, Medical fitness, Emirates ID) are billed at exact government cost with official Ministry receipts provided directly to you.",
+      category: "TRANSPARENCY",
+      tag: "100% Unbundled",
+      statHighlight: { label: "Hidden Surcharges", val: "AED 0" },
+      sla: "Official Receipts",
+      perks: [
+        "Zero markup on government ministry tariffs",
+        "Official federal tax invoices and receipts",
+        "Clear itemized quotes prior to case submission"
+      ]
+    },
+    {
+      id: "emirates-coverage",
+      q: "Which Emirates do you cover for Family and Golden Visas?",
+      a: "We process residency and corporate visas across all 7 UAE Emirates: Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain. Our PROs coordinate directly with GDRFA Dubai and federal ICP Abu Dhabi authorities.",
+      category: "FEDERAL SCOPE",
+      tag: "All 7 Emirates",
+      statHighlight: { label: "Federal Jurisdiction", val: "7 Emirates" },
+      sla: "Nationwide PRO",
+      perks: [
+        "Direct GDRFA Dubai & ICP Federal access",
+        "Inter-emirate visa transfers and status shifts",
+        "VIP door-to-door courier across all emirates"
+      ]
+    },
+    {
+      id: "attestation-req",
+      q: "What document attestations are required for family sponsorship?",
+      a: "Marriage certificates and children's birth certificates issued outside the UAE must undergo legal attestation: first in the home country (Notary & Ministry of Foreign Affairs), then the UAE Embassy abroad, and finally MOFA in Dubai. Sworn Arabic translation is mandatory.",
+      category: "LEGAL & MOFA",
+      tag: "MOFA Certified",
+      statHighlight: { label: "Attestation Route", val: "Full MOFA Chain" },
+      sla: "2–3 Days Express",
+      perks: [
+        "Complete embassy and MOFA attestation service",
+        "MOJ-certified sworn Arabic legal translation",
+        "Safe insured international document courier"
+      ]
+    },
+    {
+      id: "female-sponsor",
+      q: "Can a female resident sponsor her husband and children in Dubai?",
+      a: "Yes. Under modern GDRFA guidelines, employed mothers, doctors, engineers, executives, and female entrepreneurs earning a minimum salary of AED 10,000 (or AED 8,000 + housing) can sponsor their husband and children seamlessly.",
+      category: "FEMALE SPONSORSHIP",
+      tag: "GDRFA Standard",
+      statHighlight: { label: "Minimum Female Salary", val: "AED 10,000" },
+      sla: "Full Equality",
+      perks: [
+        "Mothers can sponsor children independently",
+        "Sponsorship of husband with standard NOC",
+        "Medical insurance packages included"
+      ]
+    }
+  ];
+
+  return (
+    <div className="w-full bg-[#FAF8F5] dark:bg-[#0D0B08] text-slate-900 dark:text-[#F3EDE2] transition-colors duration-300 overflow-x-hidden font-sans relative">
+
+      {/* Ambient Radial Gold Glow background (Inspired by goldenvisadubai.ai) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1400px] h-[700px] pointer-events-none opacity-30 dark:opacity-20">
+        <div className="w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.18),transparent_70%)]" />
+      </div>
+
+      {/* 2. HERO MASTHEAD SECTION (Cinematic Dubai Skyline Video & Luxury Sovereign Gold System) */}
+      <section 
+        id="hero" 
+        className="w-full text-white py-14 sm:py-20 px-4 md:px-8 relative z-10 transition-colors duration-300 border-b border-[#EFC45C]/25 overflow-hidden bg-[#0B0A08]"
+      >
+        {/* High-Definition Dubai Skyline Background Video */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1920&auto=format&fit=crop"
+            className="w-full h-full object-cover opacity-45 brightness-90 contrast-125 scale-105"
+          >
+            <source src="/videos/dubai-hero.webm" type="video/webm" />
+          </video>
+          {/* Sovereign Warm Gold & Espresso Gradient Overlays to Ensure Pristine Contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B0A08]/95 via-[#0F0E0C]/80 to-[#0B0A08]/90 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0B0A08]/40 to-[#0B0A08] pointer-events-none" />
+        </div>
+
+        <div className="max-w-[1340px] mx-auto relative z-10">
+
+          {/* Radial Gold Arc Bloom */}
+          <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-[radial-gradient(circle,rgba(239,196,92,0.24)_0%,transparent_70%)] blur-[56px] pointer-events-none rounded-full" />
+          <div className="absolute top-1/3 right-0 w-[450px] h-[450px] bg-[#DBB24B]/10 blur-[130px] pointer-events-none rounded-full hidden lg:block" />
+
+          {/* MAIN HERO SPLIT: Text on Left (50%), Option A Dual-Tier Bento Cards on Right (50%) */}
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-12 items-center w-full justify-between relative z-10">
+
+            {/* LEFT SIDE: Minimalist Luxury Headline & Authority */}
             <motion.div
+              className="w-full lg:w-[50%] text-left"
+              initial="hidden"
+              animate="visible"
               variants={containerVariants}
-              initial="hidden"
-              animate="show"
-              className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center"
             >
-              {/* Left Column: Text & CTA */}
-              <div className="lg:col-span-7 space-y-8 md:space-y-10 relative z-20">
-                <div className="space-y-4">
-                  <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[10px] bg-[#D4AF37]/5 border border-[#D4AF37]/40 text-[#B8860B] text-xs font-extrabold uppercase tracking-widest shadow-sm">
-                    <span className="text-[#B37700] animate-pulse">★</span> Premium Visa Consultancy
-                  </motion.div>
-                  <motion.h1 variants={itemVariants} className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-black tracking-tight leading-[1.05] drop-shadow-sm">
-                    <span className="text-content-primary dark:text-white drop-shadow-sm">
-                      {heroMainHeadline.split(' ').slice(0, 3).join(' ')}
-                    </span>
-                    <br />
-                    <span className="text-dark-gold-shine font-black tracking-tight drop-shadow-[0_2px_4px_rgba(89,58,0,0.15)]">
-                      {heroMainHeadline.split(' ').slice(3).join(' ')}
-                    </span>
-                  </motion.h1>
+              {/* Skeuomorphic Gold Stamp Badge */}
+              <motion.div variants={itemVariants} className="inline-flex items-center gap-2 bg-[#D4AF37]/15 text-[#F3E5AB] px-4 py-2 rounded-[8px] mb-6 border border-[#D4AF37]/40 text-xs font-extrabold uppercase tracking-[0.18em] hybrid-neumorphic-inset shadow-md">
+                <Crown className="w-4 h-4 text-[#D4AF37] animate-pulse" />
+                <span>OFFICIAL GDRFA & ICP CONCIERGE</span>
+              </motion.div>
 
-                  <motion.p variants={itemVariants} className="text-content-muted dark:text-slate-300 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl font-medium">
-                    {heroSubtext}
-                  </motion.p>
-                </div>
+              {/* Masthead Headline with Luminous Gold Text Clips */}
+              <motion.h1 variants={itemVariants} className="text-4xl sm:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6 text-white font-sans">
+                Dubai 10-Year <br />
+                <span className="bg-gradient-to-r from-[#FFFFFF] via-[#FFF6DC] via-35% via-[#F3D489] to-[#DBB24B] bg-clip-text text-transparent drop-shadow-[0_4px_24px_rgba(219,178,75,0.35)] font-black">Golden &amp; Property</span> Residency
+              </motion.h1>
 
-                <motion.ul variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[heroStat1, heroStat2, heroStat3].map((stat, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + i * 0.15, duration: 0.5 }}
-                      className="flex items-center gap-3 text-sm font-bold text-content-secondary dark:text-slate-200"
-                    >
-                      <div className="p-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20">
-                        <CheckCircle2 className="w-4 h-4 text-brand-gold" />
-                      </div>
-                      <span>{stat}</span>
-                    </motion.li>
-                  ))}
-                </motion.ul>
+              <motion.p variants={itemVariants} className="text-base sm:text-lg text-slate-300 mb-8 max-w-xl leading-relaxed font-medium">
+                Official Dubai Land Department (DLD) property equity valuation, Golden Visa self-sponsorship, family residence visas, and 24H VIP Emirates ID processing with 100% SLA approval guarantee.
+              </motion.p>
 
-                <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <button
-                    onClick={() => onOpenCalculator('property')}
-                    className="group relative px-8 py-4 rounded-[10px] bg-dark-gold-gloss text-slate-950 font-black text-sm tracking-widest uppercase shadow-[0_8px_16px_rgba(212,175,55,0.25)] hover:shadow-[0_12px_24px_rgba(212,175,55,0.4)] hover:-translate-y-1 transition-all duration-500 overflow-hidden cursor-pointer"
-                  >
-                    <span className="relative z-10">Calculate Property Visa &rarr;</span>
-                    {/* Magnetic Sweeping Shine Effect */}
-                    <div className="absolute inset-0 w-[200%] -translate-x-[150%] skew-x-[-25deg] bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:translate-x-[50%] transition-transform duration-1000 ease-in-out pointer-events-none" />
-                  </button>
+              {/* Trust Pill Tags */}
+              <motion.div variants={itemVariants} className="flex flex-wrap gap-3 mb-8 text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                <span className="flex items-center gap-1.5 bg-slate-900/90 px-3.5 py-1.5 rounded-[8px] border border-slate-800 shadow-sm">
+                  <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" /> DET Licensed
+                </span>
+                <span className="flex items-center gap-1.5 bg-slate-900/90 px-3.5 py-1.5 rounded-[8px] border border-slate-800 shadow-sm">
+                  <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" /> ICP & GDRFA Direct
+                </span>
+                <span className="flex items-center gap-1.5 bg-slate-900/90 px-3.5 py-1.5 rounded-[8px] border border-slate-800 shadow-sm">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" /> 100% Transparent Fees
+                </span>
+              </motion.div>
 
-                  <motion.a
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    href={`https://wa.me/${cmsConfig?.global?.whatsappRaw || siteConfig.whatsappRaw}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 bg-surface dark:bg-white/5 hover:bg-canvas dark:hover:bg-surface/10 text-content-primary dark:text-white px-8 py-4.5 rounded-[10px] font-extrabold text-base transition-all shadow-md border border-border-subtle dark:border-white/10 group cursor-pointer"
-                  >
-                    <WhatsAppIcon className="w-5 h-5 text-brand-gold" />
-                    <span>WhatsApp Specialist</span>
-                  </motion.a>
-                </motion.div>
-              </div>
-
-              {/* Right Column: Calculator Component */}
-              <motion.div variants={itemVariants} className="lg:col-span-5 relative z-20 w-full max-w-[420px] mx-auto lg:ml-auto lg:mr-0 pt-8 lg:pt-0">
-                {/* Decorative floating elements */}
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-primary/20 rounded-full blur-2xl pointer-events-none" />
-                <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-brand-primary/10 rounded-full blur-2xl pointer-events-none" />
-
-                <motion.div
-                  className="rounded-[10px] bg-white/70 dark:bg-[#0A0B0E]/70 backdrop-blur-2xl border border-white/50 dark:border-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.1)] dark:shadow-[0_30px_60px_-20px_rgba(212,175,55,0.15)] relative overflow-hidden flex flex-col"
+              {/* CTA Action Buttons */}
+              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={() => onOpenCalculator && onOpenCalculator(calcGoal)}
+                  className="bg-[#EFC45C] hover:bg-[#F7DE9C] text-[#0B0A08] font-black px-8 py-4 rounded-[10px] shadow-[0_4px_20px_rgba(239,196,92,0.35)] hover:scale-103 active:scale-97 transition-all duration-300 text-xs uppercase tracking-widest flex items-center justify-center gap-3 group cursor-pointer"
                 >
-                  {/* Calculator Header (Inspired by familyvisa.ae) */}
-                  <div className="w-full px-6 py-4 bg-[#0A0A0A] rounded-t-[10px] border-b border-[#D4AF37]/40 flex justify-between items-center shadow-sm">
-                    <h3 className="font-bold tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#FCE181]">
-                      Instant Visa Calculator
-                    </h3>
-                    <span className="px-2 py-0.5 rounded-[10px] bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/30 text-[10px] font-black uppercase tracking-wider animate-pulse">
-                      Live
+                  <span>START APPLICATION ↗</span>
+                </button>
+
+                <button
+                  onClick={() => window.open('https://wa.me/971501234567', '_blank')}
+                  className="bg-[#25D366] hover:bg-[#20BD5A] text-white font-black px-8 py-4 rounded-[10px] shadow-[0_4px_20px_rgba(37,211,102,0.35)] hover:scale-103 active:scale-97 transition-all duration-300 text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer"
+                >
+                  <MessageSquare className="w-4 h-4 text-white fill-current" />
+                  <span>GET FREE CONSULTATION</span>
+                </button>
+              </motion.div>
+            </motion.div>
+
+            {/* RIGHT SIDE: OPTION A DUAL-TIER BENTO GLASS CARDS */}
+            <motion.div variants={itemVariants} className="w-full lg:w-[50%] flex flex-col items-center">
+              <div className="w-full max-w-lg flex flex-col gap-4">
+
+                {/* TIER 1: 3 SIDE-BY-SIDE CATEGORY CARDS */}
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    {
+                      id: 'golden',
+                      title: 'Golden Visa',
+                      sub: '(10-Year)',
+                      price: '3,864',
+                      icon: Crown,
+                    },
+                    {
+                      id: 'property',
+                      title: 'Property Visa',
+                      sub: '(5-Year)',
+                      price: '6,311',
+                      icon: Building2,
+                    },
+                    {
+                      id: 'family',
+                      title: 'Family Visa',
+                      sub: '(Residency)',
+                      price: '1,103',
+                      icon: Users,
+                    }
+                  ].map((card) => {
+                    const isSelected = calcGoal === card.id;
+                    const IconComp = card.icon;
+                    return (
+                      <motion.div
+                        key={card.id}
+                        whileHover={{ scale: 1.03, y: -2 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => {
+                          setCalcGoal(card.id);
+                          }}
+                        className={`p-3.5 sm:p-4 rounded-[10px] border text-center transition-all cursor-pointer backdrop-blur-2xl relative overflow-hidden flex flex-col items-center justify-between ${isSelected
+                            ? 'border-[#EFC45C] bg-gradient-to-b from-[#EFC45C]/20 via-[#141210] to-[#0B0A08] shadow-[0_0_28px_rgba(239,196,92,0.3)] ring-1 ring-[#EFC45C]/50'
+                            : 'border-[#262118] bg-[#141210]/90 hover:border-[#EFC45C]/40 hover:bg-[#1A160F]'
+                          }`}
+                      >
+                        <div className={`w-9 h-9 rounded-[10px] flex items-center justify-center mb-2 transition-colors ${isSelected ? 'bg-[#EFC45C] text-[#0B0A08] shadow-md' : 'bg-[#F6EED9] text-[#8A6412] border border-[#EFC45C]/40'
+                          }`}>
+                          <IconComp className="w-4 h-4 stroke-[2.5]" />
+                        </div>
+                        <div className={`text-xs font-black tracking-tight ${isSelected ? 'text-[#F7DE9C]' : 'text-slate-200'}`}>
+                          {card.title}
+                        </div>
+                        <div className="text-xs text-slate-400 font-medium mb-1.5">
+                          {card.sub}
+                        </div>
+                        <div className={`text-xs font-mono font-black px-2 py-0.5 rounded-[8px] border w-full ${isSelected
+                            ? 'bg-[#EFC45C]/20 text-[#F7DE9C] border-[#EFC45C]/60'
+                            : 'bg-black/50 text-[#A19D94] border-white/10'
+                          }`}>
+                          <span className="text-xs text-[#A19D94] block sm:inline mr-1">AED</span>
+                          {card.price}
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* TIER 2: STREAMLINED LIVE PATHWAY SNAPSHOT */}
+                <div className="w-full bg-slate-950/85 border border-[#D4AF37]/40 rounded-[12px] p-5 sm:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden">
+
+                  {/* Top Ambient Glow */}
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
+
+                  {/* Header Row */}
+                  <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-ping" />
+                      <span className="text-xs font-black uppercase tracking-[0.16em] text-[#D4AF37] font-mono">
+                        Live Pathway Snapshot
+                      </span>
+                    </div>
+                    <span className="text-xs font-mono font-bold bg-slate-900 border border-slate-800 text-slate-300 px-2.5 py-1 rounded-[8px]">
+                      Official ICP & GDRFA
                     </span>
                   </div>
 
-                  {/* Calculator Body */}
-                  <div className="p-6 sm:p-8 space-y-6">
-                    <div className="space-y-1">
-                      <h4 className="font-bold text-lg text-content-primary dark:text-white">What is your primary goal?</h4>
-                      <p className="text-sm text-content-muted dark:text-slate-400">Select an option to calculate exact costs.</p>
+                  {/* Live Big Fee Display */}
+                  <div className="flex items-baseline justify-between mb-4 pb-3 border-b border-slate-900">
+                    <div>
+                      <span className="text-3xl sm:text-4xl font-black text-white font-mono tracking-tight mr-2">
+                        {calcGoal === 'golden' ? '3,864' : calcGoal === 'property' ? '6,311' : '1,103'}
+                      </span>
+                      <span className="text-xs font-black text-[#D4AF37] font-mono uppercase">
+                        AED Estimated Starting
+                      </span>
                     </div>
+                    <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-[8px]">
+                      100% SLA Guarantee
+                    </span>
+                  </div>
 
-                    <div className="space-y-3">
-                      {[
-                        { id: 'golden', title: '10-Year Golden Visa', desc: 'Property investors & high earners', icon: Crown, tab: 'golden' },
-                        { id: 'family', title: 'Family Residence Visa', desc: 'Sponsor spouse, children or parents', icon: Heart, tab: 'spouse' },
-                        { id: 'property', title: 'Property Visa (2-Year)', desc: 'For real estate owners (AED 750k+)', icon: Building2, tab: 'property' },
-                        { id: 'maid', title: 'Domestic Helper Visa', desc: 'Sponsor a maid, nanny or driver', icon: Users, tab: 'maid' }
-                      ].map((item) => {
-                        const Icon = item.icon;
-                        return (
-                          <div
-                            key={item.id}
-                            onClick={() => onOpenCalculator(item.tab)}
-                            className="group flex items-center gap-4 p-4 rounded-[10px] border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-black/40 backdrop-blur-sm cursor-pointer transition-all hover:border-[#D4AF37]/50 hover:bg-[#D4AF37]/5 hover:shadow-[0_10px_20px_-10px_rgba(212,175,55,0.2)]"
-                          >
-                            <div className="flex-none w-5 h-5 rounded-full border-2 border-border-strong dark:border-slate-600 relative group-hover:border-brand-primary transition-colors">
-                              <div className="absolute inset-1 rounded-full bg-dark-gold-gloss text-slate-950 font-bold hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_12px_rgba(212,175,55,0.25)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            </div>
-                            <div className="flex-1">
-                              <span className="block font-bold text-sm text-content-primary dark:text-white group-hover:text-[#B8860B] transition-colors">
-                                {item.title}
-                              </span>
-                              <span className="block text-xs text-content-muted dark:text-slate-400 mt-0.5">
-                                {item.desc}
-                              </span>
-                            </div>
-                            <Icon className="flex-none w-5 h-5 text-content-muted dark:text-slate-400 group-hover:text-[#B8860B] transition-colors" />
-                          </div>
-                        );
-                      })}
+                  {/* Simplified Key Guarantees */}
+                  <div className="grid grid-cols-3 gap-2.5 mb-4 text-center">
+                    <div className="p-3 rounded-[10px] bg-slate-900/70 border border-slate-800/80">
+                      <Clock className="w-4 h-4 text-[#D4AF37] mx-auto mb-1.5" />
+                      <div className="text-xs font-bold text-slate-200">24H Fast-Track</div>
+                      <div className="text-xs text-slate-400">VIP Turnaround</div>
+                    </div>
+                    <div className="p-3 rounded-[10px] bg-slate-900/70 border border-slate-800/80">
+                      <ShieldCheck className="w-4 h-4 text-[#D4AF37] mx-auto mb-1.5" />
+                      <div className="text-xs font-bold text-slate-200">Zero Queues</div>
+                      <div className="text-xs text-slate-400">Doorstep Biometrics</div>
+                    </div>
+                    <div className="p-3 rounded-[10px] bg-slate-900/70 border border-slate-800/80">
+                      <Award className="w-4 h-4 text-[#D4AF37] mx-auto mb-1.5" />
+                      <div className="text-xs font-bold text-slate-200">Direct Endorsed</div>
+                      <div className="text-xs text-slate-400">DLD / ICP Channel</div>
                     </div>
                   </div>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          </section>
-        );
 
-      case 'stats':
-        return (
-          <RevealSection key="stats" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
-            <div ref={statsRef} className="bg-surface dark:bg-black/30 backdrop-blur-md border border-border-subtle dark:border-white/5 rounded-3xl p-8 sm:p-10 shadow-[var(--shadow-card)] relative overflow-hidden">
-              {/* Subtle gold accent line at top */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-brand-primary/40 to-transparent" />
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-border-subtle dark:divide-white/10 text-center relative z-10">
-                {statsMetrics.map((m, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={statsInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: i * 0.1, duration: 0.5, type: 'spring' }}
-                    className={`space-y-1.5 ${i > 0 ? 'pt-6 sm:pt-0' : ''} group`}
+                  {/* Non-competing Secondary Action Link */}
+                  <button
+                    onClick={() => onOpenCalculator && onOpenCalculator(calcGoal)}
+                    className="w-full text-center text-xs font-bold text-[#EFC45C] hover:text-[#F7DE9C] hover:underline flex items-center justify-center gap-1.5 pt-3 border-t border-slate-900 cursor-pointer"
                   >
-                    <div className="font-display font-black text-3xl sm:text-4xl bg-gradient-to-br from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">{m.val}</div>
-                    <div className="text-xs sm:text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{m.label}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </RevealSection>
-        );
-
-      case 'achievements':
-        return (
-          <RevealSection key="achievements" className="w-full relative z-10 px-4 sm:px-6">
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 mix-blend-overlay pointer-events-none" />
-            <motion.div
-              variants={cardGridVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: '-40px' }}
-              className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-5 gap-8 md:gap-4 text-center items-center relative z-10"
-            >
-
-              {/* Item 1 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <Trophy className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
-                </div>
-                <div className="space-y-1 relative z-10">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">No #1</div>
-                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Top Agency</div>
-                </div>
-              </motion.div>
-
-              {/* Item 2 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <Star className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] fill-[#D4AF37]/20 relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
-                </div>
-                <div className="space-y-1 relative z-10">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">4.9*</div>
-                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Google Rating</div>
-                </div>
-              </motion.div>
-
-              {/* Item 3 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <ThumbsUp className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
-                </div>
-                <div className="space-y-1 relative z-10">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">100%</div>
-                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Client Satisfaction</div>
-                </div>
-              </motion.div>
-
-              {/* Item 4 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <Users className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
-                </div>
-                <div className="space-y-1 relative z-10">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">15+</div>
-                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Expert PROs</div>
-                </div>
-              </motion.div>
-
-              {/* Item 5 */}
-              <motion.div variants={cardItemVariants} whileHover={{ y: -10 }} className="flex flex-col items-center space-y-4 col-span-2 lg:col-span-1 p-6 rounded-2xl bg-white/5 dark:bg-[#111111]/80 border border-slate-200 dark:border-white/5 backdrop-blur-xl group hover:border-[#D4AF37]/30 transition-all duration-500 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-[#D4AF37]/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                  <FileText className="w-10 h-10 sm:w-12 sm:h-12 text-[#D4AF37] relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
-                </div>
-                <div className="space-y-1 relative z-10">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white font-display tracking-tight">5500+</div>
-                  <div className="text-[#B8860B] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">Visas Issued</div>
-                </div>
-              </motion.div>
-
-            </motion.div>
-          </RevealSection>
-        );
-
-      case 'problems':
-        return (
-          <RevealSection key="problems" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
-            <div className="bg-white/80 dark:bg-[#0a0a0a]/90 backdrop-blur-2xl rounded-[24px] p-8 sm:p-12 border border-slate-200 dark:border-white/10 space-y-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/5 blur-3xl rounded-full pointer-events-none -mr-20 -mt-20" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#D4AF37]/5 blur-3xl rounded-full pointer-events-none -ml-20 -mb-20" />
-              
-              <div className="text-center max-w-2xl mx-auto space-y-4 relative z-10">
-                <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
-                  THE 800 DOCS ADVANTAGE
-                </span>
-                <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{cmsConfig?.problems?.title || "The Problems We Solve"}</h2>
-                <p className="text-slate-500 dark:text-slate-400 text-sm">{cmsConfig?.problems?.subtext || "Avoid bureaucracy, surprise fees, and endless waiting queues at service centers."}</p>
-              </div>
-
-              <motion.div
-                variants={cardGridVariants}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: '-80px' }}
-                className="grid md:grid-cols-2 gap-6 relative z-10"
-              >
-                {problemsSolved.map((item, idx) => (
-                  <motion.div
-                    key={idx}
-                    variants={cardItemVariants}
-                    whileHover={{ scale: 1.02 }}
-                    className="p-6 rounded-[16px] bg-slate-50 dark:bg-[#111111] border border-slate-200 dark:border-white/5 space-y-4 shadow-sm hover:border-[#D4AF37]/30 transition-all duration-300 relative overflow-hidden group"
-                  >
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                    
-                    <div className="flex items-start gap-4 p-4 rounded-[12px] bg-slate-100 dark:bg-[#1a1a1a] border border-transparent text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
-                      <XCircle className="w-5 h-5 text-slate-400 dark:text-slate-500 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-slate-700 dark:text-slate-300 block mb-1 text-[10px] tracking-widest uppercase">The Old Way / Problem:</span>
-                        {item.problem}
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4 p-4 rounded-[12px] bg-white dark:bg-[#111111] border border-[#D4AF37]/30 text-slate-900 dark:text-white text-xs leading-relaxed shadow-[0_4px_20px_rgba(212,175,55,0.08)]">
-                      <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-[#B8860B] dark:text-[#D4AF37] block mb-1 text-[10px] tracking-widest uppercase">How We Solve It:</span>
-                        {item.solution || item.desc}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          </RevealSection>
-        );
-
-      case 'services':
-        return (
-          <RevealSection key="services" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div className="space-y-4 max-w-2xl">
-                <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
-                  END-TO-END SERVICES
-                </span>
-                <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Everything We Handle</h2>
-                <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">One dedicated advisory team for residency visas, identity cards, medical checkups, and document attestation.</p>
-              </div>
-
-              <div className="flex flex-wrap gap-2 bg-slate-100 dark:bg-[#1a1a1a] p-1.5 rounded-[12px] border border-slate-200 dark:border-white/5 shadow-inner">
-                {[
-                  { key: 'all', label: `All Services (${categorizedServices.length})` },
-                  { key: 'visas', label: 'Visas' },
-                  { key: 'emiratesId', label: 'Emirates ID & Medical' },
-                  { key: 'legal', label: 'Legal & Attestation' },
-                ].map(cat => (
-                  <motion.button
-                    key={cat.key}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setServiceCategory(cat.key)}
-                    className={`px-4 py-2 rounded-[10px] text-xs font-bold transition-all duration-300 cursor-pointer ${serviceCategory === cat.key ? 'bg-gradient-to-b from-[#F3E5AB] to-[#D4AF37] text-black shadow-[0_4px_12px_rgba(212,175,55,0.3)]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5'
-                      }`}
-                  >
-                    {cat.label}
-                  </motion.button>
-                ))}
-              </div>
-            </div>
-
-            <motion.div
-              layout
-              variants={cardGridVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: '-60px' }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
-              <AnimatePresence mode="popLayout">
-                {filteredServices.map((srv, idx) => {
-                  const Icon = resolveIcon(srv.icon);
-                  return (
-                    <motion.div
-                      key={srv.id}
-                      layout
-                      variants={cardItemVariants}
-                      initial="hidden"
-                      animate="show"
-                      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                      className="group relative bg-white/80 dark:bg-[#111111]/80 backdrop-blur-xl p-8 rounded-[12px] border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] hover:-translate-y-1 hover:border-[#D4AF37]/40 transition-all duration-500 overflow-hidden cursor-pointer flex flex-col justify-between"
-                    >
-                      {/* Animated inner glow on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                      <div className="space-y-4 relative z-10">
-                        <div className="flex items-center justify-between">
-                          <div className="p-3 rounded-[12px] bg-slate-50 dark:bg-[#1a1a1a] border border-slate-200 dark:border-white/5 text-[#B8860B] dark:text-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-black transition-all duration-300 shadow-sm group-hover:shadow-[0_4px_15px_rgba(212,175,55,0.4)]">
-                            <Icon className="w-6 h-6 transition-colors duration-300" />
-                          </div>
-                          <span className="text-[9px] font-mono font-bold text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-2.5 py-1 rounded-full uppercase transition-colors group-hover:bg-[#D4AF37]/20">
-                            {srv.tag || srv.category || 'Visa'}
-                          </span>
-                        </div>
-                        <div>
-                          <h3 className="font-display text-xl font-black text-slate-900 dark:text-white group-hover:text-[#B8860B] transition-colors">{srv.title}</h3>
-                          <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mt-2 font-medium">{srv.desc || srv.shortDesc}</p>
-                        </div>
-                      </div>
-
-                      <div className="pt-6 mt-6 border-t border-border-subtle dark:border-white/5 flex items-center justify-between relative z-10">
-                        <button
-                          onClick={() => onNavigate('service', srv.linkId || srv.id)}
-                          className="text-xs font-bold text-brand-primary group-hover:underline cursor-pointer flex items-center gap-1"
-                        >
-                          <span>View Details</span>
-                        </button>
-
-                        <button
-                          onClick={() => onOpenCalculator('spouse')}
-                          className="relative z-20 text-xs font-bold bg-[#D4AF37]/10 text-[#B8860B] px-4 py-2 rounded-[10px] group-hover:bg-dark-gold-gloss group-hover:text-black transition-all cursor-pointer"
-                        >
-                          Calculate →
-                        </button>
-                      </div>
-                      
-                      {/* Animated Arrow */}
-                      <div className="absolute bottom-6 right-6 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[#D4AF37] pointer-events-none">
-                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
-            </motion.div>
-          </RevealSection>
-        );
-
-      case 'transparency':
-        return (
-          <RevealSection key="transparency" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
-                TOTAL TRANSPARENCY GUARANTEE
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
-                Unbundled Billing. Zero Hidden Surprises.
-              </h2>
-              <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">
-                We split government statutory fees and our professional fee line-by-line so you know exactly where every Dirham goes.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Left Card: Official Government Tariffs */}
-              <div className="bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md border border-slate-200 dark:border-white/5 rounded-[20px] p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 dark:bg-white/5 blur-3xl rounded-full pointer-events-none" />
-                <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4 relative z-10">
-                  <div>
-                    <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block">Official Government Tariffs</span>
-                    <h3 className="font-black text-xl text-slate-900 dark:text-white mt-1">Government & Authority Fees</h3>
-                  </div>
-                  <span className="bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white font-mono text-[10px] font-bold px-3 py-1 rounded-[10px] uppercase">At Official Cost</span>
-                </div>
-
-                <ul className="space-y-3.5 text-sm text-slate-600 dark:text-slate-300 relative z-10">
-                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
-                    <span>GDRFA File Opening & Sponsor Clearance</span>
-                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 268.90</span>
-                  </li>
-                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
-                    <span>Entry Permit E-Visa Clearance</span>
-                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 1,125.65</span>
-                  </li>
-                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
-                    <span>Status Change (In-Country Transfer)</span>
-                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 675.65</span>
-                  </li>
-                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
-                    <span>DHA / EHS Medical Fitness Test</span>
-                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 320.00</span>
-                  </li>
-                  <li className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/5">
-                    <span>ICP Emirates ID Card (2-Year Validity)</span>
-                    <span className="font-mono font-bold text-slate-900 dark:text-white">AED 390.00</span>
-                  </li>
-                </ul>
-
-                <div className="p-4 rounded-[12px] bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center justify-between relative z-10">
-                  <span className="text-xs text-emerald-900 dark:text-emerald-300 font-bold tracking-tight">Original GDRFA & ICP Government Receipts Provided</span>
-                  <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                </div>
-              </div>
-
-              {/* Right Card: Fixed Service Retainer */}
-              <div className="bg-gradient-to-br from-white to-slate-50 dark:from-[#1a1a1a] dark:to-[#111111] border-2 border-[#D4AF37]/40 rounded-[20px] p-6 sm:p-8 space-y-6 shadow-[0_8px_30px_rgba(212,175,55,0.15)] relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-[#D4AF37]/10 blur-3xl rounded-full pointer-events-none -mr-10 -mt-10" />
-                
-                <div className="flex items-center justify-between border-b border-[#D4AF37]/30 pb-4 relative z-10">
-                  <div>
-                    <span className="text-[10px] font-mono font-bold text-[#B8860B] dark:text-[#D4AF37] uppercase tracking-wider block">One Flat Retainer</span>
-                    <h3 className="font-black text-xl text-slate-900 dark:text-white mt-1">Our Professional Service Charge</h3>
-                  </div>
-                  <span className="bg-[#D4AF37] text-black font-mono text-[10px] font-black px-3.5 py-1.5 rounded-[10px] uppercase shadow-md shadow-[#D4AF37]/30">AED 1,450 Flat</span>
-                </div>
-
-                <ul className="space-y-4 text-sm text-slate-700 dark:text-slate-300 relative z-10 font-medium">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
-                    <span>100% Online File Preparation & Pre-Flight Document Check</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
-                    <span>Dedicated Personal PRO Specialist on WhatsApp</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
-                    <span>VIP Priority Scheduling for Medical & Biometrics</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
-                    <span>Guaranteed Approval SLA & Emirates ID Courier Home Delivery</span>
-                  </li>
-                </ul>
-
-                <div className="pt-6 border-t border-[#D4AF37]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
-                  <span className="text-[10px] font-mono font-black text-[#B8860B] dark:text-[#D4AF37] uppercase tracking-widest">Zero Hidden Surcharges</span>
-                  <button onClick={() => onOpenCalculator('family')} className="bg-dark-gold-gloss text-slate-950 font-black text-xs px-5 py-3 rounded-[10px] hover:brightness-110 hover:-translate-y-1 transition-all shadow-[0_4px_15px_rgba(212,175,55,0.3)] cursor-pointer tracking-wider uppercase">
-                    Calculate Exact Total →
+                    <span>View itemized government tariff schedule & documents</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
-              </div>
-            </div>
-          </RevealSection>
-        );
 
-      case 'packages':
-        return (
-          <RevealSection key="packages" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
-                REAL ESTATE & INVESTORS
+              </div>
+            </motion.div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. ACHIEVEMENTS & TRUST METRICS (Alabaster Paper Canvas from goldenvisadubai.ai) */}
+      <section id="achievements" className="w-full bg-[#FAF9F6] dark:bg-[#14100A] border-y border-[#E8DFC8] dark:border-[#EFC45C]/20 py-20 px-4 md:px-8 relative z-10 transition-colors duration-300">
+        <div className="max-w-[1340px] mx-auto space-y-12">
+
+          {/* Header */}
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] border border-[#EFC45C]/40 text-[#8A6412] dark:bg-[#1E1A12] dark:text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm">
+              <Award className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+              <span>GOVERNMENT TRACK RECORD</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-950 dark:text-white tracking-tight mb-3 font-sans">
+              Unmatched Authority in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824]">UAE Residency</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm font-semibold leading-relaxed">
+              Proven Excellence and Strategic Expertise in Securing Your Future in Dubai
+            </p>
+          </div>
+
+          {/* 4 Core Scrollytelling Metric Figures with Ambient Glow matching reference image colors */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6 sm:p-8 rounded-[12px] bg-white dark:bg-[#0B0A08] border border-[#E8DFC8] dark:border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden text-center">
+
+            {/* Ambient Radial Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-40 bg-[#EFC45C]/10 dark:bg-[#EFC45C]/15 rounded-full blur-3xl pointer-events-none" />
+
+            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2 md:border-r md:border-[#E8DFC8] dark:md:border-white/10">
+              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] drop-shadow-sm">
+                500+
+              </div>
+              <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-950 dark:text-white font-sans mt-2 mb-1">
+                CORPORATE ENTITIES
+              </div>
+              <div className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
+                Incorporated across Dubai DIFC, ADGM & Free Zones
+              </div>
+            </motion.div>
+
+            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2 md:border-r md:border-[#E8DFC8] dark:md:border-white/10">
+              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] drop-shadow-sm">
+                15,000+
+              </div>
+              <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-950 dark:text-white font-sans mt-2 mb-1">
+                VISAS PROCESSED
+              </div>
+              <div className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
+                Zero-rejection SLA across GDRFA & ICP portals
+              </div>
+            </motion.div>
+
+            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2 md:border-r md:border-[#E8DFC8] dark:md:border-white/10">
+              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] drop-shadow-sm">
+                15+
+              </div>
+              <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-950 dark:text-white font-sans mt-2 mb-1">
+                YEARS IN DUBAI
+              </div>
+              <div className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
+                Senior advisory council headquartered in Business Bay
+              </div>
+            </motion.div>
+
+            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2">
+              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] drop-shadow-sm">
+                99.8%
+              </div>
+              <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-950 dark:text-white font-sans mt-2 mb-1">
+                SLA ACCURACY
+              </div>
+              <div className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
+                Statutory government fees billed at exact cost
+              </div>
+            </motion.div>
+          </div>
+
+          {/* 5 Glassmorphic Achievement Badges */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            {[
+              { icon: Award, num: "No #1", sub: "Top Agency" },
+              { icon: Star, num: "4.9★", sub: "Google Rating" },
+              { icon: ShieldCheck, num: "100%", sub: "Client Satisfaction" },
+              { icon: Users, num: "15+", sub: "Expert Senior PROs" },
+              { icon: FileCheck, num: "5,500+", sub: "Visas Stamped" }
+            ].map((badge, idx) => {
+              const BadgeIcon = badge.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  className="p-5 rounded-[10px] bg-white hover:bg-[#FAF9F6] dark:bg-[#0B0A08] dark:hover:bg-[#14120E] border border-[#E8DFC8] dark:border-white/10 hover:border-[#C59B27]/50 dark:hover:border-[#EFC45C]/50 shadow-sm hover:shadow-md backdrop-blur-2xl flex flex-col items-center justify-center text-center transition-all group hybrid-3d-card"
+                >
+                  <div className="w-11 h-11 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 dark:border-[#EFC45C]/30 text-[#8A6412] dark:text-[#EFC45C] flex items-center justify-center mb-3 group-hover:scale-105 transition-all shadow-sm">
+                    <BadgeIcon className="w-5 h-5 stroke-[2]" />
+                  </div>
+                  <div className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] font-mono tracking-tight mb-0.5">
+                    {badge.num}
+                  </div>
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                    {badge.sub}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* 4. WHY CHOOSE 800 DOCS — INTERACTIVE TABBED PILLARS (Warm Linen Paper from goldenvisadubai.ai) */}
+      <section id="why-us" className="w-full bg-[#F5EFE0] dark:bg-[#1A140C] border-b border-[#E0D3B8] dark:border-[#EFC45C]/20 py-24 px-4 md:px-8 relative z-10 transition-colors duration-300">
+        <div className="max-w-[1340px] mx-auto">
+
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] border border-[#EFC45C]/40 text-[#8A6412] dark:bg-[#1E1A12] dark:text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm">
+              <Award className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+              <span>THE 800 DOCS STANDARD</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 dark:text-white tracking-tight mb-4 font-sans">
+              Why Choose <span className="hybrid-gold-text">US</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 font-semibold text-sm sm:text-base leading-relaxed">
+              Setting the benchmark in sovereign residency, unbundled transparency, and white-glove government concierge.
+            </p>
+          </div>
+
+          {/* 4 Top Luxury Tab Selectors */}
+          <div role="tablist" aria-label="Why Choose 800 DOCS Pillars" className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+            {whyChoosePillars.map((pillar) => {
+              const isSelected = whyChooseTab === pillar.id;
+              const TabIcon = pillar.icon;
+              return (
+                <motion.button
+                  key={pillar.id}
+                  role="tab"
+                  aria-selected={isSelected}
+                  aria-controls="why-choose-content"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    setWhyChooseTab(pillar.id);
+                  }}
+                  className={`group p-4 sm:p-5 rounded-[10px] border text-left transition-all duration-300 flex items-center gap-3.5 cursor-pointer relative overflow-hidden ${isSelected
+                      ? 'bg-[#0B0A08] text-white dark:bg-[#0B0A08] border-[#EFC45C] shadow-md ring-1 ring-[#EFC45C]/50'
+                      : 'bg-[#FAF9F6] dark:bg-[#141210] border-[#DFD8C5] dark:border-[#262118] text-[#1F190C] dark:text-[#E8E2D5] hover:border-[#EFC45C]/50 hover:bg-white dark:hover:bg-[#1A160F] shadow-sm'
+                    }`}
+                >
+                  <div className={`w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 transition-colors ${isSelected
+                      ? 'bg-[#EFC45C] text-[#0B0A08] shadow-md'
+                      : 'bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C]'
+                    }`}>
+                    <TabIcon className="w-5 h-5 stroke-[2]" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className={`text-xs font-bold uppercase tracking-wider font-mono block ${isSelected ? 'text-[#EFC45C]' : 'text-[#8A6412] dark:text-[#A19D94]'
+                      }`}>
+                      {pillar.tag}
+                    </span>
+                    <div className="text-xs sm:text-sm font-black tracking-tight leading-snug">
+                      {pillar.tabLabel}
+                    </div>
+                  </div>
+
+                  <div className="ml-auto shrink-0 flex items-center">
+                    <ChevronRight className={`w-4 h-4 transition-transform duration-200 ${isSelected ? 'text-[#EFC45C] translate-x-0.5' : 'text-slate-400 group-hover:translate-x-0.5'}`} />
+                  </div>
+
+                  {isSelected && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#EFC45C]" />
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Dynamic Interactive Showcase Console */}
+          <AnimatePresence mode="wait">
+            {(() => {
+              const currentPillar = whyChoosePillars.find(p => p.id === whyChooseTab) || whyChoosePillars[0];
+              const PillarIcon = currentPillar.icon;
+              return (
+                <motion.div
+                  key={currentPillar.id}
+                  id="why-choose-content"
+                  role="tabpanel"
+                  aria-labelledby={currentPillar.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.35 }}
+                  className="p-8 sm:p-10 rounded-[12px] bg-[#FAF9F6] dark:bg-[#141210] border border-[#DFD8C5] dark:border-[#EFC45C]/35 shadow-[0_20px_50px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden"
+                >
+                  {/* Ambient Radial Gold Luminescence */}
+                  <div className="absolute top-0 right-0 w-80 h-80 bg-[#EFC45C]/10 rounded-full blur-3xl pointer-events-none" />
+
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+                    {/* Left Column: Feature Focus (7 Cols) */}
+                    <div className="lg:col-span-7 space-y-6 text-left">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="text-xs font-black uppercase tracking-wider text-[#8A6412] dark:text-[#EFC45C] font-mono px-3 py-1 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35">
+                          {currentPillar.badge}
+                        </span>
+                        <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-3 py-1 rounded-[8px] flex items-center gap-1.5 font-bold">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+                          ACTIVE VERIFIED SLA
+                        </span>
+                      </div>
+
+                      <h3 className="text-2xl sm:text-3xl font-black text-slate-950 dark:text-white tracking-tight leading-snug font-sans">
+                        {currentPillar.headline}
+                      </h3>
+
+                      <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed max-w-2xl">
+                        {currentPillar.description}
+                      </p>
+
+                      {/* 3 Executive Deliverables with Gold Checkmarks */}
+                      <div className="space-y-3 pt-2">
+                        {currentPillar.perks.map((perk, i) => (
+                          <div key={i} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 font-medium">
+                            <CheckCircle2 className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] shrink-0 mt-0.5" />
+                            <span>{perk}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Key Numeric Metric Highlight & Action CTA */}
+                      <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                        <div className="p-3.5 px-5 rounded-[10px] bg-[#F1EEE7] dark:bg-[#1E1A12] border border-[#DFD8C5] dark:border-white/10 flex items-center gap-3">
+                          <div className="text-2xl font-black font-mono text-[#8A6412] dark:text-[#EFC45C] tracking-tight">
+                            {currentPillar.stat}
+                          </div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                            {currentPillar.statLabel}
+                          </div>
+                        </div>
+
+                        <motion.button
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={() => {
+                            if (currentPillar.actionType === 'calc') {
+                              onOpenCalculator('golden');
+                            } else {
+                              window.open('https://wa.me/971586600396?text=Hello%2C%20I%20am%20interested%20in%20learning%20more%20about%20800%20DOCS%20services', '_blank');
+                            }
+                          }}
+                          className={currentPillar.actionType === 'whatsapp'
+                            ? "bg-[#25D366] hover:bg-[#20BD5A] text-white font-black py-3.5 px-6 rounded-[10px] shadow-[0_4px_16px_rgba(37,211,102,0.35)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                            : "bg-[#EFC45C] hover:bg-[#F7DE9C] text-[#0B0A08] font-black py-3.5 px-6 rounded-[10px] shadow-[0_4px_16px_rgba(239,196,92,0.3)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                          }
+                        >
+                          <MessageSquare className={`w-4 h-4 stroke-[2.5] ${currentPillar.actionType === 'whatsapp' ? 'text-white fill-current' : 'text-[#0B0A08]'}`} />
+                          <span>{currentPillar.actionText} →</span>
+                        </motion.button>
+                      </div>
+
+                    </div>
+
+                    {/* Right Column: Trust & Verification Vault Card (5 Cols) */}
+                    <div className="lg:col-span-5 flex flex-col gap-4">
+
+                      {/* Official Seal Console */}
+                      <div className="p-6 rounded-[12px] bg-[#F1EEE7] dark:bg-[#1A160F] border border-[#DFD8C5] dark:border-white/10 shadow-sm flex flex-col items-center text-center relative overflow-hidden">
+                        <div className="w-16 h-16 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 flex items-center justify-center text-[#8A6412] dark:text-[#EFC45C] mb-4 shadow-sm">
+                          <Crown className="w-8 h-8 stroke-[2.2]" />
+                        </div>
+
+                        <div className="text-xs font-black uppercase tracking-[0.2em] text-[#8A6412] dark:text-[#EFC45C] font-mono mb-1">
+                          FEDERAL COMPLIANCE SEAL
+                        </div>
+                        <h4 className="text-base font-black text-slate-950 dark:text-white mb-2">
+                          Official Government Protocol
+                        </h4>
+
+                        <p className="text-xs text-slate-600 dark:text-slate-300 font-medium italic leading-relaxed mb-4 px-2">
+                          "{currentPillar.quote}"
+                        </p>
+
+                        <div className="w-full pt-4 border-t border-[#DFD8C5] dark:border-white/10 flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
+                          <span>DET License:</span>
+                          <span className="text-slate-900 dark:text-[#F3E5AB] font-bold">800 DOCS LLC SOC</span>
+                        </div>
+                      </div>
+
+                      {/* Live Case Officer Assistance Card */}
+                      <div className="p-4 rounded-[10px] bg-[#FAF9F6] dark:bg-[#1A160F] border border-[#DFD8C5] dark:border-white/10 flex items-center justify-between gap-3 shadow-sm">
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-[8px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 flex items-center justify-center text-[#8A6412] dark:text-[#EFC45C]">
+                            <ShieldCheck className="w-4 h-4" />
+                          </div>
+                          <div className="text-left">
+                            <div className="text-xs font-black text-slate-950 dark:text-white">Senior PRO Case Officer</div>
+                            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Available online 24/7</div>
+                          </div>
+                        </div>
+                        <span className="text-xs font-mono font-black text-emerald-600 dark:text-emerald-400 px-2.5 py-1 rounded-[8px] bg-emerald-500/10 border border-emerald-500/25">
+                          Active Now
+                        </span>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  {/* Bottom Trust Highlights Row */}
+                  <div className="mt-8 pt-6 border-t border-[#DFD8C5] dark:border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                    <div className="flex items-center justify-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-300">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+                      <span>DET Licensed 800 DOCS LLC SOC</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-300">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+                      <span>Direct ICP & GDRFA Integration</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-300">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+                      <span>DLD Real Estate Trustee Filing</span>
+                    </div>
+                  </div>
+
+                </motion.div>
+              );
+            })()}
+          </AnimatePresence>
+
+        </div>
+      </section>
+
+      {/* 5. SERVICES SECTION — ELEVATED LUXURY 3x2 GRID (Warm Champagne Pearl from goldenvisadubai.ai) */}
+      <section id="services" className="w-full bg-[#FAF8F5] dark:bg-[#120E09] border-b border-[#E8DFC8] dark:border-[#EFC45C]/20 py-24 px-4 md:px-8 relative z-10 transition-colors duration-300">
+        <div className="max-w-[1340px] mx-auto">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] border border-[#EFC45C]/40 text-[#8A6412] dark:bg-[#1E1A12] dark:text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm font-mono">
+              <Sparkles className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+              <span>OFFICIAL RESIDENCY & PRO DIRECTORY</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 dark:text-white tracking-tight mb-4 font-sans">
+              Our <span className="hybrid-gold-text">Services</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 font-normal text-sm sm:text-base leading-relaxed">
+              Comprehensive residency, property investment visas, and white-glove government clearance solutions managed with official UAE authorities.
+            </p>
+          </div>
+
+          {/* Category Filter Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
+            {[
+              { id: 'all', label: 'All Services' },
+              { id: 'golden', label: 'Golden & Property Visas' },
+              { id: 'family', label: 'Family & Domestic Visas' },
+              { id: 'corporate', label: 'Corporate & Legal PRO' }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 sm:px-5 py-2.5 rounded-[10px] text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  activeTab === tab.id
+                    ? 'bg-[#0B0A08] text-[#EFC45C] border border-[#EFC45C] shadow-md dark:bg-white dark:text-slate-950 dark:border-white'
+                    : 'bg-[#FAF9F6] dark:bg-[#1A160F] text-[#1F190C] dark:text-[#E8E2D5] border border-[#E8DFC8] dark:border-[#2A241A] hover:border-[#EFC45C]/50 shadow-sm'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* 3x2 Grid of Service Cards (NO Upper Image, Centered Icon Badge + Content + Action Link) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {filteredNetlifyServices.slice(0, 6).map((service) => {
+              const ServiceIcon = service.icon || Building2;
+              return (
+                <motion.div
+                  key={service.id}
+                  whileHover={{ y: -6 }}
+                  transition={{ duration: 0.25 }}
+                  className="p-7 sm:p-8 rounded-[12px] bg-white dark:bg-[#181510] border border-[#E8DFC8] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(239,196,92,0.18)] dark:hover:shadow-[0_20px_45px_rgba(0,0,0,0.6)] flex flex-col items-center text-center justify-between group transition-all duration-300 relative overflow-hidden"
+                >
+                  {/* Subtle Ambient Luminescence on hover */}
+                  <div className="absolute top-0 right-0 w-36 h-36 bg-[#EFC45C]/5 rounded-full blur-2xl pointer-events-none group-hover:bg-[#EFC45C]/15 transition-colors" />
+
+                  <div className="w-full flex flex-col items-center">
+                    {/* Unified Luxury Gold Icon Badge for Service Section */}
+                    <div className="w-16 h-16 rounded-[14px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] flex items-center justify-center shadow-sm mb-5 group-hover:scale-110 group-hover:rotate-1 transition-all duration-300">
+                      <ServiceIcon className="w-8 h-8 stroke-[2.2]" />
+                    </div>
+
+                    {/* Category Tag */}
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#8A6412] dark:text-[#EFC45C] mb-2 px-2.5 py-0.5 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35 block">
+                      {service.categoryTag}
+                    </span>
+
+                    {/* Service Title */}
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-950 dark:text-white mb-2.5 tracking-tight group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors leading-snug">
+                      {service.title}
+                    </h3>
+
+                    {/* Service Description */}
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal leading-relaxed mb-5">
+                      {service.desc}
+                    </p>
+
+                    {/* Key Perks / Deliverables */}
+                    {service.perks && (
+                      <div className="w-full bg-[#FAF9F6] dark:bg-[#14120F] p-3.5 rounded-[10px] border border-[#E8DFC8]/60 dark:border-[#2A241A] space-y-1.5 mb-5 text-left">
+                        {service.perks.slice(0, 2).map((perk, pIdx) => (
+                          <div key={pIdx} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 font-medium">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                            <span className="line-clamp-1">{perk}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card Bottom Row: Tariff & Action Link */}
+                  <div className="w-full pt-4 border-t border-[#E8DFC8]/70 dark:border-[#2A241A] flex items-center justify-between">
+                    <div>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 font-mono block uppercase tracking-wider text-left">ESTIMATED TARIFF</span>
+                      <span className="text-sm sm:text-base font-bold font-mono text-slate-950 dark:text-white">
+                        {service.price}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={() => onOpenCalculator(service.actionId || 'golden')}
+                      aria-label={`View ${service.title} services and tariffs`}
+                      className="btn-gold text-[#0B0A08] font-black text-xs px-5 py-2.5 rounded-[10px] shadow-md inline-flex items-center gap-2 hover:shadow-lg transition-all cursor-pointer"
+                    >
+                      <span>View Services</span>
+                      <ArrowRight className="w-4 h-4 text-[#0B0A08] stroke-[2.5] group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Bottom VIP Relocation Assistance Banner */}
+          <div className="mt-14 text-center">
+            <div className="inline-flex flex-wrap items-center justify-center gap-4 p-4 px-6 rounded-[12px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#E8DFC8] dark:border-[#2A241A] shadow-sm text-xs">
+              <span className="text-slate-600 dark:text-slate-300 font-medium">
+                Looking for customized VIP corporate or family relocation packages?
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Complete Property Support</h2>
-              <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">Comprehensive assistance for property investors. From DLD registration to Golden Visa processing through real estate investment.</p>
+              <button 
+                onClick={() => window.open('https://wa.me/971586600396?text=Hello%20800%20DOCS%2C%20I%20would%20like%20a%20customized%20residency%20package.', '_blank')}
+                className="text-[#8A6412] dark:text-[#EFC45C] hover:underline font-bold inline-flex items-center gap-1 cursor-pointer"
+              >
+                <span>Speak with Senior Case Officer on WhatsApp</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
+          </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Feature 1 */}
-              <div className="group p-8 rounded-[20px] border border-slate-200 dark:border-white/5 bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md hover:-translate-y-2 shadow-sm hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/30 transition-all duration-500 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-[#1a1a1a] border border-slate-200 dark:border-white/5 text-[#B8860B] dark:text-[#D4AF37] flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] group-hover:text-black group-hover:scale-110 transition-all duration-300 shadow-sm group-hover:shadow-[0_4px_15px_rgba(212,175,55,0.4)]">
-                    <Building2 className="w-7 h-7" />
+        </div>
+      </section>
+
+      {/* 7. DLD PROPERTY INVESTOR SUPPORT — LUXURY CONSOLE (Alabaster Paper from goldenvisadubai.ai) */}
+      <section id="property-support" className="w-full bg-[#F5EFE0] dark:bg-[#18130D] border-b border-[#E0D3B8] dark:border-[#EFC45C]/20 py-24 px-4 md:px-8 relative z-10 transition-colors duration-300">
+        <div className="max-w-[1340px] mx-auto">
+
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] border border-[#EFC45C]/40 text-[#8A6412] dark:bg-[#1E1A12] dark:text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm">
+              <Building2 className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+              <span>DUBAI LAND DEPARTMENT · TASKEEN DIRECTORY</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 dark:text-white tracking-tight mb-4 font-sans">
+              Complete Property Investor <span className="hybrid-gold-text">Residency Support</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 font-semibold text-sm sm:text-base leading-relaxed">
+              Direct DLD Taskeen submission for completed title deeds and off-plan equity across Dubai.
+            </p>
+          </div>
+
+          {/* Dual Luxury Glass Slabs */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            {/* Card 1: Property Investor Visa */}
+            <motion.div
+              whileHover={{ scale: 1.02, y: -3 }}
+              className="p-8 sm:p-9 rounded-[12px] bg-white dark:bg-[#1A160F] border border-[#E5DECD] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 hybrid-3d-card group relative overflow-hidden text-left"
+            >
+              {/* Ambient Radial Glow */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#EFC45C]/5 dark:bg-[#EFC45C]/10 rounded-full blur-2xl pointer-events-none" />
+
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-14 h-14 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 flex items-center justify-center text-[#8A6412] dark:text-[#EFC45C] group-hover:scale-105 transition-all shadow-sm">
+                    <Building2 className="w-7 h-7 stroke-[2.2]" />
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-3 font-display tracking-tight group-hover:text-[#B8860B] transition-colors">Property Investor Visa</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">
-                    End-to-end processing for the 2-Year and 10-Year (Golden) Property Investor visas. We handle DLD taskeen, medical, and Emirates ID.
-                  </p>
-                  <ul className="space-y-4 text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> DLD Taskeen Application</li>
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Golden Visa via Real Estate</li>
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Family Sponsorship included</li>
-                  </ul>
+                  <span className="text-xs font-black uppercase tracking-wider text-[#8A6412] dark:text-[#EFC45C] font-mono px-3 py-1 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35">
+                    2-YEAR & 10-YEAR GOLDEN VISA
+                  </span>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors mb-3 tracking-tight">
+                  Property Investor Visa (AED 750k+ / AED 2M+)
+                </h3>
+
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed mb-6">
+                  Complete evaluation of completed or off-plan properties. Includes DLD Title Deed verification, mortgage equity acceptance, and family file sponsorship.
+                </p>
+
+                {/* Deliverable Perk Chips */}
+                <div className="space-y-2 mb-8">
+                  {[
+                    "Direct Dubai Land Department (DLD) Taskeen filing",
+                    "Mortgaged property equity & multiple title deed pooling",
+                    "Includes full sponsorship for spouse, children & domestic staff"
+                  ].map((perk, i) => (
+                    <div key={i} className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                      <span>{perk}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Feature 2 */}
-              <div className="group p-8 rounded-[20px] border border-slate-200 dark:border-white/5 bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md hover:-translate-y-2 shadow-sm hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/30 transition-all duration-500 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-bl from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-[#1a1a1a] border border-slate-200 dark:border-white/5 text-[#B8860B] dark:text-[#D4AF37] flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] group-hover:text-black group-hover:scale-110 transition-all duration-300 shadow-sm group-hover:shadow-[0_4px_15px_rgba(212,175,55,0.4)]">
-                    <Scale className="w-7 h-7" />
-                  </div>
-                  <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-3 font-display tracking-tight group-hover:text-[#B8860B] transition-colors">DLD Trustee & Revaluation</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">
-                    Complete representation at the Dubai Land Department. We assist with property revaluation for visa eligibility and title deed transfers.
-                  </p>
-                  <ul className="space-y-4 text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Title Deed Updates</li>
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Official Property Revaluation</li>
-                    <li className="flex items-center gap-3"><div className="p-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]"><Check className="w-4 h-4" /></div> Representation via POA</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center pt-8">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => onOpenCalculator('property')}
-                className="inline-flex items-center justify-center gap-3 bg-dark-gold-gloss text-slate-950 font-black hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_15px_rgba(212,175,55,0.3)] hover:shadow-[0_8px_25px_rgba(212,175,55,0.5)] px-10 py-5 rounded-[12px] uppercase tracking-wider text-sm"
+                onClick={() => {
+                  onOpenCalculator('property');
+                }}
+                className="w-full bg-[#EFC45C] hover:bg-[#DBB24B] text-[#0B0A08] font-black py-3.5 px-6 rounded-[10px] shadow-[0_4px_16px_rgba(239,196,92,0.3)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
               >
-                <span>Calculate Property Visa Cost</span>
-                <ArrowRight className="w-5 h-5" />
+                <span>Calculate Property Visa Cost →</span>
               </motion.button>
-            </div>
-          </RevealSection>
-        );
+            </motion.div>
 
-      case 'whyUs':
-        return (
-          <RevealSection key="whyUs" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
-            <div className="bg-white/80 dark:bg-[#0a0a0a]/90 backdrop-blur-2xl rounded-[24px] p-8 sm:p-12 border border-slate-200 dark:border-white/10 space-y-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-2xl relative overflow-hidden">
-              {/* Top gold accent */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-50" />
-              <div className="text-center max-w-2xl mx-auto space-y-4 relative z-10">
-                <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
-                  OFFICIAL LICENSE 800 DOCS LLC SOC
-                </span>
-                <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Why Families Choose Us</h2>
-                <p className="text-slate-500 dark:text-slate-400 text-sm">We eliminate administrative delays and guarantee full transparency on every government fee.</p>
+            {/* Card 2: DLD Trustee & Legal Support */}
+            <motion.div
+              whileHover={{ scale: 1.02, y: -3 }}
+              className="p-8 sm:p-9 rounded-[12px] bg-white dark:bg-[#1A160F] border border-[#E5DECD] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 hybrid-3d-card group relative overflow-hidden text-left"
+            >
+              {/* Ambient Radial Glow */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#EFC45C]/5 dark:bg-[#EFC45C]/10 rounded-full blur-2xl pointer-events-none" />
+
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-14 h-14 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 flex items-center justify-center text-[#8A6412] dark:text-[#EFC45C] group-hover:scale-105 transition-all shadow-sm">
+                    <Scale className="w-7 h-7 stroke-[2.2]" />
+                  </div>
+                  <span className="text-xs font-black uppercase tracking-wider text-[#8A6412] dark:text-[#EFC45C] font-mono px-3 py-1 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35">
+                    OFFICIAL NOTARY & TRUSTEE
+                  </span>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors mb-3 tracking-tight">
+                  DLD Trustee, Valuation & Electronic POA
+                </h3>
+
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed mb-6">
+                  Official property revaluation certificates, title deed ownership name changes, remote electronic Power of Attorney (POA), and trustee transfers.
+                </p>
+
+                {/* Deliverable Perk Chips */}
+                <div className="space-y-2 mb-8">
+                  {[
+                    "Official DLD property revaluation certificates issued",
+                    "Notary Public electronic Power of Attorney drafting & stamping",
+                    "Mortgage release representation and title deed trustee transfers"
+                  ].map((perk, i) => (
+                    <div key={i} className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                      <span>{perk}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              {(() => {
-                const whyUsItems = cmsConfig?.whyUs?.items || [
-                  { icon: ShieldCheck, color: 'from-[#D4AF37]/15 to-[#D4AF37]/5', iconColor: 'text-brand-primary', title: 'Direct GDRFA & ICP Portal', desc: 'Direct government integration ensures your family file is submitted directly into immigration servers without third-party delay.' },
-                  { icon: Calculator, color: 'from-amber-500/15 to-amber-500/5', iconColor: 'text-brand-gold', title: 'Zero Hidden Charges', desc: 'Itemized breakdown before payment starts. You receive official government receipts for all ICP, GDRFA, and Emirates ID fees.' },
-                  { icon: WhatsAppIcon, color: 'from-emerald-500/15 to-emerald-500/5', iconColor: 'text-brand-gold', title: 'Dedicated WhatsApp PRO', desc: 'Enjoy 1-on-1 direct communication with your assigned PRO specialist. Instant updates every step of the way.' },
-                  { icon: Sparkles, color: 'from-slate-500/15 to-slate-500/5', iconColor: 'text-content-muted', title: '24-48 Hr Fast Track', desc: 'Need your visa urgently? Our VIP fast-track option gets entry permits and medical checkup approvals cleared in 24 to 48 hours.' },
-                ];
-                const lgGrid = whyUsItems.length === 3 ? 'lg:grid-cols-3' : whyUsItems.length === 2 ? 'lg:grid-cols-2' : whyUsItems.length === 1 ? 'lg:grid-cols-1' : 'lg:grid-cols-4';
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  window.open('https://wa.me/971586600396?text=Hello%2C%20I%20would%20like%20to%20request%20DLD%20Trustee%20or%20Property%20Revaluation%20services.', '_blank');
+                }}
+                className="w-full bg-[#0B0A08] hover:bg-[#1A160F] text-[#EFC45C] border border-[#EFC45C]/40 font-black py-3.5 px-6 rounded-[10px] shadow-sm text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer"
+              >
+                <span>Request Trustee Service →</span>
+              </motion.button>
+            </motion.div>
 
-                return (
-                  <motion.div
-                    variants={cardGridVariants}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, margin: '-60px' }}
-                    className={`grid md:grid-cols-2 ${lgGrid} gap-6 relative z-10`}
-                  >
-                    {whyUsItems.map((item, idx) => {
-                      const fallbackIcons = [ShieldCheck, Calculator, WhatsAppIcon, Sparkles];
-                      const Icon = resolveIcon(item.icon) || fallbackIcons[idx % fallbackIcons.length];
+          </div>
+        </div>
+      </section>
 
-                      return (
-                        <motion.div
-                          key={idx}
-                          variants={cardItemVariants}
-                          whileHover={{ y: -8, scale: 1.02 }}
-                          className="p-8 rounded-[12px] bg-gradient-to-b from-white to-[#fcfaf5] dark:from-[#111111]/90 dark:to-[#0a0a0a]/90 border border-[#D4AF37]/20 space-y-6 shadow-[0_4px_20px_rgba(212,175,55,0.05)] hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 transition-all duration-500 group relative overflow-hidden flex flex-col h-full"
-                        >
-                          {/* Ambient glow effect on hover */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+      {/* 8. HOW IT WORKS — CONNECTED 4-STAGE GOVERNMENT WORKFLOW (Warm Camel Sand from goldenvisadubai.ai) */}
+      <section id="process" className="w-full bg-[#FAF8F5] dark:bg-[#120E09] border-b border-[#E8DFC8] dark:border-[#EFC45C]/20 py-24 px-4 md:px-8 relative z-10 transition-colors duration-300">
+        <div className="max-w-[1340px] mx-auto">
 
-                          <div className="relative z-10 flex flex-col h-full">
-                            <div className="p-4 rounded-[12px] bg-white dark:bg-[#1a1a1a] border border-[#D4AF37]/20 w-fit shadow-sm group-hover:scale-110 group-hover:bg-[#D4AF37] group-hover:text-black transition-all duration-500 text-[#B8860B] dark:text-[#D4AF37]">
-                              <Icon className="w-8 h-8 transition-colors duration-300" strokeWidth={1.5} />
-                            </div>
-                            <h3 className="font-display font-black text-xl text-slate-900 dark:text-white mt-6 mb-3 tracking-tight group-hover:text-[#B8860B] transition-colors">{item.title}</h3>
-                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium flex-1">{item.desc}</p>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </motion.div>
-                );
-              })()}
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] border border-[#EFC45C]/40 text-[#8A6412] dark:bg-[#1E1A12] dark:text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm font-mono">
+              <Clock className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+              <span>OFFICIAL IMMIGRATION PIPELINE</span>
             </div>
-          </RevealSection>
-        );
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 dark:text-white tracking-tight mb-4 font-sans">
+              Connected End-to-End <span className="hybrid-gold-text">Residency Process</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 font-semibold text-sm sm:text-base leading-relaxed">
+              A seamless, chronological government roadmap connecting every stage from initial legal audit to final Emirates ID delivery.
+            </p>
+          </div>
 
-      case 'process':
-        return (
-          <RevealSection key="process" id="process" className="relative z-10 w-full overflow-hidden">
-            <ProcessTimeline title={activeGuide.title} subtitle={activeGuide.subtitle} steps={activeGuide.steps} />
-          </RevealSection>
-        );
+          {/* Connected Process Flow Container */}
+          <div className="space-y-8">
 
-      case 'faqs':
-        return (
-          <RevealSection key="faqs" className="px-4 sm:px-6 max-w-4xl mx-auto relative z-10 space-y-10">
-            <div className="text-center space-y-4">
-              <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
-                GOT QUESTIONS?
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Frequently Asked Questions</h2>
-              <p className="text-slate-500 dark:text-slate-400 text-sm">Everything you need to know about sponsoring family in Dubai & UAE.</p>
+            {/* Top Interactive Progress Beam */}
+            <div className="p-4 sm:p-5 rounded-[12px] bg-[#FAF9F6] dark:bg-[#1A160F] border border-[#DECFA8] dark:border-[#2A241A] shadow-sm">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                {[
+                  { step: '01', label: 'Pre-Audit & Verification', time: 'Day 1' },
+                  { step: '02', label: 'GDRFA / ICP Filing', time: 'Day 2–3' },
+                  { step: '03', label: 'VIP Medical & Biometrics', time: 'Day 4–5' },
+                  { step: '04', label: 'Visa Stamped & Handover', time: 'Day 5–7' }
+                ].map((item, idx, arr) => (
+                  <React.Fragment key={item.step}>
+                    <div className="flex items-center gap-3 w-full md:w-auto">
+                      <div className="w-8 h-8 rounded-[8px] bg-[#0B0A08] border border-[#EFC45C] text-[#EFC45C] font-mono text-xs font-black flex items-center justify-center shrink-0 shadow-sm">
+                        {item.step}
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-extrabold text-slate-950 dark:text-white leading-tight">
+                          {item.label}
+                        </div>
+                        <div className="text-xs font-mono font-bold text-[#8A6412] dark:text-[#EFC45C]">
+                          SLA: {item.time}
+                        </div>
+                      </div>
+                    </div>
+                    {idx < arr.length - 1 && (
+                      <div className="hidden md:flex items-center text-[#EFC45C]/60 px-2">
+                        <div className="w-8 sm:w-12 h-[2px] bg-gradient-to-r from-[#EFC45C] to-[#EFC45C]/30" />
+                        <ChevronRight className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] -ml-1" />
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
             </div>
 
-            <div className="space-y-4">
-              {homepageFaqs.map((faq, idx) => {
-                const isOpen = openFaqIndex === idx;
+            {/* 4 Connected Chronological Stage Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+              {[
+                {
+                  phase: "STAGE 01",
+                  title: "Document Pre-Flight Audit",
+                  authority: "DET & GDRFA PRE-CHECK",
+                  sla: "24-HOUR SLA",
+                  icon: FileCheck,
+                  desc: "Comprehensive pre-submission audit of salary slips, Ejari, marriage & birth certificates, and MOFA attestations to guarantee zero rejections.",
+                  deliverables: [
+                    "MOFA legalization verification",
+                    "Ejari tenancy contract validation",
+                    "Salary certificate compliance check"
+                  ],
+                  nextStep: "Proceeds to Portal Filing →"
+                },
+                {
+                  phase: "STAGE 02",
+                  title: "ICP & GDRFA Digital Filing",
+                  authority: "FEDERAL IMMIGRATION PORTAL",
+                  sla: "48-HOUR APPROVAL",
+                  icon: FileText,
+                  desc: "Immediate submission through our accredited government PRO portal. Entry permits issued and in-country visa status changed seamlessly.",
+                  deliverables: [
+                    "Official electronic Entry Permit",
+                    "In-country visa status change",
+                    "Overstay fine waiver protection"
+                  ],
+                  nextStep: "Proceeds to Medical Screening →"
+                },
+                {
+                  phase: "STAGE 03",
+                  title: "VIP Medical & Biometrics",
+                  authority: "SMART SALEM AI & DHA",
+                  sla: "SAME-DAY RESULTS",
+                  icon: ShieldCheck,
+                  desc: "Dedicated VIP chauffeur and priority access to Smart Salem AI medical lounges with 30-minute blood and X-ray test results.",
+                  deliverables: [
+                    "30-min VIP medical fitness certificate",
+                    "Priority ICP fingerprint appointment",
+                    "Private case officer escort"
+                  ],
+                  nextStep: "Proceeds to Final Stamping →"
+                },
+                {
+                  phase: "STAGE 04",
+                  title: "Residency Stamped & Handover",
+                  authority: "EMIRATES POST & GDRFA",
+                  sla: "DOORSTEP HANDOVER",
+                  icon: Crown,
+                  desc: "Final residence approval by Dubai immigration. Electronic residency sticker generated and physical Emirates ID delivered via secure courier.",
+                  deliverables: [
+                    "Official UAE electronic residence visa",
+                    "3-Year or 10-Year Emirates ID card",
+                    "Door-to-door insured VIP courier delivery"
+                  ],
+                  nextStep: "Complete Lifecycle Handover ✓"
+                }
+              ].map((stage, idx) => {
+                const StageIcon = stage.icon;
                 return (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.06, duration: 0.4 }}
-                    className={`rounded-[16px] border transition-all overflow-hidden shadow-sm ${isOpen
-                      ? 'bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md border-[#D4AF37]/30 shadow-[0_8px_30px_rgba(212,175,55,0.1)]'
-                      : 'bg-white/50 dark:bg-black/40 backdrop-blur-sm border-slate-200 dark:border-white/5 hover:border-[#D4AF37]/20 hover:bg-white/80 dark:hover:bg-[#111111]/60'
-                      }`}
+                    whileHover={{ y: -4 }}
+                    className="p-6 rounded-[12px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#DECFA8] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(239,196,92,0.14)] dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)] flex flex-col justify-between transition-all duration-300 relative group overflow-hidden text-left"
                   >
-                    <button
-                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer hover:text-[#B8860B] dark:hover:text-[#D4AF37] transition-colors"
-                    >
-                      <span>{faq.question}</span>
-                      <motion.div
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      >
-                        <ChevronDown className={`w-5 h-5 shrink-0 ${isOpen ? 'text-[#D4AF37]' : 'text-slate-400 dark:text-slate-500'}`} />
-                      </motion.div>
-                    </button>
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-4">
+                        <span className="text-xs font-mono font-black text-[#8A6412] dark:text-[#EFC45C] px-2.5 py-1 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/30 uppercase tracking-wider">
+                          {stage.phase}
+                        </span>
+                        <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-[8px]">
+                          {stage.sla}
+                        </span>
+                      </div>
 
-                    <AnimatePresence>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 pb-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-4 font-medium">
-                            {faq.answer}
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-12 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 group-hover:bg-[#EFC45C] group-hover:text-[#0B0A08] transition-all">
+                          <StageIcon className="w-6 h-6 stroke-[2]" />
+                        </div>
+                        <div>
+                          <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
+                            {stage.authority}
+                          </span>
+                          <h3 className="text-base font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors leading-tight">
+                            {stage.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-slate-600 dark:text-slate-300 font-normal leading-relaxed mb-4">
+                        {stage.desc}
+                      </p>
+
+                      <div className="space-y-1.5 p-3 rounded-[8px] bg-white dark:bg-[#14120F] border border-[#DECFA8]/60 dark:border-[#2A241A] mb-4">
+                        {stage.deliverables.map((item, dIdx) => (
+                          <div key={dIdx} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 font-medium">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                            <span className="line-clamp-1">{item}</span>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-[#DECFA8]/70 dark:border-[#2A241A] flex items-center justify-between text-xs font-mono font-bold text-[#8A6412] dark:text-[#EFC45C]">
+                      <span>{stage.nextStep}</span>
+                      {idx < 3 && <ChevronRight className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />}
+                    </div>
                   </motion.div>
                 );
               })}
             </div>
-          </RevealSection>
-        );
 
-      case 'reviews':
-        return (
-          <RevealSection key="reviews" className="relative z-10 overflow-hidden py-10">
-            <div className="text-center max-w-3xl mx-auto mb-12 space-y-4 px-4 relative z-10">
-              <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
-                VERIFIED CLIENT FEEDBACK
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">4.9★ Rated on Google (500+ Client Reviews)</h2>
-            </div>
-
-            {/* Infinite Marquee with CSS animation — seamless loop */}
-            <div className="marquee-container relative py-4">
-              <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-50 dark:from-[#050505] to-transparent z-20 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-50 dark:from-[#050505] to-transparent z-20 pointer-events-none" />
-              <div className="marquee-track">
-                {infiniteReviews.map((rev, idx) => (
-                  <div key={`a-${idx}`} className="w-[340px] sm:w-[420px] min-h-[220px] p-8 rounded-[24px] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-xl border border-slate-200 dark:border-[#D4AF37]/10 flex flex-col shadow-sm hover:shadow-[0_15px_40px_rgba(212,175,55,0.12)] hover:-translate-y-2 transition-all duration-500 whitespace-normal group relative overflow-hidden shrink-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                    <div className="absolute top-0 right-0 p-4 opacity-[0.03] dark:opacity-5 group-hover:opacity-[0.06] dark:group-hover:opacity-10 transition-opacity duration-300 pointer-events-none">
-                      <Quote className="w-24 h-24 text-slate-900 dark:text-[#D4AF37]" />
-                    </div>
-                    <div className="flex items-center justify-between mb-6 relative z-10">
-                      <div className="flex items-center gap-1.5">
-                        {[...Array(rev.rating)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-[#D4AF37] text-[#D4AF37] drop-shadow-sm" />
-                        ))}
-                      </div>
-                      <span className="text-[10px] font-mono font-bold text-[#B8860B] dark:text-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1.5 rounded-full border border-[#D4AF37]/20 uppercase tracking-widest flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" /> Verified
-                      </span>
-                    </div>
-                    <p className="text-base text-slate-600 dark:text-slate-300 italic leading-relaxed flex-1 overflow-hidden break-words relative z-10 font-medium">"{rev.comment}"</p>
-                    <div className="pt-6 mt-6 border-t border-slate-100 dark:border-white/5 flex items-center gap-4 relative z-10">
-                      <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[#1a1a1a] flex items-center justify-center font-display font-black text-[#B8860B] dark:text-[#D4AF37] uppercase ring-2 ring-[#D4AF37]/20 shadow-sm text-lg">
-                        {rev.name.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="font-black text-slate-900 dark:text-white text-sm tracking-tight">{rev.name}</div>
-                        <div className="text-xs text-[#B8860B] dark:text-[#D4AF37] font-mono font-bold mt-0.5">{rev.role}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {/* Second copy for seamless loop */}
-                {infiniteReviews.map((rev, idx) => (
-                  <div key={`b-${idx}`} className="w-[340px] sm:w-[420px] min-h-[220px] p-8 rounded-[24px] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-xl border border-slate-200 dark:border-[#D4AF37]/10 flex flex-col shadow-sm hover:shadow-[0_15px_40px_rgba(212,175,55,0.12)] hover:-translate-y-2 transition-all duration-500 whitespace-normal group relative overflow-hidden shrink-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                    <div className="absolute top-0 right-0 p-4 opacity-[0.03] dark:opacity-5 group-hover:opacity-[0.06] dark:group-hover:opacity-10 transition-opacity duration-300 pointer-events-none">
-                      <Quote className="w-24 h-24 text-slate-900 dark:text-[#D4AF37]" />
-                    </div>
-                    <div className="flex items-center justify-between mb-6 relative z-10">
-                      <div className="flex items-center gap-1.5">
-                        {[...Array(rev.rating)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-[#D4AF37] text-[#D4AF37] drop-shadow-sm" />
-                        ))}
-                      </div>
-                      <span className="text-[10px] font-mono font-bold text-[#B8860B] dark:text-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1.5 rounded-full border border-[#D4AF37]/20 uppercase tracking-widest flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" /> Verified
-                      </span>
-                    </div>
-                    <p className="text-base text-slate-600 dark:text-slate-300 italic leading-relaxed flex-1 overflow-hidden break-words relative z-10 font-medium">"{rev.comment}"</p>
-                    <div className="pt-6 mt-6 border-t border-slate-100 dark:border-white/5 flex items-center gap-4 relative z-10">
-                      <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[#1a1a1a] flex items-center justify-center font-display font-black text-[#B8860B] dark:text-[#D4AF37] uppercase ring-2 ring-[#D4AF37]/20 shadow-sm text-lg">
-                        {rev.name.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="font-black text-slate-900 dark:text-white text-sm tracking-tight">{rev.name}</div>
-                        <div className="text-xs text-[#B8860B] dark:text-[#D4AF37] font-mono font-bold mt-0.5">{rev.role}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            {/* Bottom Support Callout */}
+            <div className="p-4 px-6 rounded-[10px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#DECFA8] dark:border-[#2A241A] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+              <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium text-center sm:text-left">
+                <ShieldCheck className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                <span>Every file is assigned an individual licensed Senior PRO Case Officer with direct WhatsApp filing updates.</span>
               </div>
-            </div>
-          </RevealSection>
-        );
-
-      case 'blog':
-        return (
-          <RevealSection key="blog" className="px-4 sm:px-6 max-w-7xl mx-auto relative z-10 space-y-10">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-              <div className="space-y-4 max-w-2xl">
-                <span className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 text-[10px] font-mono font-bold px-3 py-1 rounded-[10px] uppercase tracking-widest">
-                  OFFICIAL IMMIGRATION INSIGHTS
-                </span>
-                <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Latest UAE Residency & Visa Guides</h2>
-                <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base">Expert advice on GDRFA salary rules, Golden Visa benefits, Ejari requirements, and newborn clearance.</p>
-              </div>
-
-              <motion.button
-                whileHover={{ scale: 1.05, x: 3 }}
-                onClick={() => onNavigate('blog-index')}
-                className="text-xs font-bold text-[#B8860B] dark:text-[#D4AF37] hover:underline cursor-pointer flex items-center gap-1.5 shrink-0 self-start sm:self-auto bg-[#D4AF37]/10 px-4 py-2.5 rounded-[10px]"
+              <button
+                onClick={() => window.open('https://wa.me/971586600396?text=Hello%2C%20I%20would%20like%20to%20track%20my%20UAE%20residency%20process.', '_blank')}
+                className="px-4 py-2 rounded-[8px] bg-[#EFC45C] hover:bg-[#DBB24B] text-[#0B0A08] font-bold text-xs uppercase tracking-wider transition-all shadow-sm shrink-0 cursor-pointer"
               >
-                <span>View All Guides ({blogPostsData.length})</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </motion.button>
+                Track File On WhatsApp →
+              </button>
             </div>
 
-            <motion.div
-              variants={cardGridVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: '-60px' }}
-              className="grid md:grid-cols-3 gap-8"
-            >
-              {blogPostsData.map((post) => (
-                <motion.article
-                  key={post.id}
-                  variants={cardItemVariants}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  onClick={() => onNavigate('blog-post', post.id)}
-                  className="p-6 rounded-[20px] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md border border-slate-200 dark:border-white/5 flex flex-col justify-between cursor-pointer group space-y-5 shadow-sm hover:shadow-[0_15px_40px_rgba(212,175,55,0.12)] hover:border-[#D4AF37]/30 transition-all duration-500 overflow-hidden relative"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                  <div className="space-y-4 relative z-10">
-                    <div className="relative h-48 rounded-[12px] overflow-hidden">
-                      <img src={post.featuredImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-100 transition-opacity duration-300" />
-                      <div className="absolute top-3 left-3 bg-[#111111]/80 backdrop-blur-md px-3 py-1 rounded-[8px] text-[9px] font-mono font-bold text-[#D4AF37] border border-[#D4AF37]/20 uppercase tracking-widest shadow-sm">
-                        {post.category}
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-3 text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                        <span className="flex items-center gap-1.5">
-                          <Calendar className="w-3.5 h-3.5 text-[#B8860B] dark:text-[#D4AF37]" />
-                          {post.date}
-                        </span>
-                        <span>•</span>
-                        <span>{post.readTime}</span>
-                      </div>
-                      <h3 className="font-display text-lg font-black text-slate-900 dark:text-white group-hover:text-[#B8860B] transition-colors leading-snug tracking-tight">{post.title}</h3>
-                      <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-2 font-medium">{post.excerpt}</p>
-                    </div>
-                  </div>
-                  <div className="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs font-mono relative z-10">
-                    <div className="flex items-center gap-2">
-                      <User className="w-3.5 h-3.5 text-slate-400" />
-                      <span className="font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">{post.author}</span>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-[#D4AF37] group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </motion.article>
-              ))}
-            </motion.div>
-          </RevealSection>
-        );
-
-      case 'cta':
-        return (
-          <RevealSection key="cta" className="px-0 relative z-10">
-            <section className="relative w-full py-16 bg-[#050505] border-y border-[#D4AF37]/40 shadow-[inset_0_0_100px_rgba(212,175,55,0.05)] overflow-hidden">
-              {/* Subtle gold ambient glow behind the text */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.15)_0%,_rgba(5,5,5,0)_60%)] pointer-events-none"></div>
-              
-              <div className="relative z-10 text-center max-w-2xl mx-auto px-6">
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="text-3xl md:text-4xl font-black bg-gradient-to-r from-[#D4AF37] via-[#FFF3B0] to-[#D4AF37] bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(212,175,55,0.2)]"
-                >
-                  {cmsConfig?.cta?.headline || "Ready to Sponsor Your Family in the UAE?"}
-                </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="text-slate-400 mt-4"
-                >
-                  {cmsConfig?.cta?.subtext || "Talk to a visa specialist today or calculate your exact government fee in 60 seconds."}
-                </motion.p>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8"
-                >
-                  {(cmsConfig?.cta?.buttons || [
-                    { id: 'btn-1', label: 'Get Started Now', link: 'calculator', style: 'primary' },
-                    { id: 'btn-2', label: 'Chat on WhatsApp', link: 'whatsapp', style: 'secondary' }
-                  ]).map((btn) => {
-                    if (btn.link === 'calculator') {
-                      return (
-                        <button
-                          key={btn.id}
-                          onClick={() => onOpenCalculator('property')}
-                          className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-gradient-to-r from-[#C9981E] via-[#FCE181] to-[#C9981E] text-black font-extrabold shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),_0_0_20px_rgba(212,175,55,0.3)] hover:brightness-110 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-                        >
-                          {btn.label}
-                        </button>
-                      );
-                    } else if (btn.link === 'whatsapp') {
-                      return (
-                        <a
-                          key={btn.id}
-                          href={`https://wa.me/${cmsConfig?.global?.whatsappRaw || siteConfig.whatsappRaw}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-[#111111] border border-white/10 text-white font-extrabold hover:bg-black transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                        >
-                          <WhatsAppIcon className="w-5 h-5 text-[#D4AF37]" />
-                          <span>{btn.label}</span>
-                        </a>
-                      );
-                    } else {
-                      return (
-                        <a
-                          key={btn.id}
-                          href={btn.link}
-                          className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-[#111111] border border-white/10 text-white font-extrabold hover:bg-black transition-all duration-300 cursor-pointer"
-                        >
-                          {btn.label}
-                        </a>
-                      );
-                    }
-                  })}
-                </motion.div>
-              </div>
-            </section>
-          </RevealSection>
-        );
-
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className="space-y-20 pb-20 relative overflow-hidden">
-      {/* Dynamic Ambient Background Glows */}
-      <motion.div
-        animate={{ scale: [1, 1.25, 1], rotate: [0, 90, 0], x: [0, 40, 0], y: [0, -30, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-10 left-1/4 w-[550px] h-[550px] bg-[#D4AF37]/5 rounded-full blur-[140px] pointer-events-none z-0"
-      />
-      <motion.div
-        animate={{ scale: [1.2, 1, 1.2], rotate: [90, 0, 90], x: [0, -50, 0], y: [0, 40, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/3 right-10 w-[600px] h-[600px] bg-[#D4AF37]/3 rounded-full blur-[160px] pointer-events-none z-0"
-      />
-      <motion.div
-        animate={{ scale: [1, 1.15, 1], y: [0, -20, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-1/4 left-10 w-[400px] h-[400px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none z-0"
-      />
-
-      {/* Render sections in dynamic order configured by CMS Admin */}
-      {sectionOrder.map((sectionId, index) => {
-        if (sectionVisibility[sectionId] === false) return null;
-        const bgTheme = index % 2 === 0 ? 'bg-transparent' : 'bg-canvas/50 dark:bg-[#0a0a0a]/80 backdrop-blur-sm';
-        return (
-          <div key={sectionId} className={`w-full py-8 md:py-12 ${bgTheme}`}>
-            {renderSection(sectionId)}
           </div>
-        );
-      })}
+        </div>
+      </section>
+
+      {/* 9. FREQUENTLY ASKED QUESTIONS — INTERACTIVE LIVE VIEWER (Warm Linen Paper from goldenvisadubai.ai) */}
+      <section id="faq" className="w-full bg-[#F5EFE0] dark:bg-[#18130D] border-b border-[#E0D3B8] dark:border-[#EFC45C]/20 py-24 px-4 md:px-8 relative z-10 transition-colors duration-300">
+        <div className="max-w-[1340px] mx-auto">
+
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] border border-[#EFC45C]/40 text-[#8A6412] dark:bg-[#1E1A12] dark:text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm font-mono">
+              <HelpCircle className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+              <span>GOVERNMENT KNOWLEDGE BASE</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 dark:text-white tracking-tight mb-4 font-sans">
+              Frequently Answered <span className="hybrid-gold-text">Residency Queries</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 font-semibold text-sm sm:text-base leading-relaxed">
+              Direct regulatory guidance on GDRFA salary requirements, in-country status adjustments, and unbundled government fees.
+            </p>
+          </div>
+
+          {/* Interactive Dual-Panel Live Viewer */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            {/* LEFT PANEL: QUESTIONS STREAM (5 Cols) */}
+            <div className="lg:col-span-5 space-y-3">
+              <div className="text-xs font-black uppercase tracking-[0.16em] text-slate-600 dark:text-slate-400 font-mono px-1 mb-2 flex items-center justify-between">
+                <span>Select Inquiry Topic</span>
+                <span className="text-[#8A6412] dark:text-[#EFC45C] font-bold">{faqs.length} Key Directives</span>
+              </div>
+
+              {faqs.map((faq, idx) => {
+                const isSelected = selectedFaqIndex === idx;
+                return (
+                  <motion.button
+                    key={faq.id}
+                    whileHover={{ scale: 1.015, x: 2 }}
+                    whileTap={{ scale: 0.985 }}
+                    onClick={() => {
+                      setSelectedFaqIndex(idx);
+                      }}
+                    className={`w-full p-4 sm:p-5 rounded-[10px] border text-left transition-all duration-300 flex items-start gap-4 cursor-pointer relative overflow-hidden ${isSelected
+                        ? 'bg-[#0B0A08] text-white dark:bg-[#0B0A08] border-[#EFC45C] shadow-md ring-1 ring-[#EFC45C]/50'
+                        : 'bg-[#FAF9F6] dark:bg-[#141210] border-[#DFD8C5] dark:border-[#262118] text-[#1F190C] dark:text-[#E8E2D5] hover:border-[#EFC45C]/50 shadow-sm'
+                      }`}
+                  >
+                    {/* Left Indicator Numerals */}
+                    <div className={`w-8 h-8 rounded-[8px] font-mono text-xs font-black flex items-center justify-center shrink-0 transition-colors ${isSelected
+                        ? 'bg-[#EFC45C] text-[#0B0A08] shadow-md'
+                        : 'bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C]'
+                      }`}>
+                      0{idx + 1}
+                    </div>
+
+                    {/* Question & Category */}
+                    <div className="flex-1 space-y-1">
+                      <span className={`text-xs font-black uppercase tracking-wider font-mono block ${isSelected ? 'text-[#EFC45C]' : 'text-[#8A6412] dark:text-[#A19D94]'
+                        }`}>
+                        {faq.category}
+                      </span>
+                      <h3 className="text-xs sm:text-sm font-black leading-snug tracking-tight">
+                        {faq.q}
+                      </h3>
+                    </div>
+
+                    {/* Right Active Chevron */}
+                    <div className="shrink-0 self-center">
+                      <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${isSelected ? 'text-[#EFC45C] translate-x-1' : 'text-slate-400'
+                        }`} />
+                    </div>
+
+                    {/* Active Golden Glow Accent on Edge */}
+                    {isSelected && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#EFC45C]" />
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            {/* RIGHT PANEL: LIVE ANSWER VIEWER CONSOLE (7 Cols) */}
+            <div className="lg:col-span-7 lg:sticky lg:top-28">
+              <AnimatePresence mode="wait">
+                {(() => {
+                  const activeItem = faqs[selectedFaqIndex] || faqs[0];
+                  return (
+                    <motion.div
+                      key={activeItem.id}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -15 }}
+                      transition={{ duration: 0.3 }}
+                      className="p-7 sm:p-9 rounded-[12px] bg-[#FAF9F6] dark:bg-[#141210] border border-[#DFD8C5] dark:border-[#EFC45C]/35 shadow-[0_20px_50px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden text-left"
+                    >
+                      {/* Ambient Radial Luminescence */}
+                      <div className="absolute top-0 right-0 w-64 h-64 bg-[#EFC45C]/10 rounded-full blur-3xl pointer-events-none" />
+
+                      {/* Console Header Bar */}
+                      <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#DFD8C5]/70 dark:border-slate-800/80 mb-6">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[#EFC45C] animate-pulse" />
+                          <span className="text-xs font-black uppercase tracking-[0.16em] text-[#8A6412] dark:text-[#EFC45C] font-mono px-2.5 py-0.5 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35">
+                            {activeItem.tag}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 text-xs font-mono text-slate-600 dark:text-slate-400 bg-[#F1EEE7] dark:bg-[#1E1A12] border border-[#DFD8C5] dark:border-white/10 px-3 py-1 rounded-[8px]">
+                          <Clock className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+                          <span>SLA: {activeItem.sla}</span>
+                        </div>
+                      </div>
+
+                      {/* Question Title */}
+                      <h3 className="text-xl sm:text-2xl font-black text-slate-950 dark:text-white tracking-tight mb-4 leading-snug">
+                        {activeItem.q}
+                      </h3>
+
+                      {/* Legal Breakdown Answer */}
+                      <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed mb-6">
+                        {activeItem.a}
+                      </p>
+
+                      {/* Highlighted Stat Banner */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                        <div className="p-4 rounded-[10px] bg-[#F1EEE7] dark:bg-[#1A160F] border border-[#DFD8C5] dark:border-white/10">
+                          <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+                            {activeItem.statHighlight.label}
+                          </div>
+                          <div className="text-xl sm:text-2xl font-black font-mono text-[#8A6412] dark:text-[#EFC45C] tracking-tight">
+                            {activeItem.statHighlight.val}
+                          </div>
+                        </div>
+
+                        <div className="p-4 rounded-[10px] bg-[#F1EEE7] dark:bg-[#1A160F] border border-[#DFD8C5] dark:border-white/10 flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/35 text-[#8A6412] dark:text-[#EFC45C] flex items-center justify-center shrink-0">
+                            <ShieldCheck className="w-5 h-5 stroke-[2.2]" />
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                              Legal Jurisdiction
+                            </div>
+                            <div className="text-xs font-black text-slate-950 dark:text-white tracking-tight">
+                              GDRFA & ICP Authorized
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Key Regulatory Takeaways */}
+                      <div className="space-y-2 mb-8">
+                        <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+                          Official Directives & Compliance Checklist
+                        </div>
+                        {activeItem.perks.map((perk, i) => (
+                          <div key={i} className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
+                            <CheckCircle2 className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                            <span>{perk}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Interactive Direct WhatsApp Action Footer */}
+                      <div className="pt-6 border-t border-[#DFD8C5]/70 dark:border-slate-800/80 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                        <div>
+                          <div className="text-xs font-extrabold text-slate-950 dark:text-white">Need Customized Advice?</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                            Consult directly with a Senior PRO Case Officer
+                          </div>
+                        </div>
+
+                        <motion.button
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={() => {
+                            const msg = encodeURIComponent(`Hello, I have a specific question regarding: ${activeItem.q}`);
+                            window.open(`https://wa.me/971586600396?text=${msg}`, '_blank');
+                          }}
+                          className="bg-[#EFC45C] hover:bg-[#DBB24B] text-[#0B0A08] font-black py-3 px-5 rounded-[10px] shadow-[0_4px_16px_rgba(239,196,92,0.3)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shrink-0 transition-all"
+                        >
+                          <MessageSquare className="w-4 h-4 text-[#0B0A08] stroke-[2.5]" />
+                          <span>Ask Case Officer on WhatsApp →</span>
+                        </motion.button>
+                      </div>
+
+                    </motion.div>
+                  );
+                })()}
+              </AnimatePresence>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 10. CLIENT REVIEWS & VERIFIED TESTIMONIALS — CONTINUOUS INFINITE TICKER (RIGHT TO LEFT) */}
+      <section id="reviews" className="w-full bg-[#FAF8F5] dark:bg-[#120E09] border-b border-[#E8DFC8] dark:border-[#EFC45C]/20 py-24 px-4 md:px-8 relative z-10 transition-colors duration-300 overflow-hidden">
+        <div className="max-w-[1340px] mx-auto mb-14 text-center">
+
+          {/* Section Header */}
+          <div className="max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm font-mono">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+              <span>VERIFIED INVESTOR EXPERIENCES</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 dark:text-white tracking-tight mb-4 font-sans">
+              Trusted by <span className="text-[#EFC45C]">Global Investors</span> & Families
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 font-semibold text-sm sm:text-base leading-relaxed">
+              Real reviews from real expats, property owners, and corporate leaders who obtained their UAE residency through 800 DOCS.
+            </p>
+
+            {/* Luminous Rating Pill */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 mt-6 rounded-[10px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#E8DFC8] dark:border-[#2A241A] shadow-sm text-slate-900 dark:text-white">
+              <span className="text-sm font-black font-mono text-[#8A6412] dark:text-[#EFC45C]">4.9</span>
+              <div className="flex gap-1 text-[#EFC45C]">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-[#EFC45C] text-[#EFC45C]" />
+                ))}
+              </div>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium pl-1 border-l border-[#E8DFC8] dark:border-[#2A241A]">
+                1,200+ Verified Client Approvals
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Continuous Marquee Ticker Track (Right to Left, Smooth Infinite Loop) */}
+        <div className="w-full relative overflow-hidden py-4">
+          {/* Edge Fade Gradients */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#FAF6ED] dark:from-[#12100D] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#FAF6ED] dark:from-[#12100D] to-transparent z-10 pointer-events-none" />
+
+          <div className="animate-scroll-left-stream flex gap-6 hover:[animation-play-state:paused] cursor-grab active:cursor-grabbing">
+            {[...reviewsList, ...reviewsList].map((rev, idx) => (
+              <div
+                key={idx}
+                className="w-[360px] sm:w-[420px] shrink-0 p-6 sm:p-7 rounded-[12px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#E8DFC8] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(239,196,92,0.14)] dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)] flex flex-col justify-between transition-all duration-300 relative text-left"
+              >
+                <div>
+                  {/* Stars + Verified Badge Row */}
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <div className="flex gap-1 text-[#EFC45C]">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 fill-[#EFC45C] text-[#EFC45C]" />
+                      ))}
+                    </div>
+                    <span className="text-xs font-mono font-bold text-[#8A6412] dark:text-[#EFC45C] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 px-2 py-0.5 rounded-[8px] uppercase tracking-wider">
+                      {rev.badge}
+                    </span>
+                  </div>
+
+                  {/* Review Quote */}
+                  <p className="text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 font-medium leading-relaxed mb-6 italic">
+                    "{rev.quote}"
+                  </p>
+                </div>
+
+                {/* Client Profile Row */}
+                <div className="pt-4 border-t border-[#E8DFC8]/60 dark:border-[#2A241A] flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] font-mono font-black text-xs flex items-center justify-center shadow-sm shrink-0">
+                      {rev.initials}
+                    </div>
+                    <div>
+                      <div className="font-extrabold text-sm text-slate-950 dark:text-white leading-tight">
+                        {rev.name}
+                      </div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                        {rev.role} · <span className="text-slate-400">{rev.origin}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono text-slate-400">
+                    {rev.date || 'Verified'}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Marquee Hint */}
+        <div className="mt-8 text-center text-xs font-mono text-slate-400 flex items-center justify-center gap-2">
+          <span className="w-2 h-2 rounded-[2px] bg-[#EFC45C]" />
+          <span>Hover over any review card to pause animation</span>
+        </div>
+      </section>
+
+      {/* 11. ARTICLES & IMMIGRATION GUIDES — WARM CAMEL SAND EDITORIAL CANVAS */}
+      <section id="articles" className="w-full bg-[#F5EFE0] dark:bg-[#18130D] border-b border-[#E0D3B8] dark:border-[#EFC45C]/20 py-24 px-4 md:px-8 relative z-10 transition-colors duration-300">
+        <div className="max-w-[1340px] mx-auto">
+
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm">
+                <BookOpen className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+                <span>OFFICIAL IMMIGRATION GUIDES & ARTICLES</span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-950 dark:text-white tracking-tight font-sans">
+                Latest UAE Residency, Tax & Legal <span className="text-[#EFC45C]">Articles</span>
+              </h2>
+              <p className="text-slate-700 dark:text-slate-300 font-semibold text-sm mt-3 max-w-2xl leading-relaxed">
+                Stay informed with verified legal guides, GDRFA rule updates, and scam protection alerts written by licensed senior UAE immigration advisors.
+              </p>
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => onNavigate('blog-index')}
+              className="flex items-center gap-2 px-6 py-3.5 rounded-[10px] bg-[#FAF9F6] dark:bg-[#181510] text-slate-900 dark:text-white hover:border-[#EFC45C] border border-[#DECFA8] dark:border-[#2A241A] hover:text-[#8A6412] dark:hover:text-[#EFC45C] text-xs font-black uppercase tracking-wider transition-all shadow-sm shrink-0 cursor-pointer"
+            >
+              <span>View All Articles ({fullArticlesList.length})</span>
+              <ArrowRight className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C]" />
+            </motion.button>
+          </div>
+
+          {/* Articles Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-2.5 mb-12">
+            {[
+              { id: 'all', label: "All Guides" },
+              { id: 'warning', label: "Scam Warnings & Alerts" },
+              { id: 'housing', label: "Housing & EJARI" },
+              { id: 'residency', label: "Residency Rules" },
+              { id: 'family', label: "Family Care" }
+            ].map((aTab) => {
+              const isActive = activeArticleTab === aTab.id;
+              return (
+                <motion.button
+                  key={aTab.id}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => {
+                    setActiveArticleTab(aTab.id);
+                  }}
+                  className={`px-4 py-2 rounded-[10px] text-xs font-black transition-all tracking-wider uppercase cursor-pointer ${isActive
+                      ? 'bg-[#EFC45C] text-[#0B0A08] shadow-sm'
+                      : 'bg-[#FAF9F6] dark:bg-[#181510] border border-[#DECFA8] dark:border-[#2A241A] text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:border-[#EFC45C]/60 hover:bg-white dark:hover:bg-slate-900 shadow-sm'
+                    }`}
+                >
+                  {aTab.label}
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Editorial Bento Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredArticles.map((article, idx) => {
+              const isFeatured = idx === 0 && activeArticleTab === 'all';
+              return (
+                <motion.div
+                  key={article.id}
+                  whileHover={{ scale: 1.02, y: -4 }}
+                  onClick={() => onNavigate('blog-post', article.id)}
+                  className={`rounded-[12px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#DECFA8] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] overflow-hidden group transition-all duration-300 cursor-pointer flex flex-col justify-between relative text-left ${isFeatured ? 'md:col-span-2 lg:col-span-2' : ''
+                    }`}
+                >
+                  <div>
+                    {/* Article Thumbnail with Gradient Vignette */}
+                    <div className={`relative w-full overflow-hidden bg-slate-100 dark:bg-slate-900 ${isFeatured ? 'h-64 sm:h-72' : 'h-52'}`}>
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+
+                      {/* Category Rosette Tag */}
+                      <div className="absolute top-4 left-4 px-3 py-1 rounded-[8px] bg-[#0B0A08]/90 backdrop-blur-md text-[#F7DE9C] text-xs font-black uppercase tracking-wider border border-[#EFC45C]/40 shadow-md">
+                        {article.category}
+                      </div>
+
+                      {/* Read Time & Date Floating Badge */}
+                      <div className="absolute bottom-4 left-4 flex items-center gap-2 text-xs font-mono text-slate-300 bg-[#0B0A08]/85 backdrop-blur-md px-3 py-1 rounded-[8px] border border-[#EFC45C]/25">
+                        <Clock className="w-3.5 h-3.5 text-[#EFC45C]" />
+                        <span>{article.readTime}</span>
+                        <span>•</span>
+                        <span>{article.date}</span>
+                      </div>
+                    </div>
+
+                    {/* Article Content */}
+                    <div className="p-6 sm:p-7 space-y-3">
+                      <h3 className={`font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors leading-snug tracking-tight ${isFeatured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg'
+                        }`}>
+                        {article.title}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed line-clamp-3">
+                        {article.excerpt}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Article Footer with Author & Direct Arrow */}
+                  <div className="px-6 sm:px-7 pb-6 pt-4 border-t border-[#DECFA8]/60 dark:border-[#2A241A] flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-[10px] bg-gradient-to-br from-[#EFC45C] to-[#C99824] text-[#0B0A08] font-black text-xs flex items-center justify-center shadow-sm">
+                        {article.author.charAt(0)}
+                      </div>
+                      <div>
+                        <div className="text-xs font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors">
+                          {article.author}
+                        </div>
+                        <div className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                          {article.authorRole}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="w-9 h-9 rounded-[10px] bg-[#0B0A08] border border-[#EFC45C]/35 text-[#EFC45C] group-hover:scale-105 group-hover:border-[#EFC45C] transition-all flex items-center justify-center shadow-sm">
+                      <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 12. STREAMLINED EXECUTIVE BANNER */}
+      <section id="cta" className="w-full bg-[#FAF8F5] dark:bg-[#0D0B08] border-t border-[#E0D3B8] dark:border-[#EFC45C]/30 py-20 px-4 md:px-8 relative z-10 transition-colors duration-300">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="p-8 sm:p-14 rounded-[12px] bg-[#0B0A08] border border-[#EFC45C]/35 shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-3xl relative overflow-hidden text-center">
+
+            {/* Ambient Radial Golden Luminescence */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-64 bg-[#EFC45C]/15 rounded-[12px] blur-3xl pointer-events-none" />
+
+            <div className="max-w-2xl mx-auto relative z-10 space-y-6">
+
+              {/* Crown Seal Emblem */}
+              <div className="w-14 h-14 rounded-[10px] bg-[#EFC45C] text-[#0B0A08] flex items-center justify-center mx-auto shadow-lg">
+                <Crown className="w-7 h-7 stroke-[2.2]" />
+              </div>
+
+              {/* Heading */}
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-snug font-sans">
+                Accelerate Your 10-Year <span className="text-[#EFC45C]">UAE Residency</span> Today
+              </h2>
+
+              {/* Short Line */}
+              <p className="text-slate-300 font-medium text-xs sm:text-base max-w-xl mx-auto leading-relaxed">
+                Direct government channel filing with zero hidden markups and guaranteed 24–48h SLA turnaround.
+              </p>
+
+              {/* Action Buttons: WhatsApp & Calculator */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href="https://wa.me/971586600396?text=Hello%20800%20DOCS%2C%20I%20would%20like%20to%20request%20an%20official%20visa%20eligibility%20audit."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20BD5A] text-white px-8 py-3.5 rounded-[10px] text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:scale-102 transition-all cursor-pointer"
+                >
+                  <MessageSquare className="w-4 h-4 text-white fill-current" />
+                  <span>Chat on WhatsApp</span>
+                </a>
+
+                <button
+                  onClick={() => onOpenCalculator && onOpenCalculator('golden')}
+                  className="w-full sm:w-auto btn-gold px-8 py-3.5 rounded-[10px] text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(239,196,92,0.4)] text-[#0B0A08] hover:scale-102 transition-all cursor-pointer"
+                >
+                  <Calculator className="w-4 h-4 text-[#0B0A08] stroke-[2.5]" />
+                  <span>Calculate Visa Fees</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

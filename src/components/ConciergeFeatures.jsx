@@ -73,7 +73,7 @@ export default function ConciergeFeatures({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-slate-400 text-lg max-w-3xl mb-12 font-sans font-medium leading-relaxed"
+          className="text-text-muted text-lg max-w-3xl mb-12 font-sans font-medium leading-relaxed"
         >
           {subtitle}
         </motion.p>
@@ -89,7 +89,7 @@ export default function ConciergeFeatures({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="bg-[#0A0A0A] border border-white/5 rounded-[10px] p-8 hover:bg-white/[0.02] hover:border-white/10 transition-colors duration-300 group flex flex-col justify-between"
+                className="bg-[#0A0A0A] border border-white/5 rounded-[10px] p-8 hover:bg-surface/[0.02] hover:border-white/10 transition-colors duration-300 group flex flex-col justify-between"
               >
                 <div>
                   {/* Icon Box Top Left */}
@@ -103,7 +103,7 @@ export default function ConciergeFeatures({
                   </h3>
 
                   {/* Card Body */}
-                  <p className="text-slate-400 text-sm leading-relaxed font-sans font-medium">
+                  <p className="text-text-muted text-sm leading-relaxed font-sans font-medium">
                     {item.body || item.desc}
                   </p>
                 </div>

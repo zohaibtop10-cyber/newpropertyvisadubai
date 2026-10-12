@@ -126,7 +126,7 @@ export default function FooterEditor({ cmsConfig, setCmsConfig }) {
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
               Footer & Disclaimer Editor
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-xl">
+            <p className="text-text-muted text-xs sm:text-sm max-w-xl">
               Configure footer branding, government portal links, B2B referral banner, and legal disclaimers.
             </p>
           </div>
@@ -150,138 +150,138 @@ export default function FooterEditor({ cmsConfig, setCmsConfig }) {
       <form onSubmit={handleSave} className="space-y-8">
 
         {/* 1. REFERRAL BANNER */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
+        <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
           <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
             <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400"><Type className="w-6 h-6" /></div>
             <div>
               <h2 className="font-display font-bold text-lg text-white">Referral Partnership Banner</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Full-width call-to-action banner above the footer grid</p>
+              <p className="text-text-muted text-xs mt-0.5">Full-width call-to-action banner above the footer grid</p>
             </div>
           </div>
           <div className="space-y-4 text-sm">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">Banner Headline</label>
-              <input type="text" value={referralTitle} onChange={e => setReferralTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50" />
+              <input type="text" value={referralTitle} onChange={e => setReferralTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50" />
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">Banner Description</label>
-              <textarea rows={2} value={referralDesc} onChange={e => setReferralDesc(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+              <textarea rows={2} value={referralDesc} onChange={e => setReferralDesc(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">Button Text</label>
-              <input type="text" value={referralBtn} onChange={e => setReferralBtn(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-semibold text-xs focus:outline-none focus:border-amber-500/50" />
+              <input type="text" value={referralBtn} onChange={e => setReferralBtn(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-semibold text-xs focus:outline-none focus:border-amber-500/50" />
             </div>
           </div>
         </div>
 
         {/* 2. BRAND COLUMN */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
+        <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
           <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
             <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400"><Hash className="w-6 h-6" /></div>
             <div>
               <h2 className="font-display font-bold text-lg text-white">Brand Column</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Logo, brand title, tagline, and copyright text</p>
+              <p className="text-text-muted text-xs mt-0.5">Logo, brand title, tagline, and copyright text</p>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">Logo Icon Badge</label>
-              <input type="text" value={logoIcon} onChange={e => setLogoIcon(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50" placeholder="PV" />
+              <input type="text" value={logoIcon} onChange={e => setLogoIcon(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50" placeholder="PV" />
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">Logo Subtext</label>
-              <input type="text" value={logoSubtext} onChange={e => setLogoSubtext(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50" placeholder="DUBAI" />
+              <input type="text" value={logoSubtext} onChange={e => setLogoSubtext(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50" placeholder="DUBAI" />
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">Brand Main Title</label>
-              <input type="text" value={brandTitle} onChange={e => setBrandTitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50" placeholder="PropertyVisaDubai" />
+              <input type="text" value={brandTitle} onChange={e => setBrandTitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-base focus:outline-none focus:border-amber-500/50" placeholder="PropertyVisaDubai" />
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">Operator Subtitle</label>
-              <input type="text" value={brandSubtitle} onChange={e => setBrandSubtitle(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50" placeholder="operated by brightlink" />
+              <input type="text" value={brandSubtitle} onChange={e => setBrandSubtitle(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500/50" placeholder="operated by brightlink" />
             </div>
             <div className="sm:col-span-2">
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">Footer Tagline</label>
-              <textarea rows={2} value={tagline} onChange={e => setTagline(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
+              <textarea rows={2} value={tagline} onChange={e => setTagline(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-3.5 text-slate-300 text-xs focus:outline-none focus:border-amber-500/50" />
             </div>
             <div className="sm:col-span-2">
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">Copyright Notice</label>
-              <input type="text" value={copyrightText} onChange={e => setCopyrightText(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50" />
+              <input type="text" value={copyrightText} onChange={e => setCopyrightText(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl px-4 py-3 text-white font-medium text-xs focus:outline-none focus:border-amber-500/50" />
             </div>
           </div>
         </div>
 
         {/* 3. OFFICIAL PORTALS */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
+        <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
           <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
             <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400"><ExternalLink className="w-6 h-6" /></div>
             <div>
               <h2 className="font-display font-bold text-lg text-white">Official Government Portals</h2>
-              <p className="text-slate-400 text-xs mt-0.5">External official portal links shown under footer brand block</p>
+              <p className="text-text-muted text-xs mt-0.5">External official portal links shown under footer brand block</p>
             </div>
           </div>
           <div className="space-y-3">
             {portals.map((p, i) => (
-              <div key={i} className="flex flex-col sm:flex-row gap-3 items-start sm:items-center bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80">
+              <div key={i} className="flex flex-col sm:flex-row gap-3 items-start sm:items-center bg-surface/80 p-3.5 rounded-xl border border-slate-800/80">
                 <div className="flex-1 w-full">
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Label</label>
-                  <input type="text" value={p.label} onChange={e => { const u = [...portals]; u[i].label = e.target.value; setPortals(u); }} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-2 text-white font-medium text-xs focus:outline-none" placeholder="icp.gov.ae" />
+                  <label className="block text-[11px] font-semibold text-text-muted mb-1">Label</label>
+                  <input type="text" value={p.label} onChange={e => { const u = [...portals]; u[i].label = e.target.value; setPortals(u); }} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-2 text-white font-medium text-xs focus:outline-none" placeholder="icp.gov.ae" />
                 </div>
                 <div className="flex-1 w-full">
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">URL</label>
-                  <input type="url" value={p.url} onChange={e => { const u = [...portals]; u[i].url = e.target.value; setPortals(u); }} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-2 text-white font-mono text-xs focus:outline-none" placeholder="https://icp.gov.ae" />
+                  <label className="block text-[11px] font-semibold text-text-muted mb-1">URL</label>
+                  <input type="url" value={p.url} onChange={e => { const u = [...portals]; u[i].url = e.target.value; setPortals(u); }} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-2 text-white font-mono text-xs focus:outline-none" placeholder="https://icp.gov.ae" />
                 </div>
                 <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); removePortal(i); }} className="p-2 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors shrink-0 self-end sm:self-center cursor-pointer" title="Remove Portal"><Trash2 className="w-4 h-4" /></button>
               </div>
             ))}
-            <button type="button" onClick={addPortal} className="w-full py-3 rounded-xl border border-dashed border-slate-700 text-slate-400 text-xs font-semibold flex items-center justify-center gap-2 hover:border-amber-500/50 hover:text-amber-400 transition-colors cursor-pointer">
+            <button type="button" onClick={addPortal} className="w-full py-3 rounded-xl border border-dashed border-slate-700 text-text-muted text-xs font-semibold flex items-center justify-center gap-2 hover:border-amber-500/50 hover:text-amber-400 transition-colors cursor-pointer">
               <Plus className="w-4 h-4" /> Add Portal Link
             </button>
           </div>
         </div>
 
         {/* 4. PLATFORM & LEGAL LINKS */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
+        <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
           <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
             <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400"><Link2 className="w-6 h-6" /></div>
             <div>
               <h2 className="font-display font-bold text-lg text-white">Platform Navigation Links</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Custom footer navigation links and view route keys</p>
+              <p className="text-text-muted text-xs mt-0.5">Custom footer navigation links and view route keys</p>
             </div>
           </div>
           <div className="space-y-3">
             {legalLinks.map((lnk, i) => (
-              <div key={i} className="flex flex-col sm:flex-row gap-3 items-start sm:items-center bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80">
+              <div key={i} className="flex flex-col sm:flex-row gap-3 items-start sm:items-center bg-surface/80 p-3.5 rounded-xl border border-slate-800/80">
                 <div className="flex-1 w-full">
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">Link Label</label>
-                  <input type="text" value={lnk.label} onChange={e => { const u = [...legalLinks]; u[i].label = e.target.value; setLegalLinks(u); }} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-2 text-white font-medium text-xs focus:outline-none" placeholder="About Us" />
+                  <label className="block text-[11px] font-semibold text-text-muted mb-1">Link Label</label>
+                  <input type="text" value={lnk.label} onChange={e => { const u = [...legalLinks]; u[i].label = e.target.value; setLegalLinks(u); }} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-2 text-white font-medium text-xs focus:outline-none" placeholder="About Us" />
                 </div>
                 <div className="flex-1 w-full">
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">View Key</label>
-                  <input type="text" value={lnk.view} onChange={e => { const u = [...legalLinks]; u[i].view = e.target.value; setLegalLinks(u); }} className="w-full bg-slate-900 border border-slate-700/60 rounded-lg px-3 py-2 text-white font-mono text-xs focus:outline-none" placeholder="about" />
+                  <label className="block text-[11px] font-semibold text-text-muted mb-1">View Key</label>
+                  <input type="text" value={lnk.view} onChange={e => { const u = [...legalLinks]; u[i].view = e.target.value; setLegalLinks(u); }} className="w-full bg-surface border border-slate-700/60 rounded-lg px-3 py-2 text-white font-mono text-xs focus:outline-none" placeholder="about" />
                 </div>
                 <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); removeLegalLink(i); }} className="p-2 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors shrink-0 self-end sm:self-center cursor-pointer" title="Remove Link"><Trash2 className="w-4 h-4" /></button>
               </div>
             ))}
-            <button type="button" onClick={addLegalLink} className="w-full py-3 rounded-xl border border-dashed border-slate-700 text-slate-400 text-xs font-semibold flex items-center justify-center gap-2 hover:border-amber-500/50 hover:text-amber-400 transition-colors cursor-pointer">
+            <button type="button" onClick={addLegalLink} className="w-full py-3 rounded-xl border border-dashed border-slate-700 text-text-muted text-xs font-semibold flex items-center justify-center gap-2 hover:border-amber-500/50 hover:text-amber-400 transition-colors cursor-pointer">
               <Plus className="w-4 h-4" /> Add Link
             </button>
           </div>
         </div>
 
         {/* 5. LEGAL DISCLAIMER */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
+        <div className="bg-surface/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
           <div className="flex items-center gap-3.5 border-b border-slate-800/80 pb-5">
             <div className="p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400">
               <AlignLeft className="w-6 h-6" />
             </div>
             <div>
               <h2 className="font-display font-bold text-lg text-white">Regulatory Legal Disclaimer</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Regulatory compliance paragraph displayed in footer</p>
+              <p className="text-text-muted text-xs mt-0.5">Regulatory compliance paragraph displayed in footer</p>
             </div>
           </div>
           <div>
-            <textarea rows={5} value={disclaimer} onChange={e => setDisclaimer(e.target.value)} className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50" />
+            <textarea rows={5} value={disclaimer} onChange={e => setDisclaimer(e.target.value)} className="w-full bg-surface/80 border border-slate-800 rounded-xl p-4 text-slate-300 text-xs leading-relaxed focus:outline-none focus:border-amber-500/50" />
           </div>
         </div>
 

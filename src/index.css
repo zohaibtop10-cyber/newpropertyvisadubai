@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
+@import "./styles/tokens.css";
 @config "../tailwind.config.js";
 
 @variant dark (&:where(.dark, .dark *));
@@ -9,18 +11,25 @@
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: var(--sans);
   --font-display: var(--sans);
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: var(--sans);
 
-  /* Universal Brand & Status Accents */
-  --accent-gold: #D4AF37;               /* Primary */
-  --accent-gold-hover: #996515;         /* Secondary */
-  --accent-gold-tertiary: #C5A059;      /* Tertiary */
-  --accent-gold-tint: rgba(212, 175, 55, 0.08);
-  --accent-gold-border: rgba(212, 175, 55, 0.25);
-  --whatsapp-green: #D4AF37;
-  --whatsapp-green-hover: #B8860B;
-  --status-emerald: #D4AF37;
-  --status-amber: #F59E0B;
+  /* Universal Brand & Status Accents (goldenvisadubai.ai Inspired) */
+  --accent-gold: #EFC45C;               /* Primary Radiant 24K Gold Leaf */
+  --accent-gold-hover: #F7DE9C;         /* Luminous Highlight */
+  --accent-gold-tertiary: #FAF0DA;      /* Specular Highlight */
+  --accent-gold-tint: rgba(239, 196, 92, 0.15);
+  --accent-gold-border: rgba(239, 196, 92, 0.45);
+  --gold-wash: #F6EED9;
+  --gold-ink: #8A6412;
+  --obsidian: #0B0A08;
+  --obsidian-soft: #141210;
+  --paper: #FAF9F6;
+  --paper-2: #F1EEE7;
+  --cream-tint: #F3EEDF;
+  --whatsapp-green: #25D366;
+  --whatsapp-green-hover: #20BD5A;
+  --status-emerald: #3F6B4C;
+  --status-amber: #EFC45C;
 
   /* Hide Google Translate Default UI elements completely */
   --gt-hidden: none !important;
@@ -50,35 +59,35 @@ body, html {
 }
 
 :root {
-  /* LIGHT MODE */
-  --bg-primary: #FAFAFA;
+  /* LIGHT MODE (Warm Luxury Palette matching goldenvisadubai.ai) */
+  --bg-primary: #FAF8F5;
   --surface-primary: #FFFFFF;
-  --text-main: #0F172A;
-  --brand-gold-text: #996515; 
-  --brand-gold-bg: #E8D399;
-  --gold-gradient: linear-gradient(135deg, #B8860B, #996515);
+  --text-main: #1C150A;
+  --brand-gold-text: #EFC45C; 
+  --brand-gold-bg: #F6EED9;
+  --gold-gradient: linear-gradient(135deg, #FFF6BD 0%, #EFC45C 30%, #D4A738 70%, #8A6412 100%);
 
   /* Core Metallic Gold Palette */
-  --color-gold-base: #D4AF37;
-  --color-gold-light: #F3E5AB;
-  --color-gold-dark: #B8860B;
-  --color-gold-glow: rgba(212, 175, 55, 0.25);
+  --color-gold-base: #EFC45C;
+  --color-gold-light: #F7DE9C;
+  --color-gold-dark: #8A6412;
+  --color-gold-glow: rgba(239, 196, 92, 0.35);
 
-  /* Light Mode Palette (Default) */
-  --color-background: #FAFAFA;
+  /* Light Mode Palette: Rich Mocha/Browns, Warm Ivory, Crisp White, 24K Gold */
+  --color-background: #FAF8F5;
   --color-surface: #FFFFFF;
-  --color-surface-elevated: #F1F5F9;
-  --color-text-primary: #0F172A;
-  --color-text-secondary: #475569;
-  --color-text-muted: #64748B;
-  --color-border: rgba(15, 23, 42, 0.1);
-  --color-border-gold: rgba(212, 175, 55, 0.3);
+  --color-surface-elevated: #F5EFE0;
+  --color-text-primary: #1C150A;
+  --color-text-secondary: #524021;
+  --color-text-muted: #7E6A4B;
+  --color-border: #DFD5C2;
+  --color-border-gold: rgba(239, 196, 92, 0.45);
 
-  /* Legacy Mappings for Backward Compatibility */
+  /* Legacy Mappings */
   --bg-canvas: var(--color-background);
   --bg-surface: var(--color-surface);
   --bg-surface-elevated: var(--color-surface-elevated);
-  --bg-surface-hover: #E2E8F0;
+  --bg-surface-hover: #EFE6D2;
   --text-primary: var(--color-text-primary);
   --text-secondary: var(--color-text-secondary);
   --text-muted: var(--color-text-muted);
@@ -89,7 +98,7 @@ body, html {
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: var(--sans);
   --font-display: var(--sans);
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: var(--sans);
 
   font-family: var(--sans);
   color-scheme: light dark;
@@ -97,35 +106,35 @@ body, html {
 
 .dark {
   --radius: 10px;
-  /* DARK MODE */
-  --bg-primary: #050505;
-  --surface-primary: #111111;
-  --text-main: #F8FAFC;
-  --brand-gold-text: #D4AF37; 
-  --brand-gold-bg: #D4AF37;
-  --gold-gradient: linear-gradient(135deg, #F59E0B, #D4AF37);
+  /* DARK MODE (Warm Velvet Chocolate-Obsidian & Radiant 24K Amber-Gold Glow) */
+  --bg-primary: #0D0B08;
+  --surface-primary: #161109;
+  --text-main: #FFFFFF;
+  --brand-gold-text: #F5D061; 
+  --brand-gold-bg: #281D0B;
+  --gold-gradient: linear-gradient(135deg, #FFF6BD 0%, #FAD961 30%, #E5B842 70%, #F5D061 100%);
 
-  /* Dark Mode Palette */
-  --color-background: #050505;
-  --color-surface: #111111;
-  --color-surface-elevated: #1A1A1A;
+  /* Dark Mode Palette: Deep Espresso Velvet, Warm Mocha, Radiant Gold */
+  --color-background: #0D0B08;
+  --color-surface: #161109;
+  --color-surface-elevated: #221B10;
   --color-text-primary: #FFFFFF;
-  --color-text-secondary: #CBD5E1;
-  --color-text-muted: #94A3B8;
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-gold: rgba(212, 175, 55, 0.4);
-  --color-gold-glow: rgba(212, 175, 55, 0.4);
+  --color-text-secondary: #E2D7C3;
+  --color-text-muted: #A89B84;
+  --color-border: rgba(239, 196, 92, 0.3);
+  --color-border-gold: rgba(245, 208, 97, 0.55);
+  --color-gold-glow: rgba(245, 208, 97, 0.45);
 
   /* Legacy Mappings */
-  --bg-canvas: #050505;
-  --bg-surface: #111111;
-  --bg-surface-elevated: #1A1A1A;
-  --bg-surface-hover: #262626;
+  --bg-canvas: #0D0B08;
+  --bg-surface: #161109;
+  --bg-surface-elevated: #221B10;
+  --bg-surface-hover: #2E2314;
   --text-primary: #FFFFFF;
-  --text-secondary: #CBD5E1;
-  --text-muted: #94A3B8;
-  --border-subtle: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.2);
+  --text-secondary: #E2D7C3;
+  --text-muted: #A89B84;
+  --border-subtle: rgba(239, 196, 92, 0.3);
+  --border-strong: rgba(245, 208, 97, 0.55);
 }
 
 @theme {
@@ -144,19 +153,19 @@ body, html {
   --color-brand-gold: var(--brand-gold-text);
   --color-brand-goldText: var(--brand-gold-text);
   --color-brand-goldBg: var(--brand-gold-bg);
-  --color-brand-goldLight: #FDF2CB;
-  --color-brand-goldDark: #996515;
-  --color-brand-goldMuted: #C5A059;
+  --color-brand-goldLight: #FFF8D6;
+  --color-brand-goldDark: #E5B842;
+  --color-brand-goldMuted: #E5B842;
   --color-brand-darkBg: var(--bg-canvas);
   --color-brand-surface: var(--bg-surface);
   --color-brand-surfaceLight: var(--bg-surface-elevated);
   --color-brand-textMain: var(--text-primary);
   --color-brand-textMuted: var(--text-muted);
   --color-brand-primary: var(--brand-gold-text);
-  --color-brand-hover: var(--color-gold-dark);
+  --color-brand-hover: #FFE58F;
 
   --background-image-gold-gradient: var(--gold-gradient);
-  --background-image-gold-shimmer: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+  --background-image-gold-shimmer: linear-gradient(90deg, transparent, rgba(245, 208, 97, 0.35), transparent);
   --background-image-surface-gradient: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
 
   --color-brand-whatsapp: var(--whatsapp-green);
@@ -166,7 +175,15 @@ body, html {
 
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+*, *::before, *::after {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html, body, button, input, textarea, select, h1, h2, h3, h4, h5, h6, p, span, a, div, code, pre, label, .font-sans, .font-display, .font-mono {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
 }
 
 body {
@@ -174,13 +191,13 @@ body {
   overflow-x: hidden;
   background-color: var(--bg-canvas);
   color: var(--text-primary);
-  font-family: var(--font-sans);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
   line-height: 1.6;
 }
 
 /* Headline & Display Typography Rules */
 h1, h2, h3, h4, h5, h6, .font-display {
-  font-family: var(--font-display);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
 }
 
 h1, .text-display-xl {
@@ -193,12 +210,12 @@ h2, h3, h4, .text-display-lg {
 
 /* Body & Label Typography Rules */
 p, span, label, .font-sans {
-  font-family: var(--font-sans);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
 }
 
 /* Data, Tariffs & Reference Monospace Numbers */
 code, pre, .font-mono, .tabular-nums {
-  font-family: var(--font-mono);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
 }
@@ -411,7 +428,11 @@ code, pre, .font-mono, .tabular-nums {
   animation: marqueeScroll 40s linear infinite;
 }
 
-.animate-marquee:hover {
+.animate-marquee-reverse {
+  animation: marqueeScroll 40s linear infinite reverse;
+}
+
+.animate-marquee:hover, .animate-marquee-reverse:hover {
   animation-play-state: paused;
 }
 
@@ -731,11 +752,307 @@ select, select option {
 
   /* 2. Brilliant Gold Text Gradient */
   .text-dark-gold-shine {
-    background: linear-gradient(135deg, #B8860B 0%, #D4AF37 30%, #FFF099 50%, #D4AF37 70%, #B8860B 100%);
+    background: linear-gradient(135deg, #D4AF37 0%, #FFF5A5 30%, #F5D061 50%, #D4AF37 70%, #C59B27 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
   }
+
+  .shadow-glow-gold {
+    box-shadow: 0 0 15px 0 rgba(212, 175, 55, 0.5);
+  }
+  .shadow-glow-green {
+    box-shadow: 0 0 10px 0 #22c55e;
+  }
 }
+
+@theme {
+  --animate-shimmer: shimmer 3s linear infinite;
+  --animate-mesh: mesh 15s ease-in-out infinite;
+
+  @keyframes shimmer {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+  @keyframes mesh {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
+
+@utility text-gradient-gold {
+  background: linear-gradient(135deg, #D4AF37 0%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility glass-panel {
+  background: rgba(23, 22, 26, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+@utility mask-edges-x {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@utility bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.light .bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+}
+
+@utility btn-shimmer {
+  background: linear-gradient(90deg, #D4AF37 0%, #FFF2CC 50%, #D4AF37 100%);
+  background-size: 200% auto;
+  color: #0E0E10;
+  transition: all 0.3s ease;
+}
+.dark .btn-shimmer {
+  color: #0E0E10;
+}
+.btn-shimmer:hover {
+  background-position: right center;
+}
+
+/* =========================================================================
+   HYBRID MASTERPIECE DESIGN SYSTEM
+   Combining Glassmorphism, Neumorphism, Bento UI, 3D Depth, Gradient UI,
+   Skeuomorphism, Dark Mode, Brutalism & Minimalism
+   ========================================================================= */
+
+/* 1. Glassmorphism + 3D Depth Hybrid Cards */
+.hybrid-glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07),
+              0 0 20px 0 rgba(212, 175, 55, 0.15);
+}
+
+.dark .hybrid-glass {
+  background: rgba(11, 18, 32, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5),
+              0 0 30px 0 rgba(212, 175, 55, 0.2);
+}
+
+/* 2. Neumorphic Soft Inset Shadows for Interactive Controls */
+.hybrid-neumorphic-inset {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15),
+              inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+}
+
+.dark .hybrid-neumorphic-inset {
+  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.6),
+              inset -1px -1px 4px rgba(212, 175, 55, 0.15);
+}
+
+/* 3. 3D Card Hover Perspective Effect */
+.hybrid-3d-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.hybrid-3d-card:hover {
+  transform: translateY(-8px) scale(1.01) rotateX(2deg);
+  box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.18),
+              0 0 40px 0 rgba(212, 175, 55, 0.35);
+}
+
+.dark .hybrid-3d-card:hover {
+  box-shadow: 0 35px 80px -10px rgba(0, 0, 0, 0.7),
+              0 0 50px 0 rgba(212, 175, 55, 0.4);
+}
+
+/* 4. Skeuomorphic 24K Pure Gold Stamp & Emboss Seals (Zero Brown) */
+.hybrid-gold-seal {
+  background: radial-gradient(circle at 30% 30%, #FFFDF0 0%, #FFF099 25%, #FAD961 55%, #F5C518 80%, #E5B842 100%);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9),
+              inset 0 -2px 4px rgba(212, 175, 55, 0.4),
+              0 8px 24px rgba(245, 208, 97, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* 5. Radiant Metallic 24K Gold Gradient Text (Zero Brown) */
+.hybrid-gold-text {
+  background: linear-gradient(135deg, #FFF8D6 0%, #FFE58F 25%, #FAD961 50%, #F5C518 75%, #FFDF73 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 1px 2px rgba(245, 208, 97, 0.25));
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   GOLDEN RESIDENCY BUTTONS (goldenvisadubai.ai Warm Honey Gold #DBB24B, 8-12px Radius)
+   ════════════════════════════════════════════════════════════════════ */
+.btn-gold,
+.golden-button {
+  background: #DBB24B !important;
+  background: linear-gradient(180deg, #EBC56A 0%, #DBB24B 100%) !important;
+  color: #1F190C !important;
+  font-weight: 700;
+  border-radius: 10px; /* strictly 8-12px! */
+  border: 1px solid rgba(255, 236, 190, 0.45);
+  box-shadow: 0 4px 18px -2px rgba(219, 178, 75, 0.45),
+              inset 0 1px 1px rgba(255, 255, 255, 0.65);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.22s ease;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+}
+
+.btn-gold:hover,
+.golden-button:hover {
+  background: linear-gradient(180deg, #F5D585 0%, #EECF82 100%) !important;
+  box-shadow: 0 10px 28px -6px rgba(219, 178, 75, 0.65),
+              inset 0 1px 2px rgba(255, 255, 255, 0.85);
+  transform: translateY(-2px);
+  color: #141006 !important;
+}
+
+.btn-gold:active,
+.golden-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(219, 178, 75, 0.4);
+}
+
+/* Secondary Obsidian Warm Gold Button */
+.btn-gold-secondary {
+  background: rgba(239, 196, 92, 0.1);
+  color: #141210 !important;
+  font-weight: 700;
+  border-radius: 10px;
+  border: 1px solid rgba(184, 134, 11, 0.45);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.28s ease;
+  cursor: pointer;
+}
+
+.btn-gold-secondary:hover {
+  background: rgba(239, 196, 92, 0.22);
+  border-color: #C99824;
+  color: #8A6412 !important;
+  box-shadow: 0 4px 18px rgba(239, 196, 92, 0.28);
+  transform: translateY(-1.5px);
+}
+
+.dark .btn-gold-secondary {
+  background: rgba(239, 196, 92, 0.08);
+  color: #F8FAFC !important;
+  border: 1px solid rgba(239, 196, 92, 0.38);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.dark .btn-gold-secondary:hover {
+  background: rgba(239, 196, 92, 0.18);
+  border-color: #EFC45C;
+  color: #F7DE9C !important;
+  box-shadow: 0 6px 24px rgba(239, 196, 92, 0.3);
+}
+
+/* Tertiary Outline Button */
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(239, 196, 92, 0.4);
+  border-radius: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  border-color: #EFC45C;
+  background: rgba(239, 196, 92, 0.08);
+  color: #EFC45C;
+}
+
+/* Interactive Chip / Tab Button */
+.btn-chip {
+  border-radius: 8px;
+  border: 1px solid rgba(239, 196, 92, 0.35);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* 6. Bento Grid Asymmetric Layout Helpers */
+.hybrid-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+/* 8. Dual Directional Smooth Marquee Scrolling */
+@keyframes scrollLeftStream {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollRightStream {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-scroll-left-stream {
+  display: flex;
+  width: max-content;
+  animation: scrollLeftStream 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll-right-stream {
+  display: flex;
+  width: max-content;
+  animation: scrollRightStream 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll-left-stream:hover,
+.animate-scroll-right-stream:hover {
+  animation-play-state: paused;
+}
+
 

@@ -251,12 +251,12 @@ export default function ServicesPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search services by keyword (e.g. Spouse, Golden Visa, MOFA)..."
-                className="w-full bg-[#111111] border border-white/10 rounded-[10px] text-white placeholder:text-slate-500 pl-14 pr-12 py-4 focus:border-brand-goldBg/60 focus:outline-none transition-all duration-300 shadow-2xl text-base"
+                className="w-full bg-[#111111] border border-white/10 rounded-[10px] text-white placeholder:text-text-muted pl-14 pr-12 py-4 focus:border-brand-goldBg/60 focus:outline-none transition-all duration-300 shadow-2xl text-base"
               />
               {searchQuery && (
                 <button 
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-4 p-1.5 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-[10px] transition-colors"
+                  className="absolute right-4 p-1.5 text-text-muted hover:text-white bg-surface/5 hover:bg-surface/10 rounded-[10px] transition-colors"
                   aria-label="Clear Search"
                 >
                   <X className="w-4 h-4" />
@@ -280,7 +280,7 @@ export default function ServicesPage() {
                   className={`whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     isActive
                       ? 'bg-brand-goldBg/10 border border-brand-goldBg/50 text-brand-goldText px-6 py-2.5 rounded-[10px] text-sm font-semibold shadow-md shadow-brand-goldBg/5'
-                      : 'bg-transparent border border-white/10 text-slate-400 hover:text-slate-200 hover:bg-white/5 px-6 py-2.5 rounded-[10px] text-sm font-medium'
+                      : 'bg-transparent border border-white/10 text-text-muted hover:text-slate-200 hover:bg-surface/5 px-6 py-2.5 rounded-[10px] text-sm font-medium'
                   }`}
                 >
                   {category}
@@ -297,7 +297,7 @@ export default function ServicesPage() {
           
           {/* Active Filter Indicator */}
           <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/5">
-            <div className="text-sm text-slate-400 font-medium">
+            <div className="text-sm text-text-muted font-medium">
               Showing <span className="text-brand-goldText font-bold">{filteredServices.length}</span> services 
               {selectedCategory !== 'All Services' && <span> under <span className="text-white font-semibold">{selectedCategory}</span></span>}
             </div>
@@ -350,7 +350,7 @@ export default function ServicesPage() {
                             {service.title}
                           </h3>
 
-                          <p className="text-slate-500 text-sm line-clamp-2 leading-relaxed mb-6">
+                          <p className="text-text-muted text-sm line-clamp-2 leading-relaxed mb-6">
                             {service.subtitle}
                           </p>
                         </div>
@@ -376,9 +376,9 @@ export default function ServicesPage() {
           ) : (
             /* No Results State */
             <div className="bg-[#111111] border border-white/10 rounded-[10px] p-12 text-center max-w-xl mx-auto my-12 space-y-4">
-              <Search className="w-12 h-12 text-slate-500 mx-auto opacity-50" />
+              <Search className="w-12 h-12 text-text-muted mx-auto opacity-50" />
               <h3 className="text-xl font-bold text-white">No Matching Services Found</h3>
-              <p className="text-slate-400 text-sm">
+              <p className="text-text-muted text-sm">
                 We couldn't find any services matching "{searchQuery}". Try searching for terms like "Golden Visa", "Spouse", or "Attestation".
               </p>
               <button
