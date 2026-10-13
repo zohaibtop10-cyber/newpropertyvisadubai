@@ -279,7 +279,7 @@ export default function CalculatorModal({ isOpen, onClose, initialTab = 'golden'
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 16 }}
           transition={{ type: 'spring', stiffness: 240, damping: 25 }}
-          className="w-full max-w-[980px] bg-[#FAF8F5] dark:bg-[#0D0B08] border border-[#DECFA8] dark:border-[#EFC45C]/35 rounded-[12px] shadow-[0_25px_80px_rgba(40,30,10,0.25),0_0_50px_rgba(239,196,92,0.18)] overflow-hidden flex flex-col max-h-[94vh] text-slate-900 dark:text-[#F3ECD9] my-auto relative z-10 transition-colors duration-300"
+          className="w-full max-w-[980px] bg-[#FAF8F5] dark:bg-[#0D0B08] border border-[#DECFA8] dark:border-[#EFC45C]/35 rounded-[16px] shadow-[0_25px_80px_rgba(40,30,10,0.25),0_0_50px_rgba(239,196,92,0.18)] overflow-hidden flex flex-col max-h-[94vh] text-slate-900 dark:text-[#F3ECD9] my-auto relative z-10 transition-colors duration-300"
         >
           {/* Top Radiant Gold Shimmer Accent Line */}
           <div className="h-1.5 w-full bg-gradient-to-r from-[#DBB24B] via-[#EFC45C] to-[#F7DE9C] shrink-0" />
@@ -435,7 +435,7 @@ export default function CalculatorModal({ isOpen, onClose, initialTab = 'golden'
                 <div className="pt-4 flex items-center justify-end">
                   <button
                     onClick={() => setCurrentStep(2)}
-                    className="btn-gold px-6 py-3 rounded-[10px] text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-[0_4px_16px_rgba(239,196,92,0.35)] cursor-pointer"
+                    className="btn-gold shimmer-sweep px-6 py-3 rounded-[10px] text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-[0_4px_16px_rgba(239,196,92,0.35)] cursor-pointer"
                   >
                     <span>Next: Location & Dependents</span>
                     <ArrowRight className="w-4 h-4 text-[#0B0A08]" />
@@ -574,7 +574,7 @@ export default function CalculatorModal({ isOpen, onClose, initialTab = 'golden'
                   </button>
                   <button
                     onClick={() => setCurrentStep(3)}
-                    className="btn-gold px-6 py-3 rounded-[10px] text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-[0_4px_16px_rgba(239,196,92,0.35)] cursor-pointer"
+                    className="btn-gold shimmer-sweep px-6 py-3 rounded-[10px] text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-[0_4px_16px_rgba(239,196,92,0.35)] cursor-pointer"
                   >
                     <span>Next: Speed & Add-ons</span>
                     <ArrowRight className="w-4 h-4 text-[#0B0A08]" />
@@ -700,7 +700,7 @@ export default function CalculatorModal({ isOpen, onClose, initialTab = 'golden'
                   </button>
                   <button
                     onClick={() => setCurrentStep(4)}
-                    className="btn-gold px-6 py-3 rounded-[10px] text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-[0_4px_16px_rgba(239,196,92,0.35)] cursor-pointer"
+                    className="btn-gold shimmer-sweep px-6 py-3 rounded-[10px] text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-[0_4px_16px_rgba(239,196,92,0.35)] cursor-pointer"
                   >
                     <span>View Itemized Invoice</span>
                     <ArrowRight className="w-4 h-4 text-[#0B0A08]" />
@@ -738,7 +738,7 @@ export default function CalculatorModal({ isOpen, onClose, initialTab = 'golden'
                 </div>
 
                 {/* The Ledger Table */}
-                <div className="rounded-[12px] border border-[#E8DFC8] dark:border-[#2A241A] bg-white dark:bg-[#141210] overflow-hidden shadow-sm">
+                <div className="rounded-[16px] border border-[#E8DFC8] dark:border-[#2A241A] bg-white dark:bg-[#141210] overflow-hidden shadow-sm">
                   <div className="p-3.5 bg-[#FAF6ED] dark:bg-[#1A160F] border-b border-[#E8DFC8] dark:border-[#2A241A] flex items-center justify-between text-xs font-bold font-mono text-[#8A6412] dark:text-[#EFC45C]">
                     <span>STATUTORY GOVERNMENT CHARGES (EXACT COST)</span>
                     <span>AUTHORITY</span>
@@ -829,7 +829,7 @@ export default function CalculatorModal({ isOpen, onClose, initialTab = 'golden'
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleCopyQuote}
-                    className="w-full py-4 px-6 btn-gold text-[#0B0A08] font-black text-sm rounded-[10px] flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(239,196,92,0.35)] cursor-pointer"
+                    className="w-full py-4 px-6 btn-gold shimmer-sweep text-[#0B0A08] font-black text-sm rounded-[10px] flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(239,196,92,0.35)] cursor-pointer"
                   >
                     {copied ? <CheckCheck className="w-5 h-5 text-[#0B0A08]" /> : <Copy className="w-5 h-5 text-[#0B0A08]" />}
                     <span>{copied ? 'Quote Copied to Clipboard!' : 'Copy Itemized Quote Summary'}</span>
@@ -860,7 +860,7 @@ export default function CalculatorModal({ isOpen, onClose, initialTab = 'golden'
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() => setCurrentStep(currentStep + 1)}
-                  className="btn-gold px-5 py-2.5 rounded-[10px] text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-sm cursor-pointer"
+                  className="btn-gold shimmer-sweep px-5 py-2.5 rounded-[10px] text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-sm cursor-pointer"
                 >
                   <span>Continue</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#0B0A08]" />

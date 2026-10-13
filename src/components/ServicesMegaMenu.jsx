@@ -527,7 +527,7 @@ export default function ServicesMegaMenu({
                   onClose();
                   if (onOpenCalculator) onOpenCalculator('golden');
                 }}
-                className="w-full sm:w-1/2 py-3 px-4 btn-gold text-[#0B0A08] font-black text-xs sm:text-sm rounded-[10px] flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_4px_16px_rgba(239,196,92,0.35)]"
+                className="w-full sm:w-1/2 py-3 px-4 btn-gold shimmer-sweep text-[#0B0A08] font-black text-xs sm:text-sm rounded-[10px] flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_4px_16px_rgba(239,196,92,0.35)]"
               >
                 <Calculator className="w-4 h-4 text-[#0B0A08] stroke-[2.5]" />
                 <span>Calculate Official Visa Fees</span>

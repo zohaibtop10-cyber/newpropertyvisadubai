@@ -580,14 +580,16 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                         onClick={() => {
                           setCalcGoal(card.id);
                           }}
-                        className={`p-3.5 sm:p-4 rounded-[10px] border text-center transition-all cursor-pointer backdrop-blur-2xl relative overflow-hidden flex flex-col items-center justify-between ${isSelected
-                            ? 'border-[#EFC45C] bg-gradient-to-b from-[#EFC45C]/20 via-[#141210] to-[#0B0A08] shadow-[0_0_28px_rgba(239,196,92,0.3)] ring-1 ring-[#EFC45C]/50'
-                            : 'border-[#262118] bg-[#141210]/90 hover:border-[#EFC45C]/40 hover:bg-[#1A160F]'
+                        className={`p-3.5 sm:p-4 rounded-[16px] border text-center transition-all cursor-pointer backdrop-blur-2xl relative overflow-hidden flex flex-col items-center justify-between card-shine ${isSelected
+                            ? 'border-[#EFC45C] bg-gradient-to-b from-[#251E13] via-[#14100A] to-[#080705] shadow-[0_10px_28px_rgba(239,196,92,0.35),inset_0_1px_1px_rgba(255,255,255,0.15)] ring-1 ring-[#EFC45C]/60'
+                            : 'border-[#2D2619] bg-gradient-to-b from-[#18140E] to-[#0D0B08] hover:border-[#EFC45C]/60 hover:bg-[#1E1911] shadow-md'
                           }`}
                       >
-                        <div className={`w-9 h-9 rounded-[10px] flex items-center justify-center mb-2 transition-colors ${isSelected ? 'bg-[#EFC45C] text-[#0B0A08] shadow-md' : 'bg-[#F6EED9] text-[#8A6412] border border-[#EFC45C]/40'
+                        <div className={`w-10 h-10 rounded-[12px] flex items-center justify-center mb-2.5 transition-all ${isSelected
+                            ? 'bg-gradient-to-br from-[#F7DE9C] via-[#EFC45C] to-[#C99824] text-[#0B0A08] shadow-[0_4px_14px_rgba(239,196,92,0.5)]'
+                            : 'luxury-icon-emblem-dark'
                           }`}>
-                          <IconComp className="w-4 h-4 stroke-[2.5]" />
+                          <IconComp className="w-4 h-4 stroke-[2.2]" />
                         </div>
                         <div className={`text-xs font-black tracking-tight ${isSelected ? 'text-[#F7DE9C]' : 'text-slate-200'}`}>
                           {card.title}
@@ -596,8 +598,8 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                           {card.sub}
                         </div>
                         <div className={`text-xs font-mono font-black px-2 py-0.5 rounded-[8px] border w-full ${isSelected
-                            ? 'bg-[#EFC45C]/20 text-[#F7DE9C] border-[#EFC45C]/60'
-                            : 'bg-black/50 text-[#A19D94] border-white/10'
+                            ? 'bg-[#EFC45C]/20 text-[#F7DE9C] border-[#EFC45C]/60 shadow-xs'
+                            : 'bg-black/60 text-[#D8CFBC] border-white/10'
                           }`}>
                           <span className="text-xs text-[#A19D94] block sm:inline mr-1">AED</span>
                           {card.price}
@@ -608,7 +610,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                 </div>
 
                 {/* TIER 2: STREAMLINED LIVE PATHWAY SNAPSHOT */}
-                <div className="w-full bg-slate-950/85 border border-[#D4AF37]/40 rounded-[12px] p-5 sm:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden">
+                <div className="w-full bg-gradient-to-b from-[#15120D] via-[#0D0B08] to-[#070604] border border-[#EFC45C]/40 rounded-[20px] p-5 sm:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.08)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden card-shine">
 
                   {/* Top Ambient Glow */}
                   <div className="absolute top-0 right-0 w-48 h-48 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
@@ -616,7 +618,10 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                   {/* Header Row */}
                   <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
                     <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-ping" />
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EFC45C] opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#EFC45C]"></span>
+                      </span>
                       <span className="text-xs font-black uppercase tracking-[0.16em] text-[#D4AF37] font-mono">
                         Live Pathway Snapshot
                       </span>
@@ -643,20 +648,20 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
 
                   {/* Simplified Key Guarantees */}
                   <div className="grid grid-cols-3 gap-2.5 mb-4 text-center">
-                    <div className="p-3 rounded-[10px] bg-slate-900/70 border border-slate-800/80">
-                      <Clock className="w-4 h-4 text-[#D4AF37] mx-auto mb-1.5" />
+                    <div className="p-3 rounded-[12px] bg-gradient-to-b from-[#1C1811] to-[#120F0A] border border-[#EFC45C]/25 shadow-xs">
+                      <Clock className="w-4 h-4 text-[#EFC45C] mx-auto mb-1.5" />
                       <div className="text-xs font-bold text-slate-200">24H Fast-Track</div>
-                      <div className="text-xs text-slate-400">VIP Turnaround</div>
+                      <div className="text-[11px] text-slate-400">VIP Turnaround</div>
                     </div>
-                    <div className="p-3 rounded-[10px] bg-slate-900/70 border border-slate-800/80">
-                      <ShieldCheck className="w-4 h-4 text-[#D4AF37] mx-auto mb-1.5" />
+                    <div className="p-3 rounded-[12px] bg-gradient-to-b from-[#1C1811] to-[#120F0A] border border-[#EFC45C]/25 shadow-xs">
+                      <ShieldCheck className="w-4 h-4 text-[#EFC45C] mx-auto mb-1.5" />
                       <div className="text-xs font-bold text-slate-200">Zero Queues</div>
-                      <div className="text-xs text-slate-400">Doorstep Biometrics</div>
+                      <div className="text-[11px] text-slate-400">Doorstep Biometrics</div>
                     </div>
-                    <div className="p-3 rounded-[10px] bg-slate-900/70 border border-slate-800/80">
-                      <Award className="w-4 h-4 text-[#D4AF37] mx-auto mb-1.5" />
+                    <div className="p-3 rounded-[12px] bg-gradient-to-b from-[#1C1811] to-[#120F0A] border border-[#EFC45C]/25 shadow-xs">
+                      <Award className="w-4 h-4 text-[#EFC45C] mx-auto mb-1.5" />
                       <div className="text-xs font-bold text-slate-200">Direct Endorsed</div>
-                      <div className="text-xs text-slate-400">DLD / ICP Channel</div>
+                      <div className="text-[11px] text-slate-400">DLD / ICP Channel</div>
                     </div>
                   </div>
 
@@ -695,63 +700,63 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
             </p>
           </div>
 
-          {/* 4 Core Scrollytelling Metric Figures with Ambient Glow matching reference image colors */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6 sm:p-8 rounded-[12px] bg-white dark:bg-[#0B0A08] border border-[#E8DFC8] dark:border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden text-center">
+          {/* 4 Core Scrollytelling Metric Figures with Ambient Glow in Dark Box */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6 sm:p-8 rounded-[16px] bg-[#0B0A08] border border-[#EFC45C]/35 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden text-center">
 
             {/* Ambient Radial Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-40 bg-[#EFC45C]/10 dark:bg-[#EFC45C]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-40 bg-[#EFC45C]/15 rounded-full blur-3xl pointer-events-none" />
 
-            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2 md:border-r md:border-[#E8DFC8] dark:md:border-white/10">
-              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] drop-shadow-sm">
+            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2 md:border-r md:border-white/10">
+              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#F7DE9C] via-[#EFC45C] to-[#C99824] drop-shadow-[0_4px_24px_rgba(239,196,92,0.45)]">
                 500+
               </div>
-              <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-950 dark:text-white font-sans mt-2 mb-1">
+              <div className="text-xs font-black uppercase tracking-[0.14em] text-white font-sans mt-2 mb-1">
                 CORPORATE ENTITIES
               </div>
-              <div className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
+              <div className="text-xs text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
                 Incorporated across Dubai DIFC, ADGM & Free Zones
               </div>
             </motion.div>
 
-            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2 md:border-r md:border-[#E8DFC8] dark:md:border-white/10">
-              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] drop-shadow-sm">
+            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2 md:border-r md:border-white/10">
+              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#F7DE9C] via-[#EFC45C] to-[#C99824] drop-shadow-[0_4px_24px_rgba(239,196,92,0.45)]">
                 15,000+
               </div>
-              <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-950 dark:text-white font-sans mt-2 mb-1">
+              <div className="text-xs font-black uppercase tracking-[0.14em] text-white font-sans mt-2 mb-1">
                 VISAS PROCESSED
               </div>
-              <div className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
+              <div className="text-xs text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
                 Zero-rejection SLA across GDRFA & ICP portals
               </div>
             </motion.div>
 
-            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2 md:border-r md:border-[#E8DFC8] dark:md:border-white/10">
-              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] drop-shadow-sm">
+            <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2 md:border-r md:border-white/10">
+              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#F7DE9C] via-[#EFC45C] to-[#C99824] drop-shadow-[0_4px_24px_rgba(239,196,92,0.45)]">
                 15+
               </div>
-              <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-950 dark:text-white font-sans mt-2 mb-1">
+              <div className="text-xs font-black uppercase tracking-[0.14em] text-white font-sans mt-2 mb-1">
                 YEARS IN DUBAI
               </div>
-              <div className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
+              <div className="text-xs text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
                 Senior advisory council headquartered in Business Bay
               </div>
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.05 }} className="space-y-1 p-2">
-              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] drop-shadow-sm">
+              <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#F7DE9C] via-[#EFC45C] to-[#C99824] drop-shadow-[0_4px_24px_rgba(239,196,92,0.45)]">
                 99.8%
               </div>
-              <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-950 dark:text-white font-sans mt-2 mb-1">
+              <div className="text-xs font-black uppercase tracking-[0.14em] text-white font-sans mt-2 mb-1">
                 SLA ACCURACY
               </div>
-              <div className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
+              <div className="text-xs text-slate-400 font-medium leading-relaxed max-w-[210px] mx-auto">
                 Statutory government fees billed at exact cost
               </div>
             </motion.div>
           </div>
 
-          {/* 5 Glassmorphic Achievement Badges */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          {/* 5 Dark Achievement Badges */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-5">
             {[
               { icon: Award, num: "No #1", sub: "Top Agency" },
               { icon: Star, num: "4.9★", sub: "Google Rating" },
@@ -763,16 +768,16 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
               return (
                 <motion.div
                   key={idx}
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  className="p-5 rounded-[10px] bg-white hover:bg-[#FAF9F6] dark:bg-[#0B0A08] dark:hover:bg-[#14120E] border border-[#E8DFC8] dark:border-white/10 hover:border-[#C59B27]/50 dark:hover:border-[#EFC45C]/50 shadow-sm hover:shadow-md backdrop-blur-2xl flex flex-col items-center justify-center text-center transition-all group hybrid-3d-card"
+                  whileHover={{ scale: 1.04, y: -3 }}
+                  className="p-5 sm:p-6 rounded-[18px] bg-gradient-to-b from-[#1C1812] via-[#120F0A] to-[#080705] hover:from-[#241E15] hover:via-[#18140D] hover:to-[#0C0A07] border border-[#EFC45C]/35 hover:border-[#EFC45C] shadow-[0_12px_32px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:shadow-[0_16px_40px_rgba(239,196,92,0.3)] backdrop-blur-2xl flex flex-col items-center justify-center text-center transition-all group hybrid-3d-card card-shine"
                 >
-                  <div className="w-11 h-11 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 dark:border-[#EFC45C]/30 text-[#8A6412] dark:text-[#EFC45C] flex items-center justify-center mb-3 group-hover:scale-105 transition-all shadow-sm">
-                    <BadgeIcon className="w-5 h-5 stroke-[2]" />
+                  <div className="w-12 h-12 rounded-[14px] bg-gradient-to-br from-[#2E2413] via-[#20180B] to-[#140F06] border border-[#EFC45C]/60 text-[#F5CF6B] flex items-center justify-center mb-3.5 group-hover:scale-110 group-hover:border-[#EFC45C] group-hover:shadow-[0_6px_18px_rgba(239,196,92,0.4)] shadow-[0_4px_12px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(239,196,92,0.3)] transition-all">
+                    <BadgeIcon className="w-5 h-5 stroke-[2.2]" />
                   </div>
-                  <div className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#C59B27] via-[#D4AF37] to-[#B38012] dark:from-[#F7DE9C] dark:via-[#EFC45C] dark:to-[#C99824] font-mono tracking-tight mb-0.5">
+                  <div className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#FFF0C8] via-[#F5CF6B] to-[#C99824] font-mono tracking-tight mb-1 drop-shadow-[0_2px_8px_rgba(239,196,92,0.35)]">
                     {badge.num}
                   </div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-200 group-hover:text-white transition-colors">
                     {badge.sub}
                   </div>
                 </motion.div>
@@ -819,16 +824,16 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                   onClick={() => {
                     setWhyChooseTab(pillar.id);
                   }}
-                  className={`group p-4 sm:p-5 rounded-[10px] border text-left transition-all duration-300 flex items-center gap-3.5 cursor-pointer relative overflow-hidden ${isSelected
-                      ? 'bg-[#0B0A08] text-white dark:bg-[#0B0A08] border-[#EFC45C] shadow-md ring-1 ring-[#EFC45C]/50'
-                      : 'bg-[#FAF9F6] dark:bg-[#141210] border-[#DFD8C5] dark:border-[#262118] text-[#1F190C] dark:text-[#E8E2D5] hover:border-[#EFC45C]/50 hover:bg-white dark:hover:bg-[#1A160F] shadow-sm'
+                  className={`group p-4 sm:p-5 rounded-[16px] border text-left transition-all duration-300 flex items-center gap-3.5 cursor-pointer relative overflow-hidden card-shine ${isSelected
+                      ? 'bg-gradient-to-b from-[#1A1610] via-[#100E0A] to-[#070604] text-white border-[#EFC45C] shadow-[0_12px_32px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(239,196,92,0.4)] ring-1 ring-[#EFC45C]/60'
+                      : 'bg-gradient-to-b from-[#FFFFFF] via-[#FAF7F0] to-[#F1ECE1] border-[#DCD1BA] text-[#1F190C] hover:border-[#EFC45C]/70 shadow-[0_4px_16px_rgba(40,30,10,0.04),inset_0_1px_1px_rgba(255,255,255,1)] hover:shadow-[0_8px_24px_rgba(239,196,92,0.18)] hover:-translate-y-0.5'
                     }`}
                 >
-                  <div className={`w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 transition-colors ${isSelected
-                      ? 'bg-[#EFC45C] text-[#0B0A08] shadow-md'
-                      : 'bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C]'
+                  <div className={`w-11 h-11 rounded-[12px] flex items-center justify-center shrink-0 transition-all ${isSelected
+                      ? 'bg-gradient-to-br from-[#F7DE9C] via-[#EFC45C] to-[#C99824] text-[#0B0A08] shadow-[0_4px_14px_rgba(239,196,92,0.5)]'
+                      : 'luxury-icon-emblem shadow-xs'
                     }`}>
-                    <TabIcon className="w-5 h-5 stroke-[2]" />
+                    <TabIcon className="w-5 h-5 stroke-[2.2]" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <span className={`text-xs font-bold uppercase tracking-wider font-mono block ${isSelected ? 'text-[#EFC45C]' : 'text-[#8A6412] dark:text-[#A19D94]'
@@ -867,7 +872,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.35 }}
-                  className="p-8 sm:p-10 rounded-[12px] bg-[#FAF9F6] dark:bg-[#141210] border border-[#DFD8C5] dark:border-[#EFC45C]/35 shadow-[0_20px_50px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden"
+                  className="p-8 sm:p-10 rounded-[20px] bg-gradient-to-b from-[#FFFFFF] via-[#FAF8F3] to-[#F4EEE0] border border-[#DDD3BD] shadow-[0_24px_60px_rgba(40,30,10,0.06),inset_0_1px_1px_rgba(255,255,255,1)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden card-shine"
                 >
                   {/* Ambient Radial Gold Luminescence */}
                   <div className="absolute top-0 right-0 w-80 h-80 bg-[#EFC45C]/10 rounded-full blur-3xl pointer-events-none" />
@@ -877,28 +882,30 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                     {/* Left Column: Feature Focus (7 Cols) */}
                     <div className="lg:col-span-7 space-y-6 text-left">
                       <div className="flex flex-wrap items-center gap-3">
-                        <span className="text-xs font-black uppercase tracking-wider text-[#8A6412] dark:text-[#EFC45C] font-mono px-3 py-1 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35">
+                        <span className="text-xs font-black uppercase tracking-wider text-[#8A6412] font-mono px-3 py-1 rounded-[8px] bg-gradient-to-r from-[#F8EED6] to-[#EEDDB2] border border-[#EFC45C]/60 shadow-xs">
                           {currentPillar.badge}
                         </span>
-                        <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-3 py-1 rounded-[8px] flex items-center gap-1.5 font-bold">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+                        <span className="text-xs font-mono text-emerald-600 bg-emerald-500/10 border border-emerald-500/25 px-3 py-1 rounded-[8px] flex items-center gap-1.5 font-bold">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                           ACTIVE VERIFIED SLA
                         </span>
                       </div>
 
-                      <h3 className="text-2xl sm:text-3xl font-black text-slate-950 dark:text-white tracking-tight leading-snug font-sans">
+                      <h3 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight leading-snug font-sans">
                         {currentPillar.headline}
                       </h3>
 
-                      <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed max-w-2xl">
+                      <p className="text-slate-600 font-medium text-xs sm:text-sm leading-relaxed max-w-2xl">
                         {currentPillar.description}
                       </p>
 
                       {/* 3 Executive Deliverables with Gold Checkmarks */}
                       <div className="space-y-3 pt-2">
                         {currentPillar.perks.map((perk, i) => (
-                          <div key={i} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 font-medium">
-                            <CheckCircle2 className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] shrink-0 mt-0.5" />
+                          <div key={i} className="flex items-start gap-3 text-xs sm:text-sm text-slate-800 font-medium">
+                            <div className="w-4 h-4 rounded-full bg-[#EFC45C]/25 border border-[#EFC45C]/60 flex items-center justify-center shrink-0 mt-0.5">
+                              <CheckCircle2 className="w-3 h-3 text-[#8A6412]" />
+                            </div>
                             <span>{perk}</span>
                           </div>
                         ))}
@@ -906,11 +913,11 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
 
                       {/* Key Numeric Metric Highlight & Action CTA */}
                       <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                        <div className="p-3.5 px-5 rounded-[10px] bg-[#F1EEE7] dark:bg-[#1E1A12] border border-[#DFD8C5] dark:border-white/10 flex items-center gap-3">
-                          <div className="text-2xl font-black font-mono text-[#8A6412] dark:text-[#EFC45C] tracking-tight">
+                        <div className="p-3.5 px-5 rounded-[12px] bg-gradient-to-b from-[#FAF6EE] to-[#EFE7D5] border border-[#DFD3BA] shadow-xs flex items-center gap-3">
+                          <div className="text-2xl font-black font-mono text-[#8A6412] tracking-tight">
                             {currentPillar.stat}
                           </div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                          <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">
                             {currentPillar.statLabel}
                           </div>
                         </div>
@@ -927,7 +934,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                           }}
                           className={currentPillar.actionType === 'whatsapp'
                             ? "bg-[#25D366] hover:bg-[#20BD5A] text-white font-black py-3.5 px-6 rounded-[10px] shadow-[0_4px_16px_rgba(37,211,102,0.35)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
-                            : "bg-[#EFC45C] hover:bg-[#F7DE9C] text-[#0B0A08] font-black py-3.5 px-6 rounded-[10px] shadow-[0_4px_16px_rgba(239,196,92,0.3)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                            : "btn-gold shimmer-sweep text-[#0B0A08] font-black py-3.5 px-6 rounded-[10px] shadow-[0_4px_16px_rgba(239,196,92,0.3)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                           }
                         >
                           <MessageSquare className={`w-4 h-4 stroke-[2.5] ${currentPillar.actionType === 'whatsapp' ? 'text-white fill-current' : 'text-[#0B0A08]'}`} />
@@ -941,40 +948,41 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                     <div className="lg:col-span-5 flex flex-col gap-4">
 
                       {/* Official Seal Console */}
-                      <div className="p-6 rounded-[12px] bg-[#F1EEE7] dark:bg-[#1A160F] border border-[#DFD8C5] dark:border-white/10 shadow-sm flex flex-col items-center text-center relative overflow-hidden">
-                        <div className="w-16 h-16 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 flex items-center justify-center text-[#8A6412] dark:text-[#EFC45C] mb-4 shadow-sm">
+                      <div className="p-7 rounded-[18px] bg-gradient-to-b from-[#FAF6EE] to-[#F0E8D5] border-2 border-[#E5D7B7] shadow-[0_8px_24px_rgba(40,30,10,0.06),inset_0_1px_2px_rgba(255,255,255,1)] flex flex-col items-center text-center relative overflow-hidden">
+                        <div className="w-16 h-16 rounded-[14px] luxury-icon-emblem flex items-center justify-center mb-4 mx-auto">
                           <Crown className="w-8 h-8 stroke-[2.2]" />
                         </div>
 
-                        <div className="text-xs font-black uppercase tracking-[0.2em] text-[#8A6412] dark:text-[#EFC45C] font-mono mb-1">
+                        <div className="text-xs font-black uppercase tracking-[0.2em] text-[#8A6412] font-mono mb-1">
                           FEDERAL COMPLIANCE SEAL
                         </div>
-                        <h4 className="text-base font-black text-slate-950 dark:text-white mb-2">
+                        <h4 className="text-base font-black text-slate-950 mb-2">
                           Official Government Protocol
                         </h4>
 
-                        <p className="text-xs text-slate-600 dark:text-slate-300 font-medium italic leading-relaxed mb-4 px-2">
+                        <p className="text-xs text-slate-600 font-medium italic leading-relaxed mb-4 px-2">
                           "{currentPillar.quote}"
                         </p>
 
-                        <div className="w-full pt-4 border-t border-[#DFD8C5] dark:border-white/10 flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
+                        <div className="w-full pt-4 border-t border-[#DFD8C5] flex items-center justify-between text-xs font-mono text-slate-500">
                           <span>DET License:</span>
-                          <span className="text-slate-900 dark:text-[#F3E5AB] font-bold">800 DOCS LLC SOC</span>
+                          <span className="text-slate-900 font-bold">800 DOCS LLC SOC</span>
                         </div>
                       </div>
 
                       {/* Live Case Officer Assistance Card */}
-                      <div className="p-4 rounded-[10px] bg-[#FAF9F6] dark:bg-[#1A160F] border border-[#DFD8C5] dark:border-white/10 flex items-center justify-between gap-3 shadow-sm">
+                      <div className="p-4 rounded-[14px] bg-gradient-to-b from-[#FFFFFF] to-[#F8F4EA] border border-[#DFD5BF] shadow-[0_4px_14px_rgba(0,0,0,0.04)] flex items-center justify-between gap-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-[8px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 flex items-center justify-center text-[#8A6412] dark:text-[#EFC45C]">
-                            <ShieldCheck className="w-4 h-4" />
+                          <div className="w-10 h-10 rounded-[10px] luxury-icon-emblem flex items-center justify-center">
+                            <ShieldCheck className="w-5 h-5" />
                           </div>
                           <div className="text-left">
-                            <div className="text-xs font-black text-slate-950 dark:text-white">Senior PRO Case Officer</div>
-                            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Available online 24/7</div>
+                            <div className="text-xs font-black text-slate-950">Senior PRO Case Officer</div>
+                            <div className="text-xs text-slate-500 font-medium">Available online 24/7</div>
                           </div>
                         </div>
-                        <span className="text-xs font-mono font-black text-emerald-600 dark:text-emerald-400 px-2.5 py-1 rounded-[8px] bg-emerald-500/10 border border-emerald-500/25">
+                        <span className="text-xs font-mono font-black text-emerald-600 px-2.5 py-1 rounded-[8px] bg-emerald-500/10 border border-emerald-500/25 flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                           Active Now
                         </span>
                       </div>
@@ -1055,39 +1063,43 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                 <motion.div
                   key={service.id}
                   whileHover={{ y: -6 }}
-                  transition={{ duration: 0.25 }}
-                  className="p-7 sm:p-8 rounded-[12px] bg-white dark:bg-[#181510] border border-[#E8DFC8] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(239,196,92,0.18)] dark:hover:shadow-[0_20px_45px_rgba(0,0,0,0.6)] flex flex-col items-center text-center justify-between group transition-all duration-300 relative overflow-hidden"
+                  whileTap={{ scale: 0.99 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="p-7 sm:p-8 rounded-[22px] bg-gradient-to-b from-[#FFFFFF] via-[#FDFCFA] to-[#F6F1E3] border border-[#E2D6BA] hover:border-[#EFC45C] shadow-[0_10px_32px_rgba(50,35,10,0.06),inset_0_1px_1px_rgba(255,255,255,1)] hover:shadow-[0_24px_55px_rgba(239,196,92,0.26),0_6px_16px_rgba(0,0,0,0.04)] flex flex-col items-center text-center justify-between group transition-all duration-300 relative overflow-hidden card-shine"
                 >
                   {/* Subtle Ambient Luminescence on hover */}
-                  <div className="absolute top-0 right-0 w-36 h-36 bg-[#EFC45C]/5 rounded-full blur-2xl pointer-events-none group-hover:bg-[#EFC45C]/15 transition-colors" />
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-[#EFC45C]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#EFC45C]/20 transition-colors" />
 
                   <div className="w-full flex flex-col items-center">
-                    {/* Unified Luxury Gold Icon Badge for Service Section */}
-                    <div className="w-16 h-16 rounded-[14px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] flex items-center justify-center shadow-sm mb-5 group-hover:scale-110 group-hover:rotate-1 transition-all duration-300">
+                    {/* Unified 3D Luxury Gold Icon Emblem */}
+                    <div className="w-16 h-16 rounded-[18px] luxury-icon-emblem flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-[0_12px_28px_rgba(239,196,92,0.45)] transition-all duration-300">
                       <ServiceIcon className="w-8 h-8 stroke-[2.2]" />
                     </div>
 
-                    {/* Category Tag */}
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#8A6412] dark:text-[#EFC45C] mb-2 px-2.5 py-0.5 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35 block">
+                    {/* Category Rosette Tag */}
+                    <span className="luxury-pill-tag text-[11px] font-mono font-black uppercase tracking-wider mb-2.5 px-3 py-1 rounded-[8px] inline-flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-[#8A6412]" />
                       {service.categoryTag}
                     </span>
 
                     {/* Service Title */}
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-950 dark:text-white mb-2.5 tracking-tight group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors leading-snug">
+                    <h3 className="text-lg sm:text-xl font-black text-slate-950 mb-2.5 tracking-tight group-hover:text-[#8A6412] transition-colors leading-snug">
                       {service.title}
                     </h3>
 
                     {/* Service Description */}
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal leading-relaxed mb-5">
+                    <p className="text-xs sm:text-[13px] text-slate-600 font-medium leading-relaxed mb-5">
                       {service.desc}
                     </p>
 
-                    {/* Key Perks / Deliverables */}
+                    {/* Key Perks / Deliverables Inset */}
                     {service.perks && (
-                      <div className="w-full bg-[#FAF9F6] dark:bg-[#14120F] p-3.5 rounded-[10px] border border-[#E8DFC8]/60 dark:border-[#2A241A] space-y-1.5 mb-5 text-left">
+                      <div className="w-full luxury-perks-inset p-4 rounded-[14px] space-y-2 mb-5 text-left">
                         {service.perks.slice(0, 2).map((perk, pIdx) => (
-                          <div key={pIdx} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 font-medium">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                          <div key={pIdx} className="flex items-center gap-2.5 text-xs text-slate-800 font-semibold">
+                            <div className="w-4 h-4 rounded-full bg-[#EFC45C]/25 border border-[#EFC45C]/60 flex items-center justify-center shrink-0">
+                              <CheckCircle2 className="w-3 h-3 text-[#8A6412]" />
+                            </div>
                             <span className="line-clamp-1">{perk}</span>
                           </div>
                         ))}
@@ -1096,10 +1108,10 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                   </div>
 
                   {/* Card Bottom Row: Tariff & Action Link */}
-                  <div className="w-full pt-4 border-t border-[#E8DFC8]/70 dark:border-[#2A241A] flex items-center justify-between">
+                  <div className="w-full pt-4 border-t border-[#E5DBC1] flex items-center justify-between">
                     <div>
-                      <span className="text-xs text-slate-500 dark:text-slate-400 font-mono block uppercase tracking-wider text-left">ESTIMATED TARIFF</span>
-                      <span className="text-sm sm:text-base font-bold font-mono text-slate-950 dark:text-white">
+                      <span className="text-[11px] text-slate-500 font-mono block uppercase tracking-wider text-left font-bold">ESTIMATED TARIFF</span>
+                      <span className="text-base sm:text-lg font-black font-mono text-slate-950">
                         {service.price}
                       </span>
                     </div>
@@ -1107,7 +1119,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                     <button
                       onClick={() => onOpenCalculator(service.actionId || 'golden')}
                       aria-label={`View ${service.title} services and tariffs`}
-                      className="btn-gold text-[#0B0A08] font-black text-xs px-5 py-2.5 rounded-[10px] shadow-md inline-flex items-center gap-2 hover:shadow-lg transition-all cursor-pointer"
+                      className="btn-gold shimmer-sweep text-[#0B0A08] font-black text-xs px-5 py-2.5 rounded-[10px] shadow-[0_4px_14px_rgba(239,196,92,0.35)] hover:shadow-[0_6px_20px_rgba(239,196,92,0.5)] inline-flex items-center gap-2 transition-all cursor-pointer"
                     >
                       <span>View Services</span>
                       <ArrowRight className="w-4 h-4 text-[#0B0A08] stroke-[2.5] group-hover:translate-x-1 transition-transform" />
@@ -1161,39 +1173,43 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
 
             {/* Card 1: Property Investor Visa */}
             <motion.div
-              whileHover={{ scale: 1.02, y: -3 }}
-              className="p-8 sm:p-9 rounded-[12px] bg-white dark:bg-[#1A160F] border border-[#E5DECD] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 hybrid-3d-card group relative overflow-hidden text-left"
+              whileHover={{ scale: 1.015, y: -5 }}
+              whileTap={{ scale: 0.99 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="p-8 sm:p-9 rounded-[22px] bg-gradient-to-b from-[#FFFFFF] via-[#FDFBF7] to-[#F6F0E2] border border-[#E2D5BA] hover:border-[#EFC45C] shadow-[0_12px_36px_rgba(50,35,10,0.06),inset_0_1px_1px_rgba(255,255,255,1)] hover:shadow-[0_24px_55px_rgba(239,196,92,0.28)] backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 group relative overflow-hidden text-left card-shine"
             >
               {/* Ambient Radial Glow */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[#EFC45C]/5 dark:bg-[#EFC45C]/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#EFC45C]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#EFC45C]/20 transition-colors" />
 
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-14 h-14 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 flex items-center justify-center text-[#8A6412] dark:text-[#EFC45C] group-hover:scale-105 transition-all shadow-sm">
-                    <Building2 className="w-7 h-7 stroke-[2.2]" />
+                  <div className="w-16 h-16 rounded-[16px] luxury-icon-emblem flex items-center justify-center group-hover:scale-110 group-hover:rotate-1 transition-all">
+                    <Building2 className="w-8 h-8 stroke-[2.2]" />
                   </div>
-                  <span className="text-xs font-black uppercase tracking-wider text-[#8A6412] dark:text-[#EFC45C] font-mono px-3 py-1 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35">
+                  <span className="luxury-pill-tag text-xs font-mono font-black uppercase tracking-wider px-3.5 py-1 rounded-[8px]">
                     2-YEAR & 10-YEAR GOLDEN VISA
                   </span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors mb-3 tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-black text-slate-950 group-hover:text-[#8A6412] transition-colors mb-3 tracking-tight">
                   Property Investor Visa (AED 750k+ / AED 2M+)
                 </h3>
 
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed mb-6">
                   Complete evaluation of completed or off-plan properties. Includes DLD Title Deed verification, mortgage equity acceptance, and family file sponsorship.
                 </p>
 
                 {/* Deliverable Perk Chips */}
-                <div className="space-y-2 mb-8">
+                <div className="w-full luxury-perks-inset p-4 sm:p-5 rounded-[14px] space-y-2.5 mb-8">
                   {[
                     "Direct Dubai Land Department (DLD) Taskeen filing",
                     "Mortgaged property equity & multiple title deed pooling",
                     "Includes full sponsorship for spouse, children & domestic staff"
                   ].map((perk, i) => (
-                    <div key={i} className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                    <div key={i} className="flex items-center gap-2.5 text-xs text-slate-800 font-semibold">
+                      <div className="w-4 h-4 rounded-full bg-[#EFC45C]/25 border border-[#EFC45C]/60 flex items-center justify-center shrink-0">
+                        <CheckCircle2 className="w-3 h-3 text-[#8A6412]" />
+                      </div>
                       <span>{perk}</span>
                     </div>
                   ))}
@@ -1206,7 +1222,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                 onClick={() => {
                   onOpenCalculator('property');
                 }}
-                className="w-full bg-[#EFC45C] hover:bg-[#DBB24B] text-[#0B0A08] font-black py-3.5 px-6 rounded-[10px] shadow-[0_4px_16px_rgba(239,196,92,0.3)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                className="w-full btn-gold shimmer-sweep text-[#0B0A08] font-black py-4 px-6 rounded-[12px] shadow-[0_4px_16px_rgba(239,196,92,0.35)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
               >
                 <span>Calculate Property Visa Cost →</span>
               </motion.button>
@@ -1214,39 +1230,43 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
 
             {/* Card 2: DLD Trustee & Legal Support */}
             <motion.div
-              whileHover={{ scale: 1.02, y: -3 }}
-              className="p-8 sm:p-9 rounded-[12px] bg-white dark:bg-[#1A160F] border border-[#E5DECD] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 hybrid-3d-card group relative overflow-hidden text-left"
+              whileHover={{ scale: 1.015, y: -5 }}
+              whileTap={{ scale: 0.99 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="p-8 sm:p-9 rounded-[22px] bg-gradient-to-b from-[#FFFFFF] via-[#FDFBF7] to-[#F6F0E2] border border-[#E2D5BA] hover:border-[#EFC45C] shadow-[0_12px_36px_rgba(50,35,10,0.06),inset_0_1px_1px_rgba(255,255,255,1)] hover:shadow-[0_24px_55px_rgba(239,196,92,0.28)] backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 group relative overflow-hidden text-left card-shine"
             >
               {/* Ambient Radial Glow */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[#EFC45C]/5 dark:bg-[#EFC45C]/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#EFC45C]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#EFC45C]/20 transition-colors" />
 
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-14 h-14 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 flex items-center justify-center text-[#8A6412] dark:text-[#EFC45C] group-hover:scale-105 transition-all shadow-sm">
-                    <Scale className="w-7 h-7 stroke-[2.2]" />
+                  <div className="w-16 h-16 rounded-[16px] luxury-icon-emblem flex items-center justify-center group-hover:scale-110 group-hover:rotate-1 transition-all">
+                    <Scale className="w-8 h-8 stroke-[2.2]" />
                   </div>
-                  <span className="text-xs font-black uppercase tracking-wider text-[#8A6412] dark:text-[#EFC45C] font-mono px-3 py-1 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35">
+                  <span className="luxury-pill-tag text-xs font-mono font-black uppercase tracking-wider px-3.5 py-1 rounded-[8px]">
                     OFFICIAL NOTARY & TRUSTEE
                   </span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors mb-3 tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-black text-slate-950 group-hover:text-[#8A6412] transition-colors mb-3 tracking-tight">
                   DLD Trustee, Valuation & Electronic POA
                 </h3>
 
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed mb-6">
                   Official property revaluation certificates, title deed ownership name changes, remote electronic Power of Attorney (POA), and trustee transfers.
                 </p>
 
                 {/* Deliverable Perk Chips */}
-                <div className="space-y-2 mb-8">
+                <div className="w-full luxury-perks-inset p-4 sm:p-5 rounded-[14px] space-y-2.5 mb-8">
                   {[
                     "Official DLD property revaluation certificates issued",
                     "Notary Public electronic Power of Attorney drafting & stamping",
                     "Mortgage release representation and title deed trustee transfers"
                   ].map((perk, i) => (
-                    <div key={i} className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                    <div key={i} className="flex items-center gap-2.5 text-xs text-slate-800 font-semibold">
+                      <div className="w-4 h-4 rounded-full bg-[#EFC45C]/25 border border-[#EFC45C]/60 flex items-center justify-center shrink-0">
+                        <CheckCircle2 className="w-3 h-3 text-[#8A6412]" />
+                      </div>
                       <span>{perk}</span>
                     </div>
                   ))}
@@ -1259,7 +1279,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                 onClick={() => {
                   window.open('https://wa.me/971586600396?text=Hello%2C%20I%20would%20like%20to%20request%20DLD%20Trustee%20or%20Property%20Revaluation%20services.', '_blank');
                 }}
-                className="w-full bg-[#0B0A08] hover:bg-[#1A160F] text-[#EFC45C] border border-[#EFC45C]/40 font-black py-3.5 px-6 rounded-[10px] shadow-sm text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer"
+                className="w-full bg-[#0B0A08] hover:bg-[#1A160F] text-[#EFC45C] border border-[#EFC45C]/40 font-black py-4 px-6 rounded-[12px] shadow-md text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <span>Request Trustee Service →</span>
               </motion.button>
@@ -1291,7 +1311,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
           <div className="space-y-8">
 
             {/* Top Interactive Progress Beam */}
-            <div className="p-4 sm:p-5 rounded-[12px] bg-[#FAF9F6] dark:bg-[#1A160F] border border-[#DECFA8] dark:border-[#2A241A] shadow-sm">
+            <div className="p-4 sm:p-5 rounded-[16px] bg-[#FAF9F6] dark:bg-[#1A160F] border border-[#DECFA8] dark:border-[#2A241A] shadow-sm">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 {[
                   { step: '01', label: 'Pre-Audit & Verification', time: 'Day 1' },
@@ -1388,50 +1408,54 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                 return (
                   <motion.div
                     key={idx}
-                    whileHover={{ y: -4 }}
-                    className="p-6 rounded-[12px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#DECFA8] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(239,196,92,0.14)] dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)] flex flex-col justify-between transition-all duration-300 relative group overflow-hidden text-left"
+                    whileHover={{ y: -6 }}
+                    whileTap={{ scale: 0.99 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="p-6 sm:p-7 rounded-[20px] bg-gradient-to-b from-[#FFFFFF] via-[#FDFBF7] to-[#F7F2E6] border border-[#E3D7BD] hover:border-[#EFC45C] shadow-[0_10px_28px_rgba(50,35,10,0.05),inset_0_1px_1px_rgba(255,255,255,1)] hover:shadow-[0_20px_45px_rgba(239,196,92,0.25)] flex flex-col justify-between transition-all duration-300 relative group overflow-hidden text-left card-shine"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-4">
-                        <span className="text-xs font-mono font-black text-[#8A6412] dark:text-[#EFC45C] px-2.5 py-1 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/30 uppercase tracking-wider">
+                        <span className="luxury-pill-tag text-xs font-mono font-black uppercase tracking-wider px-3 py-1 rounded-[8px]">
                           {stage.phase}
                         </span>
-                        <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-[8px]">
+                        <span className="text-xs font-mono font-bold text-slate-800 bg-white/95 border border-[#DFD3BB] px-2.5 py-0.5 rounded-[8px] shadow-xs">
                           {stage.sla}
                         </span>
                       </div>
 
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="w-12 h-12 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 group-hover:bg-[#EFC45C] group-hover:text-[#0B0A08] transition-all">
-                          <StageIcon className="w-6 h-6 stroke-[2]" />
+                        <div className="w-13 h-13 rounded-[14px] luxury-icon-emblem flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-1 transition-all">
+                          <StageIcon className="w-6 h-6 stroke-[2.2]" />
                         </div>
                         <div>
-                          <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
+                          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 block">
                             {stage.authority}
                           </span>
-                          <h3 className="text-base font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors leading-tight">
+                          <h3 className="text-base font-black text-slate-950 group-hover:text-[#8A6412] transition-colors leading-tight">
                             {stage.title}
                           </h3>
                         </div>
                       </div>
 
-                      <p className="text-xs text-slate-600 dark:text-slate-300 font-normal leading-relaxed mb-4">
+                      <p className="text-xs text-slate-600 font-medium leading-relaxed mb-4">
                         {stage.desc}
                       </p>
 
-                      <div className="space-y-1.5 p-3 rounded-[8px] bg-white dark:bg-[#14120F] border border-[#DECFA8]/60 dark:border-[#2A241A] mb-4">
+                      <div className="space-y-2 p-3.5 rounded-[12px] luxury-perks-inset mb-4">
                         {stage.deliverables.map((item, dIdx) => (
-                          <div key={dIdx} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 font-medium">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                          <div key={dIdx} className="flex items-center gap-2 text-xs text-slate-800 font-medium">
+                            <div className="w-3.5 h-3.5 rounded-full bg-[#EFC45C]/25 border border-[#EFC45C]/60 flex items-center justify-center shrink-0">
+                              <CheckCircle2 className="w-2.5 h-2.5 text-[#8A6412]" />
+                            </div>
                             <span className="line-clamp-1">{item}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-[#DECFA8]/70 dark:border-[#2A241A] flex items-center justify-between text-xs font-mono font-bold text-[#8A6412] dark:text-[#EFC45C]">
+                    <div className="pt-3.5 border-t border-[#E5DAC0] flex items-center justify-between text-xs font-mono font-bold text-[#8A6412]">
                       <span>{stage.nextStep}</span>
-                      {idx < 3 && <ChevronRight className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />}
+                      {idx < 3 && <ChevronRight className="w-3.5 h-3.5 text-[#8A6412]" />}
                     </div>
                   </motion.div>
                 );
@@ -1494,22 +1518,22 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                     onClick={() => {
                       setSelectedFaqIndex(idx);
                       }}
-                    className={`w-full p-4 sm:p-5 rounded-[10px] border text-left transition-all duration-300 flex items-start gap-4 cursor-pointer relative overflow-hidden ${isSelected
-                        ? 'bg-[#0B0A08] text-white dark:bg-[#0B0A08] border-[#EFC45C] shadow-md ring-1 ring-[#EFC45C]/50'
-                        : 'bg-[#FAF9F6] dark:bg-[#141210] border-[#DFD8C5] dark:border-[#262118] text-[#1F190C] dark:text-[#E8E2D5] hover:border-[#EFC45C]/50 shadow-sm'
+                    className={`w-full p-4 sm:p-5 rounded-[16px] border text-left transition-all duration-300 flex items-start gap-4 cursor-pointer relative overflow-hidden card-shine ${isSelected
+                        ? 'bg-gradient-to-b from-[#18140E] via-[#0E0C09] to-[#070604] text-white border-[#EFC45C] shadow-[0_14px_35px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(239,196,92,0.4)] ring-1 ring-[#EFC45C]/60'
+                        : 'bg-gradient-to-b from-[#FFFFFF] via-[#FAF8F3] to-[#F2ECE0] border-[#DDD2BD] text-[#1F190C] hover:border-[#EFC45C] hover:bg-white shadow-[0_4px_14px_rgba(40,30,10,0.04),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_8px_24px_rgba(239,196,92,0.18)] hover:-translate-y-0.5'
                       }`}
                   >
                     {/* Left Indicator Numerals */}
-                    <div className={`w-8 h-8 rounded-[8px] font-mono text-xs font-black flex items-center justify-center shrink-0 transition-colors ${isSelected
-                        ? 'bg-[#EFC45C] text-[#0B0A08] shadow-md'
-                        : 'bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C]'
+                    <div className={`w-9 h-9 rounded-[10px] font-mono text-xs font-black flex items-center justify-center shrink-0 transition-all ${isSelected
+                        ? 'bg-gradient-to-br from-[#F7DE9C] to-[#C99824] text-[#0B0A08] shadow-[0_4px_12px_rgba(239,196,92,0.4)]'
+                        : 'bg-gradient-to-br from-[#FAF3DF] via-[#F5E8C3] to-[#E5CCA0] border border-[#EFC45C]/60 text-[#7A5608] shadow-xs'
                       }`}>
                       0{idx + 1}
                     </div>
 
                     {/* Question & Category */}
                     <div className="flex-1 space-y-1">
-                      <span className={`text-xs font-black uppercase tracking-wider font-mono block ${isSelected ? 'text-[#EFC45C]' : 'text-[#8A6412] dark:text-[#A19D94]'
+                      <span className={`text-xs font-black uppercase tracking-wider font-mono block ${isSelected ? 'text-[#EFC45C]' : 'text-[#8A6412]'
                         }`}>
                         {faq.category}
                       </span>
@@ -1526,7 +1550,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
 
                     {/* Active Golden Glow Accent on Edge */}
                     {isSelected && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#EFC45C]" />
+                      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#EFC45C]" />
                     )}
                   </motion.button>
                 );
@@ -1545,56 +1569,56 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -15 }}
                       transition={{ duration: 0.3 }}
-                      className="p-7 sm:p-9 rounded-[12px] bg-[#FAF9F6] dark:bg-[#141210] border border-[#DFD8C5] dark:border-[#EFC45C]/35 shadow-[0_20px_50px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-3xl hybrid-3d-card relative overflow-hidden text-left"
+                      className="p-7 sm:p-9 rounded-[20px] bg-gradient-to-b from-[#FFFFFF] via-[#FAF8F3] to-[#F4EEE0] border border-[#DDD3BD] shadow-[0_20px_50px_rgba(40,30,10,0.07),inset_0_1px_1px_rgba(255,255,255,1)] backdrop-blur-3xl relative overflow-hidden text-left card-shine"
                     >
                       {/* Ambient Radial Luminescence */}
                       <div className="absolute top-0 right-0 w-64 h-64 bg-[#EFC45C]/10 rounded-full blur-3xl pointer-events-none" />
 
                       {/* Console Header Bar */}
-                      <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#DFD8C5]/70 dark:border-slate-800/80 mb-6">
+                      <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#DFD8C5]/70 mb-6">
                         <div className="flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full bg-[#EFC45C] animate-pulse" />
-                          <span className="text-xs font-black uppercase tracking-[0.16em] text-[#8A6412] dark:text-[#EFC45C] font-mono px-2.5 py-0.5 rounded-[8px] bg-[#F6EED9] dark:bg-[#1E1A12] border border-[#EFC45C]/35">
+                          <span className="text-xs font-black uppercase tracking-[0.16em] text-[#8A6412] font-mono px-3 py-1 rounded-[8px] bg-gradient-to-r from-[#F8EED6] to-[#EEDDB2] border border-[#EFC45C]/60 shadow-xs">
                             {activeItem.tag}
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-1.5 text-xs font-mono text-slate-600 dark:text-slate-400 bg-[#F1EEE7] dark:bg-[#1E1A12] border border-[#DFD8C5] dark:border-white/10 px-3 py-1 rounded-[8px]">
-                          <Clock className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+                        <div className="flex items-center gap-1.5 text-xs font-mono text-slate-700 bg-[#F1EEE7] border border-[#DFD8C5] px-3 py-1 rounded-[8px] font-bold">
+                          <Clock className="w-3.5 h-3.5 text-[#8A6412]" />
                           <span>SLA: {activeItem.sla}</span>
                         </div>
                       </div>
 
                       {/* Question Title */}
-                      <h3 className="text-xl sm:text-2xl font-black text-slate-950 dark:text-white tracking-tight mb-4 leading-snug">
+                      <h3 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight mb-4 leading-snug">
                         {activeItem.q}
                       </h3>
 
                       {/* Legal Breakdown Answer */}
-                      <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed mb-6">
+                      <p className="text-slate-600 font-medium text-xs sm:text-sm leading-relaxed mb-6">
                         {activeItem.a}
                       </p>
 
                       {/* Highlighted Stat Banner */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                        <div className="p-4 rounded-[10px] bg-[#F1EEE7] dark:bg-[#1A160F] border border-[#DFD8C5] dark:border-white/10">
-                          <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+                        <div className="p-4 rounded-[12px] bg-gradient-to-b from-[#F8F4EA] to-[#EFE7D5] border border-[#E1D4B8] shadow-xs">
+                          <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
                             {activeItem.statHighlight.label}
                           </div>
-                          <div className="text-xl sm:text-2xl font-black font-mono text-[#8A6412] dark:text-[#EFC45C] tracking-tight">
+                          <div className="text-xl sm:text-2xl font-black font-mono text-[#8A6412] tracking-tight">
                             {activeItem.statHighlight.val}
                           </div>
                         </div>
 
-                        <div className="p-4 rounded-[10px] bg-[#F1EEE7] dark:bg-[#1A160F] border border-[#DFD8C5] dark:border-white/10 flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/35 text-[#8A6412] dark:text-[#EFC45C] flex items-center justify-center shrink-0">
+                        <div className="p-4 rounded-[12px] bg-gradient-to-b from-[#F8F4EA] to-[#EFE7D5] border border-[#E1D4B8] flex items-center gap-3 shadow-xs">
+                          <div className="w-10 h-10 rounded-[10px] luxury-icon-emblem flex items-center justify-center shrink-0">
                             <ShieldCheck className="w-5 h-5 stroke-[2.2]" />
                           </div>
                           <div>
-                            <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                               Legal Jurisdiction
                             </div>
-                            <div className="text-xs font-black text-slate-950 dark:text-white tracking-tight">
+                            <div className="text-xs font-black text-slate-950 tracking-tight">
                               GDRFA & ICP Authorized
                             </div>
                           </div>
@@ -1603,22 +1627,24 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
 
                       {/* Key Regulatory Takeaways */}
                       <div className="space-y-2 mb-8">
-                        <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 font-mono mb-2">
+                        <div className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 font-mono mb-2">
                           Official Directives & Compliance Checklist
                         </div>
                         {activeItem.perks.map((perk, i) => (
-                          <div key={i} className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
-                            <CheckCircle2 className="w-4 h-4 text-[#8A6412] dark:text-[#EFC45C] shrink-0" />
+                          <div key={i} className="flex items-center gap-2.5 text-xs text-slate-800 font-medium">
+                            <div className="w-4 h-4 rounded-full bg-[#EFC45C]/25 border border-[#EFC45C]/60 flex items-center justify-center shrink-0">
+                              <CheckCircle2 className="w-3 h-3 text-[#8A6412]" />
+                            </div>
                             <span>{perk}</span>
                           </div>
                         ))}
                       </div>
 
                       {/* Interactive Direct WhatsApp Action Footer */}
-                      <div className="pt-6 border-t border-[#DFD8C5]/70 dark:border-slate-800/80 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                      <div className="pt-6 border-t border-[#DFD8C5]/70 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                         <div>
-                          <div className="text-xs font-extrabold text-slate-950 dark:text-white">Need Customized Advice?</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                          <div className="text-xs font-extrabold text-slate-950">Need Customized Advice?</div>
+                          <div className="text-xs text-slate-500 font-medium">
                             Consult directly with a Senior PRO Case Officer
                           </div>
                         </div>
@@ -1630,7 +1656,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
                             const msg = encodeURIComponent(`Hello, I have a specific question regarding: ${activeItem.q}`);
                             window.open(`https://wa.me/971586600396?text=${msg}`, '_blank');
                           }}
-                          className="bg-[#EFC45C] hover:bg-[#DBB24B] text-[#0B0A08] font-black py-3 px-5 rounded-[10px] shadow-[0_4px_16px_rgba(239,196,92,0.3)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shrink-0 transition-all"
+                          className="btn-gold shimmer-sweep text-[#0B0A08] font-black py-3 px-5 rounded-[10px] shadow-[0_4px_16px_rgba(239,196,92,0.3)] text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shrink-0 transition-all"
                         >
                           <MessageSquare className="w-4 h-4 text-[#0B0A08] stroke-[2.5]" />
                           <span>Ask Case Officer on WhatsApp →</span>
@@ -1647,80 +1673,95 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
         </div>
       </section>
 
-      {/* 10. CLIENT REVIEWS & VERIFIED TESTIMONIALS — CONTINUOUS INFINITE TICKER (RIGHT TO LEFT) */}
-      <section id="reviews" className="w-full bg-[#FAF8F5] dark:bg-[#120E09] border-b border-[#E8DFC8] dark:border-[#EFC45C]/20 py-24 px-4 md:px-8 relative z-10 transition-colors duration-300 overflow-hidden">
-        <div className="max-w-[1340px] mx-auto mb-14 text-center">
+      {/* 10. CLIENT REVIEWS & VERIFIED TESTIMONIALS — CONTINUOUS INFINITE TICKER (BLACK SMOKE MASKED) */}
+      <section 
+        id="reviews" 
+        className="w-full bg-[#0B0A08] text-white border-y border-[#EFC45C]/30 py-24 px-4 md:px-8 relative z-10 transition-colors duration-300 overflow-hidden"
+      >
+        {/* Top & Bottom 24K Gold Metallic Accent Borders */}
+        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#EFC45C]/60 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#EFC45C]/40 to-transparent pointer-events-none" />
+
+        {/* Ambient Center Golden Nebula Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[340px] bg-[#EFC45C]/12 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="max-w-[1340px] mx-auto mb-14 text-center relative z-10">
 
           {/* Section Header */}
           <div className="max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm font-mono">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#1E1A12] border border-[#EFC45C]/40 text-[#EFC45C] text-xs font-black uppercase tracking-[0.2em] mb-4 shadow-sm font-mono">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#EFC45C]" />
               <span>VERIFIED INVESTOR EXPERIENCES</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 dark:text-white tracking-tight mb-4 font-sans">
-              Trusted by <span className="text-[#EFC45C]">Global Investors</span> & Families
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 font-sans">
+              Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7DE9C] via-[#EFC45C] to-[#C99824]">Global Investors</span> & Families
             </h2>
-            <p className="text-slate-600 dark:text-slate-300 font-semibold text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-300 font-semibold text-sm sm:text-base leading-relaxed">
               Real reviews from real expats, property owners, and corporate leaders who obtained their UAE residency through 800 DOCS.
             </p>
 
-            {/* Luminous Rating Pill */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 mt-6 rounded-[10px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#E8DFC8] dark:border-[#2A241A] shadow-sm text-slate-900 dark:text-white">
-              <span className="text-sm font-black font-mono text-[#8A6412] dark:text-[#EFC45C]">4.9</span>
+            {/* Luminous Rating Pill in Dark Accent */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 mt-6 rounded-[10px] bg-[#14120E] border border-[#EFC45C]/40 shadow-lg text-white">
+              <span className="text-sm font-black font-mono text-[#EFC45C]">4.9</span>
               <div className="flex gap-1 text-[#EFC45C]">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-3.5 h-3.5 fill-[#EFC45C] text-[#EFC45C]" />
                 ))}
               </div>
-              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium pl-1 border-l border-[#E8DFC8] dark:border-[#2A241A]">
+              <span className="text-xs text-slate-300 font-medium pl-1 border-l border-white/20">
                 1,200+ Verified Client Approvals
               </span>
             </div>
           </div>
         </div>
 
-        {/* Continuous Marquee Ticker Track (Right to Left, Smooth Infinite Loop) */}
+        {/* Continuous Marquee Ticker Track with Deep Black Smoke Masks */}
         <div className="w-full relative overflow-hidden py-4">
-          {/* Edge Fade Gradients */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#FAF6ED] dark:from-[#12100D] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#FAF6ED] dark:from-[#12100D] to-transparent z-10 pointer-events-none" />
+          {/* Left Deep Black Smoke Edge Gradient */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-56 bg-gradient-to-r from-[#0B0A08] via-[#0B0A08]/95 to-transparent pointer-events-none z-20" />
+
+          {/* Right Deep Black Smoke Edge Gradient */}
+          <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-56 bg-gradient-to-l from-[#0B0A08] via-[#0B0A08]/95 to-transparent pointer-events-none z-20" />
 
           <div className="animate-scroll-left-stream flex gap-6 hover:[animation-play-state:paused] cursor-grab active:cursor-grabbing">
             {[...reviewsList, ...reviewsList].map((rev, idx) => (
               <div
                 key={idx}
-                className="w-[360px] sm:w-[420px] shrink-0 p-6 sm:p-7 rounded-[12px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#E8DFC8] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(239,196,92,0.14)] dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)] flex flex-col justify-between transition-all duration-300 relative text-left"
+                className="w-[370px] sm:w-[430px] shrink-0 p-7 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#181510] via-[#110F0B] to-[#0A0907] border border-[#EFC45C]/35 hover:border-[#EFC45C] shadow-[0_20px_50px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.07)] hover:shadow-[0_26px_60px_rgba(239,196,92,0.3)] hover:-translate-y-2 flex flex-col justify-between transition-all duration-300 relative text-left group overflow-hidden card-shine"
               >
+                {/* Top Subtle Gold Illumination on Hover */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#EFC45C]/0 to-transparent group-hover:via-[#EFC45C] transition-all duration-500 pointer-events-none" />
+
                 <div>
                   {/* Stars + Verified Badge Row */}
                   <div className="flex items-center justify-between gap-2 mb-4">
-                    <div className="flex gap-1 text-[#EFC45C]">
+                    <div className="flex gap-1 text-[#EFC45C] drop-shadow-[0_2px_8px_rgba(239,196,92,0.5)]">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-[#EFC45C] text-[#EFC45C]" />
+                        <Star key={i} className="w-4 h-4 fill-[#EFC45C] text-[#EFC45C]" />
                       ))}
                     </div>
-                    <span className="text-xs font-mono font-bold text-[#8A6412] dark:text-[#EFC45C] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 px-2 py-0.5 rounded-[8px] uppercase tracking-wider">
+                    <span className="text-[11px] font-mono font-bold text-[#F5CF6B] bg-gradient-to-r from-[#241E14] to-[#1A150D] border border-[#EFC45C]/50 px-3 py-1 rounded-[8px] uppercase tracking-wider shadow-xs">
                       {rev.badge}
                     </span>
                   </div>
 
                   {/* Review Quote */}
-                  <p className="text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 font-medium leading-relaxed mb-6 italic">
+                  <p className="text-xs sm:text-[13px] text-slate-200 font-medium leading-relaxed mb-6 italic">
                     "{rev.quote}"
                   </p>
                 </div>
 
                 {/* Client Profile Row */}
-                <div className="pt-4 border-t border-[#E8DFC8]/60 dark:border-[#2A241A] flex items-center justify-between">
+                <div className="pt-4 border-t border-slate-800/90 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-[10px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] font-mono font-black text-xs flex items-center justify-center shadow-sm shrink-0">
+                    <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-[#2D2415] via-[#1F190E] to-[#120F08] border border-[#EFC45C]/60 text-[#F5CF6B] font-mono font-black text-xs flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(239,196,92,0.3)] shrink-0">
                       {rev.initials}
                     </div>
                     <div>
-                      <div className="font-extrabold text-sm text-slate-950 dark:text-white leading-tight">
+                      <div className="font-extrabold text-sm text-white leading-tight">
                         {rev.name}
                       </div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-400 font-medium">
                         {rev.role} · <span className="text-slate-400">{rev.origin}</span>
                       </div>
                     </div>
@@ -1735,8 +1776,8 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
         </div>
 
         {/* Marquee Hint */}
-        <div className="mt-8 text-center text-xs font-mono text-slate-400 flex items-center justify-center gap-2">
-          <span className="w-2 h-2 rounded-[2px] bg-[#EFC45C]" />
+        <div className="mt-8 text-center text-xs font-mono text-slate-400 flex items-center justify-center gap-2 relative z-10">
+          <span className="w-2 h-2 rounded-[2px] bg-[#EFC45C] animate-pulse" />
           <span>Hover over any review card to pause animation</span>
         </div>
       </section>
@@ -1807,14 +1848,16 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
               return (
                 <motion.div
                   key={article.id}
-                  whileHover={{ scale: 1.02, y: -4 }}
+                  whileHover={{ scale: 1.015, y: -5 }}
+                  whileTap={{ scale: 0.99 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
                   onClick={() => onNavigate('blog-post', article.id)}
-                  className={`rounded-[12px] bg-[#FAF9F6] dark:bg-[#181510] border border-[#DECFA8] dark:border-[#2A241A] hover:border-[#EFC45C] shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] overflow-hidden group transition-all duration-300 cursor-pointer flex flex-col justify-between relative text-left ${isFeatured ? 'md:col-span-2 lg:col-span-2' : ''
+                  className={`rounded-[22px] bg-gradient-to-b from-[#FFFFFF] via-[#FDFBF7] to-[#F6F0E3] border border-[#E2D5BA] hover:border-[#EFC45C] shadow-[0_12px_36px_rgba(50,35,10,0.06),inset_0_1px_1px_rgba(255,255,255,1)] hover:shadow-[0_24px_55px_rgba(239,196,92,0.26)] overflow-hidden group transition-all duration-300 cursor-pointer flex flex-col justify-between relative text-left card-shine ${isFeatured ? 'md:col-span-2 lg:col-span-2' : ''
                     }`}
                 >
                   <div>
                     {/* Article Thumbnail with Gradient Vignette */}
-                    <div className={`relative w-full overflow-hidden bg-slate-100 dark:bg-slate-900 ${isFeatured ? 'h-64 sm:h-72' : 'h-52'}`}>
+                    <div className={`relative w-full overflow-hidden bg-slate-100 ${isFeatured ? 'h-64 sm:h-72' : 'h-52'}`}>
                       <img
                         src={article.image}
                         alt={article.title}
@@ -1838,34 +1881,34 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
 
                     {/* Article Content */}
                     <div className="p-6 sm:p-7 space-y-3">
-                      <h3 className={`font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors leading-snug tracking-tight ${isFeatured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg'
+                      <h3 className={`font-black text-slate-950 group-hover:text-[#8A6412] transition-colors leading-snug tracking-tight ${isFeatured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg'
                         }`}>
                         {article.title}
                       </h3>
 
-                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed line-clamp-3">
+                      <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed line-clamp-3">
                         {article.excerpt}
                       </p>
                     </div>
                   </div>
 
                   {/* Article Footer with Author & Direct Arrow */}
-                  <div className="px-6 sm:px-7 pb-6 pt-4 border-t border-[#DECFA8]/60 dark:border-[#2A241A] flex items-center justify-between">
+                  <div className="px-6 sm:px-7 pb-6 pt-4 border-t border-[#E5DAC0] flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-[10px] bg-gradient-to-br from-[#EFC45C] to-[#C99824] text-[#0B0A08] font-black text-xs flex items-center justify-center shadow-sm">
+                      <div className="w-9 h-9 rounded-[10px] luxury-icon-emblem text-[#7A5608] font-black text-xs flex items-center justify-center shadow-xs">
                         {article.author.charAt(0)}
                       </div>
                       <div>
-                        <div className="text-xs font-black text-slate-950 dark:text-white group-hover:text-[#8A6412] dark:group-hover:text-[#EFC45C] transition-colors">
+                        <div className="text-xs font-black text-slate-950 group-hover:text-[#8A6412] transition-colors">
                           {article.author}
                         </div>
-                        <div className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                        <div className="text-xs font-medium text-slate-500">
                           {article.authorRole}
                         </div>
                       </div>
                     </div>
 
-                    <div className="w-9 h-9 rounded-[10px] bg-[#0B0A08] border border-[#EFC45C]/35 text-[#EFC45C] group-hover:scale-105 group-hover:border-[#EFC45C] transition-all flex items-center justify-center shadow-sm">
+                    <div className="w-10 h-10 rounded-[12px] bg-gradient-to-br from-[#0B0A08] to-[#1E190E] border border-[#EFC45C]/50 text-[#EFC45C] group-hover:scale-110 group-hover:bg-[#EFC45C] group-hover:text-[#0B0A08] transition-all flex items-center justify-center shadow-sm">
                       <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                     </div>
                   </div>
@@ -1879,7 +1922,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
       {/* 12. STREAMLINED EXECUTIVE BANNER */}
       <section id="cta" className="w-full bg-[#FAF8F5] dark:bg-[#0D0B08] border-t border-[#E0D3B8] dark:border-[#EFC45C]/30 py-20 px-4 md:px-8 relative z-10 transition-colors duration-300">
         <div className="max-w-[1100px] mx-auto">
-          <div className="p-8 sm:p-14 rounded-[12px] bg-[#0B0A08] border border-[#EFC45C]/35 shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-3xl relative overflow-hidden text-center">
+          <div className="p-8 sm:p-14 rounded-[16px] bg-[#0B0A08] border border-[#EFC45C]/35 shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-3xl relative overflow-hidden text-center">
 
             {/* Ambient Radial Golden Luminescence */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-64 bg-[#EFC45C]/15 rounded-[12px] blur-3xl pointer-events-none" />
@@ -1887,7 +1930,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
             <div className="max-w-2xl mx-auto relative z-10 space-y-6">
 
               {/* Crown Seal Emblem */}
-              <div className="w-14 h-14 rounded-[10px] bg-[#EFC45C] text-[#0B0A08] flex items-center justify-center mx-auto shadow-lg">
+              <div className="w-14 h-14 rounded-[10px] bg-[#EFC45C] text-[#0B0A08] flex items-center justify-center mx-auto shadow-[0_8px_30px_rgba(239,196,92,0.4)] animate-float-slow">
                 <Crown className="w-7 h-7 stroke-[2.2]" />
               </div>
 
@@ -1915,7 +1958,7 @@ export default function Home({ homePageData, onNavigate, onOpenCalculator, cmsCo
 
                 <button
                   onClick={() => onOpenCalculator && onOpenCalculator('golden')}
-                  className="w-full sm:w-auto btn-gold px-8 py-3.5 rounded-[10px] text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(239,196,92,0.4)] text-[#0B0A08] hover:scale-102 transition-all cursor-pointer"
+                  className="w-full sm:w-auto btn-gold shimmer-sweep px-8 py-3.5 rounded-[10px] text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(239,196,92,0.4)] text-[#0B0A08] hover:scale-102 transition-all cursor-pointer"
                 >
                   <Calculator className="w-4 h-4 text-[#0B0A08] stroke-[2.5]" />
                   <span>Calculate Visa Fees</span>

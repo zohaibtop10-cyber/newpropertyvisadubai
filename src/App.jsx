@@ -234,18 +234,14 @@ export default function App() {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [calculatorTab, setCalculatorTab] = useState('spouse'); // 'spouse' | 'parents' | 'domestic'
 
-  // Apply dark mode class to root document element when theme changes!
+  // Hybrid Mode: Ensure clean root canvas for signature alternating dark/light rhythm
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
+    root.classList.remove('dark');
     if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', theme);
+      localStorage.setItem('theme', 'hybrid');
     }
-  }, [theme]);
+  }, []);
 
   // Sync URL Routes for /admin, /articles, /articles/:slug
   useEffect(() => {

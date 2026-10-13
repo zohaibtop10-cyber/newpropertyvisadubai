@@ -70,9 +70,12 @@ export default function Navbar({
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/95 dark:bg-[#0D0B08]/95 border-b border-[#E8DFC8]/80 dark:border-[#EFC45C]/20 text-slate-900 dark:text-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all duration-300"
+      className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/95 border-b border-[#E8DFC8] text-slate-900 shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300"
       style={{ fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif' }}
     >
+      {/* Bottom Metallic Gold Subtle Accent Line */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#EFC45C]/50 to-transparent pointer-events-none" />
+
       {/* Main Navigation Bar Container */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between flex-nowrap w-full gap-2 xl:gap-6 relative">
 
@@ -85,21 +88,21 @@ export default function Navbar({
             className="flex items-center gap-2.5 group cursor-pointer notranslate flex-shrink-0"
           >
             {/* Logo Icon Badge */}
-            <div className="w-[42px] h-[42px] sm:w-[46px] sm:h-[46px] rounded-[10px] bg-slate-950 text-[#F5D061] border border-[#F5D061]/40 flex flex-col items-center justify-center shrink-0 shadow-sm group-hover:border-[#F5D061] transition-all">
+            <div className="w-[42px] h-[42px] sm:w-[46px] sm:h-[46px] rounded-[10px] bg-[#F6EED9] text-[#8A6412] border border-[#EFC45C]/50 flex flex-col items-center justify-center shrink-0 shadow-sm group-hover:border-[#C59B27] transition-all">
               <span className="font-black text-lg sm:text-xl tracking-tight leading-none mt-0.5">
                 {cmsConfig?.global?.branding?.logoIcon || 'PV'}
               </span>
-              <span className="text-[7px] sm:text-[8px] font-bold tracking-widest uppercase mt-0.5 mb-0.5 text-slate-400">
+              <span className="text-[7px] sm:text-[8px] font-bold tracking-widest uppercase mt-0.5 mb-0.5 text-[#8A6412]/80">
                 {cmsConfig?.global?.branding?.logoSubtext || 'DUBAI'}
               </span>
             </div>
 
             {/* Brand Title & Subtitle */}
             <div className="flex flex-col text-start leading-tight">
-              <span className="text-base sm:text-lg lg:text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-[#EFC45C] dark:group-hover:text-[#EFC45C] transition-colors whitespace-nowrap">
+              <span className="text-base sm:text-lg lg:text-xl font-black tracking-tight text-slate-950 group-hover:text-[#8A6412] transition-colors whitespace-nowrap font-mono uppercase">
                 {cmsConfig?.global?.branding?.brandTitle || 'PropertyVisaDubai'}
               </span>
-              <span className="text-xs font-semibold tracking-wide text-slate-500 dark:text-slate-400 whitespace-nowrap">
+              <span className="text-xs font-semibold tracking-wide text-slate-500 whitespace-nowrap">
                 {(cmsConfig?.global?.branding?.brandSubtitle || 'Operated by Brightlink & 800 DOCS').replace(/brigtlink/i, 'Brightlink & 800 DOCS')}
               </span>
             </div>
@@ -116,8 +119,8 @@ export default function Navbar({
               onClick={() => { setActiveDropdown(null); onNavigate(link.view); }}
               className={`flex-shrink-0 whitespace-nowrap flex items-center gap-1 rounded-[10px] px-3.5 py-2 text-sm xl:text-base font-bold transition-all cursor-pointer ${
                 activeView === link.view
-                  ? 'bg-amber-500/10 text-[#F5D061] border border-[#F5D061]/35 shadow-sm'
-                  : 'text-slate-700 dark:text-slate-200 hover:text-[#F5D061] hover:bg-slate-100 dark:hover:bg-slate-900'
+                  ? 'bg-[#F6EED9] text-[#8A6412] border border-[#EFC45C]/50 shadow-sm'
+                  : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/90'
               }`}
             >
               <span>{link.label}</span>
@@ -128,19 +131,19 @@ export default function Navbar({
         {/* Right Section: Utilities & Actions */}
         <div className="flex-shrink-0 flex items-center justify-end flex-nowrap gap-2 xl:gap-3 z-10 rtl:mr-auto">
 
-          {/* Services Button - Opens Service Menu Dropdown Modal */}
+          {/* Services Button - Opens Service Menu Dropdown Modal (Sleek Dark Luxury Button for Contrast) */}
           <div className="hidden sm:block flex-shrink-0 relative group">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={handleServicesClick}
-              className="flex-shrink-0 whitespace-nowrap flex items-center justify-center gap-2 px-3.5 py-2 xl:px-4 xl:py-[10px] rounded-[10px] text-xs xl:text-sm font-black border border-[#EFC45C]/50 dark:border-[#EFC45C]/40 hover:border-[#EFC45C] dark:hover:border-[#EFC45C] bg-gradient-to-r from-[#FAF5E8] to-[#F5EDD6] hover:from-[#F6EED9] hover:to-[#EEDFA8] dark:from-[#1A160F] dark:to-[#221C12] dark:hover:from-[#241E13] dark:hover:to-[#2C2417] text-[#7A560E] hover:text-[#4A3304] dark:text-[#F7DE9C] dark:hover:text-[#FFF3D0] shadow-[0_2px_8px_rgba(239,196,92,0.18)] hover:shadow-[0_4px_18px_rgba(239,196,92,0.32)] transition-all cursor-pointer"
+              className="flex-shrink-0 whitespace-nowrap flex items-center justify-center gap-2 px-3.5 py-2 xl:px-4 xl:py-[10px] rounded-[10px] text-xs xl:text-sm font-black border border-[#EFC45C]/40 hover:border-[#EFC45C] bg-[#0B0A08] hover:bg-[#1A160F] text-[#F7DE9C] hover:text-[#FFF3D0] shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:shadow-[0_4px_18px_rgba(239,196,92,0.32)] transition-all cursor-pointer"
             >
-              <div className="w-5 h-5 rounded-[6px] bg-[#EFC45C]/25 border border-[#EFC45C]/40 flex items-center justify-center text-[#8A6412] dark:text-[#EFC45C] group-hover:scale-105 transition-transform shrink-0">
+              <div className="w-5 h-5 rounded-[6px] bg-[#EFC45C]/25 border border-[#EFC45C]/40 flex items-center justify-center text-[#EFC45C] group-hover:scale-105 transition-transform shrink-0">
                 <LayoutGrid className="w-3.5 h-3.5 stroke-[2.4]" />
               </div>
               <span className="tracking-wide">{cmsConfig?.global?.branding?.btnServices || 'Services'}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C] group-hover:translate-y-0.5 transition-transform stroke-[2.5]" />
+              <ChevronDown className="w-3.5 h-3.5 text-[#EFC45C] group-hover:translate-y-0.5 transition-transform stroke-[2.5]" />
             </motion.button>
           </div>
 
@@ -150,7 +153,7 @@ export default function Navbar({
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => onOpenCalculator('golden')}
-              className="hidden sm:flex flex-shrink-0 whitespace-nowrap items-center justify-center gap-2 btn-gold px-4 py-2 xl:px-5 xl:py-[10px] text-xs xl:text-sm font-black rounded-[10px] shadow-[0_4px_16px_rgba(245,208,97,0.35)] cursor-pointer"
+              className="hidden sm:flex flex-shrink-0 whitespace-nowrap items-center justify-center gap-2 btn-gold shimmer-sweep px-4 py-2 xl:px-5 xl:py-[10px] text-xs xl:text-sm font-black rounded-[10px] shadow-[0_4px_16px_rgba(245,208,97,0.35)] cursor-pointer"
             >
               <Calculator className="w-4 h-4 text-slate-950 stroke-[2.5]" />
               <span>{cmsConfig?.global?.branding?.btnCalculator || 'Visa Calculator'}</span>
@@ -170,22 +173,17 @@ export default function Navbar({
             <span>{cmsConfig?.global?.branding?.btnTalk || 'Talk to Us'}</span>
           </motion.a>
 
-          {/* Theme Toggle Button (Light/Dark Switch with Golden Colors) */}
-          <div className="flex-shrink-0">
-            <ThemeToggle theme={theme} setTheme={setTheme} />
-          </div>
-
           {/* Language Selector Dropdown */}
           <div className="relative hidden sm:block notranslate flex-shrink-0" onMouseEnter={() => handleMouseEnter('language')} onMouseLeave={handleMouseLeave}>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleDropdownToggle('language')}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-[10px] border border-slate-200 dark:border-slate-800 transition-colors cursor-pointer text-xs font-bold ${
-                activeDropdown === 'language' ? 'bg-amber-500/10 text-[#F5D061]' : 'text-slate-700 dark:text-slate-300 hover:text-[#F5D061]'
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-[10px] border border-slate-200 bg-white transition-colors cursor-pointer text-xs font-bold shadow-xs ${
+                activeDropdown === 'language' ? 'bg-[#F6EED9] text-[#8A6412] border-[#EFC45C]/50' : 'text-slate-700 hover:text-slate-950'
               }`}
             >
-              <Globe className="w-4 h-4 text-[#F5D061]" />
+              <Globe className="w-4 h-4 text-[#8A6412]" />
               <span className="uppercase">{activeLang}</span>
             </motion.button>
 
@@ -196,7 +194,7 @@ export default function Navbar({
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
-                  className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[10px] shadow-2xl p-2 z-50 flex flex-col gap-1"
+                  className="absolute right-0 top-full mt-2 w-48 bg-white border border-[#E8DFC8] rounded-[10px] shadow-2xl p-2 z-50 flex flex-col gap-1 text-slate-800"
                 >
                   {(siteConfig.languages || [{ code: 'EN', name: 'English' }, { code: 'AR', name: 'العربية' }]).map((lang) => {
                     const isActive = activeLang === lang.code;
@@ -205,11 +203,11 @@ export default function Navbar({
                         key={lang.code}
                         onClick={() => { setActiveLang(lang.code); setActiveDropdown(null); }}
                         className={`w-full flex justify-between items-center px-4 py-2.5 rounded-[10px] transition-all cursor-pointer text-xs ${
-                          isActive ? 'bg-amber-500/10 text-[#F5D061] font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold'
+                          isActive ? 'bg-[#F6EED9] text-[#8A6412] font-bold' : 'text-slate-700 hover:bg-slate-100 font-semibold'
                         }`}
                       >
                         <span>{lang.name}</span>
-                        <span className="text-[10px] text-slate-400">{lang.code}</span>
+                        <span className="text-[10px] text-slate-500">{lang.code}</span>
                       </button>
                     );
                   })}
@@ -222,7 +220,7 @@ export default function Navbar({
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setActiveDropdown(activeDropdown === 'mobile' ? null : 'mobile')}
-            className="xl:hidden p-2 text-slate-700 dark:text-slate-300 hover:text-[#F5D061] transition-colors flex items-center justify-center cursor-pointer flex-shrink-0"
+            className="xl:hidden p-2 text-slate-800 hover:text-[#8A6412] transition-colors flex items-center justify-center cursor-pointer flex-shrink-0"
           >
             {activeDropdown === 'mobile' ? <X className="w-6 h-6 shrink-0" /> : <Menu className="w-6 h-6 shrink-0" />}
           </motion.button>

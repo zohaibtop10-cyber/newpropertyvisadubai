@@ -10,7 +10,7 @@ export default function MobileFooter({  onOpenCalculator , cmsConfig }) {
         {/* Left 50%: Radiant Shining Gold "Calculate Fees" */}
         <button
           onClick={() => onOpenCalculator && onOpenCalculator('golden')}
-          className="flex items-center justify-center gap-2 btn-gold text-slate-950 py-3 rounded-[10px] font-black text-xs transition-all shadow-md cursor-pointer"
+          className="flex items-center justify-center gap-2 btn-gold shimmer-sweep text-slate-950 py-3 rounded-[10px] font-black text-xs transition-all shadow-md cursor-pointer"
         >
           <Calculator className="w-4 h-4 text-slate-950 stroke-[2.5]" />
           <span>Calculate Fees</span>

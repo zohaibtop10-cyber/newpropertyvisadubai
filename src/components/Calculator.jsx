@@ -37,7 +37,7 @@ export default function Calculator({ onLaunch }) {
 
   return (
     <div
-      className="w-full max-w-md mx-auto bg-[#FAF9F6] dark:bg-[#0B0A08] rounded-[12px] p-5 sm:p-6 shadow-[0_20px_60px_-15px_rgba(239,196,92,0.18)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] border border-[#DECFA8] dark:border-[#EFC45C]/35 hover:border-[#EFC45C] relative transition-all duration-300 text-slate-900 dark:text-white"
+      className="w-full max-w-md mx-auto bg-[#FAF9F6] dark:bg-[#0B0A08] rounded-[16px] p-5 sm:p-6 shadow-[0_20px_60px_-15px_rgba(239,196,92,0.18)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] border border-[#DECFA8] dark:border-[#EFC45C]/35 hover:border-[#EFC45C] relative transition-all duration-300 text-slate-900 dark:text-white card-shine"
       style={{ fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif' }}
     >
       {/* Top Gold Shimmer Border Accent */}
@@ -105,7 +105,7 @@ export default function Calculator({ onLaunch }) {
 
       <button
         onClick={() => onLaunch && onLaunch(selectedGoal)}
-        className="w-full mt-5 py-3.5 rounded-[10px] btn-gold text-[#0B0A08] text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(239,196,92,0.35)] hover:scale-[1.01] transition-all cursor-pointer tracking-wide"
+        className="w-full mt-5 py-3.5 rounded-[10px] btn-gold shimmer-sweep text-[#0B0A08] text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(239,196,92,0.35)] hover:scale-[1.01] transition-all cursor-pointer tracking-wide"
       >
         <ShieldCheck className="w-4 h-4 text-[#0B0A08]" />
         <span>Launch Full Tariff Calculator</span>

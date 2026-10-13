@@ -113,47 +113,47 @@ export function Footer({ onNavigate, onOpenCalculator, cmsConfig }) {
 
   return (
     <>
-      {/* 1. LUXURY B2B PARTNER & REFERRAL PROGRAM SECTION (Golden Radiant System) */}
-      <section id="referral" className="border-t border-[#DECFA8] dark:border-[#2A241A] bg-[#F7F3E8] dark:bg-[#120F0A] py-16 sm:py-20 px-4 font-sans text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300">
+      {/* 1. LUXURY B2B PARTNER & REFERRAL PROGRAM SECTION (Warm Light Linen Paper like goldenvisauae.net) */}
+      <section id="referral" className="border-t border-[#DECFA8] bg-[#F7F3E8] py-16 sm:py-20 px-4 font-sans text-slate-900 relative overflow-hidden transition-colors duration-300">
         {/* Ambient Radial Golden Bloom */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[280px] bg-[#EFC45C]/15 blur-[120px] rounded-[12px] pointer-events-none" />
 
         <motion.div
-          className="relative z-10 max-w-4xl mx-auto text-center space-y-6 p-8 sm:p-12 bg-[#FAF9F6] dark:bg-[#0B0A08] rounded-[14px] border border-[#DECFA8] dark:border-[#EFC45C]/35 shadow-[0_16px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.65)]"
+          className="relative z-10 max-w-4xl mx-auto text-center space-y-6 p-8 sm:p-12 rounded-[22px] bg-gradient-to-b from-[#FFFFFF] via-[#FAF8F3] to-[#F5EFE0] border border-[#DFD3BA] shadow-[0_20px_50px_rgba(50,35,10,0.06),inset_0_1px_1px_rgba(255,255,255,1)] card-shine"
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5 }}
         >
           {/* Subtle Golden Tag */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-[#F6EED9] dark:bg-[#262116] border border-[#EFC45C]/40 text-[#8A6412] dark:text-[#EFC45C] text-[11px] font-mono font-bold tracking-widest uppercase">
-            <Handshake className="w-3.5 h-3.5 text-[#8A6412] dark:text-[#EFC45C]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-gradient-to-r from-[#F8EED6] to-[#EEDDB2] border border-[#EFC45C]/60 text-[#8A6412] text-[11px] font-mono font-bold tracking-widest uppercase shadow-xs">
+            <Handshake className="w-3.5 h-3.5 text-[#8A6412]" />
             <span>OFFICIAL B2B PARTNERSHIP PROGRAM • 10%–20% COMMISSION</span>
           </div>
 
           {/* Heading */}
-          <h2 className="font-display text-2xl sm:text-4xl font-black text-slate-950 dark:text-white tracking-tight">
-            Monetize Your Client Network With Our <span className="text-[#8A6412] dark:text-[#EFC45C]">B2B PRO Referral</span> Program
+          <h2 className="font-display text-2xl sm:text-4xl font-black text-slate-950 tracking-tight">
+            Monetize Your Client Network With Our <span className="hybrid-gold-text">B2B PRO Referral</span> Program
           </h2>
 
           {/* Small Text */}
-          <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto font-medium">
+          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto font-medium">
             Are you a real estate broker, corporate lawyer, wealth manager, or tax consultant? Partner with 800 DOCS LLC to offer seamless Golden Visa and residency solutions to your clients while earning industry-leading referral commissions.
           </p>
 
           {/* 3 Value Pillars */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2 text-left">
-            <div className="p-3.5 rounded-[10px] bg-white dark:bg-[#14120D] border border-[#E8DFC8] dark:border-[#2A241A]">
-              <div className="text-xs font-mono font-bold text-[#8A6412] dark:text-[#EFC45C] uppercase">10%–20% Commission</div>
-              <div className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">Generous payouts on every completed residency file.</div>
+            <div className="p-4 rounded-[14px] bg-gradient-to-b from-[#FAF6EE] to-[#EFE7D5] border border-[#E1D4B8] shadow-xs">
+              <div className="text-xs font-mono font-bold text-[#8A6412] uppercase">10%–20% Commission</div>
+              <div className="text-xs text-slate-600 mt-1 font-medium">Generous payouts on every completed residency file.</div>
             </div>
-            <div className="p-3.5 rounded-[10px] bg-white dark:bg-[#14120D] border border-[#E8DFC8] dark:border-[#2A241A]">
-              <div className="text-xs font-mono font-bold text-[#8A6412] dark:text-[#EFC45C] uppercase">Direct Bank Payouts</div>
-              <div className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">Fast IBAN settlement upon official visa stamping.</div>
+            <div className="p-4 rounded-[14px] bg-gradient-to-b from-[#FAF6EE] to-[#EFE7D5] border border-[#E1D4B8] shadow-xs">
+              <div className="text-xs font-mono font-bold text-[#8A6412] uppercase">Direct Bank Payouts</div>
+              <div className="text-xs text-slate-600 mt-1 font-medium">Fast IBAN settlement upon official visa stamping.</div>
             </div>
-            <div className="p-3.5 rounded-[10px] bg-white dark:bg-[#14120D] border border-[#E8DFC8] dark:border-[#2A241A]">
-              <div className="text-xs font-mono font-bold text-[#8A6412] dark:text-[#EFC45C] uppercase">Dedicated Senior PRO</div>
-              <div className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">Direct case manager handling your clients end-to-end.</div>
+            <div className="p-4 rounded-[14px] bg-gradient-to-b from-[#FAF6EE] to-[#EFE7D5] border border-[#E1D4B8] shadow-xs">
+              <div className="text-xs font-mono font-bold text-[#8A6412] uppercase">Dedicated Senior PRO</div>
+              <div className="text-xs text-slate-600 mt-1 font-medium">Direct case manager handling your clients end-to-end.</div>
             </div>
           </div>
 
@@ -163,7 +163,7 @@ export function Footer({ onNavigate, onOpenCalculator, cmsConfig }) {
               href={`https://wa.me/${whatsapp}?text=Hello%20800%20DOCS%2C%20I%20am%20interested%20in%20joining%20your%20B2B%20Referral%20Partner%20Program.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#EFC45C] hover:bg-[#F7DE9C] text-[#0B0A08] font-black px-8 py-4 rounded-[10px] text-xs uppercase tracking-wider shadow-[0_4px_24px_rgba(239,196,92,0.45)] hover:scale-102 transition-all cursor-pointer inline-flex items-center gap-2.5 border border-[#DBB24B]"
+              className="btn-gold shimmer-sweep text-[#0B0A08] font-black px-8 py-4 rounded-[10px] text-xs uppercase tracking-wider shadow-[0_4px_24px_rgba(239,196,92,0.45)] hover:scale-102 transition-all cursor-pointer inline-flex items-center gap-2.5"
             >
               <Handshake className="w-4 h-4 text-[#0B0A08] stroke-[2.5]" />
               <span>Become an Official Referral Partner →</span>
@@ -367,7 +367,7 @@ export function Footer({ onNavigate, onOpenCalculator, cmsConfig }) {
                   href={`https://wa.me/${whatsapp}?text=Hello%20800%20DOCS%2C%20I%20would%20like%20to%20verify%20my%20visa%20eligibility.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-[10px] bg-[#14120D] border border-[#2A241A] hover:border-[#EFC45C]/50 block transition-colors group"
+                  className="p-3.5 rounded-[12px] bg-gradient-to-b from-[#181510] to-[#0E0C09] border border-[#EFC45C]/35 hover:border-[#EFC45C] block transition-all group card-shine shadow-sm"
                 >
                   <div className="text-xs font-mono text-[#EFC45C] font-bold uppercase mb-0.5">Need Rapid Support?</div>
                   <div className="text-white text-xs font-bold group-hover:text-[#EFC45C] transition-colors flex items-center justify-between">
@@ -416,7 +416,7 @@ export function Footer({ onNavigate, onOpenCalculator, cmsConfig }) {
           </div>
 
           {/* Legal Disclaimer Box */}
-          <div className="mt-8 p-4 rounded-[10px] bg-[#14120D] border border-[#2A241A] text-center">
+          <div className="mt-8 p-4 rounded-[14px] bg-[#14120D] border border-[#2A241A] text-center">
             <p className="text-xs text-slate-400 max-w-5xl mx-auto leading-relaxed">
               <strong className="text-slate-300">Disclaimer:</strong> {disclaimer || 'Propertyvisadubai.ae is operated by Brightlink Management Consultancy LLC & 800 DOCS LLC SOC, licensed private third-party document clearing service providers in Dubai. We are not a government authority and have no affiliation with, or endorsement from, the Government of the UAE. We assist applicants with visa-related typing, documentation, and filing through relevant official channels (GDRFA Dubai, ICP, MOFA, DLD), acting on customer consent. Government tariffs are set by official authorities and paid directly to them; our professional concierge service fee is disclosed with 100% itemization prior to commitment. Customers can also apply directly via icp.gov.ae, gdrfad.gov.ae, or u.ae.'}
             </p>
